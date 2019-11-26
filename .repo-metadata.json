@@ -1,0 +1,9 @@
+{
+  "name": "google-cloud-bom",
+  "name_pretty": "Google Cloud Bill of Materials",
+  "release_level": "alpha",
+  "language": "java",
+  "repo": "googleapis/java-cloud-bom",
+  "repo_short": "java-cloud-bom",
+  "distribution_name": "com.google.cloud:google-cloud-bom"
+}
