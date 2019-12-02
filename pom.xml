@@ -567,8 +567,10 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-securitycenter</artifactId>
+        <artifactId>google-cloud-securitycenter-bom</artifactId>
         <version>0.117.0</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.api.grpc</groupId>
@@ -579,26 +581,6 @@
           <groupId>com.google.api.grpc</groupId>
           <artifactId>proto-google-cloud-scheduler-v1</artifactId>
           <version>1.21.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>proto-google-cloud-securitycenter-v1beta1</artifactId>
-        <version>0.82.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>grpc-google-cloud-securitycenter-v1beta1</artifactId>
-        <version>0.82.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>proto-google-cloud-securitycenter-v1</artifactId>
-        <version>0.82.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>grpc-google-cloud-securitycenter-v1</artifactId>
-        <version>0.82.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
