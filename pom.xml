@@ -391,7 +391,7 @@
       <dependency>
         <groupId>com.google.api.grpc</groupId>
         <artifactId>grpc-google-cloud-dialogflow-v2</artifactId>
-        <version>0.82.0</version>
+        <version>0.83.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
