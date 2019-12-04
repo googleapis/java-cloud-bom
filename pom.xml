@@ -523,16 +523,6 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>grpc-google-cloud-scheduler-v1</artifactId>
-        <version>1.21.0</version>
-      </dependency>
-      <dependency>
-          <groupId>com.google.api.grpc</groupId>
-          <artifactId>proto-google-cloud-scheduler-v1</artifactId>
-          <version>1.21.0</version>
-      </dependency>
-      <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-spanner</artifactId>
         <version>1.46.0</version>
