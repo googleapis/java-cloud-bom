@@ -530,7 +530,7 @@
       <dependency>
           <groupId>com.google.api.grpc</groupId>
           <artifactId>proto-google-cloud-scheduler-v1</artifactId>
-          <version>1.21.0</version>
+          <version>1.22.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
