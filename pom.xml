@@ -421,7 +421,7 @@
       <dependency>
         <groupId>com.google.api.grpc</groupId>
         <artifactId>proto-google-cloud-firestore-admin-v1</artifactId>
-        <version>1.31.0</version>
+        <version>1.32.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.api.grpc</groupId>
