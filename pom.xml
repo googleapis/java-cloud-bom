@@ -397,10 +397,38 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-firestore-bom</artifactId>
-        <version>1.32.0</version>
-        <type>pom</type>
-        <scope>import</scope>
+        <artifactId>google-cloud-firestore</artifactId>
+        <version>1.31.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>proto-google-cloud-firestore-admin-v1</artifactId>
+        <version>1.31.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>proto-google-cloud-firestore-v1</artifactId>
+        <version>1.31.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>proto-google-cloud-firestore-v1beta1</artifactId>
+        <version>0.84.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>grpc-google-cloud-firestore-admin-v1</artifactId>
+        <version>1.31.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>grpc-google-cloud-firestore-v1</artifactId>
+        <version>1.31.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>grpc-google-cloud-firestore-v1beta1</artifactId>
+        <version>0.84.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
@@ -594,19 +622,11 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>proto-google-cloud-webrisk-v1beta1</artifactId>
-        <version>0.30.0-alpha</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>grpc-google-cloud-webrisk-v1beta1</artifactId>
-        <version>0.30.0-alpha</version>
-      </dependency>
-      <dependency>
         <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-webrisk</artifactId>
-        <version>0.30.0-alpha</version>
+        <artifactId>google-cloud-webrisk-bom</artifactId>
+        <version>0.31.0-alpha</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
