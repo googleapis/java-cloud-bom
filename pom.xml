@@ -272,28 +272,10 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-containeranalysis</artifactId>
-        <version>0.117.0-beta</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>proto-google-cloud-containeranalysis-v1</artifactId>
-        <version>0.82.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>grpc-google-cloud-containeranalysis-v1</artifactId>
-        <version>0.82.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>proto-google-cloud-containeranalysis-v1beta1</artifactId>
-        <version>0.82.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>grpc-google-cloud-containeranalysis-v1beta1</artifactId>
-        <version>0.82.0</version>
+        <artifactId>google-cloud-containeranalysis-bom</artifactId>
+        <version>0.118.0-beta</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
