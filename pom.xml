@@ -252,6 +252,13 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-billingbudgets-bom</artifactId>
+        <version>0.1.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-build-bom</artifactId>
         <version>0.1.0</version>
         <type>pom</type>
