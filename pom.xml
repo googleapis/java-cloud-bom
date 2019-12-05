@@ -382,18 +382,10 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-errorreporting</artifactId>
-        <version>0.117.0-beta</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>proto-google-cloud-error-reporting-v1beta1</artifactId>
-        <version>0.82.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api.grpc</groupId>
-        <artifactId>grpc-google-cloud-error-reporting-v1beta1</artifactId>
-        <version>0.82.0</version>
+        <artifactId>google-cloud-errorreporting-bom</artifactId>
+        <version>0.118.0-beta</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
