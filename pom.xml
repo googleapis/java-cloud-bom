@@ -400,6 +400,13 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-recommender-bom</artifactId>
+        <version>0.2.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-redis-bom</artifactId>
         <version>0.117.0-alpha</version>
         <type>pom</type>
