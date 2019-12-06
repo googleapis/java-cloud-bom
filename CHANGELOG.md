@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.120.1](https://www.github.com/googleapis/java-cloud-bom/compare/v0.120.0...v0.120.1) (2019-12-06)
+
+
+### Bug Fixes
+
+* bump errorreporting to solve groupId issues ([#135](https://www.github.com/googleapis/java-cloud-bom/issues/135)) ([12f2bc7](https://www.github.com/googleapis/java-cloud-bom/commit/12f2bc7502ed2eb1e8cc459e6e0cdf39088137df))
+
 ## [0.120.0](https://www.github.com/googleapis/java-cloud-bom/compare/v0.119.0...v0.120.0) (2019-12-05)
 
 
