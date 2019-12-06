@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.120.2](https://www.github.com/googleapis/java-cloud-bom/compare/v0.120.1...v0.120.2) (2019-12-06)
+
+
+### Bug Fixes
+
+* bom issues in video-intelligence and kms ([#139](https://www.github.com/googleapis/java-cloud-bom/issues/139)) ([1a6a2fb](https://www.github.com/googleapis/java-cloud-bom/commit/1a6a2fb920179452fafdec4900ea46dd6caf2f45))
+
 ### [0.120.1](https://www.github.com/googleapis/java-cloud-bom/compare/v0.120.0...v0.120.1) (2019-12-06)
 
 
