@@ -478,7 +478,7 @@
       <dependency>
         <groupId>com.google.api.grpc</groupId>
         <artifactId>grpc-google-cloud-spanner-admin-instance-v1</artifactId>
-        <version>1.46.0</version>
+        <version>1.47.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
