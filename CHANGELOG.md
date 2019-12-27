@@ -1,5 +1,18 @@
 # Changelog
 
+### [0.120.3](https://www.github.com/googleapis/java-cloud-bom/compare/v0.120.2...v0.120.3) (2019-12-27)
+
+
+### Bug Fixes
+
+* bump trace to fix missing dependency ([#142](https://www.github.com/googleapis/java-cloud-bom/issues/142)) ([62544be](https://www.github.com/googleapis/java-cloud-bom/commit/62544be27fb8044a49296717e194a04e3c899000))
+
+
+### Dependencies
+
+* update gax and google-cloud-core ([#146](https://www.github.com/googleapis/java-cloud-bom/issues/146)) ([d81519e](https://www.github.com/googleapis/java-cloud-bom/commit/d81519ea6f62d1b5a3c986ef76cad8bc04079cc4))
+* update google-cloud-automl-bom to 0.115.1 ([#150](https://www.github.com/googleapis/java-cloud-bom/issues/150)) ([797a131](https://www.github.com/googleapis/java-cloud-bom/commit/797a1312b271c74fd94dd99d14ea75396f7d91ae))
+
 ### [0.120.2](https://www.github.com/googleapis/java-cloud-bom/compare/v0.120.1...v0.120.2) (2019-12-06)
 
 
