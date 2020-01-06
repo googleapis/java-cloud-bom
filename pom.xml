@@ -180,6 +180,13 @@
         <scope>import</scope>
       </dependency>
       <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-core-bom</artifactId>
+        <version>1.92.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
         <groupId>com.google.api.grpc</groupId>
         <artifactId>proto-google-common-protos</artifactId>
         <version>1.17.0</version>
@@ -212,13 +219,6 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-automl-bom</artifactId>
         <version>0.115.1-beta</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-bigtable-bom</artifactId>
-        <version>1.9.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -259,6 +259,13 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-bigtable-bom</artifactId>
+        <version>1.9.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-billingbudgets-bom</artifactId>
         <version>0.1.1</version>
         <type>pom</type>
@@ -287,23 +294,6 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-containeranalysis-bom</artifactId>
         <version>0.118.0-beta</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-contrib</artifactId>
-        <version>0.119.0-alpha</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-nio</artifactId>
-        <version>0.119.0-alpha</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-core-bom</artifactId>
-        <version>1.92.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -373,6 +363,27 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-gameservices-bom</artifactId>
+        <version>0.18.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-iamcredentials-bom</artifactId>
+        <version>0.43.0-alpha</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-iot-bom</artifactId>
+        <version>0.116.0-beta</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-kms-bom</artifactId>
         <version>1.35.1</version>
         <type>pom</type>
@@ -397,13 +408,17 @@
         <artifactId>google-cloud-logging-logback</artifactId>
         <version>0.116.0-alpha</version>
       </dependency>
-
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-monitoring-bom</artifactId>
         <version>1.99.0</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-nio</artifactId>
+        <version>0.119.0-alpha</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
@@ -414,8 +429,22 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-phishingprotection-bom</artifactId>
+        <version>0.28.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsub-bom</artifactId>
         <version>1.102.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-recaptchaenterprise-bom</artifactId>
+        <version>0.28.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -501,6 +530,13 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-talent-bom</artifactId>
+        <version>0.34.0-beta</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-tasks-bom</artifactId>
         <version>1.27.0</version>
         <type>pom</type>
@@ -529,13 +565,6 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-vision-bom</artifactId>
-        <version>1.99.0</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-video-intelligence-bom</artifactId>
         <version>0.116.1-beta</version>
         <type>pom</type>
@@ -543,8 +572,8 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-iot-bom</artifactId>
-        <version>0.116.0-beta</version>
+        <artifactId>google-cloud-vision-bom</artifactId>
+        <version>1.99.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -557,50 +586,16 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-iamcredentials-bom</artifactId>
-        <version>0.43.0-alpha</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-talent-bom</artifactId>
-        <version>0.34.0-beta</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-webrisk-bom</artifactId>
         <version>0.31.0-alpha</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-phishingprotection-bom</artifactId>
-        <version>0.28.0</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-recaptchaenterprise-bom</artifactId>
-        <version>0.28.0</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+
       <dependency>
         <groupId>io.grafeas</groupId>
         <artifactId>grafeas</artifactId>
         <version>0.23.0</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-gameservices-bom</artifactId>
-        <version>0.18.0</version>
-        <type>pom</type>
-        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
