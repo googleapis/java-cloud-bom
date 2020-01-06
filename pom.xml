@@ -418,7 +418,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-nio</artifactId>
-        <version>0.119.0-alpha</version>
+        <version>0.120.0-alpha</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
