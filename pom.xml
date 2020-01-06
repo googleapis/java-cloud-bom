@@ -545,7 +545,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-texttospeech-bom</artifactId>
-        <version>0.117.0-beta</version>
+        <version>0.117.1-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
