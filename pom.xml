@@ -211,7 +211,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-asset-bom</artifactId>
-        <version>0.115.0-beta</version>
+        <version>0.116.0-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -300,14 +300,14 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-datacatalog-bom</artifactId>
-        <version>0.29.0-alpha</version>
+        <version>0.30.0-alpha</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-datalabeling-bom</artifactId>
-        <version>0.116.1-alpha</version>
+        <version>0.116.2-alpha</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -331,7 +331,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-dlp-bom</artifactId>
-        <version>0.116.0-beta</version>
+        <version>0.118.0-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -345,7 +345,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-dns</artifactId>
-        <version>0.117.0-alpha</version>
+        <version>0.117.2-alpha</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
@@ -425,7 +425,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-nio</artifactId>
-        <version>0.119.0-alpha</version>
+        <version>0.120.0-alpha</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
@@ -545,7 +545,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-talent-bom</artifactId>
-        <version>0.34.0-beta</version>
+        <version>0.35.0-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -559,7 +559,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-texttospeech-bom</artifactId>
-        <version>0.117.0-beta</version>
+        <version>0.117.1-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
