@@ -315,7 +315,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-dlp-bom</artifactId>
-        <version>0.118.0-beta</version>
+        <version>0.118.1-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
