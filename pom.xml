@@ -218,7 +218,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-automl-bom</artifactId>
-        <version>0.115.1-beta</version>
+        <version>0.115.2-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
