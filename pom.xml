@@ -230,7 +230,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigquerydatatransfer</artifactId>
-        <version>0.120.0-beta</version>
+        <version>0.121.0-beta</version>
       </dependency>
       <dependency>
         <groupId>com.google.api.grpc</groupId>
