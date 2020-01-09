@@ -402,7 +402,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-monitoring-bom</artifactId>
-        <version>1.99.0</version>
+        <version>1.99.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
