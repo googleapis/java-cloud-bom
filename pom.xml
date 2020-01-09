@@ -603,7 +603,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-webrisk-bom</artifactId>
-        <version>0.31.0-alpha</version>
+        <version>0.31.1-alpha</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
