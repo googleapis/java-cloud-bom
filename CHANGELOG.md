@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.121.1](https://www.github.com/googleapis/java-cloud-bom/compare/v0.121.0...v0.121.1) (2020-01-21)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-firestore-bom to v1.32.2 ([#244](https://www.github.com/googleapis/java-cloud-bom/issues/244)) ([dddb7ca](https://www.github.com/googleapis/java-cloud-bom/commit/dddb7cab409fdf6fcb27c29404606194ea5a3891))
+
 ## [0.121.0](https://www.github.com/googleapis/java-cloud-bom/compare/v0.120.2...v0.121.0) (2020-01-10)
 
 
