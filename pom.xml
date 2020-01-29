@@ -638,6 +638,26 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <id>flatten</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>flatten</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <flattenMode>bom</flattenMode>
+          <pomElements>
+            <dependencyManagement>resolve</dependencyManagement>
+          </pomElements>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
