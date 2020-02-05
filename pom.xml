@@ -454,7 +454,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-redis-bom</artifactId>
-        <version>0.118.0</version>
+        <version>0.119.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
