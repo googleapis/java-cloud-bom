@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.122.1](https://www.github.com/googleapis/java-cloud-bom/compare/v0.122.0...v0.122.1) (2020-02-05)
+
+
+### Dependencies
+
+* update google-cloud-asset-bom to v0.118.0-beta, google-cloud-bigquerystorage to v0.122.0-beta, google-cloud-resourcemanager to v0.117.1-alpha ([#315](https://www.github.com/googleapis/java-cloud-bom/issues/315)) ([3382905](https://www.github.com/googleapis/java-cloud-bom/commit/338290558c97703291e36991408d63fcbd05016a))
+
 ## [0.122.0](https://www.github.com/googleapis/java-cloud-bom/compare/v0.121.0...v0.122.0) (2020-02-04)
 
 
