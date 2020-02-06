@@ -414,7 +414,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-notification</artifactId>
-        <version>0.120.1-beta</version>
+        <version>0.120.2-beta</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
