@@ -1,11 +1,11 @@
 {
-  "updateTime": "2020-02-21T23:10:31.581081Z",
+  "updateTime": "2020-02-22T10:15:52.003969Z",
   "sources": [
     {
       "git": {
         "name": ".",
         "remote": "https://github.com/googleapis/java-cloud-bom.git",
-        "sha": "c86b183aeb24562eaadefd1f2f424bd9ba1ab12f"
+        "sha": "b7df66e2551af544bd4578bda786db187a5dd72d"
       }
     },
     {
