@@ -352,7 +352,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-iamcredentials-bom</artifactId>
-        <version>0.44.1</version>
+        <version>1.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
