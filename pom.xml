@@ -366,7 +366,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-iot-bom</artifactId>
-        <version>0.117.1-beta</version>
+        <version>1.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
