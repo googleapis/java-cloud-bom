@@ -31,7 +31,7 @@
       <artifactId>google-cloud-bom</artifactId>
       <version></version>
     </dependency>
-    <!-- [END google-cloud-bom_install_with_bom] -->
+    <!-- [END google-cloud-bom_install_without_bom] -->
 
     <dependency>
       <groupId>junit</groupId>
