@@ -440,6 +440,13 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-monitoring-dashboard-bom</artifactId>
+        <version>0.1.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-nio</artifactId>
         <version>0.120.0-alpha</version>
       </dependency>
