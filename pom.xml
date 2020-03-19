@@ -419,6 +419,13 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-mediatranslation-bom</artifactId>
+        <version>0.1.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-memcache-bom</artifactId>
         <version>0.1.0</version>
         <type>pom</type>
