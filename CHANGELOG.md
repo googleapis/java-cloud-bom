@@ -1,5 +1,26 @@
 # Changelog
 
+### [0.123.2](https://www.github.com/googleapis/java-cloud-bom/compare/v0.123.1...v0.123.2) (2020-03-18)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-asset-bom to v1.1.0 ([#409](https://www.github.com/googleapis/java-cloud-bom/issues/409)) ([897acb0](https://www.github.com/googleapis/java-cloud-bom/commit/897acb0b7a4bf8e1d63193468f6cfb0c53d17cf6))
+* update dependency com.google.cloud:google-cloud-bigquerydatatransfer-bom to v0.125.1-beta ([#411](https://www.github.com/googleapis/java-cloud-bom/issues/411)) ([65a289a](https://www.github.com/googleapis/java-cloud-bom/commit/65a289a5cb0a81943c03a5496f0ade49a051bf27))
+* update dependency com.google.cloud:google-cloud-bigquerystorage-bom to v0.126.0-beta ([#399](https://www.github.com/googleapis/java-cloud-bom/issues/399)) ([b7fff8a](https://www.github.com/googleapis/java-cloud-bom/commit/b7fff8a0ca1545f801b4b1571f2c5714d452d582))
+* update dependency com.google.cloud:google-cloud-containeranalysis-bom to v0.119.2-beta ([#404](https://www.github.com/googleapis/java-cloud-bom/issues/404)) ([d07f81b](https://www.github.com/googleapis/java-cloud-bom/commit/d07f81b6bf65a8b9c23182cc21268038a60dcb17))
+* update dependency com.google.cloud:google-cloud-core-bom to v1.93.2 ([#401](https://www.github.com/googleapis/java-cloud-bom/issues/401)) ([14e540d](https://www.github.com/googleapis/java-cloud-bom/commit/14e540d762cd488f9ab789cf118d198c223e1231))
+* update dependency com.google.cloud:google-cloud-core-bom to v1.93.3 ([#413](https://www.github.com/googleapis/java-cloud-bom/issues/413)) ([2281d53](https://www.github.com/googleapis/java-cloud-bom/commit/2281d538dc8f7137e95b974781fd28b49daddf98))
+* update dependency com.google.cloud:google-cloud-datacatalog-bom to v0.33.0 ([#405](https://www.github.com/googleapis/java-cloud-bom/issues/405)) ([62ea672](https://www.github.com/googleapis/java-cloud-bom/commit/62ea6728a67838cbb9aa12ae93f5400e8e07575a))
+* update dependency com.google.cloud:google-cloud-language-bom to v1.99.3 ([#397](https://www.github.com/googleapis/java-cloud-bom/issues/397)) ([2b85eee](https://www.github.com/googleapis/java-cloud-bom/commit/2b85eee9580c661f61365a63e9c2d3f464ac0657))
+* update dependency com.google.cloud:google-cloud-recommender-bom to v0.4.0 ([#407](https://www.github.com/googleapis/java-cloud-bom/issues/407)) ([a55ff94](https://www.github.com/googleapis/java-cloud-bom/commit/a55ff94820a9cbbcf590bb19e2d43655697ee7e2))
+* update dependency com.google.cloud:google-cloud-resourcemanager to v0.117.2-alpha ([#402](https://www.github.com/googleapis/java-cloud-bom/issues/402)) ([8c2e56d](https://www.github.com/googleapis/java-cloud-bom/commit/8c2e56d1e93a3cb9df11abbe01540a15ebe72c2b))
+* update dependency com.google.cloud:google-cloud-scheduler-bom to v1.22.3 ([#395](https://www.github.com/googleapis/java-cloud-bom/issues/395)) ([e9de590](https://www.github.com/googleapis/java-cloud-bom/commit/e9de59033291d76b2ed421c07eb8ab1649b2d8ed))
+* update dependency com.google.cloud:google-cloud-securitycenter-bom to v0.120.0 ([#403](https://www.github.com/googleapis/java-cloud-bom/issues/403)) ([0c6eb85](https://www.github.com/googleapis/java-cloud-bom/commit/0c6eb85d93c11eb31f6e9c6be158207740d65fd5))
+* update dependency com.google.cloud:google-cloud-spanner-bom to v1.51.0 ([#406](https://www.github.com/googleapis/java-cloud-bom/issues/406)) ([9ccb99e](https://www.github.com/googleapis/java-cloud-bom/commit/9ccb99ef8ef38e1dbd0af5d36174fda970b77658))
+* update dependency com.google.cloud:google-cloud-storage to v1.105.2 ([#408](https://www.github.com/googleapis/java-cloud-bom/issues/408)) ([98ffedb](https://www.github.com/googleapis/java-cloud-bom/commit/98ffedbecc7c8287b8b6a05aa248ba64ce365d59))
+* update dependency com.google.cloud:google-cloud-video-intelligence-bom to v1.2.0 ([#396](https://www.github.com/googleapis/java-cloud-bom/issues/396)) ([a4a1a8a](https://www.github.com/googleapis/java-cloud-bom/commit/a4a1a8a66a5d2600dc4a164eb5b032a22d1cc871))
+
 ### [0.123.1](https://www.github.com/googleapis/java-cloud-bom/compare/v0.123.0...v0.123.1) (2020-03-10)
 
 
