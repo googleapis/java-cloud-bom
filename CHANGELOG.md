@@ -1,6 +1,6 @@
 # Changelog
 
-### [0.123.2](https://www.github.com/googleapis/java-cloud-bom/compare/v0.123.1...v0.123.2) (2020-03-18)
+### [0.122.5](https://www.github.com/googleapis/java-cloud-bom/compare/v0.122.4...v0.122.5) (2020-03-18)
 
 
 ### Dependencies
@@ -21,7 +21,7 @@
 * update dependency com.google.cloud:google-cloud-storage to v1.105.2 ([#408](https://www.github.com/googleapis/java-cloud-bom/issues/408)) ([98ffedb](https://www.github.com/googleapis/java-cloud-bom/commit/98ffedbecc7c8287b8b6a05aa248ba64ce365d59))
 * update dependency com.google.cloud:google-cloud-video-intelligence-bom to v1.2.0 ([#396](https://www.github.com/googleapis/java-cloud-bom/issues/396)) ([a4a1a8a](https://www.github.com/googleapis/java-cloud-bom/commit/a4a1a8a66a5d2600dc4a164eb5b032a22d1cc871))
 
-### [0.123.1](https://www.github.com/googleapis/java-cloud-bom/compare/v0.123.0...v0.123.1) (2020-03-10)
+### [0.122.4](https://www.github.com/googleapis/java-cloud-bom/compare/v0.122.3...v0.122.4) (2020-03-10)
 
 
 ### Dependencies
