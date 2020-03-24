@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.123.0](https://www.github.com/googleapis/java-cloud-bom/compare/v0.122.5...v0.123.0) (2020-03-24)
+
+
+### Features
+
+* add accessapproval client ([#424](https://www.github.com/googleapis/java-cloud-bom/issues/424)) ([8232d2e](https://www.github.com/googleapis/java-cloud-bom/commit/8232d2e0266e16cb6c5d9f9ae46233b2c64d5d6f))
+* add billing client ([#425](https://www.github.com/googleapis/java-cloud-bom/issues/425)) ([0553670](https://www.github.com/googleapis/java-cloud-bom/commit/0553670e1ceb652ab19e8a218e2488a97e69de5b))
+* add document-ai client ([#430](https://www.github.com/googleapis/java-cloud-bom/issues/430)) ([0f149f6](https://www.github.com/googleapis/java-cloud-bom/commit/0f149f6ec31d514db74161930745440fad845a03))
+* add mediatranslation client ([#428](https://www.github.com/googleapis/java-cloud-bom/issues/428)) ([ee30e9f](https://www.github.com/googleapis/java-cloud-bom/commit/ee30e9fb64232837548f82cac869383056a16320))
+* add memcache client ([#426](https://www.github.com/googleapis/java-cloud-bom/issues/426)) ([51f8415](https://www.github.com/googleapis/java-cloud-bom/commit/51f84155760930cebbfb982f985f2af410cde801))
+* add monitoring-dashboard client ([#431](https://www.github.com/googleapis/java-cloud-bom/issues/431)) ([df06b2c](https://www.github.com/googleapis/java-cloud-bom/commit/df06b2c04ab9dff49036de4cd1860b0d491da6f9))
+* add servicedirectory client ([#429](https://www.github.com/googleapis/java-cloud-bom/issues/429)) ([1317d11](https://www.github.com/googleapis/java-cloud-bom/commit/1317d111d6e1b7d8c7abc548314989a576a2ddc5))
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-bigquery to v1.110.0 ([#435](https://www.github.com/googleapis/java-cloud-bom/issues/435)) ([2b66129](https://www.github.com/googleapis/java-cloud-bom/commit/2b66129d071a79b5590caa8d92406b54a4a84720))
+* update dependency com.google.cloud:google-cloud-bigquerydatatransfer-bom to v0.125.2-beta ([#436](https://www.github.com/googleapis/java-cloud-bom/issues/436)) ([c060564](https://www.github.com/googleapis/java-cloud-bom/commit/c060564ff717234e592cc14d000c3ec41045c497))
+* update dependency com.google.cloud:google-cloud-dataproc-bom to v0.120.0 ([#418](https://www.github.com/googleapis/java-cloud-bom/issues/418)) ([96b953a](https://www.github.com/googleapis/java-cloud-bom/commit/96b953ad47450005df8d7d2ec9ef3470041fb46f))
+* update dependency com.google.cloud:google-cloud-recaptchaenterprise-bom to v0.30.0 ([#437](https://www.github.com/googleapis/java-cloud-bom/issues/437)) ([a645a33](https://www.github.com/googleapis/java-cloud-bom/commit/a645a335c6d7c1e8748d90af5f1c15f6fccf673a))
+* update dependency com.google.cloud:google-cloud-spanner-bom to v1.52.0 ([#434](https://www.github.com/googleapis/java-cloud-bom/issues/434)) ([f8ca6ab](https://www.github.com/googleapis/java-cloud-bom/commit/f8ca6ab93db48643641d3e45da00bd6a0f132bbc))
+* update dependency com.google.cloud:google-cloud-spanner-jdbc to v1.14.0 ([#422](https://www.github.com/googleapis/java-cloud-bom/issues/422)) ([09ad5bf](https://www.github.com/googleapis/java-cloud-bom/commit/09ad5bf995cfb63ac1fcd340771b5cb819eeef0b))
+* update dependency com.google.cloud:google-cloud-spanner-jdbc to v1.15.0 ([#439](https://www.github.com/googleapis/java-cloud-bom/issues/439)) ([d8b600a](https://www.github.com/googleapis/java-cloud-bom/commit/d8b600a6eed4de93bd26da0131f112a277236745))
+* update dependency com.google.cloud:google-cloud-storage to v1.106.0 ([#417](https://www.github.com/googleapis/java-cloud-bom/issues/417)) ([650f319](https://www.github.com/googleapis/java-cloud-bom/commit/650f319d689e3a1928c0998608de0d01228d1870))
+
 ### [0.122.5](https://www.github.com/googleapis/java-cloud-bom/compare/v0.122.4...v0.122.5) (2020-03-18)
 
 
