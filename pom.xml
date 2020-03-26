@@ -434,7 +434,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-monitoring-bom</artifactId>
-        <version>1.99.2</version>
+        <version>1.100.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
