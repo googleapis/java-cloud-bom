@@ -1,5 +1,16 @@
 # Changelog
 
+### [0.123.1](https://www.github.com/googleapis/java-cloud-bom/compare/v0.123.0...v0.123.1) (2020-03-30)
+
+
+### Dependencies
+
+* update dependency com.google.api:api-common to v1.9.0 ([#444](https://www.github.com/googleapis/java-cloud-bom/issues/444)) ([e76b1f4](https://www.github.com/googleapis/java-cloud-bom/commit/e76b1f4230bf7c3dc086e7c52bb840b90e8ed8ad))
+* update dependency com.google.api:gax-bom to v1.55.0 ([#450](https://www.github.com/googleapis/java-cloud-bom/issues/450)) ([476f67a](https://www.github.com/googleapis/java-cloud-bom/commit/476f67a51ccc73e7feaf40f7a431acfb35f9cf5d))
+* update dependency com.google.cloud:google-cloud-logging-bom to v1.101.0 ([#449](https://www.github.com/googleapis/java-cloud-bom/issues/449)) ([9f1176d](https://www.github.com/googleapis/java-cloud-bom/commit/9f1176dc9f5f6a733f720bc42d84a090fba5321c))
+* update dependency com.google.cloud:google-cloud-monitoring-bom to v1.100.0 ([#448](https://www.github.com/googleapis/java-cloud-bom/issues/448)) ([748c41b](https://www.github.com/googleapis/java-cloud-bom/commit/748c41bb172a59cf2554140224d57ba32a6d6a48))
+* update dependency com.google.cloud:google-cloud-talent-bom to v0.36.0 ([#451](https://www.github.com/googleapis/java-cloud-bom/issues/451)) ([ee1c674](https://www.github.com/googleapis/java-cloud-bom/commit/ee1c674ea73622674057cfaa118655d9a36b1db7))
+
 ## [0.123.0](https://www.github.com/googleapis/java-cloud-bom/compare/v0.122.5...v0.123.0) (2020-03-24)
 
 
