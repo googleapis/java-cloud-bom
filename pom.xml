@@ -4,7 +4,7 @@
   <groupId>com.google.cloud</groupId>
   <artifactId>google-cloud-bom</artifactId>
   <packaging>pom</packaging>
-  <version>0.122.6-alpha-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
+  <version>0.123.2-alpha-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
   <name>Google Cloud Java BOM</name>
   <url>https://github.com/googleapis/java-cloud-bom</url>
   <description>
@@ -163,12 +163,12 @@
       <dependency>
         <groupId>com.google.api</groupId>
         <artifactId>api-common</artifactId>
-        <version>1.8.1</version>
+        <version>1.9.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.api</groupId>
         <artifactId>gax-bom</artifactId>
-        <version>1.54.0</version>
+        <version>1.55.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -272,7 +272,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-build-bom</artifactId>
-        <version>1.0.3</version>
+        <version>1.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -326,7 +326,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-dlp-bom</artifactId>
-        <version>1.0.1</version>
+        <version>1.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -408,7 +408,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-logging-bom</artifactId>
-        <version>1.100.0</version>
+        <version>1.101.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -434,7 +434,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-monitoring-bom</artifactId>
-        <version>1.99.2</version>
+        <version>1.100.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -557,14 +557,14 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-talent-bom</artifactId>
-        <version>0.35.2-beta</version>
+        <version>0.36.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-tasks-bom</artifactId>
-        <version>1.28.2</version>
+        <version>1.29.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
