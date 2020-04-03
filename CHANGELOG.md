@@ -1,5 +1,20 @@
 # Changelog
 
+### [0.123.2](https://www.github.com/googleapis/java-cloud-bom/compare/v0.123.1...v0.123.2) (2020-04-03)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-build-bom to v1.1.0 ([#454](https://www.github.com/googleapis/java-cloud-bom/issues/454)) ([65dd383](https://www.github.com/googleapis/java-cloud-bom/commit/65dd3834e73d9ba5e1056114eee0a7609f7c6793))
+* update dependency com.google.cloud:google-cloud-datacatalog-bom to v0.34.0 ([#457](https://www.github.com/googleapis/java-cloud-bom/issues/457)) ([6ba9e04](https://www.github.com/googleapis/java-cloud-bom/commit/6ba9e04f210b8278c9521eabedd8b4187af61696))
+* update dependency com.google.cloud:google-cloud-dataproc-bom to v0.121.0 ([#460](https://www.github.com/googleapis/java-cloud-bom/issues/460)) ([5e6b33f](https://www.github.com/googleapis/java-cloud-bom/commit/5e6b33f7095ccff24f9fc1a10136b83559e14a57))
+* update dependency com.google.cloud:google-cloud-dlp-bom to v1.1.0 ([#452](https://www.github.com/googleapis/java-cloud-bom/issues/452)) ([c9f69e1](https://www.github.com/googleapis/java-cloud-bom/commit/c9f69e151e7d8dd996b715c6b5f53b07570cdc6e))
+* update dependency com.google.cloud:google-cloud-kms-bom to v1.37.0 ([#459](https://www.github.com/googleapis/java-cloud-bom/issues/459)) ([6efe409](https://www.github.com/googleapis/java-cloud-bom/commit/6efe409e7f4ab8b6d90019dfe016bf4a4c12644a))
+* update dependency com.google.cloud:google-cloud-logging-logback to v0.117.0-alpha ([#463](https://www.github.com/googleapis/java-cloud-bom/issues/463)) ([c653d7d](https://www.github.com/googleapis/java-cloud-bom/commit/c653d7d06bff86fefa3a62b89fd7ba5bc4eaa991))
+* update dependency com.google.cloud:google-cloud-pubsub-bom to v1.104.0 ([#461](https://www.github.com/googleapis/java-cloud-bom/issues/461)) ([1a9bbb9](https://www.github.com/googleapis/java-cloud-bom/commit/1a9bbb93601c90959d843fbc444033754121fc52))
+* update dependency com.google.cloud:google-cloud-secretmanager-bom to v1 ([#458](https://www.github.com/googleapis/java-cloud-bom/issues/458)) ([be32210](https://www.github.com/googleapis/java-cloud-bom/commit/be32210225a2f740e02343d2bb5080be794ba81f))
+* update dependency com.google.cloud:google-cloud-tasks-bom to v1.29.0 ([#453](https://www.github.com/googleapis/java-cloud-bom/issues/453)) ([6a5102d](https://www.github.com/googleapis/java-cloud-bom/commit/6a5102de3bd5cd393a14e96dc6fc990e6bd20497))
+
 ### [0.123.1](https://www.github.com/googleapis/java-cloud-bom/compare/v0.123.0...v0.123.1) (2020-03-30)
 
 
