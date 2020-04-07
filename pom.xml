@@ -606,7 +606,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-websecurityscanner-bom</artifactId>
-        <version>0.116.2</version>
+        <version>0.116.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
