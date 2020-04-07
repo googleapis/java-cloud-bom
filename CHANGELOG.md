@@ -1,5 +1,19 @@
 # Changelog
 
+### [0.123.4](https://www.github.com/googleapis/java-cloud-bom/compare/v0.123.3...v0.123.4) (2020-04-07)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-billingbudgets-bom to v0.2.3 ([#491](https://www.github.com/googleapis/java-cloud-bom/issues/491)) ([e35109e](https://www.github.com/googleapis/java-cloud-bom/commit/e35109e3b38045143469f67183a9b2474ecbd922))
+* update dependency com.google.cloud:google-cloud-datacatalog-bom to v0.34.1 ([#492](https://www.github.com/googleapis/java-cloud-bom/issues/492)) ([5549691](https://www.github.com/googleapis/java-cloud-bom/commit/5549691d34c40ded57613adecd46709f71099d7d))
+* update dependency com.google.cloud:google-cloud-kms-bom to v1.38.0 ([#488](https://www.github.com/googleapis/java-cloud-bom/issues/488)) ([33896b9](https://www.github.com/googleapis/java-cloud-bom/commit/33896b9a7e452813c2d27c01e9a10a7a3f41148b))
+* update dependency com.google.cloud:google-cloud-logging-bom to v1.101.1 ([#489](https://www.github.com/googleapis/java-cloud-bom/issues/489)) ([012aca7](https://www.github.com/googleapis/java-cloud-bom/commit/012aca79543d90360e1a26090f2092be6bc98a77))
+* update dependency com.google.cloud:google-cloud-memcache-bom to v0.1.1 ([#490](https://www.github.com/googleapis/java-cloud-bom/issues/490)) ([b57f372](https://www.github.com/googleapis/java-cloud-bom/commit/b57f37286ca0b731e1d62505f7ad090c0ec31176))
+* update dependency com.google.cloud:google-cloud-monitoring-dashboard-bom to v0.1.3 ([#473](https://www.github.com/googleapis/java-cloud-bom/issues/473)) ([9b6ad87](https://www.github.com/googleapis/java-cloud-bom/commit/9b6ad8793f2d36e2d0e8dc1e457fc8235ddc55bf))
+* update dependency com.google.cloud:google-cloud-video-intelligence-bom to v1.2.1 ([#471](https://www.github.com/googleapis/java-cloud-bom/issues/471)) ([67c65b4](https://www.github.com/googleapis/java-cloud-bom/commit/67c65b496427c2c5a5ade2f6bccfe62cace2883d))
+* update dependency com.google.cloud:google-cloud-websecurityscanner-bom to v0.116.3 ([#472](https://www.github.com/googleapis/java-cloud-bom/issues/472)) ([74e7bc7](https://www.github.com/googleapis/java-cloud-bom/commit/74e7bc794dc097552f91e13b4d0d8c8fb3b5de5c))
+
 ### [0.123.1](https://www.github.com/googleapis/java-cloud-bom/compare/v0.123.0...v0.123.1) (2020-03-30)
 
 
