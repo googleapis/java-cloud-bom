@@ -244,7 +244,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigquerystorage-bom</artifactId>
-        <version>0.128.0-beta</version>
+        <version>0.128.1-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
