@@ -359,7 +359,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-firestore-bom</artifactId>
-        <version>1.32.5</version>
+        <version>1.33.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
