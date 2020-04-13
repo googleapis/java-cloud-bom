@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.123.5](https://www.github.com/googleapis/java-cloud-bom/compare/0.123.4...v0.123.5) (2020-04-13)
+
+
+### Dependencies
+
+* Update dependency v0.24.1 (#515) to io.grafeas:grafeas
+
 ### [0.123.1](https://www.github.com/googleapis/java-cloud-bom/compare/v0.123.0...v0.123.1) (2020-03-30)
 
 
