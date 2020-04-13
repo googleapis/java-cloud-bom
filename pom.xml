@@ -505,7 +505,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-scheduler-bom</artifactId>
-        <version>1.22.3</version>
+        <version>1.22.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
