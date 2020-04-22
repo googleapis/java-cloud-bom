@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.125.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.124.0...v0.125.0) (2020-04-22)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-automl-bom to v1.1.2 ([#543](https://www.github.com/googleapis/java-cloud-bom/issues/543)) ([1d78553](https://www.github.com/googleapis/java-cloud-bom/commit/1d78553457582f3d5e047ba967bf0cf3e7db5bf3))
+* update dependency com.google.cloud:google-cloud-bigquery to v1.111.0 ([#539](https://www.github.com/googleapis/java-cloud-bom/issues/539)) ([87c17f1](https://www.github.com/googleapis/java-cloud-bom/commit/87c17f102f5e7e19681cbd457b3bcb66709c8778))
+* update dependency com.google.cloud:google-cloud-bigquerystorage-bom to v0.130.0-beta ([#540](https://www.github.com/googleapis/java-cloud-bom/issues/540)) ([19a54fa](https://www.github.com/googleapis/java-cloud-bom/commit/19a54fadca5490f46d65637599d51a303886c9d1))
+* update dependency com.google.cloud:google-cloud-pubsub-bom to v1.105.0 ([#534](https://www.github.com/googleapis/java-cloud-bom/issues/534)) ([c2691ea](https://www.github.com/googleapis/java-cloud-bom/commit/c2691ea2b9389b76acc73ca190a0fbcb8c4b37fc))
+* update dependency com.google.cloud:google-cloud-storage to v1.107.0 ([#535](https://www.github.com/googleapis/java-cloud-bom/issues/535)) ([27c0b34](https://www.github.com/googleapis/java-cloud-bom/commit/27c0b3482f4577e8462ef08d6e3911897f8ea211))
+* update dependency com.google.cloud:google-cloud-webrisk-bom to v0.33.3 ([#414](https://www.github.com/googleapis/java-cloud-bom/issues/414)) ([05c8829](https://www.github.com/googleapis/java-cloud-bom/commit/05c882980960bbe72a55ec2b32cca0c930642cac))
+
 ## [0.124.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.123.1...v0.124.0) (2020-04-13)
 
 
