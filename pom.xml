@@ -401,7 +401,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-language-bom</artifactId>
-        <version>1.99.4</version>
+        <version>1.100.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
