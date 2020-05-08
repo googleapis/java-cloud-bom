@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.126.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.125.0...v0.126.0) (2020-05-08)
+
+
+### Dependencies
+
+* update dependency com.google.api.grpc:grpc-google-common-protos to v1.18.0 ([#574](https://www.github.com/googleapis/java-cloud-bom/issues/574)) ([06eea8c](https://www.github.com/googleapis/java-cloud-bom/commit/06eea8c2694985e7a379ee6923013a393930506d))
+* update dependency com.google.api.grpc:proto-google-common-protos to v1.18.0 ([#575](https://www.github.com/googleapis/java-cloud-bom/issues/575)) ([3b29950](https://www.github.com/googleapis/java-cloud-bom/commit/3b29950b08b284c9910b126560d35ea51aa34810))
+* update dependency com.google.cloud:google-cloud-dialogflow-bom to v2 ([#570](https://www.github.com/googleapis/java-cloud-bom/issues/570)) ([9798b8e](https://www.github.com/googleapis/java-cloud-bom/commit/9798b8e735a5b02aba2328a889a60e0f5bd09a76))
+* update dependency com.google.cloud:google-cloud-nio to v0.121.0 ([#568](https://www.github.com/googleapis/java-cloud-bom/issues/568)) ([ad3c3d1](https://www.github.com/googleapis/java-cloud-bom/commit/ad3c3d19bd1069dd14a6f0d1032ad75204b5ec6c))
+* update dependency com.google.cloud:google-cloud-pubsub-bom to v1.105.1 ([#580](https://www.github.com/googleapis/java-cloud-bom/issues/580)) ([debdc09](https://www.github.com/googleapis/java-cloud-bom/commit/debdc090e1d761355406df8336cf986878ae80ea))
+
 ## [0.125.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.124.0...v0.125.0) (2020-04-22)
 
 
