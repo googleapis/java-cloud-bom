@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.128.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.127.0...v0.128.0) (2020-06-05)
+
+
+### Dependencies
+
+* update dependency com.google.api:api-common to v1.9.2 ([#605](https://www.github.com/googleapis/java-cloud-bom/issues/605)) ([994e0f5](https://www.github.com/googleapis/java-cloud-bom/commit/994e0f5a5070944c18df9a15189a38884090fd18))
+* update dependency com.google.cloud:google-cloud-bigquerystorage-bom to v0.133.3-beta ([#604](https://www.github.com/googleapis/java-cloud-bom/issues/604)) ([5666744](https://www.github.com/googleapis/java-cloud-bom/commit/5666744a66b90b28547f0fbb5c25600b3d9ff5cd))
+* update dependency com.google.cloud:google-cloud-firestore-bom to v1.34.0 ([#606](https://www.github.com/googleapis/java-cloud-bom/issues/606)) ([c19c20d](https://www.github.com/googleapis/java-cloud-bom/commit/c19c20d8e557519d448f157676eb37a5ef9ca139))
+
 ## [0.127.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.126.0...v0.127.0) (2020-06-03)
 
 
