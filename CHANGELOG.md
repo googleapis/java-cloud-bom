@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.127.1](https://www.github.com/googleapis/java-cloud-bom/compare/0.127.0...v0.127.1) (2020-06-05)
+
+
+### Dependencies
+
+* update dependency com.google.api:api-common to v1.9.2 ([#605](https://www.github.com/googleapis/java-cloud-bom/issues/605)) ([994e0f5](https://www.github.com/googleapis/java-cloud-bom/commit/994e0f5a5070944c18df9a15189a38884090fd18))
+
 ## [0.127.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.126.0...v0.127.0) (2020-06-03)
 
 
