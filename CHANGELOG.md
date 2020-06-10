@@ -1,5 +1,13 @@
 # Changelog
 
+### [0.128.1](https://www.github.com/googleapis/java-cloud-bom/compare/0.128.0...v0.128.1) (2020-06-10)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-dataproc-bom to v0.122.2 ([#617](https://www.github.com/googleapis/java-cloud-bom/issues/617)) ([753ccc9](https://www.github.com/googleapis/java-cloud-bom/commit/753ccc9bb8db634a78a0593f153b9a32f1879687))
+* update dependency com.google.cloud:google-cloud-logging-bom to v1.101.2 ([#623](https://www.github.com/googleapis/java-cloud-bom/issues/623)) ([63ca227](https://www.github.com/googleapis/java-cloud-bom/commit/63ca22781ded14d2a2175f6dfff7081f14405440))
+
 ## [0.128.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.127.0...v0.128.0) (2020-06-05)
 
 
