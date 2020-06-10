@@ -13,7 +13,7 @@ To use it in Maven, add the following to your POM:
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bom</artifactId>
-        <version>0.128.0</version>
+        <version>0.128.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
