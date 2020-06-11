@@ -237,14 +237,14 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigquerydatatransfer-bom</artifactId>
-        <version>0.127.2-beta</version>
+        <version>0.127.3-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigquerystorage-bom</artifactId>
-        <version>0.133.3-beta</version>
+        <version>0.133.4-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
