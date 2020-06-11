@@ -312,7 +312,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-dataproc-bom</artifactId>
-        <version>0.122.2</version>
+        <version>0.122.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -519,7 +519,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-securitycenter-bom</artifactId>
-        <version>0.121.0</version>
+        <version>0.122.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -552,7 +552,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-storage</artifactId>
-        <version>1.108.0</version>
+        <version>1.109.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
