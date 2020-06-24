@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.132.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.131.0...v0.132.0) (2020-06-24)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-automl-bom to v1.2.0 ([#681](https://www.github.com/googleapis/java-cloud-bom/issues/681)) ([28da4f7](https://www.github.com/googleapis/java-cloud-bom/commit/28da4f791eb051c6d4acee787bb5c22933bcf1e7))
+* update dependency com.google.cloud:google-cloud-errorreporting-bom to v0.120.0-beta ([#682](https://www.github.com/googleapis/java-cloud-bom/issues/682)) ([dbc7815](https://www.github.com/googleapis/java-cloud-bom/commit/dbc781594ccda3d286f19108de8922bc57afddd8))
+
 ## [0.129.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.128.0...v0.129.0) (2020-06-16)
 
 
