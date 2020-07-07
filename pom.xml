@@ -427,7 +427,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-memcache-bom</artifactId>
-        <version>0.1.2</version>
+        <version>0.2.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
