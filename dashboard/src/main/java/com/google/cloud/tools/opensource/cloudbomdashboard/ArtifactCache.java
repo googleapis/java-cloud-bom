@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.eclipse.aether.artifact.Artifact;
 
-import com.google.cloud.tools.opensource.dependencies.DependencyGraph;
+import com.google.cloud.tools.opensource.cloudbomdashboard.dependencies.DependencyGraph;
 
 /**
  * Unified return type to bundle a lot of information  about multiple artifacts together.

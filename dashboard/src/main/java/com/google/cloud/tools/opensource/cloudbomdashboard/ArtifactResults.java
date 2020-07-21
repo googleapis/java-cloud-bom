@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 
 import org.eclipse.aether.artifact.Artifact;
 
-import com.google.cloud.tools.opensource.dependencies.Artifacts;
+import com.google.cloud.tools.opensource.cloudbomdashboard.dependencies.Artifacts;
 
 /**
  * Collection of test results for a single artifact.
