@@ -765,7 +765,4 @@
       </build>
     </profile>
   </profiles>
-  <modules>
-    <module>dashboard</module>
-  </modules>
 </project>
