@@ -16,8 +16,7 @@
 
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
-
-import com.google.cloud.tools.opensource.dependencies.*;
+import com.google.cloud.tools.opensource.cloudbomdashboard.dependencies.*;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
@@ -82,7 +81,7 @@ public class DashboardMain {
 
   private static void generateAllVersions(String versionlessCoordinates)
       throws IOException, TemplateException, RepositoryException, URISyntaxException,
-      MavenRepositoryException {
+          MavenRepositoryException {
     List<String> elements = Splitter.on(':').splitToList(versionlessCoordinates);
     checkArgument(
         elements.size() == 2,
@@ -309,7 +308,7 @@ public class DashboardMain {
           throws IOException, TemplateException {
     TreeSet<String> artifacts = new TreeSet<>();
     Map<String, String> currentVersion = new HashMap<>();
-    Map<String, String> currentPomURL = new HashMap<>();
+    Map<String, String> sharedDepsPosition = new HashMap<>();
     Map<String, String> newestVersion = new HashMap<>();
     Map<String, String> newestPomURL = new HashMap<>();
     Map<String, String> sharedDepsVersion = new HashMap<>();
@@ -322,10 +321,9 @@ public class DashboardMain {
       String version = info.getKey().getVersion();
       artifacts.add(artifactId);
       currentVersion.put(artifactId,version);
-      currentPomURL.put(artifactId, getPomFileURL(groupId, artifactId, version));
       newestVersion.put(artifactId, latestVersion(info.getKey()));
       newestPomURL.put(artifactId, getPomFileURL(groupId, artifactId, newestVersion.get(artifactId)));
-      sharedDepsVersion.put(artifactId, sharedDependencyVersion(info.getKey()));
+      sharedDepsVersion.put(artifactId, sharedDependencyVersion(info.getKey(), sharedDepsPosition));
       updatedTime.put(artifactId, updatedTime(info.getKey()));
       metadataURL.put(artifactId, getMetadataURL(info.getKey()));
     }
@@ -334,7 +332,7 @@ public class DashboardMain {
     templateData.put("table", table);
     templateData.put("lastUpdated", LocalDateTime.now());
     templateData.put("currentVersion", currentVersion);
-    templateData.put("currentPomURL", currentPomURL);
+    templateData.put("sharedDepsPosition", sharedDepsPosition);
     templateData.put("newestVersion", newestVersion);
     templateData.put("newestPomURL", newestPomURL);
     templateData.put("sharedDepsVersion", sharedDepsVersion);
@@ -410,7 +408,7 @@ public class DashboardMain {
         .count();
   }
 
-  private static String sharedDependencyVersion(Artifact artifact) {
+  private static String sharedDependencyVersion(Artifact artifact, Map<String, String> sharedDepsPosition) {
     String groupPath = artifact.getGroupId().replace('.', '/');
     String pomPath = getPomFileURL(artifact.getGroupId(), artifact.getArtifactId(),artifact.getVersion());
     String parentPath = basePath + "/" + groupPath
@@ -422,14 +420,21 @@ public class DashboardMain {
             + "/" + artifact.getVersion()
             + "/" + artifact.getArtifactId() + "-deps-bom-" + artifact.getVersion() + ".pom";
     String version = getSharedDepsVersionFromURL(parentPath);
-    if (version != null)
+    if (version != null) {
+      sharedDepsPosition.put(artifact.getArtifactId(), parentPath);
       return version;
+    }
     version = getSharedDepsVersionFromURL(pomPath);
-    if (version != null)
+    if (version != null) {
+      sharedDepsPosition.put(artifact.getArtifactId(), pomPath);
       return version;
+    }
     version = getSharedDepsVersionFromURL(depsBomPath);
-    if (version != null)
+    if (version != null) {
+      sharedDepsPosition.put(artifact.getArtifactId(), depsBomPath);
       return version;
+    }
+    sharedDepsPosition.put(artifact.getArtifactId(), "");
     return "";
   }
   private static String getSharedDepsVersionFromURL(String pomURL)  {

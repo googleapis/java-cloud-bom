@@ -46,7 +46,7 @@
       <#list artifacts as artifact>
         <tr>
           <th>${artifact}</th>
-          <th><a target="_blank" href=${currentPomURL[artifact]}>${currentVersion[artifact]}</a></th>
+          <th><a target="_blank" href=${sharedDepsPosition[artifact]}>${currentVersion[artifact]}</a></th>
           <th><a target="_blank" href=${newestPomURL[artifact]}>${newestVersion[artifact]}</a></th>
           <th><a target="_blank" href=${metadataURL[artifact]}>${updatedTime[artifact]}</a></th>
           <th>${sharedDepsVersion[artifact]}</th>
