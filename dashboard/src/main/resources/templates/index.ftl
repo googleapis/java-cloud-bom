@@ -13,7 +13,7 @@
     <#assign totalArtifacts = table?size>
 
     <div class="dropdown">
-      <button class="dropbtn">Other Versions</button>
+      <button class="dropdown-button">Other Versions</button>
       <div class="dropdown-content">
         <#list bomVersions as version>
           <a href="../${version?contains('-SNAPSHOT')?then('snapshot', version)}/index.html">${version}</a>
