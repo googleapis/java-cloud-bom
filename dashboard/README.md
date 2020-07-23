@@ -1,7 +1,7 @@
 To generate the dashboard from the root directory run:
 
 ```
-$ mvn clean install
 $ cd dashboard
+$ mvn clean install
 $ mvn exec:java -Dexec.arguments="-f ../pom.xml"
 ```
