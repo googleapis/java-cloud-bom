@@ -4,7 +4,7 @@
   <groupId>com.google.cloud</groupId>
   <artifactId>google-cloud-bom</artifactId>
   <packaging>pom</packaging>
-  <version>0.131.0</version><!-- {x-version-update:google-cloud-bom:current} -->
+  <version>0.131.1-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
   <name>Google Cloud Java BOM</name>
   <url>https://github.com/googleapis/java-cloud-bom</url>
   <description>
@@ -232,7 +232,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigquery</artifactId>
-        <version>1.116.6</version>
+        <version>1.116.7</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
@@ -251,7 +251,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigtable-bom</artifactId>
-        <version>1.13.1</version>
+        <version>1.14.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
