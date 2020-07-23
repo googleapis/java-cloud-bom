@@ -11,7 +11,16 @@
     <h1>${coordinates} Dependency Status</h1>
     <hr />
     <#assign totalArtifacts = table?size>
-    
+
+    <div class="dropdown">
+      <button class="dropbtn">Other Versions</button>
+      <div class="dropdown-content">
+        <#list bomVersions as version>
+          <a href="../${version?contains('-SNAPSHOT')?then('snapshot', version)}/index.html">${version}</a>
+        </#list>
+      </div>
+    </div>
+
     <section class="statistics">
       <div class="container">
         <div class="statistic-item statistic-item-green">
@@ -34,9 +43,9 @@
     </section>
 
     <h2>Library Versions</h2>
-      
+    <input type="text" id="filterBar" onkeyup="filterFunction()" placeholder="Search..">
     <table id="library versions">
-      <tr>
+      <tr class="header">
         <th>artifact</th>
         <th>version in google-cloud-bom</th>
         <th>latest released version</th>
@@ -57,5 +66,24 @@
     <hr />
 
     <p id='updated'>Last generated at ${lastUpdated}</p>
+
+    <script>
+      function filterFunction() {
+        const input = document.getElementById("filterBar").value.toLowerCase();
+        const table = document.getElementById("library versions");
+        const rows = table.getElementsByTagName("tr");
+        for (let i = 1; i < rows.length; i++) {
+          let isDisplay = false;
+          const cols = rows[i].getElementsByTagName("th");
+          for (let j = 0; j < cols.length; j++) {
+            let name = cols[j].textContent || cols[j].innerText;
+            if (name.toLowerCase().indexOf(input) > -1) {
+              isDisplay = true;
+            }
+          }
+          rows[i].style.display = isDisplay ? "" : "none";
+        }
+      }
+    </script>
   </body>
 </html>

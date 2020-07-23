@@ -57,6 +57,8 @@ public class DashboardMain {
 
   private static final DependencyGraphBuilder dependencyGraphBuilder = new DependencyGraphBuilder();
 
+  private static final List<String> bomVersions = new ArrayList<>();
+
   /**
    * Generates a code hygiene dashboard for a BOM. This tool takes a path to pom.xml of the BOM as
    * an argument or Maven coordinates to a BOM.
@@ -94,33 +96,12 @@ public class DashboardMain {
         RepositoryUtility.findVersions(repositorySystem, groupId, artifactId);
     for (String version : versions) {
       if (version.contains("alpha")) continue;
+      bomVersions.add(version);
+    }
+    for (String version : bomVersions) {
       generate(String.format("%s:%s:%s", groupId, artifactId, version));
     }
-    generateVersionIndex(groupId, artifactId, versions);
-  }
-
-  @VisibleForTesting
-  static Path generateVersionIndex(String groupId, String artifactId, List<String> versions)
-      throws IOException, TemplateException, URISyntaxException {
-    Path directory = outputDirectory(groupId, artifactId, "snapshot").getParent();
-    directory.toFile().mkdirs();
-    Path page = directory.resolve("index.html");
-
-    Map<String, Object> templateData = new HashMap<>();
-    templateData.put("versions", versions);
-    templateData.put("groupId", groupId);
-    templateData.put("artifactId", artifactId);
-
-    File dashboardFile = page.toFile();
-    try (Writer out =
-        new OutputStreamWriter(new FileOutputStream(dashboardFile), StandardCharsets.UTF_8)) {
-      Template dashboard = freemarkerConfiguration.getTemplate("/templates/version_index.ftl");
-      dashboard.process(templateData, out);
-    }
-
-    copyResource(directory, "css/dashboard.css");
-
-    return page;
+    //generateVersionIndex(groupId, artifactId, versions);
   }
 
   @VisibleForTesting
@@ -348,7 +329,7 @@ public class DashboardMain {
         .build();
     TemplateHashModel staticModels = wrapper.getStaticModels();
     templateData.put("dashboardMain", staticModels.get(DashboardMain.class.getName()));
-
+    templateData.put("bomVersions", bomVersions);
     File dashboardFile = output.resolve("index.html").toFile();
     try (Writer out = new OutputStreamWriter(
         new FileOutputStream(dashboardFile), StandardCharsets.UTF_8)) {
