@@ -89,4 +89,3 @@ jobs:
     - run: .kokoro/build.sh
       env:
         JOB_TYPE: clirr
-
