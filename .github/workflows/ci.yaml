@@ -57,7 +57,7 @@ jobs:
       with:
         java-version: ${{matrix.java}}
     - run: java -version
-    - run: sudo .kokoro/versions.sh
+    - run: sudo ./.kokoro/versions.sh
   linkage-monitor:
     runs-on: ubuntu-latest
     steps:
