@@ -46,18 +46,6 @@ jobs:
         java-version: ${{matrix.java}}
     - run: java -version
     - run: .kokoro/dependencies.sh
-  versions:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        java: [8, 11]
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v1
-        with:
-          java-version: ${{matrix.java}}
-      - run: java -version
-      - run: .kokoro/versions.sh
   linkage-monitor:
     runs-on: ubuntu-latest
     steps:
