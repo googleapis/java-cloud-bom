@@ -28,175 +28,187 @@ scriptDir=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 # include common functions
 source ${scriptDir}/common.sh
 
-#Returns 1 if we find an updated dependency in the commit message.
-function getDependency() {
-  currCommitNumber=$(git rev-parse HEAD)
+#Returns 1 if we find an updated client library in the commit message.
+#Echos client library (if found) before completion.
+function getLibraryUpdate() {
+ currCommitNumber=$(git rev-parse HEAD)
 
-  #Note that this grep serves to check if we're updating a dependency including shared-dependencies.
-  currCommitMessage=$(git log -1 $currCommitNumber | grep "deps: update dependency com.google.cloud:google-cloud-")
+ #Note that this grep serves to check if we're updating a dependency including shared-dependencies.
+ currCommitMessage=$(git log -1 $currCommitNumber | grep "deps: update dependency com.google.cloud:google-cloud-")
 
-  if [[ -z $currCommitMessage ]]
-  then
-    echo "Commit message does not have correct formatting. Assuming no error."
-    return 1
-  fi
+ if [[ -z $currCommitMessage ]]
+ then
+   echo "Commit message does not have correct formatting. Assuming no error."
+   return 1
+ fi
 
-  dependency=${currCommitMessage:28}
-  dependency=${dependency/ to v/:}
-  dependency=${dependency/*com.google.cloud:}
+ #Use regex to grab the dependency group and artifact IDs
 
-  if [[ -z $dependency ]]
-  then
-    return 1
-  fi
+ #Find group and artifact by format
+ groupAndArtifact=$(echo $currCommitMessage | grep -oP 'com.google.cloud:google-cloud-\S+')
 
-  echo "$dependency"
-  return 0
+ #Grab Artifact
+ artifact=${groupAndArtifact/*:}
+
+ #Find version by format v[Number][Everything else before whitespace]
+ version=$(echo $currCommitMessage | grep -oP 'v[0-9]([^\s]+)')
+ version=${version/*v}
+
+ artifactAndVersion=$artifact$":"$version
+
+ #If we failed to find either the artifact or the version, return failure.
+ if [[ -z $artifact ]] || [[ -z $version ]]
+ then
+   return 1
+ fi
+
+ echo "$artifactAndVersion"
+ return 0
 }
 
+#Gets the latest version of java-shared-dependencies
 function getLatestSharedDepsVersion() {
-  group="com.google.cloud"
-  artifact="google-cloud-shared-dependencies"
-  latest="$group:$artifact:LATEST"
-  pom=$(mvn help:effective-pom -Dartifact=$latest)
+ group="com.google.cloud"
+ artifact="google-cloud-shared-dependencies"
+ latest="$group:$artifact:LATEST"
+ pom=$(mvn help:effective-pom -Dartifact=$latest)
 
-  if [[ -z $pom ]]
-  then
-    echo "ERROR: Failed to find effective POM!"
-    return 1
-  fi
+ if [[ -z $pom ]]
+ then
+   echo "ERROR: Failed to find effective POM of java-shared-dependencies!"
+   return 1
+ fi
 
-  sharedDepsLatestVersion="$(echo "$pom" | grep "$group:$artifact")"
-  sharedDepsLatestVersion=${sharedDepsLatestVersion/* \'/}
-  sharedDepsLatestVersion=${sharedDepsLatestVersion/\' */}
-  sharedDepsLatestVersion=${sharedDepsLatestVersion/*:}
-  if [[ -z $sharedDepsLatestVersion ]]
-  then
-    echo "ERROR: Failed to find latest shared config version!"
-    return 1
-  fi
+ sharedDepsLatestVersion=$(echo "$pom" | grep -oP 'com.google.cloud:google-cloud-shared-dependencies:pom:[0-9.a-z]*')
+ sharedDepsLatestVersion=${sharedDepsLatestVersion/*:}
 
-  echo "$sharedDepsLatestVersion"
-  return 0
+ if [[ -z $sharedDepsLatestVersion ]]
+ then
+   echo "ERROR: Failed to find latest shared config version!"
+   return 1
+ fi
+
+ echo "$sharedDepsLatestVersion"
+ return 0
 }
 
 #Pass in dependency to script.
 #Dependency should be of the form artifactId:version
 
-function checkDependency() {
-  dependency=$1
+function checkLibrary() {
+ clientLibrary=$1 #Should be of the format artifactId:version
 
-  #If no dependency was passed straight to the script, check our most recent commit for a dep version update.
-  if [[ -z $dependency ]]
-  then
-    dependency=$(getDependency)
-  else
-    if [[ -z $(echo $dependency | grep google-cloud-) ]]
-    then
-      echo "$dependency does not require shared-dependencies criteria. Returning success."
-      return 0
-    fi
-  fi
+ #If no dependency was passed straight to the script, check our most recent commit for a dep version update.
+ if [[ -z $clientLibrary ]]
+ then
+   clientLibrary=$(getLibraryUpdate)
+   #We did not successfully find a valid commit with a dependency. Return success - nothing to check here!
+   if ! [[ $? -eq 0 ]]
+   then
+     echo "Commit message does not have correct formatting. Assuming no error."
+     return 0
+   fi
+ else
+   #Check if dependency contains 'google-cloud-'. If it does not, it's already valid!
+   if [[ -z $(echo $clientLibrary | grep "google-cloud-") ]]
+   then
+     echo "$clientLibrary does not require shared-dependencies criteria. Returning success."
+     return 0
+   fi
+ fi
 
-  #We did not successfully find a valid commit with a dependency. Return success - nothing to check here!
-  if ! [[ $? -eq 0 ]]
-  then
-    echo "Commit message does not have correct formatting. Assuming no error."
-    return 0
-  fi
+ #Should just be the desired version for shared-deps, e.g. "0.8.3"
+ desiredDeps=$2
 
-  #Should just be the desired version for shared-deps, e.g. "0.8.3"
-  desiredDeps=$2
+ if [[ -z $desiredDeps ]]
+ then
+   desiredDeps=$(getLatestSharedDepsVersion)
+   if [[ -z $desiredDeps ]]
+   then
+     echo "Unable to find correct version of shared-dependencies."
+     return 1
+   fi
+ fi
 
-  if [[ -z $desiredDeps ]]
-  then
-    desiredDeps=$(getLatestSharedDepsVersion)
-    if [[ -z $desiredDeps ]]
-    then
-      echo "Unable to find correct version of shared-dependencies."
-      return 1
-    fi
-  fi
+ depVersion=${clientLibrary/*:} #Grab last part of dependency artifactId:version input.
+ depVersion=${depVersion/-*} #Remove any alphabetical characters at the end (e.g. -alpha, -beta, etc)
 
-  depVersion=${dependency/*:} #Grab last part of dependency artifactId:version input.
-  depVersion=${depVersion/-*} #Remove any alphabetical characters at the end (e.g. -alpha, -beta, etc)
+ pomLocation="/pom.xml"
 
-  pomLocation="/pom.xml"
+ #The naming of these libraries does not follow the rules. As such, we've added in special cases for them.
+ #depArtifactId => the ID inside of the Github link for the dependency.
+ case $clientLibrary in
+   *"google-cloud-bigtable-bom"*)
+   depArtifactId="java-bigtable"
+   pomLocation="/google-cloud-bigtable-deps-bom/pom.xml"
+   ;;
+   *"google-cloud-core-bom"*)
+   #This is an exceptional case which does not require shared-dependencies! Return true automatically.
+   echo "Found exception google-cloud-core-bom!"
+   return 0
+   ;;
+   *"google-cloud-build-bom"*)
+   depArtifactId="java-cloudbuild"
+   ;;
+   *"google-cloud-monitoring-dashboard-bom"*)
+   depArtifactId="java-monitoring-dashboards"
+   ;;
+   *"google-cloud-nio"*)
+   depArtifactId="java-storage-nio"
+   ;;
+   *)
+   #General rules for obtaining the Github repo name are:
+   #Replace google-cloud with java, remove the version number, and remove -bom from the end (if there)
+   depArtifactId=${dependency/*google-cloud-/java-}
+   depArtifactId=${depArtifactId/:*}
+   depArtifactId=${depArtifactId/-bom*}
+   ;;
+ esac
 
-  #The naming of these libraries does not follow the rules. As such, we've added in special cases for them.
-  #depAID=dependency artifact ID - this is the ID inside of the Github link for the dependency.
-  case $dependency in
-    *"google-cloud-bigtable-bom"*)
-    depAID="java-bigtable"
-    pomLocation="/google-cloud-bigtable-deps-bom/pom.xml"
-    ;;
-    *"google-cloud-core-bom"*)
-    #This is an exceptional case which does not require shared-dependencies! Return true automatically.
-    echo "Found exception google-cloud-core-bom!"
-    return 0
-    ;;
-    *"google-cloud-build-bom"*)
-    depAID="java-cloudbuild"
-    ;;
-    *"google-cloud-monitoring-dashboard-bom"*)
-    depAID="java-monitoring-dashboards"
-    ;;
-    *"google-cloud-nio"*)
-    depAID="java-storage-nio"
-    ;;
-    *)
-    #General rules for obtaining the Github repo name are:
-    #Replace google-cloud with java, (of course) remove the version number, and remove -bom from the end (if there)
-    depAID=${dependency/*google-cloud-/java-}
-    depAID=${depAID/:*}
-    depAID=${depAID/-bom*}
-    ;;
-  esac
+ #Grab raw POM file from Github
+ rawFileStart="https://raw.githubusercontent.com/googleapis/"
+ gitPom=$rawFileStart$depArtifactId"/v"$depVersion$pomLocation
 
-  #Grab raw POM file from Github
-  rawFileStart="https://raw.githubusercontent.com/googleapis/"
-  gitPom=$rawFileStart$depAID"/v"$depVersion$pomLocation
+ #If $3 is nonempty, we're running this script directly.
+ if [[ ! -z $3 ]]
+ then
+   echo "POM File Link Generated: $gitPom"
+ fi
 
-  #If $3 is nonempty, we're running this script directly.
-  if [[ ! -z $3 ]]
-  then
-    echo "POM File Link Generated: $gitPom"
-  fi
+ content=$(wget $gitPom -q -O -)
 
-  content=$(wget $gitPom -q -O -)
+ if [[ -z $content ]]
+ then
+   echo "Failed to find POM for $clientLibrary!"
+   return 1
+ fi
 
-  if [[ -z $content ]]
-  then
-    echo "Failed to find POM for $dependency!"
-    return 1
-  fi
+ #Grab all information from the client library's effective POM
+ currDepsVersion="$(echo "$content" | sed '1,/google-cloud-shared-dependencies/d')"
 
-  #Grab all information from the dependency's effective POM
-  currDepsVersion="$(echo "$content" | sed '1,/google-cloud-shared-dependencies/d')"
+ #shared-dependencies is not in our dependencyManagement section!
+ if [[ -z $currDepsVersion ]]
+ then
+   echo "google-cloud-shared-dependencies is not listed for $clientLibrary!"
+   return 2
+ fi
 
-  #shared-dependencies is not in our dependencyManagement section!
-  if [[ -z $currDepsVersion ]]
-  then
-    echo "google-cloud-shared-dependencies is not listed for $dependency!"
-    return 2
-  fi
+ currDepsVersion=${currDepsVersion/<\/version>*}
+ currDepsVersion=${currDepsVersion/*<version>}
 
-  currDepsVersion=${currDepsVersion/<\/version>*}
-  currDepsVersion=${currDepsVersion/*<version>}
+ if [[ $currDepsVersion != $desiredDeps ]]
+ then
+   echo "$clientLibrary - Version Found: $currDepsVersion"
+   return 3
+ fi
 
-  if [[ $currDepsVersion != $desiredDeps ]]
-  then
-    echo "$dependency - Version Found: $currDepsVersion"
-    return 3
-  fi
-
-  echo "$dependency passed java-shared-dependencies check."
-  return 0
+ echo "$clientLibrary passed java-shared-dependencies check."
+ return 0
 }
 
 #If we're running the script directly from this file, we likely want to check the current commit, or skip.
 if [ "${BASH_SOURCE[0]}" -ef "$0" ]
 then
-  echo $(checkDependency "$1" "$2" 1)
-  exit $?
+ echo $(checkDependency "$1" "$2" 1)
+ exit $?
 fi
