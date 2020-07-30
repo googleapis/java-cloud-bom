@@ -159,12 +159,11 @@ function checkLibrary() {
    *)
    # General rules for obtaining the Github repo name are:
    # Replace google-cloud with java, remove the version number, and remove -bom from the end (if there)
-   depArtifactId=${dependency/*google-cloud-/java-}
+   depArtifactId=${clientLibrary/*google-cloud-/java-}
    depArtifactId=${depArtifactId/:*}
    depArtifactId=${depArtifactId/-bom*}
    ;;
  esac
-
  # Grab raw POM file from Github
  rawFileStart="https://raw.githubusercontent.com/googleapis/"
  gitPom=${rawFileStart}${depArtifactId}"/v"${depVersion}${pomLocation}
@@ -175,7 +174,7 @@ function checkLibrary() {
    echo "POM File Link Generated: ${gitPom}"
  fi
 
- content=$(curl ${gitPom} -q -O -)
+ content=$(curl ${gitPom} --silent)
 
  if [[ -z $content ]]
  then
@@ -209,6 +208,6 @@ function checkLibrary() {
 # If we're running the script directly from this file, we likely want to check the current commit, or skip.
 if [ "${BASH_SOURCE[0]}" -ef "$0" ]
 then
- echo $(checkDependency "$1" "$2" 1)
+ echo $(checkLibrary "$1" "$2" 1)
  exit $?
 fi
