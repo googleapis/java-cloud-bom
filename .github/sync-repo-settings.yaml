@@ -1,8 +1,8 @@
-# Whether or not squash-merging is enabled on this repository.
+# Whether or not rebase-merging is enabled on this repository.
 # Defaults to `true`
 rebaseMergeAllowed: false
 
-# Whether or not rebase-merging is enabled on this repository.
+# Whether or not squash-merging is enabled on this repository.
 # Defaults to `true`
 squashMergeAllowed: true
 
