@@ -22,12 +22,14 @@ cd ${scriptDir}/..
 
 # include common functions
 source ${scriptDir}/common.sh
+source ${scriptDir}/shared-deps-helper.sh
+
 source ${scriptDir}/deps-finder.sh
 
-succeeded=()
-pomNotFound=()
-noSharedDeps=()
-incorrectVersion=()
+successfulClientLibraries=()
+pomNotFoundLibraries=()
+librariesWithoutSharedDeps=()
+librariesWithBadSharedDepsVersion=()
 
 # Print out Java
 java -version
@@ -38,89 +40,94 @@ export MAVEN_OPTS="-Xmx1024m "
 
 function releaseVersionsCheck() {
   latestSharedDeps=$(getLatestSharedDepsVersion)
-  msg "Desired java-shared-dependencies version: " ${latestSharedDeps}
+  if [[ -z ${latestSharedDeps} ]]; then
+    echo "Unable to find correct version of shared-dependencies."
+    exit 1
+  fi
+  msg "Desired java-shared-dependencies version:  ${latestSharedDeps}"
   depsManaged="$(sed '1,/dependencyManagement/d' pom.xml | sed -n '/dependencyManagement/q;p' | sed '/<!--/d')"
-  ct=0
-  totalCt=0
+  failedLibrariesCount=0
+  totalLibrariesCount=0
 
   # Iterate through all managed dependencies.
-  while [[ ! -z ${depsManaged} ]]
-  do
-    currDep=$(echo "${depsManaged}" | sed '1,/<dependency>/d' | sed -n '/<\/dependency>/q;p')
-    depsManaged=${depsManaged/*$currDep} #Remove old dependency
+  while [[ ! -z ${depsManaged} ]]; do
+    currLibrary=$(echo "${depsManaged}" | sed '1,/<dependency>/d' | sed -n '/<\/dependency>/q;p')
+    depsManaged=${depsManaged/*$currLibrary/} #Remove old dependency
     depsManaged=$(echo "${depsManaged}" | sed 2d)
     # Check if we're looking at a valid dependency (starts with google-cloud and is nonempty)
-    if [[ ! -z ${currDep} ]] && [[ ! -z $(echo ${currDep} | grep "google-cloud") ]]
-    then
-      artifactId=${currDep/*<artifactId>}
-      artifactId=${artifactId/<\/artifactId>*}
+    if [[ ! -z ${currLibrary} ]] && [[ ! -z $(echo ${currLibrary} | grep "google-cloud") ]]; then
+      artifactId=${currLibrary/*<artifactId>/}
+      artifactId=${artifactId/<\/artifactId>*/}
 
-      version=${currDep/*<version>}
-      version=${version/<\/version>*}
+      version=${currLibrary/*<version>/}
+      version=${version/<\/version>*/}
 
-      catted=${artifactId}":"${version}
-
+      libraryArtifactAndVersion=${artifactId}":"${version}
       # Check if the dependency has the correct java-shared-dependencies version.
-      pvOutput=$(checkLibrary ${catted} ${latestSharedDeps})
+      sharedDepsCheckOutput=$(checkLibrary ${libraryArtifactAndVersion} ${latestSharedDeps})
+
       case $? in
       "0")
-        succeeded+=(${catted})
-      ;;
+        successfulClientLibraries+=(${libraryArtifactAndVersion})
+        ;;
       "1")
-        pomNotFound+=(${catted})
-        ct=$((${ct}+1))
-      ;;
+        pomNotFoundLibraries+=(${libraryArtifactAndVersion})
+        failedLibrariesCount=$((${failedLibrariesCount} + 1))
+        ;;
       "2")
-        noSharedDeps+=(${catted})
-        ct=$((${ct}+1))
-      ;;
+        librariesWithoutSharedDeps+=(${libraryArtifactAndVersion})
+        failedLibrariesCount=$((${failedLibrariesCount} + 1))
+        ;;
       *)
-        incorrectVersion+=("${pvOutput}")
-        ct=$((${ct}+1))
-      ;;
+        librariesWithBadSharedDepsVersion+=("${sharedDepsCheckOutput}")
+        failedLibrariesCount=$((${failedLibrariesCount} + 1))
+        ;;
       esac
-      totalCt=$((${totalCt}+1))
-  fi
-done
-return $ct
+      totalLibrariesCount=$((${totalLibrariesCount} + 1))
+    fi
+  done
+  return ${failedLibrariesCount}
 }
 
 # Allow failures to continue running the script
 set +e
 
-dir=$(dirname "./pom.xml")
+# Allow the script to run normally if we're passed any argument
+if [[ -z $1 ]]; then
+  isReleaseBranch # Otherwise if we're on a release branch
+  if [[ ! $? -eq 0 ]]; then
+    msg "This is either a SNAPSHOT release or not a release! Returning success!"
+    exit 0
+  fi
+fi
+
 releaseVersionsCheck
 
-if [[ $? -eq 0 ]]
-then
-  msg "Check passed."
+if [[ $? -eq 0 ]]; then
+  msg "Check passed. All libraries have the correct version of java-shared-dependencies!"
   exit 0
 else # We fail if the number of failing client libraries is > 0.
-  if [[ ! -z ${succeeded} ]]
-  then
+  if [[ ! -z ${successfulClientLibraries} ]]; then
     echo "------------------------------------------------------------------------------"
     msg "Successful Client Libraries: "
-    printf '%s\n' "${succeeded[@]}"
+    printf '%s\n' "${successfulClientLibraries[@]}"
   fi
-  if [[ ! -z ${pomNotFound} ]]
-  then
+  if [[ ! -z ${pomNotFoundLibraries} ]]; then
     echo "------------------------------------------------------------------------------"
     msg "Client Libraries with Unfindable POMs: "
-    printf '%s\n' "${pomNotFound[@]}"
+    printf '%s\n' "${pomNotFoundLibraries[@]}"
   fi
-  if [[ ! -z ${noSharedDeps} ]]
-  then
+  if [[ ! -z ${librariesWithoutSharedDeps} ]]; then
     echo "------------------------------------------------------------------------------"
     msg "Client Libraries Missing java-shared-dependencies:"
-    printf '%s\n' "${noSharedDeps[@]}"
+    printf '%s\n' "${librariesWithoutSharedDeps[@]}"
   fi
-  if [[ ! -z ${incorrectVersion} ]]
-  then
+  if [[ ! -z ${librariesWithBadSharedDepsVersion} ]]; then
     echo "------------------------------------------------------------------------------"
     msg "Client Libraries with an Incorrect Version of java-shared-dependencies:"
-    printf '%s\n' "${incorrectVersion[@]}"
+    printf '%s\n' "${librariesWithBadSharedDepsVersion[@]}"
   fi
   msg "Errors found. See log statements above."
-  msg "Number of incorrect dependencies found: $ct. Number of correct dependencies: $((${totalCt}-${ct}))."
+  msg "Number of incorrect dependencies found: ${failedLibrariesCount}. Number of correct dependencies: $((${totalLibrariesCount} - ${failedLibrariesCount}))."
   exit 1
 fi
