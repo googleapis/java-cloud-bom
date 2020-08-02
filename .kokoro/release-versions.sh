@@ -46,20 +46,28 @@ function releaseVersionsCheck() {
   fi
   msg "Desired java-shared-dependencies version:  ${latestSharedDeps}"
   depsManaged="$(sed '1,/dependencyManagement/d' pom.xml | sed -n '/dependencyManagement/q;p' | sed '/<!--/d')"
+
+  if [[ -z ${depsManaged} ]]; then
+    msg "Unable to find dependency management section!"
+    return 1
+  fi
+
   failedLibrariesCount=0
   totalLibrariesCount=0
 
   # Iterate through all managed dependencies.
-  while [[ ! -z ${depsManaged} ]]; do
-    currLibrary=$(echo "${depsManaged}" | sed '1,/<dependency>/d' | sed -n '/<\/dependency>/q;p')
-    depsManaged=${depsManaged/*$currLibrary/} #Remove old dependency
-    depsManaged=$(echo "${depsManaged}" | sed 2d)
+  while true; do
+    currentLibrary=$(echo "${depsManaged}" | sed '1,/<dependency>/d' | sed -n '/<\/dependency>/q;p')
+    if [[ -z ${currentLibrary} ]]; then
+      break
+    fi
+    depsManaged=${depsManaged/*$currentLibrary/} #Remove this client library from our list of dependencies
     # Check if we're looking at a valid dependency (starts with google-cloud and is nonempty)
-    if [[ ! -z ${currLibrary} ]] && [[ ! -z $(echo ${currLibrary} | grep "google-cloud") ]]; then
-      artifactId=${currLibrary/*<artifactId>/}
+    if [[ ! -z $(echo ${currentLibrary} | grep "google-cloud") ]]; then
+      artifactId=${currentLibrary/*<artifactId>/}
       artifactId=${artifactId/<\/artifactId>*/}
 
-      version=${currLibrary/*<version>/}
+      version=${currentLibrary/*<version>/}
       version=${version/<\/version>*/}
 
       libraryArtifactAndVersion=${artifactId}":"${version}
