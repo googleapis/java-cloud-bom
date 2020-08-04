@@ -11,8 +11,8 @@
   <artifactId>google-cloud-bom-dashboard</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>Cloud Tools Open Source Code Hygiene Dashboard</name>
-  <url>https://github.com/GoogleCloudPlatform/cloud-opensource-java/dashboard</url>
+  <name>Google Cloud BOM Dashboard</name>
+  <url>https://github.com/googleapis/java-cloud-bom/tree/master/dashboard</url>
   <organization>
     <name>Google LLC.</name>
     <url>https://www.google.com</url>
@@ -91,6 +91,11 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud.tools</groupId>
+      <artifactId>dependencies</artifactId>
+      <version>1.4.3</version>
     </dependency>
 
     <dependency>
