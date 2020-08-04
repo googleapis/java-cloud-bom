@@ -16,9 +16,8 @@
 
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
+import com.google.cloud.tools.opensource.dependencies.DependencyGraph;
 import org.eclipse.aether.RepositoryException;
-
-import com.google.cloud.tools.opensource.cloudbomdashboard.dependencies.DependencyGraph;
 
 /** 
  * Cache of info looked up for an artifact.
