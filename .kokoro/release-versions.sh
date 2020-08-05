@@ -61,7 +61,8 @@ function releaseVersionsCheck() {
    if [[ -z ${currentLibrary} ]]; then
      break
    fi
-   depsManaged=${depsManaged/*$currentLibrary/} #Remove this client library from our list of dependencies
+   #Remove this client library from our list of dependencies
+   depsManaged=${depsManaged/*$currentLibrary/}
    # Check if we're looking at a valid dependency (contains with google-cloud)
    if [[ ! -z $(echo ${currentLibrary} | grep "google-cloud") ]]; then
      artifactId=${currentLibrary/*<artifactId>/}
