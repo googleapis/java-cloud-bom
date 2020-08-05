@@ -1,9 +1,22 @@
 #!/bin/bash
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-#Helper functions for the deps-finder and release-versions scripts.
-
+# Helper functions for the deps-finder and release-versions scripts.
 function isReleaseBranch() {
-  #Check if we're currently on a non-SNAPSHOT release branch. If we are, we want to run the check.
+  # Check if we're currently on a non-SNAPSHOT release branch.
+  # If we are, we want to run the check.
   currBranch=$(git rev-parse --abbrev-ref HEAD | grep "release-v")
   snapShotCheck=$(echo ${currBranch} | grep "\-SNAPSHOT")
   if [[ -z ${currBranch} ]] || [[ ! -z ${snapShotCheck} ]]; then
@@ -12,8 +25,8 @@ function isReleaseBranch() {
   return 0
 }
 
-#  Returns 1 if we find an updated client library in the commit message.
-#Echos client library (if found) before completion.
+# Returns 1 if we find an updated client library in the commit message.
+# Echos client library (if found) before completion.
 function getLibraryUpdate() {
   currentCommitNumber=$(git rev-parse HEAD)
 
@@ -27,7 +40,7 @@ function getLibraryUpdate() {
 
   #  Use regex to grab the dependency group and artifact IDs
 
-  #Find group and artifact by format
+  # Find group and artifact by format
   groupAndArtifact=$(echo ${currentCommitMessage} | grep -oP 'com.google.cloud:google-cloud-\S+')
 
   # Grab Artifact
@@ -44,7 +57,7 @@ function getLibraryUpdate() {
     return 1
   fi
 
-  echo "$artifactAndVersion"
+  echo "${artifactAndVersion}"
   return 0
 }
 
