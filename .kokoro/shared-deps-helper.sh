@@ -30,7 +30,7 @@ function isReleaseBranch() {
 function getLibraryUpdate() {
   currentCommitNumber=$(git rev-parse HEAD)
 
-  # Note that this grep serves to check if we're updating a dependency including shared-dependencies.
+  # Check if we're updating a dependency including shared-dependencies.
   currentCommitMessage=$(git log -1 ${currentCommitNumber} | grep "deps: update dependency com.google.cloud:google-cloud-")
 
   if [[ -z ${currentCommitMessage} ]]; then
