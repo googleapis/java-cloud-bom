@@ -46,6 +46,7 @@
     <input type="text" id="filterBar" onkeyup="filterFunction()" placeholder="Search..">
     <table id="library versions">
       <tr class="header">
+        <th>java-cloud-bom version</th>
         <th>artifact</th>
         <th>version in google-cloud-bom</th>
         <th>latest released version</th>
@@ -53,13 +54,17 @@
         <th>version of google-cloud-shared-dependencies</th>
       </tr>
       <#list artifacts as artifact>
-        <tr>
-          <th>${artifact}</th>
-          <th><a target="_blank" href=${sharedDepsPosition[artifact]}>${currentVersion[artifact]}</a></th>
-          <th><a target="_blank" href=${newestPomURL[artifact]}>${newestVersion[artifact]}</a></th>
-          <th><a target="_blank" href=${metadataURL[artifact]}>${updatedTime[artifact]}</a></th>
-          <th>${sharedDepsVersion[artifact]}</th>
-        </tr>
+        <#list versions as version>
+          <tr>
+              <#assign key = artifact + ":" + version>
+              <th>${version}</th>
+              <th>${artifact}</th>
+              <th><a target="_blank" href=${sharedDepsPosition[key]}>${currentVersion[key]}</a></th>
+              <th><a target="_blank" href=${newestPomURL[key]}>${newestVersion[key]}</a></th>
+              <th><a target="_blank" href=${metadataURL[key]}>${updatedTime[key]}</a></th>
+              <th>${sharedDepsVersion[key]}</th>
+          </tr>
+        </#list>
       </#list>
     </table>
 
@@ -68,19 +73,39 @@
     <p id='updated'>Last generated at ${lastUpdated}</p>
 
     <script>
+      function colsContainAllInput(cols, input) {
+        for(let i = 0; i < input.length; i++) {
+            if(input[i].length == 0) {
+                continue;
+            }
+            let found = false;
+            for(let j = 0; j < cols.length; j++) {
+                let name = cols[j].textContent || cols[j].innerText;
+                if(name.toLowerCase().indexOf(input[i]) > -1) {
+                    found = true;
+                }
+            }
+            if(!found) {
+                return false;
+            }
+        }
+        return true;
+      }
+
       function filterFunction() {
         const input = document.getElementById("filterBar").value.toLowerCase();
+        if(input === "") {
+            for (let i = 1; i < rows.length; i++) {
+                rows[i].style.display = "";
+            }
+            return;
+        }
+        const splitInput = input.split(" ");
         const table = document.getElementById("library versions");
         const rows = table.getElementsByTagName("tr");
         for (let i = 1; i < rows.length; i++) {
-          let isDisplay = false;
           const cols = rows[i].getElementsByTagName("th");
-          for (let j = 0; j < cols.length; j++) {
-            let name = cols[j].textContent || cols[j].innerText;
-            if (name.toLowerCase().indexOf(input) > -1) {
-              isDisplay = true;
-            }
-          }
+          let isDisplay = colsContainAllInput(cols, splitInput);
           rows[i].style.display = isDisplay ? "" : "none";
         }
       }

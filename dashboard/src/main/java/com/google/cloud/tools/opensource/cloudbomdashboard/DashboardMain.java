@@ -22,10 +22,6 @@ import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import freemarker.template.*;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.io.FileUtils;
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.aether.RepositoryException;
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.artifact.Artifact;
@@ -34,14 +30,10 @@ import org.eclipse.aether.graph.Dependency;
 
 import java.io.*;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -59,6 +51,8 @@ public class DashboardMain {
 
   private static final List<String> bomVersions = new ArrayList<>();
 
+  private static boolean generateAll = false;
+
   /**
    * Generates a code hygiene dashboard for a BOM. This tool takes a path to pom.xml of the BOM as
    * an argument or Maven coordinates to a BOM.
@@ -72,7 +66,9 @@ public class DashboardMain {
       ParseException, MavenRepositoryException {
     DashboardArguments dashboardArguments = DashboardArguments.readCommandLine(arguments);
 
+    //If looking to edit the dashboard structure, see DashboardMain#generateDashboard.
     if (dashboardArguments.hasVersionlessCoordinates()) {
+      generateAll = true;
       generateAllVersions(dashboardArguments.getVersionlessCoordinates());
     } else if (dashboardArguments.hasFile()) {
       generate(dashboardArguments.getBomFile());
@@ -98,9 +94,14 @@ public class DashboardMain {
       if (version.contains("alpha")) continue;
       bomVersions.add(version);
     }
+    bomVersions.add(VersionData.ALL_VERSIONS_NAME);
     for (String version : bomVersions) {
-      generate(String.format("%s:%s:%s", groupId, artifactId, version));
+      if(!VersionData.ALL_VERSIONS_NAME.equals(version)) {
+        generate(String.format("%s:%s:%s", groupId, artifactId, version));
+      }
     }
+    generateAllVersionsDashboard();
+    //generateAllVersions();
     //generateVersionIndex(groupId, artifactId, versions);
   }
 
@@ -143,18 +144,15 @@ public class DashboardMain {
     return Paths.get("target", groupId, artifactId, versionPathElement);
   }
 
-  private static Path generateHtml(
-      Bom bom,
-      ArtifactCache cache
-      )
+  private static Path generateHtml(Bom bom, ArtifactCache cache)
       throws IOException, TemplateException, URISyntaxException {
 
     Artifact bomArtifact = new DefaultArtifact(bom.getCoordinates());
 
-    Path relativePath =
-        outputDirectory(
-            bomArtifact.getGroupId(), bomArtifact.getArtifactId(), bomArtifact.getVersion());
+    Path relativePath = outputDirectory(bomArtifact.getGroupId(), bomArtifact.getArtifactId(), bomArtifact.getVersion());
+
     Path output = Files.createDirectories(relativePath);
+
 
     copyResource(output, "css/dashboard.css");
     copyResource(output, "js/dashboard.js");
@@ -196,10 +194,7 @@ public class DashboardMain {
         table.add(unavailable);
       } else {
         Artifact artifact = entry.getKey();
-        ArtifactResults results =
-            generateArtifactReport(
-                artifact,
-                entry.getValue());
+        ArtifactResults results = generateArtifactReport(artifact, entry.getValue());
         table.add(results);
       }
     }
@@ -233,10 +228,7 @@ public class DashboardMain {
     return cache;
   }
 
-  private static ArtifactResults generateArtifactReport(
-      Artifact artifact,
-      ArtifactInfo artifactInfo)
-  {
+  private static ArtifactResults generateArtifactReport(Artifact artifact, ArtifactInfo artifactInfo) {
     // includes all versions
     DependencyGraph graph = artifactInfo.getCompleteDependencies();
     List<Update> convergenceIssues = graph.findUpdates();
@@ -252,8 +244,7 @@ public class DashboardMain {
     return results;
   }
 
-  private static Map<Artifact, Artifact> findUpperBoundsFailures(
-      Map<String, String> expectedVersionMap,
+  private static Map<Artifact, Artifact> findUpperBoundsFailures(Map<String, String> expectedVersionMap,
       DependencyGraph transitiveDependencies) {
 
     Map<String, String> actualVersionMap = transitiveDependencies.getHighestVersionMap();
@@ -279,47 +270,45 @@ public class DashboardMain {
     return upperBoundFailures;
   }
 
+  static void generateAllVersionsDashboard() throws IOException, TemplateException, URISyntaxException {
+    Map<String, Object> templateData = VersionData.ALL_VERSIONS_DATA.getTemplateData();
+    templateData.put("coordinates", "");
+    templateData.put("table", new ArrayList<>());
+    templateData.put("dependencyGraphs", new ArrayList<>());
+
+    Path relativePath = outputDirectory("com.google.cloud", "google-cloud-bom", VersionData.ALL_VERSIONS_NAME);
+    Path output = Files.createDirectories(relativePath);
+
+    copyResource(output, "css/dashboard.css");
+    copyResource(output, "js/dashboard.js");
+
+    // Accessing static methods from Freemarker template
+    // https://freemarker.apache.org/docs/pgui_misc_beanwrapper.html#autoid_60
+    DefaultObjectWrapper wrapper = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28)
+            .build();
+    TemplateHashModel staticModels = wrapper.getStaticModels();
+    templateData.put("dashboardMain", staticModels.get(DashboardMain.class.getName()));
+    templateData.put("bomVersions", bomVersions);
+    File dashboardFile = output.resolve("index.html").toFile();
+    try (Writer out = new OutputStreamWriter(new FileOutputStream(dashboardFile), StandardCharsets.UTF_8)) {
+      Template dashboard = DashboardMain.freemarkerConfiguration.getTemplate("/templates/index.ftl");
+      dashboard.process(templateData, out);
+    }
+  }
 
   @VisibleForTesting
-  static void generateDashboard(
-          Path output,
-          List<ArtifactResults> table,
-          ArtifactCache cache,
-          Bom bom)
+  static void generateDashboard(Path output, List<ArtifactResults> table, ArtifactCache cache, Bom bom)
           throws IOException, TemplateException {
-    TreeSet<String> artifacts = new TreeSet<>();
-    Map<String, String> currentVersion = new HashMap<>();
-    Map<String, String> sharedDepsPosition = new HashMap<>();
-    Map<String, String> newestVersion = new HashMap<>();
-    Map<String, String> newestPomURL = new HashMap<>();
-    Map<String, String> sharedDepsVersion = new HashMap<>();
-    Map<String, String> updatedTime = new HashMap<>();
-    Map<String, String> metadataURL = new HashMap<>();
+    
     Map<Artifact, ArtifactInfo> infoMap = cache.getInfoMap();
-    for (Map.Entry<Artifact, ArtifactInfo> info : infoMap.entrySet()) {
-      String artifactId = info.getKey().getArtifactId();
-      String groupId = info.getKey().getGroupId();
-      String version = info.getKey().getVersion();
-      artifacts.add(artifactId);
-      currentVersion.put(artifactId,version);
-      newestVersion.put(artifactId, latestVersion(info.getKey()));
-      newestPomURL.put(artifactId, getPomFileURL(groupId, artifactId, newestVersion.get(artifactId)));
-      sharedDepsVersion.put(artifactId, sharedDependencyVersion(info.getKey(), sharedDepsPosition));
-      updatedTime.put(artifactId, updatedTime(info.getKey()));
-      metadataURL.put(artifactId, getMetadataURL(info.getKey()));
-    }
+    String cloudBomVersion = bom.getCoordinates().substring(bom.getCoordinates().lastIndexOf(":") + 1);
 
-    Map<String, Object> templateData = new HashMap<>();
+    VersionData currentVersionDashboard = new VersionData(cloudBomVersion);
+    currentVersionDashboard.populateData(generateAll, infoMap);
+
+    Map<String, Object> templateData = currentVersionDashboard.getTemplateData();
+
     templateData.put("table", table);
-    templateData.put("lastUpdated", LocalDateTime.now());
-    templateData.put("currentVersion", currentVersion);
-    templateData.put("sharedDepsPosition", sharedDepsPosition);
-    templateData.put("newestVersion", newestVersion);
-    templateData.put("newestPomURL", newestPomURL);
-    templateData.put("sharedDepsVersion", sharedDepsVersion);
-    templateData.put("updatedTime", updatedTime);
-    templateData.put("metadataURL", metadataURL);
-    templateData.put("artifacts", artifacts);
     templateData.put("coordinates", bom.getCoordinates());
     templateData.put("dependencyGraphs", cache.getGlobalDependencies());
 
@@ -338,47 +327,6 @@ public class DashboardMain {
     }
   }
 
-  private static String latestVersion(Artifact artifact) {
-    String pomPath = getMetadataURL(artifact);
-    try {
-      URL url = new URL(pomPath);
-      Scanner s = new Scanner(url.openStream());
-      while (s.hasNextLine()) {
-        String string = s.nextLine();
-        if (string.contains("<latest>")) {
-          return string.split(">")[1].split("<")[0];
-        }
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return "";
-  }
-
-  private static String updatedTime(Artifact artifact) {
-    String groupPath = artifact.getGroupId().replace('.', '/');
-    String metadataPath = basePath + "/" + groupPath
-            + "/" + artifact.getArtifactId()
-            + "/maven-metadata.xml";
-    try {
-      URL url = new URL(metadataPath);
-      Scanner s = new Scanner(url.openStream());
-      while (s.hasNextLine()) {
-        String string = s.nextLine();
-        if (string.contains("<lastUpdated>")) {
-          DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
-          DateFormat outputFormat = new SimpleDateFormat("MM-dd-yyyy");
-          String input =  string.split(">")[1].split("<")[0];
-          Date date= dateFormat.parse(input);
-          return outputFormat.format(date);
-        }
-      }
-    } catch (IOException | java.text.ParseException e) {
-      e.printStackTrace();
-    }
-    return "";
-  }
-
   /**
    * Returns the number of rows in {@code table} that show unavailable ({@code null} result) or some
    * failures for {@code columnName}.
@@ -387,69 +335,6 @@ public class DashboardMain {
     return table.stream()
         .filter(row -> row.getResult(columnName) == null || row.getFailureCount(columnName) > 0)
         .count();
-  }
-
-  private static String sharedDependencyVersion(Artifact artifact, Map<String, String> sharedDepsPosition) {
-    String groupPath = artifact.getGroupId().replace('.', '/');
-    String pomPath = getPomFileURL(artifact.getGroupId(), artifact.getArtifactId(),artifact.getVersion());
-    String parentPath = basePath + "/" + groupPath
-            + "/" + artifact.getArtifactId() + "-parent"
-            + "/" + artifact.getVersion()
-            + "/" + artifact.getArtifactId() + "-parent-" + artifact.getVersion() + ".pom";
-    String depsBomPath = basePath + "/" + groupPath
-            + "/" + artifact.getArtifactId() + "-deps-bom"
-            + "/" + artifact.getVersion()
-            + "/" + artifact.getArtifactId() + "-deps-bom-" + artifact.getVersion() + ".pom";
-    String version = getSharedDepsVersionFromURL(parentPath);
-    if (version != null) {
-      sharedDepsPosition.put(artifact.getArtifactId(), parentPath);
-      return version;
-    }
-    version = getSharedDepsVersionFromURL(pomPath);
-    if (version != null) {
-      sharedDepsPosition.put(artifact.getArtifactId(), pomPath);
-      return version;
-    }
-    version = getSharedDepsVersionFromURL(depsBomPath);
-    if (version != null) {
-      sharedDepsPosition.put(artifact.getArtifactId(), depsBomPath);
-      return version;
-    }
-    sharedDepsPosition.put(artifact.getArtifactId(), "");
-    return "";
-  }
-  private static String getSharedDepsVersionFromURL(String pomURL)  {
-    File file = new File("pomFile.xml");
-    try {
-      URL url = new URL(pomURL);
-      FileUtils.copyURLToFile(url, file);
-      MavenXpp3Reader read = new MavenXpp3Reader();
-      Model model = read.read(new FileReader(file));
-      if (model.getDependencyManagement() == null)
-        return null;
-      for (org.apache.maven.model.Dependency dep : model.getDependencyManagement().getDependencies()) {
-        if ("com.google.cloud".equals(dep.getGroupId()) && "google-cloud-shared-dependencies".equals(dep.getArtifactId()))
-          return dep.getVersion();
-      }
-
-    } catch (XmlPullParserException | IOException ignored){}
-    file.deleteOnExit();
-    return null;
-  }
-
-  private static String getPomFileURL(String groupId, String artifactId, String version) {
-    String groupPath = groupId.replace('.', '/');
-    return basePath + "/" + groupPath
-            + "/" + artifactId
-            + "/" + version
-            + "/" + artifactId + "-" + version + ".pom";
-  }
-
-  private static String getMetadataURL(Artifact artifact) {
-    String groupPath = artifact.getGroupId().replace('.', '/');
-    return basePath + "/" + groupPath
-            + "/" + artifact.getArtifactId()
-            + "/maven-metadata.xml";
   }
 }
 
