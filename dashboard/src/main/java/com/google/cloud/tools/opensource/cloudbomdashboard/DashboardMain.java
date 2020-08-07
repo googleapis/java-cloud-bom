@@ -41,300 +41,300 @@ import static com.google.common.base.Preconditions.checkArgument;
 
 public class DashboardMain {
 
-  public static final String basePath = "https://repo1.maven.org/maven2";
-  public static final String TEST_NAME_UPPER_BOUND = "Upper Bounds";
-  public static final String TEST_NAME_DEPENDENCY_CONVERGENCE = "Dependency Convergence";
+    public static final String basePath = "https://repo1.maven.org/maven2";
+    public static final String TEST_NAME_UPPER_BOUND = "Upper Bounds";
+    public static final String TEST_NAME_DEPENDENCY_CONVERGENCE = "Dependency Convergence";
 
-  private static final Configuration freemarkerConfiguration = configureFreemarker();
+    private static final Configuration freemarkerConfiguration = configureFreemarker();
 
-  private static final DependencyGraphBuilder dependencyGraphBuilder = new DependencyGraphBuilder();
+    private static final DependencyGraphBuilder dependencyGraphBuilder = new DependencyGraphBuilder();
 
-  private static final List<String> bomVersions = new ArrayList<>();
+    private static final List<String> bomVersions = new ArrayList<>();
 
-  private static boolean generateAll = false;
+    private static boolean generateAll = false;
 
-  /**
-   * Generates a code hygiene dashboard for a BOM. This tool takes a path to pom.xml of the BOM as
-   * an argument or Maven coordinates to a BOM.
-   *
-   * <p>Generated dashboard is at {@code target/$groupId/$artifactId/$version/index.html}, where
-   * each value is from BOM coordinates except {@code $version} is "snapshot" if the BOM has
-   * snapshot version.
-   */
-  public static void main(String[] arguments)
-      throws IOException, TemplateException, RepositoryException, URISyntaxException,
-      ParseException, MavenRepositoryException {
-    DashboardArguments dashboardArguments = DashboardArguments.readCommandLine(arguments);
+    /**
+     * Generates a code hygiene dashboard for a BOM. This tool takes a path to pom.xml of the BOM as
+     * an argument or Maven coordinates to a BOM.
+     *
+     * <p>Generated dashboard is at {@code target/$groupId/$artifactId/$version/index.html}, where
+     * each value is from BOM coordinates except {@code $version} is "snapshot" if the BOM has
+     * snapshot version.
+     */
+    public static void main(String[] arguments)
+            throws IOException, TemplateException, RepositoryException, URISyntaxException,
+            ParseException, MavenRepositoryException {
+        DashboardArguments dashboardArguments = DashboardArguments.readCommandLine(arguments);
 
-    //If looking to edit the dashboard structure, see DashboardMain#generateDashboard.
-    if (dashboardArguments.hasVersionlessCoordinates()) {
-      generateAll = true;
-      generateAllVersions(dashboardArguments.getVersionlessCoordinates());
-    } else if (dashboardArguments.hasFile()) {
-      generate(dashboardArguments.getBomFile());
-    } else {
-      generate(dashboardArguments.getBomCoordinates());
-    }
-  }
-
-  private static void generateAllVersions(String versionlessCoordinates)
-      throws IOException, TemplateException, RepositoryException, URISyntaxException,
-          MavenRepositoryException {
-    List<String> elements = Splitter.on(':').splitToList(versionlessCoordinates);
-    checkArgument(
-        elements.size() == 2,
-        "The versionless coordinates should have one colon character: " + versionlessCoordinates);
-    String groupId = elements.get(0);
-    String artifactId = elements.get(1);
-
-    RepositorySystem repositorySystem = RepositoryUtility.newRepositorySystem();
-    ImmutableList<String> versions =
-        RepositoryUtility.findVersions(repositorySystem, groupId, artifactId);
-    for (String version : versions) {
-      if (version.contains("alpha")) continue;
-      bomVersions.add(version);
-    }
-    bomVersions.add(VersionData.ALL_VERSIONS_NAME);
-    for (String version : bomVersions) {
-      if(!VersionData.ALL_VERSIONS_NAME.equals(version)) {
-        generate(String.format("%s:%s:%s", groupId, artifactId, version));
-      }
-    }
-    generateAllVersionsDashboard();
-    //generateAllVersions();
-    //generateVersionIndex(groupId, artifactId, versions);
-  }
-
-  @VisibleForTesting
-  static Path generate(String bomCoordinates)
-      throws IOException, TemplateException, RepositoryException, URISyntaxException {
-    Path output = generate(Bom.readBom(bomCoordinates));
-    System.out.println("Wrote dashboard for " + bomCoordinates + " to " + output);
-    return output;
-  }
-
-  @VisibleForTesting
-  static Path generate(Path bomFile)
-      throws IOException, TemplateException, URISyntaxException, MavenRepositoryException {
-    checkArgument(Files.isRegularFile(bomFile), "The input BOM %s is not a regular file", bomFile);
-    checkArgument(Files.isReadable(bomFile), "The input BOM %s is not readable", bomFile);
-    Path output = generate(Bom.readBom(bomFile));
-
-    System.out.println("Wrote dashboard for " + bomFile + " to " + output);
-    return output;
-  }
-
-  private static Path generate(Bom bom) throws IOException, TemplateException, URISyntaxException {
-    List<Artifact> managedDependencies = new ArrayList<>();
-    for (Artifact artifact : bom.getManagedDependencies()) {
-      if ("com.google.cloud".equals(artifact.getGroupId())
-              && !artifact.getArtifactId().contains("google-cloud-core")) {
-        managedDependencies.add(artifact);
-      }
+        //If looking to edit the dashboard structure, see DashboardMain#generateDashboard.
+        if (dashboardArguments.hasVersionlessCoordinates()) {
+            generateAll = true;
+            generateAllVersions(dashboardArguments.getVersionlessCoordinates());
+        } else if (dashboardArguments.hasFile()) {
+            generate(dashboardArguments.getBomFile());
+        } else {
+            generate(dashboardArguments.getBomCoordinates());
+        }
     }
 
-    ArtifactCache cache = loadArtifactInfo(managedDependencies);
-    Path output = generateHtml(bom, cache);
+    private static void generateAllVersions(String versionlessCoordinates)
+            throws IOException, TemplateException, RepositoryException, URISyntaxException,
+            MavenRepositoryException {
+        List<String> elements = Splitter.on(':').splitToList(versionlessCoordinates);
+        checkArgument(
+                elements.size() == 2,
+                "The versionless coordinates should have one colon character: " + versionlessCoordinates);
+        String groupId = elements.get(0);
+        String artifactId = elements.get(1);
 
-    return output;
-  }
-
-  private static Path outputDirectory(String groupId, String artifactId, String version) {
-    String versionPathElement = version.contains("-SNAPSHOT") ? "snapshot" : version;
-    return Paths.get("target", groupId, artifactId, versionPathElement);
-  }
-
-  private static Path generateHtml(Bom bom, ArtifactCache cache)
-      throws IOException, TemplateException, URISyntaxException {
-
-    Artifact bomArtifact = new DefaultArtifact(bom.getCoordinates());
-
-    Path relativePath = outputDirectory(bomArtifact.getGroupId(), bomArtifact.getArtifactId(), bomArtifact.getVersion());
-
-    Path output = Files.createDirectories(relativePath);
-
-
-    copyResource(output, "css/dashboard.css");
-    copyResource(output, "js/dashboard.js");
-
-    List<ArtifactResults> table = generateReports(cache);
-    generateDashboard(output, table, cache, bom);
-
-    return output;
-  }
-
-  private static void copyResource(Path output, String resourceName)
-      throws IOException, URISyntaxException {
-    ClassLoader classLoader = DashboardMain.class.getClassLoader();
-    Path input = Paths.get(Objects.requireNonNull(classLoader.getResource(resourceName)).toURI()).toAbsolutePath();
-    Path copy = output.resolve(input.getFileName());
-    if (!Files.exists(copy)) {
-      Files.copy(input, copy);
-    }
-  }
-
-  @VisibleForTesting
-  static Configuration configureFreemarker() {
-    Configuration configuration = new Configuration(new Version("2.3.28"));
-    configuration.setDefaultEncoding("UTF-8");
-    configuration.setClassForTemplateLoading(DashboardMain.class, "/");
-    return configuration;
-  }
-
-  @VisibleForTesting
-  static List<ArtifactResults> generateReports(ArtifactCache cache) {
-
-    Map<Artifact, ArtifactInfo> artifacts = cache.getInfoMap();
-    List<ArtifactResults> table = new ArrayList<>();
-    for (Entry<Artifact, ArtifactInfo> entry : artifacts.entrySet()) {
-      ArtifactInfo info = entry.getValue();
-      if (info.getException() != null) {
-        ArtifactResults unavailable = new ArtifactResults(entry.getKey());
-        unavailable.setExceptionMessage(info.getException().getMessage());
-        table.add(unavailable);
-      } else {
-        Artifact artifact = entry.getKey();
-        ArtifactResults results = generateArtifactReport(artifact, entry.getValue());
-        table.add(results);
-      }
-    }
-    return table;
-  }
-
-  /**
-   * This is the only method that queries the Maven repository.
-   */
-  private static ArtifactCache loadArtifactInfo(List<Artifact> artifacts) {
-    Map<Artifact, ArtifactInfo> infoMap = new LinkedHashMap<>();
-    List<DependencyGraph> globalDependencies = new ArrayList<>();
-
-    for (Artifact artifact : artifacts) {
-      DependencyGraph completeDependencies =
-          dependencyGraphBuilder.buildVerboseDependencyGraph(artifact);
-      globalDependencies.add(completeDependencies);
-
-      // picks versions according to Maven rules
-      DependencyGraph transitiveDependencies =
-          dependencyGraphBuilder.buildMavenDependencyGraph(new Dependency(artifact, "compile"));
-
-      ArtifactInfo info = new ArtifactInfo(completeDependencies, transitiveDependencies);
-      infoMap.put(artifact, info);
+        RepositorySystem repositorySystem = RepositoryUtility.newRepositorySystem();
+        ImmutableList<String> versions =
+                RepositoryUtility.findVersions(repositorySystem, groupId, artifactId);
+        for (String version : versions) {
+            if (version.contains("alpha")) continue;
+            bomVersions.add(version);
+        }
+        bomVersions.add(VersionData.ALL_VERSIONS_NAME);
+        for (String version : bomVersions) {
+            if (!VersionData.ALL_VERSIONS_NAME.equals(version)) {
+                generate(String.format("%s:%s:%s", groupId, artifactId, version));
+            }
+        }
+        generateAllVersionsDashboard();
+        //generateAllVersions();
+        //generateVersionIndex(groupId, artifactId, versions);
     }
 
-    ArtifactCache cache = new ArtifactCache();
-    cache.setInfoMap(infoMap);
-    cache.setGlobalDependencies(globalDependencies);
-
-    return cache;
-  }
-
-  private static ArtifactResults generateArtifactReport(Artifact artifact, ArtifactInfo artifactInfo) {
-    // includes all versions
-    DependencyGraph graph = artifactInfo.getCompleteDependencies();
-    List<Update> convergenceIssues = graph.findUpdates();
-
-    // picks versions according to Maven rules
-    DependencyGraph transitiveDependencies = artifactInfo.getTransitiveDependencies();
-
-    Map<Artifact, Artifact> upperBoundFailures =
-        findUpperBoundsFailures(graph.getHighestVersionMap(), transitiveDependencies);
-    ArtifactResults results = new ArtifactResults(artifact);
-    results.addResult(TEST_NAME_UPPER_BOUND, upperBoundFailures.size());
-    results.addResult(TEST_NAME_DEPENDENCY_CONVERGENCE, convergenceIssues.size());
-    return results;
-  }
-
-  private static Map<Artifact, Artifact> findUpperBoundsFailures(Map<String, String> expectedVersionMap,
-      DependencyGraph transitiveDependencies) {
-
-    Map<String, String> actualVersionMap = transitiveDependencies.getHighestVersionMap();
-
-    VersionComparator comparator = new VersionComparator();
-
-    Map<Artifact, Artifact> upperBoundFailures = new LinkedHashMap<>();
-
-    for (String id : expectedVersionMap.keySet()) {
-      String expectedVersion = expectedVersionMap.get(id);
-      String actualVersion = actualVersionMap.get(id);
-      // Check that the actual version is not null because it is
-      // possible for dependencies to appear or disappear from the tree
-      // depending on which version of another dependency is loaded.
-      // In both cases, no action is needed.
-      if (actualVersion != null && comparator.compare(actualVersion, expectedVersion) < 0) {
-        // Maven did not choose highest version
-        DefaultArtifact lower = new DefaultArtifact(id + ":" + actualVersion);
-        DefaultArtifact upper = new DefaultArtifact(id + ":" + expectedVersion);
-        upperBoundFailures.put(lower, upper);
-      }
+    @VisibleForTesting
+    static Path generate(String bomCoordinates)
+            throws IOException, TemplateException, RepositoryException, URISyntaxException {
+        Path output = generate(Bom.readBom(bomCoordinates));
+        System.out.println("Wrote dashboard for " + bomCoordinates + " to " + output);
+        return output;
     }
-    return upperBoundFailures;
-  }
 
-  static void generateAllVersionsDashboard() throws IOException, TemplateException, URISyntaxException {
-    Map<String, Object> templateData = VersionData.ALL_VERSIONS_DATA.getTemplateData();
-    templateData.put("coordinates", "");
-    templateData.put("table", new ArrayList<>());
-    templateData.put("dependencyGraphs", new ArrayList<>());
+    @VisibleForTesting
+    static Path generate(Path bomFile)
+            throws IOException, TemplateException, URISyntaxException, MavenRepositoryException {
+        checkArgument(Files.isRegularFile(bomFile), "The input BOM %s is not a regular file", bomFile);
+        checkArgument(Files.isReadable(bomFile), "The input BOM %s is not readable", bomFile);
+        Path output = generate(Bom.readBom(bomFile));
 
-    Path relativePath = outputDirectory("com.google.cloud", "google-cloud-bom", VersionData.ALL_VERSIONS_NAME);
-    Path output = Files.createDirectories(relativePath);
-
-    copyResource(output, "css/dashboard.css");
-    copyResource(output, "js/dashboard.js");
-
-    // Accessing static methods from Freemarker template
-    // https://freemarker.apache.org/docs/pgui_misc_beanwrapper.html#autoid_60
-    DefaultObjectWrapper wrapper = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28)
-            .build();
-    TemplateHashModel staticModels = wrapper.getStaticModels();
-    templateData.put("dashboardMain", staticModels.get(DashboardMain.class.getName()));
-    templateData.put("bomVersions", bomVersions);
-    File dashboardFile = output.resolve("index.html").toFile();
-    try (Writer out = new OutputStreamWriter(new FileOutputStream(dashboardFile), StandardCharsets.UTF_8)) {
-      Template dashboard = DashboardMain.freemarkerConfiguration.getTemplate("/templates/index.ftl");
-      dashboard.process(templateData, out);
+        System.out.println("Wrote dashboard for " + bomFile + " to " + output);
+        return output;
     }
-  }
 
-  @VisibleForTesting
-  static void generateDashboard(Path output, List<ArtifactResults> table, ArtifactCache cache, Bom bom)
-          throws IOException, TemplateException {
-    
-    Map<Artifact, ArtifactInfo> infoMap = cache.getInfoMap();
-    String cloudBomVersion = bom.getCoordinates().substring(bom.getCoordinates().lastIndexOf(":") + 1);
+    private static Path generate(Bom bom) throws IOException, TemplateException, URISyntaxException {
+        List<Artifact> managedDependencies = new ArrayList<>();
+        for (Artifact artifact : bom.getManagedDependencies()) {
+            if ("com.google.cloud".equals(artifact.getGroupId())
+                    && !artifact.getArtifactId().contains("google-cloud-core")) {
+                managedDependencies.add(artifact);
+            }
+        }
 
-    VersionData currentVersionDashboard = new VersionData(cloudBomVersion);
-    currentVersionDashboard.populateData(generateAll, infoMap);
+        ArtifactCache cache = loadArtifactInfo(managedDependencies);
+        Path output = generateHtml(bom, cache);
 
-    Map<String, Object> templateData = currentVersionDashboard.getTemplateData();
-
-    templateData.put("table", table);
-    templateData.put("coordinates", bom.getCoordinates());
-    templateData.put("dependencyGraphs", cache.getGlobalDependencies());
-
-    // Accessing static methods from Freemarker template
-    // https://freemarker.apache.org/docs/pgui_misc_beanwrapper.html#autoid_60
-    DefaultObjectWrapper wrapper = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28)
-        .build();
-    TemplateHashModel staticModels = wrapper.getStaticModels();
-    templateData.put("dashboardMain", staticModels.get(DashboardMain.class.getName()));
-    templateData.put("bomVersions", bomVersions);
-    File dashboardFile = output.resolve("index.html").toFile();
-    try (Writer out = new OutputStreamWriter(
-        new FileOutputStream(dashboardFile), StandardCharsets.UTF_8)) {
-      Template dashboard = DashboardMain.freemarkerConfiguration.getTemplate("/templates/index.ftl");
-      dashboard.process(templateData, out);
+        return output;
     }
-  }
 
-  /**
-   * Returns the number of rows in {@code table} that show unavailable ({@code null} result) or some
-   * failures for {@code columnName}.
-   */
-  public static long countFailures(List<ArtifactResults> table, String columnName) {
-    return table.stream()
-        .filter(row -> row.getResult(columnName) == null || row.getFailureCount(columnName) > 0)
-        .count();
-  }
+    private static Path outputDirectory(String groupId, String artifactId, String version) {
+        String versionPathElement = version.contains("-SNAPSHOT") ? "snapshot" : version;
+        return Paths.get("target", groupId, artifactId, versionPathElement);
+    }
+
+    private static Path generateHtml(Bom bom, ArtifactCache cache)
+            throws IOException, TemplateException, URISyntaxException {
+
+        Artifact bomArtifact = new DefaultArtifact(bom.getCoordinates());
+
+        Path relativePath = outputDirectory(bomArtifact.getGroupId(), bomArtifact.getArtifactId(), bomArtifact.getVersion());
+
+        Path output = Files.createDirectories(relativePath);
+
+
+        copyResource(output, "css/dashboard.css");
+        copyResource(output, "js/dashboard.js");
+
+        List<ArtifactResults> table = generateReports(cache);
+        generateDashboard(output, table, cache, bom);
+
+        return output;
+    }
+
+    private static void copyResource(Path output, String resourceName)
+            throws IOException, URISyntaxException {
+        ClassLoader classLoader = DashboardMain.class.getClassLoader();
+        Path input = Paths.get(Objects.requireNonNull(classLoader.getResource(resourceName)).toURI()).toAbsolutePath();
+        Path copy = output.resolve(input.getFileName());
+        if (!Files.exists(copy)) {
+            Files.copy(input, copy);
+        }
+    }
+
+    @VisibleForTesting
+    static Configuration configureFreemarker() {
+        Configuration configuration = new Configuration(new Version("2.3.28"));
+        configuration.setDefaultEncoding("UTF-8");
+        configuration.setClassForTemplateLoading(DashboardMain.class, "/");
+        return configuration;
+    }
+
+    @VisibleForTesting
+    static List<ArtifactResults> generateReports(ArtifactCache cache) {
+
+        Map<Artifact, ArtifactInfo> artifacts = cache.getInfoMap();
+        List<ArtifactResults> table = new ArrayList<>();
+        for (Entry<Artifact, ArtifactInfo> entry : artifacts.entrySet()) {
+            ArtifactInfo info = entry.getValue();
+            if (info.getException() != null) {
+                ArtifactResults unavailable = new ArtifactResults(entry.getKey());
+                unavailable.setExceptionMessage(info.getException().getMessage());
+                table.add(unavailable);
+            } else {
+                Artifact artifact = entry.getKey();
+                ArtifactResults results = generateArtifactReport(artifact, entry.getValue());
+                table.add(results);
+            }
+        }
+        return table;
+    }
+
+    /**
+     * This is the only method that queries the Maven repository.
+     */
+    private static ArtifactCache loadArtifactInfo(List<Artifact> artifacts) {
+        Map<Artifact, ArtifactInfo> infoMap = new LinkedHashMap<>();
+        List<DependencyGraph> globalDependencies = new ArrayList<>();
+
+        for (Artifact artifact : artifacts) {
+            DependencyGraph completeDependencies =
+                    dependencyGraphBuilder.buildVerboseDependencyGraph(artifact);
+            globalDependencies.add(completeDependencies);
+
+            // picks versions according to Maven rules
+            DependencyGraph transitiveDependencies =
+                    dependencyGraphBuilder.buildMavenDependencyGraph(new Dependency(artifact, "compile"));
+
+            ArtifactInfo info = new ArtifactInfo(completeDependencies, transitiveDependencies);
+            infoMap.put(artifact, info);
+        }
+
+        ArtifactCache cache = new ArtifactCache();
+        cache.setInfoMap(infoMap);
+        cache.setGlobalDependencies(globalDependencies);
+
+        return cache;
+    }
+
+    private static ArtifactResults generateArtifactReport(Artifact artifact, ArtifactInfo artifactInfo) {
+        // includes all versions
+        DependencyGraph graph = artifactInfo.getCompleteDependencies();
+        List<Update> convergenceIssues = graph.findUpdates();
+
+        // picks versions according to Maven rules
+        DependencyGraph transitiveDependencies = artifactInfo.getTransitiveDependencies();
+
+        Map<Artifact, Artifact> upperBoundFailures =
+                findUpperBoundsFailures(graph.getHighestVersionMap(), transitiveDependencies);
+        ArtifactResults results = new ArtifactResults(artifact);
+        results.addResult(TEST_NAME_UPPER_BOUND, upperBoundFailures.size());
+        results.addResult(TEST_NAME_DEPENDENCY_CONVERGENCE, convergenceIssues.size());
+        return results;
+    }
+
+    private static Map<Artifact, Artifact> findUpperBoundsFailures(Map<String, String> expectedVersionMap,
+                                                                   DependencyGraph transitiveDependencies) {
+
+        Map<String, String> actualVersionMap = transitiveDependencies.getHighestVersionMap();
+
+        VersionComparator comparator = new VersionComparator();
+
+        Map<Artifact, Artifact> upperBoundFailures = new LinkedHashMap<>();
+
+        for (String id : expectedVersionMap.keySet()) {
+            String expectedVersion = expectedVersionMap.get(id);
+            String actualVersion = actualVersionMap.get(id);
+            // Check that the actual version is not null because it is
+            // possible for dependencies to appear or disappear from the tree
+            // depending on which version of another dependency is loaded.
+            // In both cases, no action is needed.
+            if (actualVersion != null && comparator.compare(actualVersion, expectedVersion) < 0) {
+                // Maven did not choose highest version
+                DefaultArtifact lower = new DefaultArtifact(id + ":" + actualVersion);
+                DefaultArtifact upper = new DefaultArtifact(id + ":" + expectedVersion);
+                upperBoundFailures.put(lower, upper);
+            }
+        }
+        return upperBoundFailures;
+    }
+
+    static void generateAllVersionsDashboard() throws IOException, TemplateException, URISyntaxException {
+        Map<String, Object> templateData = VersionData.ALL_VERSIONS_DATA.getTemplateData();
+        templateData.put("coordinates", VersionData.ALL_VERSIONS_NAME);
+        templateData.put("table", new ArrayList<>());
+        templateData.put("dependencyGraphs", new ArrayList<>());
+
+        Path relativePath = outputDirectory("com.google.cloud", "google-cloud-bom",
+                VersionData.ALL_VERSIONS_NAME);
+        Path output = Files.createDirectories(relativePath);
+
+        copyResource(output, "css/dashboard.css");
+        copyResource(output, "js/dashboard.js");
+
+        // Accessing static methods from Freemarker template
+        // https://freemarker.apache.org/docs/pgui_misc_beanwrapper.html#autoid_60
+        DefaultObjectWrapper wrapper = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28)
+                .build();
+        TemplateHashModel staticModels = wrapper.getStaticModels();
+        templateData.put("dashboardMain", staticModels.get(DashboardMain.class.getName()));
+        templateData.put("bomVersions", bomVersions);
+        File dashboardFile = output.resolve("index.html").toFile();
+        try (Writer out = new OutputStreamWriter(new FileOutputStream(dashboardFile), StandardCharsets.UTF_8)) {
+            Template dashboard = DashboardMain.freemarkerConfiguration.getTemplate("/templates/index.ftl");
+            dashboard.process(templateData, out);
+        }
+    }
+
+    @VisibleForTesting
+    static void generateDashboard(Path output, List<ArtifactResults> table, ArtifactCache cache, Bom bom)
+            throws IOException, TemplateException {
+
+        Map<Artifact, ArtifactInfo> infoMap = cache.getInfoMap();
+        String cloudBomVersion = bom.getCoordinates().substring(bom.getCoordinates().lastIndexOf(":") + 1);
+
+        VersionData currentVersionDashboard = new VersionData(cloudBomVersion);
+        currentVersionDashboard.populateData(generateAll, infoMap);
+
+        Map<String, Object> templateData = currentVersionDashboard.getTemplateData();
+
+        templateData.put("table", table);
+        templateData.put("coordinates", bom.getCoordinates());
+        templateData.put("dependencyGraphs", cache.getGlobalDependencies());
+
+        // Accessing static methods from Freemarker template
+        // https://freemarker.apache.org/docs/pgui_misc_beanwrapper.html#autoid_60
+        DefaultObjectWrapper wrapper = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28)
+                .build();
+        TemplateHashModel staticModels = wrapper.getStaticModels();
+        templateData.put("dashboardMain", staticModels.get(DashboardMain.class.getName()));
+        templateData.put("bomVersions", bomVersions);
+        File dashboardFile = output.resolve("index.html").toFile();
+        try (Writer out = new OutputStreamWriter(
+                new FileOutputStream(dashboardFile), StandardCharsets.UTF_8)) {
+            Template dashboard = DashboardMain.freemarkerConfiguration.getTemplate("/templates/index.ftl");
+            dashboard.process(templateData, out);
+        }
+    }
+
+    /**
+     * Returns the number of rows in {@code table} that show unavailable ({@code null} result) or some
+     * failures for {@code columnName}.
+     */
+    public static long countFailures(List<ArtifactResults> table, String columnName) {
+        return table.stream()
+                .filter(row -> row.getResult(columnName) == null || row.getFailureCount(columnName) > 0)
+                .count();
+    }
 }
-

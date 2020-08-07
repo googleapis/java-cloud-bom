@@ -26,12 +26,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
 public class VersionData {
+    //Note this is also used in the file index.ftl
     public static final String ALL_VERSIONS_NAME = "all-versions";
     public static final VersionData ALL_VERSIONS_DATA = new VersionData();
 
@@ -64,7 +66,7 @@ public class VersionData {
         for (Map.Entry<Artifact, ArtifactInfo> info : infoMap.entrySet()) {
             insertData(cloudBomVersion, info.getKey());
 
-            if(addToAllVersions) {
+            if (addToAllVersions) {
                 ALL_VERSIONS_DATA.insertData(cloudBomVersion, info.getKey());
             }
         }
@@ -87,7 +89,7 @@ public class VersionData {
         String sharedDependencyVersion = sharedDependencyVersion(artifactKey, a, sharedDepsPosition);
 
         artifacts.add(artifactId);
-        currentVersion.put(artifactKey,version);
+        currentVersion.put(artifactKey, version);
         newestVersion.put(artifactKey, latestVersion);
         newestPomURL.put(artifactKey, pomFileURL);
         sharedDepsVersion.put(artifactKey, sharedDependencyVersion);
@@ -114,13 +116,16 @@ public class VersionData {
     }
 
     private static String latestVersion(Artifact artifact) {
-        if(artifactToLatestVersion.containsKey(artifact)) {
+        if (artifactToLatestVersion.containsKey(artifact)) {
             return artifactToLatestVersion.get(artifact);
         }
         String pomPath = getMetadataURL(artifact);
         try {
             URL url = new URL(pomPath);
-            Scanner s = new Scanner(url.openStream());
+            URLConnection conn = url.openConnection();
+            conn.setConnectTimeout(2000);
+            conn.setReadTimeout(2000);
+            Scanner s = new Scanner(conn.getInputStream());
             while (s.hasNextLine()) {
                 String string = s.nextLine();
                 if (string.contains("<latest>")) {
@@ -137,7 +142,7 @@ public class VersionData {
     }
 
     private static String updatedTime(Artifact artifact) {
-        if(artifactToTime.containsKey(artifact)) {
+        if (artifactToTime.containsKey(artifact)) {
             return artifactToTime.get(artifact);
         }
         String groupPath = artifact.getGroupId().replace('.', '/');
@@ -146,14 +151,17 @@ public class VersionData {
                 + "/maven-metadata.xml";
         try {
             URL url = new URL(metadataPath);
-            Scanner s = new Scanner(url.openStream());
+            URLConnection conn = url.openConnection();
+            conn.setConnectTimeout(2000);
+            conn.setReadTimeout(2000);
+            Scanner s = new Scanner(conn.getInputStream());
             while (s.hasNextLine()) {
                 String string = s.nextLine();
                 if (string.contains("<lastUpdated>")) {
                     DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
                     DateFormat outputFormat = new SimpleDateFormat("MM-dd-yyyy");
-                    String input =  string.split(">")[1].split("<")[0];
-                    Date date= dateFormat.parse(input);
+                    String input = string.split(">")[1].split("<")[0];
+                    Date date = dateFormat.parse(input);
                     artifactToTime.put(artifact, outputFormat.format(date));
                     return outputFormat.format(date);
                 }
@@ -166,15 +174,14 @@ public class VersionData {
     }
 
     /**
-     *
-     * @param key Key to use when inserting the artifact's associated path into the given map.
-     * @param artifact Artifact to add into the map
+     * @param key                Key to use when inserting the artifact's associated path into the given map.
+     * @param artifact           Artifact to add into the map
      * @param sharedDepsPosition The map receiving the path associated with this artifact.
      * @return Returns the version of shared-dependencies if found. Returns the empty string otherwise.
      */
     private static String sharedDependencyVersion(String key, org.eclipse.aether.artifact.Artifact artifact, Map<String, String> sharedDepsPosition) {
         String groupPath = artifact.getGroupId().replace('.', '/');
-        String pomPath = getPomFileURL(artifact.getGroupId(), artifact.getArtifactId(),artifact.getVersion());
+        String pomPath = getPomFileURL(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion());
         String parentPath = DashboardMain.basePath + "/" + groupPath
                 + "/" + artifact.getArtifactId() + "-parent"
                 + "/" + artifact.getVersion()
@@ -201,8 +208,9 @@ public class VersionData {
         sharedDepsPosition.put(key, "");
         return "";
     }
-    private static String getSharedDepsVersionFromURL(String pomURL)  {
-        if(pomToDepsVersion.containsKey(pomURL))
+
+    private static String getSharedDepsVersionFromURL(String pomURL) {
+        if (pomToDepsVersion.containsKey(pomURL))
             return pomToDepsVersion.get(pomURL);
         File file = new File("pomFile.xml");
         try {
@@ -219,7 +227,8 @@ public class VersionData {
                 }
             }
 
-        } catch (XmlPullParserException | IOException ignored){}
+        } catch (XmlPullParserException | IOException ignored) {
+        }
         file.deleteOnExit();
         return null;
     }
