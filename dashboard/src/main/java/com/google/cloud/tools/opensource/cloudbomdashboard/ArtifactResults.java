@@ -16,14 +16,11 @@
 
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
+import com.google.cloud.tools.opensource.dependencies.Artifacts;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.annotation.Nullable;
-
 import org.eclipse.aether.artifact.Artifact;
-
-import com.google.cloud.tools.opensource.cloudbomdashboard.dependencies.Artifacts;
 
 /**
  * Collection of test results for a single artifact.
