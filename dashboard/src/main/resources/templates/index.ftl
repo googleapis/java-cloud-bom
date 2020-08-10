@@ -113,7 +113,7 @@
                 switching = true;
             }
         }
-        columnSort[colIndex] = !(columnSort[colIndex]);
+        columnSort[sortIndex] = !(columnSort[sortIndex]);
     }
 
     function colsContainAllInput(cols, input) {
