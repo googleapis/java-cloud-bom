@@ -41,16 +41,16 @@ public class VersionData {
     private static final Map<Artifact, String> artifactToTime = new HashMap<>();
     private static final Map<Artifact, String> artifactToLatestVersion = new HashMap<>();
 
-    private List<String> versions = new ArrayList<>();
+    private final List<String> versions = new ArrayList<>();
 
-    private Set<String> artifacts = new TreeSet<>();
-    private Map<String, String> currentVersion = new HashMap<>();
-    private Map<String, String> sharedDepsPosition = new HashMap<>();
-    private Map<String, String> newestVersion = new HashMap<>();
-    private Map<String, String> newestPomURL = new HashMap<>();
-    private Map<String, String> sharedDepsVersion = new HashMap<>();
-    private Map<String, String> updatedTime = new HashMap<>();
-    private Map<String, String> metadataURL = new HashMap<>();
+    private final Set<String> artifacts = new TreeSet<>();
+    private final Map<String, String> currentVersion = new HashMap<>();
+    private final Map<String, String> sharedDepsPosition = new HashMap<>();
+    private final Map<String, String> newestVersion = new HashMap<>();
+    private final Map<String, String> newestPomURL = new HashMap<>();
+    private final Map<String, String> sharedDepsVersion = new HashMap<>();
+    private final Map<String, String> updatedTime = new HashMap<>();
+    private final Map<String, String> metadataURL = new HashMap<>();
 
     public VersionData(String cloudBomVersion) {
         versions.add(cloudBomVersion);
@@ -74,7 +74,7 @@ public class VersionData {
 
     /**
      * Inserts an artifact's data into this VersionData.
-     * We pass cloudBomVersion specifically for the purpose of our all-versions dashboard.
+     * We pass cloudBomVersion for the purpose of our artifact key, used in our FTL file.
      */
     private void insertData(String cloudBomVersion, Artifact a) {
         String artifactId = a.getArtifactId();
