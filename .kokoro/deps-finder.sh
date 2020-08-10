@@ -33,7 +33,8 @@ source ${scriptDir}/shared-deps-helper.sh
 # Dependency should be of the form artifactId:version
 
 function checkLibrary() {
-  clientLibrary=$1 # Should be of the format artifactId:version
+  # Should be of the format artifactId:version
+  clientLibrary=$1
 
   # If no dependency was passed straight to the script, check our most recent commit for a dep version update.
   if [[ -z ${clientLibrary} ]]; then
@@ -62,8 +63,10 @@ function checkLibrary() {
     fi
   fi
 
-  depVersion=${clientLibrary/*:/} # Grab last part of dependency artifactId:version input.
-  depVersion=${depVersion/-*/}    # Remove any alphabetical characters at the end (e.g. -alpha, -beta, etc)
+  # Grab last part of dependency artifactId:version input.
+  # Remove any alphabetical characters at the end (e.g. -alpha, -beta, etc)
+  depVersion=${clientLibrary/*:/}
+  depVersion=${depVersion/-*/}
 
   pomLocation="/pom.xml"
 

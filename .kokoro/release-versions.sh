@@ -62,7 +62,7 @@ function releaseVersionsCheck() {
       break
     fi
     depsManaged=${depsManaged/*$currentLibrary/} #Remove this client library from our list of dependencies
-    # Check if we're looking at a valid dependency (starts with google-cloud and is nonempty)
+    # Check if we're looking at a valid dependency (contains with google-cloud)
     if [[ ! -z $(echo ${currentLibrary} | grep "google-cloud") ]]; then
       artifactId=${currentLibrary/*<artifactId>/}
       artifactId=${artifactId/<\/artifactId>*/}
@@ -102,7 +102,8 @@ set +e
 
 # Allow the script to run normally if we're passed any argument
 if [[ -z $1 ]]; then
-  isReleaseBranch # Otherwise if we're on a release branch
+  # Otherwise if we're on a release branch
+  isReleaseBranch
   if [[ ! $? -eq 0 ]]; then
     msg "This is either a SNAPSHOT release or not a release! Returning success!"
     exit 0
@@ -111,10 +112,11 @@ fi
 
 releaseVersionsCheck
 
+# We fail if the number of failing client libraries is > 0.
 if [[ $? -eq 0 ]]; then
   msg "Check passed. All libraries have the correct version of java-shared-dependencies!"
   exit 0
-else # We fail if the number of failing client libraries is > 0.
+else
   if [[ ! -z ${successfulClientLibraries} ]]; then
     echo "------------------------------------------------------------------------------"
     msg "Successful Client Libraries: "
