@@ -112,6 +112,11 @@ public class VersionData {
         templateData.put("artifacts", artifacts);
         templateData.put("versions", versions);
         templateData.put("lastUpdated", LocalDateTime.now());
+        if (versions.size() > 1) {
+            templateData.put("staticVersion", "All Versions");
+        } else if (versions.size() == 1) {
+            templateData.put("staticVersion", versions.get(0));
+        }
         return templateData;
     }
 
