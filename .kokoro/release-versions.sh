@@ -24,8 +24,6 @@ cd ${scriptDir}/..
 source ${scriptDir}/common.sh
 source ${scriptDir}/shared-deps-helper.sh
 
-source ${scriptDir}/deps-finder.sh
-
 successfulClientLibraries=()
 pomNotFoundLibraries=()
 librariesWithoutSharedDeps=()
