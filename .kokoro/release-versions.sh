@@ -34,8 +34,6 @@ java -version
 
 export MAVEN_OPTS="-Xmx1024m "
 
-# $1 = input of the form groupId:artifactId:version
-
 function releaseVersionsCheck() {
   latestSharedDeps=$(getLatestSharedDepsVersion)
   if [[ -z ${latestSharedDeps} ]]; then
@@ -59,9 +57,9 @@ function releaseVersionsCheck() {
     if [[ -z ${currentLibrary} ]]; then
       break
     fi
-    #Remove this client library from our list of dependencies
+    # Remove this client library from our list of dependencies
     depsManaged=${depsManaged/*$currentLibrary/}
-    # Check if we're looking at a valid dependency (contains with google-cloud)
+    # Check if we're looking at a valid dependency (contains google-cloud)
     if [[ ! -z $(echo ${currentLibrary} | grep "google-cloud") ]]; then
       artifactId=${currentLibrary/*<artifactId>/}
       artifactId=${artifactId/<\/artifactId>*/}

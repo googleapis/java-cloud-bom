@@ -38,7 +38,7 @@ function getLibraryUpdate() {
     return 1
   fi
 
-  #  Use regex to grab the dependency group and artifact IDs
+  # Use regex to grab the dependency group and artifact IDs
 
   # Find group and artifact by format
   groupAndArtifact=$(echo ${currentCommitMessage} | grep -oP 'com.google.cloud:google-cloud-\S+')
