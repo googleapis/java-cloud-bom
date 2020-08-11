@@ -48,31 +48,32 @@
     <h2>Library Versions</h2>
 </#if>
 <input type="text" id="filterBar" onkeyup="filterFunction()" placeholder="Column1:Value1, Column2:Value2...">
-<table id="library versions">
+
+<table id="libraryVersions">
     <tr class="header">
-        <th onclick="sortTableByColumn(0)">java-cloud-bom</th>
-        <th onclick="sortTableByColumn(1)">artifact</th>
-        <th onclick="sortTableByColumn(2)">artifact-version</th>
+        <th onclick="sortTableByColumn(0)">java-cloud-bom &#9660;</th>
+        <th onclick="sortTableByColumn(1)">artifact &#9660;</th>
+        <th onclick="sortTableByColumn(2)">artifact-version &#9660;</th>
         <#if coordinates != "all-versions">
             <th>latest released version</th>
             <th>latest released date</th>
-            <th onclick="sortTableByColumn(5)">java-shared-dependencies</th>
+            <th onclick="sortTableByColumn(5)">java-shared-dependencies &#9660;</th>
         <#else>
-            <th onclick="sortTableByColumn(3)">java-shared-dependencies</th>
+            <th onclick="sortTableByColumn(3)">java-shared-dependencies &#9660;</th>
         </#if>
     </tr>
     <#list artifacts as artifact>
         <#list versions as version>
             <tr>
                 <#assign key = artifact + ":" + version>
-                <th>${version}</th>
-                <th>${artifact}</th>
-                <th><a target="_blank" href=${sharedDepsPosition[key]}>${currentVersion[key]}</a></th>
+                <td>${version}</td>
+                <td>${artifact}</td>
+                <td><a target="_blank" href=${sharedDepsPosition[key]}>${currentVersion[key]}</a></td>
                 <#if coordinates != "all-versions">
-                    <th><a target="_blank" href=${newestPomURL[key]}>${newestVersion[key]}</a></th>
-                    <th><a target="_blank" href=${metadataURL[key]}>${updatedTime[key]}</a></th>
+                    <td><a target="_blank" href=${newestPomURL[key]}>${newestVersion[key]}</a></td>
+                    <td><a target="_blank" href=${metadataURL[key]}>${updatedTime[key]}</a></td>
                 </#if>
-                <th>${sharedDepsVersion[key]}</th>
+                <td>${sharedDepsVersion[key]}</td>
             </tr>
         </#list>
     </#list>
@@ -88,7 +89,7 @@
 
     function sortTableByColumn(colIndex) {
         var table, rows, switching, i, shouldSwitch;
-        table = document.getElementById("library versions");
+        table = document.getElementById("libraryVersions");
         switching = true;
         let sortIndex = colIndex >= 3 ? 3 : colIndex;
         while (switching) {
@@ -113,6 +114,8 @@
                 switching = true;
             }
         }
+        let initialString = rows[0].cells[colIndex].innerText.substr(0, rows[0].cells[colIndex].innerText.lastIndexOf(' '));
+        rows[0].cells[colIndex].innerText = initialString + " " + (columnSort[sortIndex] ? '\u25B2' : '\u25BC');
         columnSort[sortIndex] = !(columnSort[sortIndex]);
     }
 
@@ -163,7 +166,7 @@
             return;
         }
         const splitInput = input.indexOf(",") > -1 ? input.replace(/ /g, '').split(",") : input.split(" ");
-        const table = document.getElementById("library versions");
+        const table = document.getElementById("libraryVersions");
         const rows = table.getElementsByTagName("tr");
         for (let i = 1; i < rows.length; i++) {
             const cols = rows[i].getElementsByTagName("th");
