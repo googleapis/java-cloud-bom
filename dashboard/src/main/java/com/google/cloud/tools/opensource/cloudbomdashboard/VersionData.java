@@ -32,17 +32,23 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Container class for the conversion of a dashboard into a template
+ */
 public class VersionData {
-    //Note this is also used in the file index.ftl
+    /* There can only be one version of our 'All Versions' page */
     public static final String ALL_VERSIONS_NAME = "all-versions";
     public static final VersionData ALL_VERSIONS_DATA = new VersionData();
 
+    /* Helps to improve performance, so we don't have to repeatedly look up
+        remote resources. */
     private static final Map<String, String> pomToDepsVersion = new HashMap<>();
     private static final Map<Artifact, String> artifactToTime = new HashMap<>();
     private static final Map<Artifact, String> artifactToLatestVersion = new HashMap<>();
 
     private final List<String> versions = new ArrayList<>();
 
+    /* Everything associated with the template for this VersionData */
     private final Set<String> artifacts = new TreeSet<>();
     private final Map<String, String> currentVersion = new HashMap<>();
     private final Map<String, String> sharedDepsPosition = new HashMap<>();
@@ -61,6 +67,12 @@ public class VersionData {
     private VersionData() {
     }
 
+    /**
+     * Populate this dashboard with multiple artifacts. If 'addToAllVersions' is set, we will
+     * also add every artifact to the 'All Versions' page.
+     * @param addToAllVersions true to add all artifacts to the 'All Versions' page as well
+     * @param infoMap Mapping of artifacts
+     */
     public void populateData(boolean addToAllVersions, Map<Artifact, ArtifactInfo> infoMap) {
         String cloudBomVersion = versions.get(0);
         for (Map.Entry<Artifact, ArtifactInfo> info : infoMap.entrySet()) {
@@ -112,6 +124,7 @@ public class VersionData {
         templateData.put("artifacts", artifacts);
         templateData.put("versions", versions);
         templateData.put("lastUpdated", LocalDateTime.now());
+        //Our all-versions dashboard page is a special case
         if (versions.size() > 1) {
             templateData.put("staticVersion", "All Versions");
         } else if (versions.size() == 1) {

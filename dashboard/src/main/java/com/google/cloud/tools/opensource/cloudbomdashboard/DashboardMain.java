@@ -40,7 +40,6 @@ import java.util.Map.Entry;
 import static com.google.common.base.Preconditions.checkArgument;
 
 public class DashboardMain {
-
     public static final String basePath = "https://repo1.maven.org/maven2";
     public static final String TEST_NAME_UPPER_BOUND = "Upper Bounds";
     public static final String TEST_NAME_DEPENDENCY_CONVERGENCE = "Dependency Convergence";
@@ -96,6 +95,8 @@ public class DashboardMain {
         }
         bomVersions.add(VersionData.ALL_VERSIONS_NAME);
         for (String version : bomVersions) {
+            //We generate the 'All Versions' page after all other pages, since other pages
+            //are used to collect data for the 'All Versions' page.
             if (!VersionData.ALL_VERSIONS_NAME.equals(version)) {
                 generate(String.format("%s:%s:%s", groupId, artifactId, version));
             }
@@ -270,6 +271,14 @@ public class DashboardMain {
         return upperBoundFailures;
     }
 
+    /**
+     * Generates the complete All Versions dashboard using all data previously passed in
+     * by other dashboards upon creation. (See DashboardMain#generateDashboard())
+     *
+     * @throws IOException
+     * @throws TemplateException
+     * @throws URISyntaxException
+     */
     static void generateAllVersionsDashboard() throws IOException, TemplateException, URISyntaxException {
         Map<String, Object> templateData = VersionData.ALL_VERSIONS_DATA.getTemplateData();
         templateData.put("coordinates", VersionData.ALL_VERSIONS_NAME);
