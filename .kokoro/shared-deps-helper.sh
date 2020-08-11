@@ -173,18 +173,18 @@ function checkLibrary() {
     return 1
   fi
 
+  # google-cloud-shared-dependencies is not in our dependencyManagement section!
+  if [[ -z $(echo ${content} | grep 'google-cloud-shared-dependencies') ]]; then
+    echo "google-cloud-shared-dependencies is not listed for ${clientLibrary}!"
+    return 2
+  fi
+
   # Grab all information from the client library's effective POM
   currDepsVersion=$(echo ${content/*google-cloud-shared-dependencies/})
   currDepsVersion=$(echo ${currDepsVersion/<\/version>*})
   currDepsVersion=$(echo ${currDepsVersion/*<version>/})
   #Remove trailing and leading whitespace.
   currDepsVersion=$(echo ${currDepsVersion} | xargs)
-
-  # google-cloud-shared-dependencies is not in our dependencyManagement section!
-  if [[ -z $currDepsVersion ]]; then
-    echo "google-cloud-shared-dependencies is not listed for ${clientLibrary}!"
-    return 2
-  fi
 
   if [[ ${currDepsVersion} != ${latestSharedDeps} ]]; then
     echo "${clientLibrary} - Version Found: ${currDepsVersion}"

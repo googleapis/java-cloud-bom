@@ -41,7 +41,12 @@ function releaseVersionsCheck() {
     exit 1
   fi
   msg "Desired java-shared-dependencies version:  ${latestSharedDeps}"
-  depsManaged="$(sed '1,/dependencyManagement/d' pom.xml | sed -n '/dependencyManagement/q;p' | sed '/<!--/d')"
+  # Gets us everything between the dependencyManagement tags.
+  currPom=$(echo $(cat pom.xml))
+  depsManaged=${currPom/*<dependencyManagement>/}
+  depsManaged=${depsManaged/<\/dependencyManagement>*/}
+  msg "Grabbed dependency management section for current POM file!"
+
 
   if [[ -z ${depsManaged} ]]; then
     msg "Unable to find dependency management section!"
@@ -53,19 +58,29 @@ function releaseVersionsCheck() {
 
   # Iterate through all managed dependencies.
   while true; do
-    currentLibrary=$(echo "${depsManaged}" | sed '1,/<dependency>/d' | sed -n '/<\/dependency>/q;p')
+    # Gets us everything between the first set of <dependency> tags.
+    currentLibrary=${depsManaged/<\/dependency>*}
+    currentLibrary=${currentLibrary/*<dependency>/}
     if [[ -z ${currentLibrary} ]]; then
       break
     fi
     # Remove this client library from our list of dependencies
     depsManaged=${depsManaged/*$currentLibrary/}
+    # Remove everything before the first instance of </dependency>, since we will
+    # necessarily have one left after removing the last library (assuming non-broken
+    # XML syntax).
+    depsManaged=$(echo $depsManaged | sed 's/^[(<\/dependency>)]*//')
     # Check if we're looking at a valid dependency (contains google-cloud)
     if [[ ! -z $(echo ${currentLibrary} | grep "google-cloud") ]]; then
+      # Gets us everything between the artifactId tags, with whitespace removed.
       artifactId=${currentLibrary/*<artifactId>/}
       artifactId=${artifactId/<\/artifactId>*/}
+      artifactId=$(echo $artifactId | xargs)
 
+      # Gets us everything between the version tags, with whitespace removed.
       version=${currentLibrary/*<version>/}
       version=${version/<\/version>*/}
+      version=$(echo $version | xargs)
 
       libraryArtifactAndVersion=${artifactId}":"${version}
       # Check if the dependency has the correct java-shared-dependencies version.
