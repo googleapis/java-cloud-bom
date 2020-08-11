@@ -4,7 +4,7 @@
   <groupId>com.google.cloud</groupId>
   <artifactId>google-cloud-bom</artifactId>
   <packaging>pom</packaging>
-  <version>0.131.1-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
+  <version>0.132.0</version><!-- {x-version-update:google-cloud-bom:current} -->
   <name>Google Cloud Java BOM</name>
   <url>https://github.com/googleapis/java-cloud-bom</url>
   <description>
