@@ -8,8 +8,7 @@
     <script src="dashboard.js"></script>
 </head>
 <body>
-<h1 style="text-align:center">Java-Cloud-BOM ${staticVersion}</h1>
-<h3 style="text-align:center">Java-Shared-Dependencies Version Display</h3>
+<h1 style="text-align:center">Google-Cloud-BOM ${staticVersion}</h1>
 <hr/>
 <#assign totalArtifacts = table?size>
 
@@ -48,19 +47,23 @@
 <#if coordinates != "all-versions">
     <h2>Library Versions</h2>
 </#if>
-<input type="text" id="filterBar" onkeyup="filterFunction()" placeholder="Column1:Value1, Column2:Value2...">
 
+<p>Search for artifacts and the versions of associated Google-Cloud-Shared-Dependencies each uses,
+within its correspondence of Google-Cloud-BOM.</p>
+<p>Search by column using column1:value1 (Example: Seraching for google-cloud-accesssapproval with version 1.4.0)
+by using either 'artifact:approval artifact-version:1.4.0' or 'approval 1.4.0' or 'approval, 1.4.0' </p>
+<input type="text" id="filterBar" onkeyup="filterFunction()" placeholder="Search...">
 <table id="libraryVersions">
     <tr class="header">
-        <th onclick="sortTableByColumn(0)">java-cloud-bom</th>
-        <th onclick="sortTableByColumn(1)">artifact</th>
-        <th onclick="sortTableByColumn(2)">artifact-version</th>
+        <th>google-cloud-bom</th>
+        <th>artifact</th>
+        <th>artifact-version</th>
         <#if coordinates != "all-versions">
-            <th>latest released version</th>
-            <th>latest released date</th>
-            <th onclick="sortTableByColumn(5)">java-shared-dependencies</th>
+            <th>latest-released-version</th>
+            <th>latest-released-date</th>
+            <th>google-cloud-shared-dependencies</th>
         <#else>
-            <th onclick="sortTableByColumn(3)">java-shared-dependencies</th>
+            <th>google-cloud-shared-dependencies</th>
         </#if>
     </tr>
     <#list artifacts as artifact>
@@ -85,57 +88,31 @@
 <p id='updated'>Last generated at ${lastUpdated}</p>
 
 <script>
-    //Corresponds to java-cloud-bom, artifact, artifact-version, java-shared-dependencies
-    var columnSort = [false, true, false, false];
-    var names = ["java-cloud-bom", "artifact", "artifact-version", "latest released version",
-        "latest released date", "java-shared-dependencies"];
-    var allVersionsNames = ["java-cloud-bom", "artifact", "artifact-version", "java-shared-dependencies"];
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
 
-    function sortTableByColumn(colIndex) {
-        var table, rows, switching, i, shouldSwitch;
-        table = document.getElementById("libraryVersions");
-        switching = true;
-        let sortIndex = colIndex >= 3 ? 3 : colIndex;
-        while (switching) {
-            var currRow, nextRow;
-            switching = false;
-            rows = table.rows;
-            for (i = 1; i < (rows.length - 1); i++) {
-                currRow = rows[i];
-                nextRow = rows[i+1];
-                shouldSwitch = false;
-                if (columnSort[sortIndex]) { //Already sorted descending in this column
-                    if (currRow.cells[colIndex].innerText.localeCompare(nextRow.cells[colIndex].innerText) < 0) {
-                        shouldSwitch = true;
-                        break;
-                    }
+    const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+            v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+    // do the work...
+    document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+        const table = th.closest('table');
+        document.querySelectorAll('th').forEach(otherTh => {
+            if(otherTh != th) {
+                //Remove all special characters
+                otherTh.innerText = otherTh.innerText.replace(/[^\x00-\x7F]/g, "");
+            } else {
+                if(otherTh.innerText.indexOf('\u25BC') > -1) {
+                    otherTh.innerText = otherTh.innerText.split(" ")[0] + " \u25B2";
                 } else {
-                    if (currRow.cells[colIndex].innerText.localeCompare(nextRow.cells[colIndex].innerText) > 0) {
-                        shouldSwitch = true;
-                        break;
-                    }
+                    otherTh.innerText = otherTh.innerText.split(" ")[0] + " \u25BC";
                 }
             }
-            if (shouldSwitch) {
-                currRow.parentNode.insertBefore(nextRow, currRow);
-                switching = true;
-            }
-        }
-        for(let i = 0; i < rows[0].cells.length; i++) {
-            var arr;
-           if(rows[0].cells.length > allVersionsNames.length) {
-               arr = names;
-           } else {
-               arr = allVersionsNames;
-           }
-           if(i == colIndex) {
-               rows[0].cells[i].innerText = arr[i] + " " + (columnSort[sortIndex] ? '\u25B2' : '\u25BC');
-           } else {
-               rows[0].cells[i].innerText = arr[i];
-           }
-        }
-        columnSort[sortIndex] = !(columnSort[sortIndex]);
-    }
+        });
+        Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+            .forEach(tr => table.appendChild(tr) );
+    })));
 
     function colsContainAllInput(cols, input) {
         for (let i = 0; i < input.length; i++) {
@@ -147,7 +124,7 @@
             let col = checkSpecificColumn ? input[i].split(":")[0] : "";
             let currInput = checkSpecificColumn ? input[i].split(":")[1] : input[i];
             if (checkSpecificColumn) {
-                if (col.indexOf("java-cloud-bom") > -1 || col.indexOf("jcb") > -1) {
+                if (col.indexOf("google-cloud-bom") > -1 || col.indexOf("jcb") > -1) {
                     let name = cols[0].textContent || cols[0].innerText;
                     found = name.toLowerCase().indexOf(currInput) > -1;
                 } else if (col.indexOf("artifact") > -1) {
@@ -156,7 +133,7 @@
                 } else if (col.indexOf("artifact-version") > -1) {
                     let name = cols[2].textContent || cols[2].innerText;
                     found = name.toLowerCase().indexOf(currInput) > -1;
-                } else if (col.indexOf("java-shared-dependencies") > -1 || col.indexOf("jsd") > -1) {
+                } else if (col.indexOf("google-cloud-shared-dependencies") > -1 || col.indexOf("jsd") > -1) {
                     let name = cols[cols.length - 1].textContent || cols[cols.length - 1].innerText;
                     found = name.toLowerCase().indexOf(currInput) > -1
                 }
