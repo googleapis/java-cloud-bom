@@ -352,7 +352,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-errorreporting-bom</artifactId>
-        <version>0.120.0-beta</version>
+        <version>0.120.1-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -446,7 +446,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-notification</artifactId>
-        <version>0.120.2-beta</version>
+        <version>0.121.0-beta</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
