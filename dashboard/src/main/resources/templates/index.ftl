@@ -9,6 +9,7 @@
 </head>
 <body>
 <h1 style="text-align:center">Java-Cloud-BOM ${staticVersion}</h1>
+<h3 style="text-align:center">Java-Shared-Dependencies Version Display</h3>
 <hr/>
 <#assign totalArtifacts = table?size>
 
@@ -51,15 +52,15 @@
 
 <table id="libraryVersions">
     <tr class="header">
-        <th onclick="sortTableByColumn(0)">java-cloud-bom &#9660;</th>
-        <th onclick="sortTableByColumn(1)">artifact &#9660;</th>
-        <th onclick="sortTableByColumn(2)">artifact-version &#9660;</th>
+        <th onclick="sortTableByColumn(0)">java-cloud-bom</th>
+        <th onclick="sortTableByColumn(1)">artifact</th>
+        <th onclick="sortTableByColumn(2)">artifact-version</th>
         <#if coordinates != "all-versions">
             <th>latest released version</th>
             <th>latest released date</th>
-            <th onclick="sortTableByColumn(5)">java-shared-dependencies &#9660;</th>
+            <th onclick="sortTableByColumn(5)">java-shared-dependencies</th>
         <#else>
-            <th onclick="sortTableByColumn(3)">java-shared-dependencies &#9660;</th>
+            <th onclick="sortTableByColumn(3)">java-shared-dependencies</th>
         </#if>
     </tr>
     <#list artifacts as artifact>
@@ -86,6 +87,9 @@
 <script>
     //Corresponds to java-cloud-bom, artifact, artifact-version, java-shared-dependencies
     var columnSort = [false, true, false, false];
+    var names = ["java-cloud-bom", "artifact", "artifact-version", "latest released version",
+        "latest released date", "java-shared-dependencies"];
+    var allVersionsNames = ["java-cloud-bom", "artifact", "artifact-version", "java-shared-dependencies"];
 
     function sortTableByColumn(colIndex) {
         var table, rows, switching, i, shouldSwitch;
@@ -93,29 +97,43 @@
         switching = true;
         let sortIndex = colIndex >= 3 ? 3 : colIndex;
         while (switching) {
+            var currRow, nextRow;
             switching = false;
             rows = table.rows;
             for (i = 1; i < (rows.length - 1); i++) {
+                currRow = rows[i];
+                nextRow = rows[i+1];
                 shouldSwitch = false;
-                if(columnSort[sortIndex]) { //Already sorted descending in this column
-                    if (rows[i].cells[colIndex].innerText.localeCompare(rows[i + 1].cells[colIndex].innerText) < 0) {
+                if (columnSort[sortIndex]) { //Already sorted descending in this column
+                    if (currRow.cells[colIndex].innerText.localeCompare(nextRow.cells[colIndex].innerText) < 0) {
                         shouldSwitch = true;
                         break;
                     }
                 } else {
-                    if (rows[i].cells[colIndex].innerText.localeCompare(rows[i + 1].cells[colIndex].innerText) > 0) {
+                    if (currRow.cells[colIndex].innerText.localeCompare(nextRow.cells[colIndex].innerText) > 0) {
                         shouldSwitch = true;
                         break;
                     }
                 }
             }
             if (shouldSwitch) {
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                currRow.parentNode.insertBefore(nextRow, currRow);
                 switching = true;
             }
         }
-        let initialString = rows[0].cells[colIndex].innerText.substr(0, rows[0].cells[colIndex].innerText.lastIndexOf(' '));
-        rows[0].cells[colIndex].innerText = initialString + " " + (columnSort[sortIndex] ? '\u25B2' : '\u25BC');
+        for(let i = 0; i < rows[0].cells.length; i++) {
+            var arr;
+           if(rows[0].cells.length > allVersionsNames.length) {
+               arr = names;
+           } else {
+               arr = allVersionsNames;
+           }
+           if(i == colIndex) {
+               rows[0].cells[i].innerText = arr[i] + " " + (columnSort[sortIndex] ? '\u25B2' : '\u25BC');
+           } else {
+               rows[0].cells[i].innerText = arr[i];
+           }
+        }
         columnSort[sortIndex] = !(columnSort[sortIndex]);
     }
 

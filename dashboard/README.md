@@ -11,5 +11,5 @@ To generate all dashboards (version 0.124.0 and onwards), including the All Vers
 ```
 $ cd dashboard
 $ mvn clean install
-mvn exec:java -Dexec.arguments="-a com.google.cloud:google-cloud-bom"
+$ mvn exec:java -Dexec.arguments="-a com.google.cloud:google-cloud-bom"
 ```
