@@ -1,5 +1,43 @@
 # Changelog
 
+## [0.133.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.132.0...v0.133.0) (2020-08-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove google-cloud-irm (#802)
+
+### Features
+
+* remove google-cloud-irm ([#802](https://www.github.com/googleapis/java-cloud-bom/issues/802)) ([fc49bb7](https://www.github.com/googleapis/java-cloud-bom/commit/fc49bb7bb3384c7f926baa8f8057f77f86fb9a87))
+
+
+### Dependencies
+
+* update dependency com.google.api.grpc:grpc-google-iam-v1 to v0.15.0 ([#804](https://www.github.com/googleapis/java-cloud-bom/issues/804)) ([d5b2aa1](https://www.github.com/googleapis/java-cloud-bom/commit/d5b2aa1d2e933cf229060af6b13c9f246e5de3e8))
+* update dependency com.google.api.grpc:proto-google-iam-v1 to v1.0.0 and google-cloud-core to v1.93.8 ([#820](https://www.github.com/googleapis/java-cloud-bom/issues/820)) ([0b9e246](https://www.github.com/googleapis/java-cloud-bom/commit/0b9e246b3af672569abc27d4904dff5c1c1e600f))
+* update dependency com.google.cloud:google-cloud-accessapproval-bom to v1 ([#829](https://www.github.com/googleapis/java-cloud-bom/issues/829)) ([81e52c2](https://www.github.com/googleapis/java-cloud-bom/commit/81e52c246018bb98b4cc7dc579a4444f0c70d0f1))
+* update dependency com.google.cloud:google-cloud-asset-bom to v1.5.2 ([#799](https://www.github.com/googleapis/java-cloud-bom/issues/799)) ([7807317](https://www.github.com/googleapis/java-cloud-bom/commit/7807317ad3722e6620dfe137103a6b87fff40ed3))
+* update dependency com.google.cloud:google-cloud-billing-bom to v1.1.1 ([#800](https://www.github.com/googleapis/java-cloud-bom/issues/800)) ([1356700](https://www.github.com/googleapis/java-cloud-bom/commit/13567006570bd87cbd6947e212c8334498fa79b1))
+* update dependency com.google.cloud:google-cloud-build-bom to v2.0.1 ([#801](https://www.github.com/googleapis/java-cloud-bom/issues/801)) ([cf10e98](https://www.github.com/googleapis/java-cloud-bom/commit/cf10e98f72f6ede1c68c07b9d8b79747a3e90cc9))
+* update dependency com.google.cloud:google-cloud-containeranalysis-bom to v1.1.1 ([#814](https://www.github.com/googleapis/java-cloud-bom/issues/814)) ([489b42e](https://www.github.com/googleapis/java-cloud-bom/commit/489b42e1940c0d096630abefac46cd893e76ecfc))
+* update dependency com.google.cloud:google-cloud-containeranalysis-bom to v1.1.2 ([#827](https://www.github.com/googleapis/java-cloud-bom/issues/827)) ([e4ae5c9](https://www.github.com/googleapis/java-cloud-bom/commit/e4ae5c9ba2fffcdd1e9e5069dab2408cc4261b91))
+* update dependency com.google.cloud:google-cloud-dataproc-bom to v1.1.0 ([#809](https://www.github.com/googleapis/java-cloud-bom/issues/809)) ([b9a896c](https://www.github.com/googleapis/java-cloud-bom/commit/b9a896c68ac30dda76d84428b2ba1a6d3649eace))
+* update dependency com.google.cloud:google-cloud-dialogflow-bom to v2.2.0 ([#810](https://www.github.com/googleapis/java-cloud-bom/issues/810)) ([36bd72d](https://www.github.com/googleapis/java-cloud-bom/commit/36bd72d00f12e82cf59c8573e41bae2fd2d1f74c))
+* update dependency com.google.cloud:google-cloud-dlp-bom to v2.1.0 ([#811](https://www.github.com/googleapis/java-cloud-bom/issues/811)) ([ba44695](https://www.github.com/googleapis/java-cloud-bom/commit/ba44695bff57602b6d725e878a011f0d57200cc0))
+* update dependency com.google.cloud:google-cloud-dns to v1 ([#830](https://www.github.com/googleapis/java-cloud-bom/issues/830)) ([4208889](https://www.github.com/googleapis/java-cloud-bom/commit/42088893cbe6d5edffd71c394d3e602b81889d15))
+* update dependency com.google.cloud:google-cloud-iot-bom to v1.1.0 ([#812](https://www.github.com/googleapis/java-cloud-bom/issues/812)) ([fc70f8c](https://www.github.com/googleapis/java-cloud-bom/commit/fc70f8c23d1e0307298645f350dbed0f387b4198))
+* update dependency com.google.cloud:google-cloud-kms-bom to v1.39.1 ([#813](https://www.github.com/googleapis/java-cloud-bom/issues/813)) ([4ca7b6b](https://www.github.com/googleapis/java-cloud-bom/commit/4ca7b6bb6ce1f2be9ca2996712034b14dc454916))
+* update dependency com.google.cloud:google-cloud-language-bom to v1.101.0 ([#815](https://www.github.com/googleapis/java-cloud-bom/issues/815)) ([f6169dd](https://www.github.com/googleapis/java-cloud-bom/commit/f6169dddc9d1c8537660d73eabccfd9d74096344))
+* update dependency com.google.cloud:google-cloud-monitoring-dashboard-bom to v1 ([#831](https://www.github.com/googleapis/java-cloud-bom/issues/831)) ([f56a85b](https://www.github.com/googleapis/java-cloud-bom/commit/f56a85b241950172d505f5d90bc7a4f26f82cccf))
+* update dependency com.google.cloud:google-cloud-phishingprotection-bom to v0.29.1 ([#807](https://www.github.com/googleapis/java-cloud-bom/issues/807)) ([f2a5f86](https://www.github.com/googleapis/java-cloud-bom/commit/f2a5f86da5e2b629350d5b3f0800901ed44723a7))
+* update dependency com.google.cloud:google-cloud-secretmanager-bom to v1.1.1 ([#816](https://www.github.com/googleapis/java-cloud-bom/issues/816)) ([bd2e062](https://www.github.com/googleapis/java-cloud-bom/commit/bd2e06296bf43c4a102e25ceab8c002326c70162))
+* update dependency com.google.cloud:google-cloud-servicedirectory-bom to v0.2.1 ([#817](https://www.github.com/googleapis/java-cloud-bom/issues/817)) ([c9dca19](https://www.github.com/googleapis/java-cloud-bom/commit/c9dca199ad8e1f17aeb5baac6d386e5fa092885f))
+* update dependency com.google.cloud:google-cloud-tasks-bom to v1.30.1 ([#818](https://www.github.com/googleapis/java-cloud-bom/issues/818)) ([9c0f200](https://www.github.com/googleapis/java-cloud-bom/commit/9c0f200493c15266496aaa6db232f9e0d59030d0))
+* update dependency com.google.cloud:google-cloud-video-intelligence-bom to v1.4.1 ([#824](https://www.github.com/googleapis/java-cloud-bom/issues/824)) ([d989f80](https://www.github.com/googleapis/java-cloud-bom/commit/d989f80d3193e4a488ed8247a125110c2776d770))
+* update dependency com.google.cloud:google-cloud-webrisk-bom to v1.1.1 ([#825](https://www.github.com/googleapis/java-cloud-bom/issues/825)) ([ae2ec78](https://www.github.com/googleapis/java-cloud-bom/commit/ae2ec7841ac70bd86524f2881189181026a71b5d))
+* update dependency io.grafeas:grafeas to v1 ([#833](https://www.github.com/googleapis/java-cloud-bom/issues/833)) ([7839e4d](https://www.github.com/googleapis/java-cloud-bom/commit/7839e4db7c17964140fe65cea71dac5a72d33c09))
+
 ## [0.132.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.131.0...v0.132.0) (2020-08-11)
 
 
