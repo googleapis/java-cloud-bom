@@ -347,4 +347,14 @@ public class DashboardMain {
             dashboard.process(templateData, out);
         }
     }
+
+    /**
+     * Returns the number of rows in {@code table} that show unavailable ({@code null} result) or some
+     * failures for {@code columnName}.
+     */
+    public static long countFailures(List<ArtifactResults> table, String columnName) {
+        return table.stream()
+                .filter(row -> row.getResult(columnName) == null || row.getFailureCount(columnName) > 0)
+                .count();
+    }
 }
