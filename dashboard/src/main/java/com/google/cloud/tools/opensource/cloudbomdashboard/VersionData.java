@@ -16,21 +16,35 @@
 
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Model;
-import org.eclipse.aether.artifact.Artifact;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+
+import org.apache.commons.io.FileUtils;
+
+import org.eclipse.aether.artifact.Artifact;
+
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
 import java.net.URL;
 import java.net.URLConnection;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
-import java.util.*;
+
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Scanner;
+import java.util.Date;
 
 /**
  * Container class for the conversion of a dashboard into a template
@@ -38,7 +52,7 @@ import java.util.*;
 public class VersionData {
     /* There can only be one version of our 'All Versions' page */
     public static final String ALL_VERSIONS_NAME = "all-versions";
-    public static final VersionData ALL_VERSIONS_DATA = new VersionData();
+    private static final VersionData ALL_VERSIONS_DATA = new VersionData();
 
     /* Helps to improve performance, so we don't have to repeatedly look up
         remote resources. */
@@ -68,8 +82,10 @@ public class VersionData {
     }
 
     /**
-     * Populate this dashboard with multiple artifacts. If 'addToAllVersions' is set, we will
-     * also add every artifact to the 'All Versions' page.
+     * Populate this dashboard with all artifacts in the keyset of the given mapping.
+     * If 'addToAllVersions' is set, we will also add every artifact to the 'All Versions' page,
+     * for creation in the
+     *
      * @param addToAllVersions true to add all artifacts to the 'All Versions' page as well
      * @param infoMap Mapping of artifacts
      */
@@ -86,11 +102,11 @@ public class VersionData {
 
     /**
      * Inserts an artifact's data into this VersionData.
-     * We pass cloudBomVersion for the purpose of our artifact key, used in our FTL file.
+     * Pass cloudBomVersion for the purpose of our artifact key, used in our FTL file.
      */
     private void insertData(String cloudBomVersion, Artifact a) {
         String artifactId = a.getArtifactId();
-        //We concatenate this with the version of the current cloud BOM, so each entry has a unique
+        //Concatenate this with the version of the current cloud BOM, so each entry has a unique
         //key for the mapping in our table.
         String artifactKey = artifactId + ":" + cloudBomVersion;
         String groupId = a.getGroupId();
@@ -107,6 +123,13 @@ public class VersionData {
         sharedDepsVersion.put(artifactKey, sharedDependencyVersion);
         updatedTime.put(artifactKey, updatedTime(a));
         metadataURL.put(artifactKey, getMetadataURL(a));
+    }
+
+    /**
+     * Creates new mapping of template data for use in creating the All Versions page.
+     */
+    public static Map<String, Object> getAllVersionsTemplate() {
+        return ALL_VERSIONS_DATA.getTemplateData();
     }
 
     /**
@@ -152,8 +175,7 @@ public class VersionData {
                     return version;
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
         artifactToLatestVersion.put(artifact, "");
         return "";
@@ -184,18 +206,17 @@ public class VersionData {
                     return outputFormat.format(date);
                 }
             }
-        } catch (IOException | java.text.ParseException e) {
-            e.printStackTrace();
+        } catch (IOException | java.text.ParseException ignored) {
         }
         artifactToTime.put(artifact, "");
         return "";
     }
 
     /**
-     * @param key                Key to use when inserting the artifact's associated path into the given map.
-     * @param artifact           Artifact to add into the map
-     * @param sharedDepsPosition The map receiving the path associated with this artifact.
-     * @return Returns the version of shared-dependencies if found. Returns the empty string otherwise.
+     * @param key                key to use when inserting the artifact's associated path into the given map
+     * @param artifact           artifact to add into the map
+     * @param sharedDepsPosition The map receiving the path associated with this artifact
+     * @return Returns the version of shared-dependencies if found. Returns the empty string otherwise
      */
     private static String sharedDependencyVersion(String key, org.eclipse.aether.artifact.Artifact artifact, Map<String, String> sharedDepsPosition) {
         String groupPath = artifact.getGroupId().replace('.', '/');
@@ -228,8 +249,9 @@ public class VersionData {
     }
 
     private static String getSharedDepsVersionFromURL(String pomURL) {
-        if (pomToDepsVersion.containsKey(pomURL))
+        if (pomToDepsVersion.containsKey(pomURL)) {
             return pomToDepsVersion.get(pomURL);
+        }
         File file = new File("pomFile.xml");
         try {
             URL url = new URL(pomURL);

@@ -28,14 +28,24 @@ import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.artifact.DefaultArtifact;
 import org.eclipse.aether.graph.Dependency;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.io.FileOutputStream;
+
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
@@ -281,7 +291,7 @@ public class DashboardMain {
      * @throws URISyntaxException
      */
     static void generateAllVersionsDashboard() throws IOException, TemplateException, URISyntaxException {
-        Map<String, Object> templateData = VersionData.ALL_VERSIONS_DATA.getTemplateData();
+        Map<String, Object> templateData = VersionData.getAllVersionsTemplate();
         templateData.put("coordinates", VersionData.ALL_VERSIONS_NAME);
         templateData.put("table", new ArrayList<>());
         templateData.put("dependencyGraphs", new ArrayList<>());
@@ -336,15 +346,5 @@ public class DashboardMain {
             Template dashboard = DashboardMain.freemarkerConfiguration.getTemplate("/templates/index.ftl");
             dashboard.process(templateData, out);
         }
-    }
-
-    /**
-     * Returns the number of rows in {@code table} that show unavailable ({@code null} result) or some
-     * failures for {@code columnName}.
-     */
-    public static long countFailures(List<ArtifactResults> table, String columnName) {
-        return table.stream()
-                .filter(row -> row.getResult(columnName) == null || row.getFailureCount(columnName) > 0)
-                .count();
     }
 }
