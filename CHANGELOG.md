@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.0.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.132.0...v1.0.0) (2020-08-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove google-cloud-irm (#802)
+
+### Features
+
+* remove google-cloud-irm ([#802](https://www.github.com/googleapis/java-cloud-bom/issues/802)) ([fc49bb7](https://www.github.com/googleapis/java-cloud-bom/commit/fc49bb7bb3384c7f926baa8f8057f77f86fb9a87))
+
+
+### Dependencies
+
+* update dependency com.google.api.grpc:grpc-google-iam-v1 to v0.15.0 ([#804](https://www.github.com/googleapis/java-cloud-bom/issues/804)) ([d5b2aa1](https://www.github.com/googleapis/java-cloud-bom/commit/d5b2aa1d2e933cf229060af6b13c9f246e5de3e8))
+* update dependency com.google.cloud:google-cloud-asset-bom to v1.5.2 ([#799](https://www.github.com/googleapis/java-cloud-bom/issues/799)) ([7807317](https://www.github.com/googleapis/java-cloud-bom/commit/7807317ad3722e6620dfe137103a6b87fff40ed3))
+* update dependency com.google.cloud:google-cloud-billing-bom to v1.1.1 ([#800](https://www.github.com/googleapis/java-cloud-bom/issues/800)) ([1356700](https://www.github.com/googleapis/java-cloud-bom/commit/13567006570bd87cbd6947e212c8334498fa79b1))
+* update dependency com.google.cloud:google-cloud-build-bom to v2.0.1 ([#801](https://www.github.com/googleapis/java-cloud-bom/issues/801)) ([cf10e98](https://www.github.com/googleapis/java-cloud-bom/commit/cf10e98f72f6ede1c68c07b9d8b79747a3e90cc9))
+* update dependency com.google.cloud:google-cloud-phishingprotection-bom to v0.29.1 ([#807](https://www.github.com/googleapis/java-cloud-bom/issues/807)) ([f2a5f86](https://www.github.com/googleapis/java-cloud-bom/commit/f2a5f86da5e2b629350d5b3f0800901ed44723a7))
+
 ## [0.132.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.131.0...v0.132.0) (2020-08-11)
 
 
