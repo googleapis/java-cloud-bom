@@ -129,7 +129,8 @@ public class DashboardMain {
         List<Artifact> managedDependencies = new ArrayList<>();
         for (Artifact artifact : bom.getManagedDependencies()) {
             if ("com.google.cloud".equals(artifact.getGroupId())
-                    && !artifact.getArtifactId().contains("google-cloud-core")) {
+                    && !artifact.getArtifactId().contains("google-cloud-core")
+                    && !artifact.getArtifactId().contains("google-cloud-bigtable-emulator")) {
                 managedDependencies.add(artifact);
             }
         }

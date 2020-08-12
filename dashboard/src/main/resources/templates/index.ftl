@@ -50,8 +50,8 @@
 
 <p>Search for artifacts and the versions of associated Google-Cloud-Shared-Dependencies each uses,
     within its correspondence of Google-Cloud-BOM.</p>
-<p>Search by column using column1:value1 (Example: Seraching for google-cloud-accesssapproval with version 1.4.0)
-    by using either 'artifact:approval artifact-version:1.4.0' or 'approval 1.4.0' or 'approval, 1.4.0' </p>
+<p>Search by column using column1:value1 (Example: Search for google-cloud-accesssapproval with version 1.4.0
+    by using either 'artifact:approval artifact-version:1.4.0' or 'approval 1.4.0' or 'approval, 1.4.0') </p>
 <input type="text" id="filterBar" onkeyup="filterFunction()" placeholder="Search...">
 <table id="libraryVersions">
     <tr class="header">
@@ -72,12 +72,20 @@
                 <#assign key = artifact + ":" + version>
                 <td>${version}</td>
                 <td>${artifact}</td>
-                <td><a target="_blank" href=${sharedDepsPosition[key]}>${currentVersion[key]}</a></td>
+                <#if sharedDepsPosition[key]??>
+                    <td><a target="_blank" href=${sharedDepsPosition[key]}>${currentVersion[key]}</a></td>
+                <#else>
+                    <td><a target="_blank">N/A</a></td>
+                </#if>
                 <#if coordinates != "all-versions">
                     <td><a target="_blank" href=${newestPomURL[key]}>${newestVersion[key]}</a></td>
                     <td><a target="_blank" href=${metadataURL[key]}>${updatedTime[key]}</a></td>
                 </#if>
-                <td>${sharedDepsVersion[key]}</td>
+                <#if sharedDepsVersion[key]??>
+                    <td>${sharedDepsVersion[key]}</td>
+                <#else>
+                    <td>N/A</td>
+                </#if>
             </tr>
         </#list>
     </#list>

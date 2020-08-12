@@ -8,7 +8,6 @@ body {
 #libraryVersions {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 100%;
 }
 
 #libraryVersions td, #libraryVersions th {
@@ -118,44 +117,42 @@ ul.jar-linkage-report-cause > li {
     position: relative;
     min-height: 180px;
     overflow: hidden;
-    margin-bottom: 40px;
-    border: none;
-    border-radius: 3px;
-    box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.03);
+    border-radius: 25px;
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.03);
     margin: auto;
+    border-style: solid;
+    border-width: medium;
 }
 
 .statistic-item .desc {
     font-size: 1.15em;
     text-transform: uppercase;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.6);
 }
 
 .statistic-item h2 {
     font-size: 2.3em;
     font-weight: 300;
-    color: #fff;
 }
 
 .statistic-item-green {
-    background: #00b26f;
+    border-color: #00b26f;
 }
 
 .statistic-item-orange {
-    background: #ff8300;
+    border-color: #ff8300;
 }
 
 .statistic-item-blue {
-    background: #00b5e9;
+    border-color: #00b5e9;
 }
 
 .statistic-item-red {
-    background: #fa4251;
+    border-color: #fa4251;
 }
 
 .statistic-item-yellow {
-    background: #f1c40f;
+    border-color: #f1c40f;
 }
 
 #filterBar {
@@ -174,11 +171,13 @@ ul.jar-linkage-report-cause > li {
     padding: 16px;
     font-size: 16px;
     border: none;
+    cursor: pointer;
 }
 
 .dropdown {
     position: relative;
     display: inline-block;
+    cursor: pointer;
 }
 
 .dropdown-content {
@@ -187,6 +186,7 @@ ul.jar-linkage-report-cause > li {
     background-color: white;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     z-index: 1;
+    cursor: pointer;
 }
 
 .dropdown-content a {
@@ -194,16 +194,20 @@ ul.jar-linkage-report-cause > li {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    cursor: pointer;
 }
 
 .dropdown-content a:hover {
     background-color: white;
+    cursor: pointer;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
+    cursor: pointer;
 }
 
 .dropdown:hover .dropdown-button {
     background-color: #00b26f;
+    cursor: pointer;
 }
