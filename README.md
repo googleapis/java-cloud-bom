@@ -1,7 +1,7 @@
 Google Cloud Bill of Materials
 ==============================
 
-The `google-cloud-bom` module is basically a pom that can be used to import consistent versions of google-cloud-java
+The `google-cloud-bom` module is a pom that can be used to import consistent versions of google-cloud-java
 components plus its dependencies.
 
 To use it in Maven, add the following to your POM:
