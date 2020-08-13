@@ -46,6 +46,13 @@ import java.util.TreeSet;
 import java.util.Scanner;
 import java.util.Date;
 
+import nu.xom.Builder;
+import nu.xom.Document;
+import nu.xom.Element;
+import nu.xom.Elements;
+import nu.xom.ParsingException;
+import nu.xom.ValidityException;
+
 /**
  * Container class for the conversion of a dashboard into a template
  */
@@ -65,7 +72,7 @@ public class VersionData {
     /* Everything associated with the template for this VersionData */
     private final Set<String> artifacts = new TreeSet<>();
     private final Map<String, String> currentVersion = new HashMap<>();
-    private final Map<String, String> sharedDepsPosition = new HashMap<>();
+    private final Map<String, String> sharedDependenciesPosition = new HashMap<>();
     private final Map<String, String> newestVersion = new HashMap<>();
     private final Map<String, String> newestPomURL = new HashMap<>();
     private final Map<String, String> sharedDepsVersion = new HashMap<>();
@@ -114,7 +121,7 @@ public class VersionData {
 
         String latestVersion = latestVersion(a);
         String pomFileURL = getPomFileURL(groupId, artifactId, newestVersion.get(artifactId));
-        String sharedDependencyVersion = sharedDependencyVersion(artifactKey, a, sharedDepsPosition);
+        String sharedDependencyVersion = sharedDependencyVersion(artifactKey, a, sharedDependenciesPosition);
 
         artifacts.add(artifactId);
         currentVersion.put(artifactKey, version);
@@ -138,7 +145,7 @@ public class VersionData {
     public Map<String, Object> getTemplateData() {
         Map<String, Object> templateData = new HashMap<>();
         templateData.put("currentVersion", currentVersion);
-        templateData.put("sharedDepsPosition", sharedDepsPosition);
+        templateData.put("sharedDependenciesPosition", sharedDependenciesPosition);
         templateData.put("newestVersion", newestVersion);
         templateData.put("newestPomURL", newestPomURL);
         templateData.put("sharedDepsVersion", sharedDepsVersion);
@@ -215,10 +222,10 @@ public class VersionData {
     /**
      * @param key                key to use when inserting the artifact's associated path into the given map
      * @param artifact           artifact to add into the map
-     * @param sharedDepsPosition The map receiving the path associated with this artifact
+     * @param sharedDependenciesPosition The map receiving the path associated with this artifact
      * @return Returns the version of shared-dependencies if found. Returns the empty string otherwise
      */
-    private static String sharedDependencyVersion(String key, org.eclipse.aether.artifact.Artifact artifact, Map<String, String> sharedDepsPosition) {
+    private static String sharedDependencyVersion(String key, Artifact artifact, Map<String, String> sharedDependenciesPosition) {
         String groupPath = artifact.getGroupId().replace('.', '/');
         String pomPath = getPomFileURL(artifact.getGroupId(), artifact.getArtifactId(), artifact.getVersion());
         String parentPath = DashboardMain.basePath + "/" + groupPath
@@ -231,20 +238,20 @@ public class VersionData {
                 + "/" + artifact.getArtifactId() + "-deps-bom-" + artifact.getVersion() + ".pom";
         String version = getSharedDepsVersionFromURL(parentPath);
         if (version != null) {
-            sharedDepsPosition.put(key, parentPath);
+            sharedDependenciesPosition.put(key, parentPath);
             return version;
         }
         version = getSharedDepsVersionFromURL(pomPath);
         if (version != null) {
-            sharedDepsPosition.put(key, pomPath);
+            sharedDependenciesPosition.put(key, pomPath);
             return version;
         }
         version = getSharedDepsVersionFromURL(depsBomPath);
         if (version != null) {
-            sharedDepsPosition.put(key, depsBomPath);
+            sharedDependenciesPosition.put(key, depsBomPath);
             return version;
         }
-        sharedDepsPosition.put(key, "");
+        sharedDependenciesPosition.put(key, "");
         return "";
     }
 
@@ -281,7 +288,7 @@ public class VersionData {
                 + "/" + artifactId + "-" + version + ".pom";
     }
 
-    private static String getMetadataURL(org.eclipse.aether.artifact.Artifact artifact) {
+    private static String getMetadataURL(Artifact artifact) {
         String groupPath = artifact.getGroupId().replace('.', '/');
         return DashboardMain.basePath + "/" + groupPath
                 + "/" + artifact.getArtifactId()
