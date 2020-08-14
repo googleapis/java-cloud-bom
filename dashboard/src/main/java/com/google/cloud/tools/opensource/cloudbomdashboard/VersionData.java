@@ -46,13 +46,6 @@ import java.util.TreeSet;
 import java.util.Scanner;
 import java.util.Date;
 
-import nu.xom.Builder;
-import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.Elements;
-import nu.xom.ParsingException;
-import nu.xom.ValidityException;
-
 /**
  * Container class for the conversion of a dashboard into a template
  */
