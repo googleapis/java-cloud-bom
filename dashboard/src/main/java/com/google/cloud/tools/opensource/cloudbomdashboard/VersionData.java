@@ -33,6 +33,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.time.LocalDateTime;
@@ -72,6 +73,9 @@ public class VersionData {
     private final Map<String, String> updatedTime = new HashMap<>();
     private final Map<String, String> metadataURL = new HashMap<>();
 
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
+    private static DateFormat outputFormat = new SimpleDateFormat("MM-dd-yyyy");
+
     public VersionData(String cloudBomVersion) {
         versions.add(cloudBomVersion);
         ALL_VERSIONS_DATA.versions.add(cloudBomVersion);
@@ -87,7 +91,7 @@ public class VersionData {
      * for creation in the
      *
      * @param addToAllVersions true to add all artifacts to the 'All Versions' page as well
-     * @param infoMap Mapping of artifacts
+     * @param infoMap          Mapping of artifacts
      */
     public void populateData(boolean addToAllVersions, Map<Artifact, ArtifactInfo> infoMap) {
         String cloudBomVersion = versions.get(0);
@@ -113,7 +117,7 @@ public class VersionData {
         String version = a.getVersion();
 
         String latestVersion = latestVersion(a);
-        String pomFileURL = getPomFileURL(groupId, artifactId, newestVersion.get(artifactId));
+        String pomFileURL = getPomFileURL(groupId, artifactId, version);
         String sharedDependencyVersion = sharedDependencyVersion(artifactKey, a, sharedDependenciesPosition);
 
         artifacts.add(artifactId);
@@ -160,21 +164,14 @@ public class VersionData {
         if (artifactToLatestVersion.containsKey(artifact)) {
             return artifactToLatestVersion.get(artifact);
         }
-        String pomPath = getMetadataURL(artifact);
+        String metadataPath = getMetadataURL(artifact);
+        File metadataFile = new File("metadata.xml");
         try {
-            URL url = new URL(pomPath);
-            URLConnection conn = url.openConnection();
-            conn.setConnectTimeout(2000);
-            conn.setReadTimeout(2000);
-            Scanner s = new Scanner(conn.getInputStream());
-            while (s.hasNextLine()) {
-                String string = s.nextLine();
-                if (string.contains("<latest>")) {
-                    String version = string.split(">")[1].split("<")[0];
-                    artifactToLatestVersion.put(artifact, version);
-                    return version;
-                }
-            }
+            URL url = new URL(metadataPath);
+            FileUtils.copyURLToFile(url, metadataFile);
+            String latest = XMLGrabber.grabMetadataValue(metadataFile, "latest");
+            artifactToLatestVersion.put(artifact, latest);
+            return latest;
         } catch (IOException ignored) {
         }
         artifactToLatestVersion.put(artifact, "");
@@ -185,36 +182,27 @@ public class VersionData {
         if (artifactToTime.containsKey(artifact)) {
             return artifactToTime.get(artifact);
         }
-        String groupPath = artifact.getGroupId().replace('.', '/');
-        String metadataPath = DashboardMain.basePath + "/" + groupPath
-                + "/" + artifact.getArtifactId()
-                + "/maven-metadata.xml";
+        String metadataPath = getMetadataURL(artifact);
+        File metadataFile = new File("metadata.xml");
         try {
             URL url = new URL(metadataPath);
-            URLConnection conn = url.openConnection();
-            conn.setConnectTimeout(2000);
-            conn.setReadTimeout(2000);
-            Scanner s = new Scanner(conn.getInputStream());
-            while (s.hasNextLine()) {
-                String string = s.nextLine();
-                if (string.contains("<lastUpdated>")) {
-                    DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
-                    DateFormat outputFormat = new SimpleDateFormat("MM-dd-yyyy");
-                    String input = string.split(">")[1].split("<")[0];
-                    Date date = dateFormat.parse(input);
-                    artifactToTime.put(artifact, outputFormat.format(date));
-                    return outputFormat.format(date);
-                }
+            FileUtils.copyURLToFile(url, metadataFile);
+            String lastUpdated = XMLGrabber.grabMetadataValue(metadataFile, "lastUpdated");
+            if (!lastUpdated.isEmpty()) {
+                Date date = dateFormat.parse(lastUpdated);
+                lastUpdated = outputFormat.format(date);
             }
-        } catch (IOException | java.text.ParseException ignored) {
+            artifactToTime.put(artifact, lastUpdated);
+            return lastUpdated;
+        } catch (IOException | ParseException ignored) {
         }
         artifactToTime.put(artifact, "");
         return "";
     }
 
     /**
-     * @param key                key to use when inserting the artifact's associated path into the given map
-     * @param artifact           artifact to add into the map
+     * @param key                        key to use when inserting the artifact's associated path into the given map
+     * @param artifact                   artifact to add into the map
      * @param sharedDependenciesPosition The map receiving the path associated with this artifact
      * @return Returns the version of shared-dependencies if found. Returns the empty string otherwise
      */
