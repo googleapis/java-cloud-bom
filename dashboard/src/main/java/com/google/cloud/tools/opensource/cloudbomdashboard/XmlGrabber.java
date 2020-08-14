@@ -23,41 +23,41 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.ParsingException;
 
-public class XmlGrabber {
+class XmlGrabber {
+
+  private XmlGrabber() {
+  }
 
   /**
    * Grabs the given value from a metadata file for a given artifact
    *
-   * @param xmlFile The metadata file
-   * @param value   The value to grab (options are lastUpdated, latest, and release)
-   * @return The unformatted value
+   * @param xmlFile the metadata file
+   * @param value   the value to grab (options are lastUpdated, latest, and release)
+   * @return the unformatted value
    */
   public static String grabMetadataValue(File xmlFile, String value) {
-    Builder builder = new Builder();
-
-    Document doc;
     try {
-      doc = builder.build(xmlFile);
+      Builder builder = new Builder();
+      Document doc = builder.build(xmlFile);
+      Element rootElement = doc.getRootElement();
+      if (rootElement == null) {
+        return null;
+      }
+      String namespace = rootElement.getNamespaceURI();
+      Element versioning = rootElement.getFirstChildElement("versioning", namespace);
+      if (versioning == null) {
+        return null;
+      }
+
+      Element lastUpdated = versioning.getFirstChildElement(value, namespace);
+      if (lastUpdated == null) {
+        return null;
+      }
+
+      String lastUpdatedValue = lastUpdated.getValue();
+      return lastUpdatedValue == null ? null : lastUpdatedValue.trim();
     } catch (ParsingException | IOException ignored) {
       return "";
     }
-
-    Element rootElement = doc.getRootElement();
-    if (rootElement == null) {
-      return null;
-    }
-    String namespace = rootElement.getNamespaceURI();
-    Element versioning = rootElement.getFirstChildElement("versioning", namespace);
-    if (versioning == null) {
-      return null;
-    }
-
-    Element lastUpdated = versioning.getFirstChildElement(value, namespace);
-    if (lastUpdated == null) {
-      return null;
-    }
-
-    String lastUpdatedValue = lastUpdated.getValue();
-    return lastUpdatedValue == null ? null : lastUpdatedValue.trim();
   }
 }

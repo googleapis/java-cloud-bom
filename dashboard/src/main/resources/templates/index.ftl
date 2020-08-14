@@ -78,8 +78,8 @@
                 <td><a target="_blank">N/A</a></td>
               </#if>
               <#if coordinates != "all-versions">
-                <td><a target="_blank" href=${newestPomURL[key]}>${newestVersion[key]}</a></td>
-                <td><a target="_blank" href=${metadataURL[key]}>${updatedTime[key]}</a></td>
+                <td><a target="_blank" href=${newestPomUrl[key]}>${newestVersion[key]}</a></td>
+                <td><a target="_blank" href=${metadataUrl[key]}>${updatedTime[key]}</a></td>
               </#if>
               <#if sharedDepsVersion[key]??>
                 <td>${sharedDepsVersion[key]}</td>

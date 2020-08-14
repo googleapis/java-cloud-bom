@@ -16,6 +16,11 @@
 
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.util.Collections;
+import java.util.HashSet;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.commons.io.FileUtils;
@@ -46,79 +51,37 @@ public class VersionData {
   public static final String ALL_VERSIONS_NAME = "all-versions";
   private static final VersionData ALL_VERSIONS_DATA = new VersionData();
 
-  /* Helps to improve performance, so we don't have to repeatedly look up
-      remote resources. */
-  private static final Map<String, String> pomToDepsVersion = new HashMap<>();
+  /* Helps to improve performance. No need to repeatedly look up remote resources. */
+  private static final Map<String, String> pomToDependenciesVersion = new HashMap<>();
   private static final Map<Artifact, String> artifactToTime = new HashMap<>();
   private static final Map<Artifact, String> artifactToLatestVersion = new HashMap<>();
 
-  private final List<String> versions = new ArrayList<>();
+  private final Set<String> versions = new HashSet<>();
 
   /* Everything associated with the template for this VersionData */
-  private final Set<String> artifacts = new TreeSet<>();
-  private final Map<String, String> currentVersion = new HashMap<>();
-  private final Map<String, String> sharedDependenciesPosition = new HashMap<>();
-  private final Map<String, String> newestVersion = new HashMap<>();
-  private final Map<String, String> newestpomUrl = new HashMap<>();
-  private final Map<String, String> sharedDepsVersion = new HashMap<>();
-  private final Map<String, String> updatedTime = new HashMap<>();
-  private final Map<String, String> metadataURL = new HashMap<>();
+  private Set<Artifact> artifacts = new HashSet<>();
+  private Set<String> artifactIds = new HashSet<>();
 
   private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
   private static DateFormat outputFormat = new SimpleDateFormat("MM-dd-yyyy");
 
   public VersionData(String cloudBomVersion) {
     versions.add(cloudBomVersion);
-    ALL_VERSIONS_DATA.versions.add(cloudBomVersion);
   }
 
-  //Constructor meant only for ALL_VERSIONS_DATA
   private VersionData() {
   }
 
-  /**
-   * Populate this dashboard with all artifacts in the keyset of the given mapping. If
-   * 'addToAllVersions' is set, we will also add every artifact to the 'All Versions' page, for
-   * creation in the
-   *
-   * @param addToAllVersions true to add all artifacts to the 'All Versions' page as well
-   * @param infoMap          mapping of artifacts
-   */
-  public void populateData(boolean addToAllVersions, Map<Artifact, ArtifactInfo> infoMap) {
-    String cloudBomVersion = versions.get(0);
-    for (Map.Entry<Artifact, ArtifactInfo> info : infoMap.entrySet()) {
-      insertData(cloudBomVersion, info.getKey());
-
-      if (addToAllVersions) {
-        ALL_VERSIONS_DATA.insertData(cloudBomVersion, info.getKey());
-      }
-    }
+  public void addData(Set<Artifact> artifacts) {
+    this.artifacts.addAll(artifacts);
   }
 
-  /**
-   * Inserts an artifact's data into this VersionData. Pass cloudBomVersion for the purpose of our
-   * artifact key, used in our FTL file.
-   */
-  private void insertData(String cloudBomVersion, Artifact artifact) {
-    String artifactId = artifact.getArtifactId();
-    //Concatenate this with the version of the current cloud BOM, so each entry has a unique
-    //key for the mapping in our table.
-    String artifactKey = artifactId + ":" + cloudBomVersion;
-    String groupId = artifact.getGroupId();
-    String version = artifact.getVersion();
+  public static void addArtifactsToAllVersions(Set<Artifact> artifacts) {
+    ALL_VERSIONS_DATA.addData(artifacts);
+  }
 
-    String latestVersion = latestVersion(artifact);
-    String pomFileURL = getPomFileURL(groupId, artifactId, version);
-    String sharedDependencyVersion = sharedDependencyVersion(artifactKey, artifact,
-        sharedDependenciesPosition);
-
-    artifacts.add(artifactId);
-    currentVersion.put(artifactKey, version);
-    newestVersion.put(artifactKey, latestVersion);
-    newestpomUrl.put(artifactKey, pomFileURL);
-    sharedDepsVersion.put(artifactKey, sharedDependencyVersion);
-    updatedTime.put(artifactKey, updatedTime(artifact));
-    metadataURL.put(artifactKey, getMetadataURL(artifact));
+  public static void addVersionToAllVersions(String version) {
+    ALL_VERSIONS_DATA.versions.add(version);
   }
 
   /**
@@ -132,22 +95,58 @@ public class VersionData {
    * Returns the 'template data' formatting of our data.
    */
   public Map<String, Object> getTemplateData() {
+    //Freemarker template
     Map<String, Object> templateData = new HashMap<>();
+
+    //Mappings used within Freemarker file
+    Map<String, String> currentVersion = new HashMap<>();
+    Map<String, String> sharedDependenciesPosition = new HashMap<>();
+    Map<String, String> newestVersion = new HashMap<>();
+    Map<String, String> newestPomUrl = new HashMap<>();
+    Map<String, String> sharedDepsVersion = new HashMap<>();
+    Map<String, String> updatedTime = new HashMap<>();
+    Map<String, String> metadataUrl = new HashMap<>();
+
+    for (String cloudBomVersion : versions) {
+      for (Artifact artifact : artifacts) {
+        String artifactId = artifact.getArtifactId();
+        //Concatenate this with the version of the current cloud BOM, so each entry has a unique
+        //key for the mapping in our table.
+        String artifactKey = artifactId + ":" + cloudBomVersion;
+        String groupId = artifact.getGroupId();
+        String version = artifact.getVersion();
+
+        String latestVersion = latestVersion(artifact);
+        String pomFileURL = getPomFileURL(groupId, artifactId, version);
+        String sharedDependencyVersion = sharedDependencyVersion(artifactKey, artifact,
+            sharedDependenciesPosition);
+
+        artifactIds.add(artifactId);
+        currentVersion.put(artifactKey, version);
+        newestVersion.put(artifactKey, latestVersion);
+        newestPomUrl.put(artifactKey, pomFileURL);
+        sharedDepsVersion.put(artifactKey, sharedDependencyVersion);
+        updatedTime.put(artifactKey, updatedTime(artifact));
+        metadataUrl.put(artifactKey, getMetadataUrl(artifact));
+      }
+    }
+
     templateData.put("currentVersion", currentVersion);
     templateData.put("sharedDependenciesPosition", sharedDependenciesPosition);
     templateData.put("newestVersion", newestVersion);
-    templateData.put("newestpomUrl", newestpomUrl);
+    templateData.put("newestPomUrl", newestPomUrl);
     templateData.put("sharedDepsVersion", sharedDepsVersion);
     templateData.put("updatedTime", updatedTime);
-    templateData.put("metadataURL", metadataURL);
-    templateData.put("artifacts", artifacts);
+    templateData.put("metadataUrl", metadataUrl);
+    templateData.put("artifacts", artifactIds);
     templateData.put("versions", versions);
     templateData.put("lastUpdated", LocalDateTime.now());
     //Our all-versions dashboard page is a special case
     if (versions.size() > 1) {
       templateData.put("staticVersion", "All Versions");
     } else if (versions.size() == 1) {
-      templateData.put("staticVersion", versions.get(0));
+      String onlyElement = versions.stream().findAny().get();
+      templateData.put("staticVersion", onlyElement);
     }
     return templateData;
   }
@@ -156,7 +155,7 @@ public class VersionData {
     if (artifactToLatestVersion.containsKey(artifact)) {
       return artifactToLatestVersion.get(artifact);
     }
-    String metadataPath = getMetadataURL(artifact);
+    String metadataPath = getMetadataUrl(artifact);
     File metadataFile = new File("metadata.xml");
     try {
       URL url = new URL(metadataPath);
@@ -174,11 +173,12 @@ public class VersionData {
     if (artifactToTime.containsKey(artifact)) {
       return artifactToTime.get(artifact);
     }
-    String metadataPath = getMetadataURL(artifact);
+    String metadataPath = getMetadataUrl(artifact);
     File metadataFile = new File("metadata.xml");
     try {
       URL url = new URL(metadataPath);
-      FileUtils.copyURLToFile(url, metadataFile);
+      BufferedInputStream input = new BufferedInputStream(url.openStream());
+      FileUtils.copyInputStreamToFile(input, metadataFile);
       String lastUpdated = XmlGrabber.grabMetadataValue(metadataFile, "lastUpdated");
       if (!lastUpdated.isEmpty()) {
         Date date = dateFormat.parse(lastUpdated);
@@ -193,8 +193,8 @@ public class VersionData {
   }
 
   /**
-   * @param key                        key to use when inserting the artifact's associated path into
-   *                                   the given map
+   * @param key                        key to use when inserting the artifact's associated path
+   *                                   into
    * @param artifact                   artifact to add into the map
    * @param sharedDependenciesPosition the map receiving the path associated with this artifact
    * @return the version of shared-dependencies if found. Returns the empty string otherwise
@@ -212,17 +212,17 @@ public class VersionData {
         + "/" + artifact.getArtifactId() + "-deps-bom"
         + "/" + artifact.getVersion()
         + "/" + artifact.getArtifactId() + "-deps-bom-" + artifact.getVersion() + ".pom";
-    String version = getSharedDepsVersionFromUrl(parentPath);
+    String version = getSharedDependenciesVersionFromUrl(parentPath);
     if (version != null) {
       sharedDependenciesPosition.put(key, parentPath);
       return version;
     }
-    version = getSharedDepsVersionFromUrl(pomPath);
+    version = getSharedDependenciesVersionFromUrl(pomPath);
     if (version != null) {
       sharedDependenciesPosition.put(key, pomPath);
       return version;
     }
-    version = getSharedDepsVersionFromUrl(depsBomPath);
+    version = getSharedDependenciesVersionFromUrl(depsBomPath);
     if (version != null) {
       sharedDependenciesPosition.put(key, depsBomPath);
       return version;
@@ -231,25 +231,26 @@ public class VersionData {
     return "";
   }
 
-  private static String getSharedDepsVersionFromUrl(String pomUrl) {
-    if (pomToDepsVersion.containsKey(pomUrl)) {
-      return pomToDepsVersion.get(pomUrl);
+  private static String getSharedDependenciesVersionFromUrl(String pomUrl) {
+    if (pomToDependenciesVersion.containsKey(pomUrl)) {
+      return pomToDependenciesVersion.get(pomUrl);
     }
-    File file = new File("pomFile.xml");
-    file.deleteOnExit();
+    File pomFile = new File("pomFile.xml");
+    pomFile.deleteOnExit();
     try {
       URL url = new URL(pomUrl);
-      FileUtils.copyURLToFile(url, file);
+      BufferedInputStream input = new BufferedInputStream(url.openStream());
+      FileUtils.copyInputStreamToFile(input, pomFile);
       MavenXpp3Reader read = new MavenXpp3Reader();
-      Model model = read.read(new FileReader(file));
-        if (model.getDependencyManagement() == null) {
-            return null;
-        }
+      Model model = read.read(new FileReader(pomFile));
+      if (model.getDependencyManagement() == null) {
+        return null;
+      }
       for (org.apache.maven.model.Dependency dep : model.getDependencyManagement()
           .getDependencies()) {
         if ("com.google.cloud".equals(dep.getGroupId()) && "google-cloud-shared-dependencies"
             .equals(dep.getArtifactId())) {
-          pomToDepsVersion.put(pomUrl, dep.getVersion());
+          pomToDependenciesVersion.put(pomUrl, dep.getVersion());
           return dep.getVersion();
         }
       }
@@ -267,7 +268,7 @@ public class VersionData {
         + "/" + artifactId + "-" + version + ".pom";
   }
 
-  private static String getMetadataURL(Artifact artifact) {
+  private static String getMetadataUrl(Artifact artifact) {
     String groupPath = artifact.getGroupId().replace('.', '/');
     return DashboardMain.basePath + "/" + groupPath
         + "/" + artifact.getArtifactId()

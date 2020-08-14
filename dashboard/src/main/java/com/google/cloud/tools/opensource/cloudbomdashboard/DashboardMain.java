@@ -17,6 +17,7 @@
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
 import static com.google.common.base.Preconditions.checkArgument;
+
 import com.google.cloud.tools.opensource.dependencies.Bom;
 import com.google.cloud.tools.opensource.dependencies.DependencyGraph;
 import com.google.cloud.tools.opensource.dependencies.DependencyGraphBuilder;
@@ -34,6 +35,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateHashModel;
 import freemarker.template.Version;
+import java.util.Set;
 import org.apache.commons.cli.ParseException;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -109,9 +111,9 @@ public class DashboardMain {
     ImmutableList<String> versions =
         RepositoryUtility.findVersions(repositorySystem, groupId, artifactId);
     for (String version : versions) {
-        if (version.contains("alpha")) {
-            continue;
-        }
+      if (version.contains("alpha")) {
+        continue;
+      }
       bomVersions.add(version);
     }
     bomVersions.add(VersionData.ALL_VERSIONS_NAME);
@@ -344,7 +346,13 @@ public class DashboardMain {
         .substring(bom.getCoordinates().lastIndexOf(":") + 1);
 
     VersionData currentVersionDashboard = new VersionData(cloudBomVersion);
-    currentVersionDashboard.populateData(generateAll, infoMap);
+    Set<Artifact> artifactsData = infoMap.keySet();
+    currentVersionDashboard.addData(artifactsData);
+
+    if (generateAll) {
+      VersionData.addArtifactsToAllVersions(artifactsData);
+      VersionData.addVersionToAllVersions(cloudBomVersion);
+    }
 
     Map<String, Object> templateData = currentVersionDashboard.getTemplateData();
 
