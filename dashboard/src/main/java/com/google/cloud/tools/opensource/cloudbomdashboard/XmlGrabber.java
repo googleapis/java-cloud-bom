@@ -32,7 +32,7 @@ class XmlGrabber {
    * Grabs the given value from a metadata file for a given artifact
    *
    * @param xmlFile the metadata file
-   * @param value   the value to grab (options are lastUpdated, latest, and release)
+   * @param value   the value to grab from the 'versioning' subtree
    * @return the unformatted value
    */
   public static String grabMetadataValue(File xmlFile, String value) {
@@ -49,13 +49,13 @@ class XmlGrabber {
         return null;
       }
 
-      Element lastUpdated = versioning.getFirstChildElement(value, namespace);
-      if (lastUpdated == null) {
+      Element versioningChild = versioning.getFirstChildElement(value, namespace);
+      if (versioningChild == null) {
         return null;
       }
 
-      String lastUpdatedValue = lastUpdated.getValue();
-      return lastUpdatedValue == null ? null : lastUpdatedValue.trim();
+      String versioningChildValue = versioningChild.getValue();
+      return versioningChildValue == null ? null : versioningChildValue.trim();
     } catch (ParsingException | IOException ignored) {
       return "";
     }

@@ -17,7 +17,6 @@
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
 import static com.google.common.base.Preconditions.checkArgument;
-
 import com.google.cloud.tools.opensource.dependencies.Bom;
 import com.google.cloud.tools.opensource.dependencies.DependencyGraph;
 import com.google.cloud.tools.opensource.dependencies.DependencyGraphBuilder;
@@ -35,7 +34,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateHashModel;
 import freemarker.template.Version;
-import java.util.Set;
+import java.net.URL;
 import org.apache.commons.cli.ParseException;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -53,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Set;
 import org.eclipse.aether.RepositoryException;
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.artifact.Artifact;
@@ -86,7 +86,7 @@ public class DashboardMain {
       ParseException, MavenRepositoryException {
     DashboardArguments dashboardArguments = DashboardArguments.readCommandLine(arguments);
 
-    //If looking to edit the dashboard structure, see DashboardMain#generateDashboard.
+    // If looking to edit the dashboard structure, see DashboardMain#generateDashboard.
     if (dashboardArguments.hasVersionlessCoordinates()) {
       generateAll = true;
       generateAllVersions(dashboardArguments.getVersionlessCoordinates());
@@ -125,8 +125,6 @@ public class DashboardMain {
       }
     }
     generateAllVersionsDashboard();
-    //generateAllVersions();
-    //generateVersionIndex(groupId, artifactId, versions);
   }
 
   @VisibleForTesting
@@ -151,6 +149,9 @@ public class DashboardMain {
   private static Path generate(Bom bom) throws IOException, TemplateException, URISyntaxException {
     List<Artifact> managedDependencies = new ArrayList<>();
     for (Artifact artifact : bom.getManagedDependencies()) {
+      // All dependencies with google-cloud-shared-dependencies must have group ID
+      // "com.google.cloud". google-cloud-core and bigtable-emulator are unique
+      // in that they do not require google-cloud-shared-dependencies.
       if ("com.google.cloud".equals(artifact.getGroupId())
           && !artifact.getArtifactId().contains("google-cloud-core")
           && !artifact.getArtifactId().contains("google-cloud-bigtable-emulator")) {
@@ -188,11 +189,19 @@ public class DashboardMain {
     return output;
   }
 
+  /**
+   * @throws IOException if we fail to copy the resources to output
+   * @throws URISyntaxException if resourceName produces a URL with a bad URI
+   * @throws IllegalArgumentException if resourceName produces an invalid URL
+   */
   private static void copyResource(Path output, String resourceName)
       throws IOException, URISyntaxException {
     ClassLoader classLoader = DashboardMain.class.getClassLoader();
-    Path input = Paths.get(Objects.requireNonNull(classLoader.getResource(resourceName)).toURI())
-        .toAbsolutePath();
+    URL resource = classLoader.getResource(resourceName);
+    if (resource == null) {
+      throw new IllegalArgumentException();
+    }
+    Path input = Paths.get(resource.toURI()).toAbsolutePath();
     Path copy = output.resolve(input.getFileName());
     if (!Files.exists(copy)) {
       Files.copy(input, copy);
@@ -301,10 +310,6 @@ public class DashboardMain {
   /**
    * Generates the complete All Versions dashboard using all data previously passed in by other
    * dashboards upon creation. (See DashboardMain#generateDashboard())
-   *
-   * @throws IOException
-   * @throws TemplateException
-   * @throws URISyntaxException
    */
   static void generateAllVersionsDashboard()
       throws IOException, TemplateException, URISyntaxException {
