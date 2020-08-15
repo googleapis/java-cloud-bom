@@ -112,7 +112,7 @@
       <groupId>xom</groupId>
       <artifactId>xom</artifactId>
       <version>1.3.5</version>
-      <scope>compile</scope>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
