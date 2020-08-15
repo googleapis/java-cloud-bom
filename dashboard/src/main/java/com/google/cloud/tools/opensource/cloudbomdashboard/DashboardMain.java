@@ -116,11 +116,11 @@ public class DashboardMain {
       }
       bomVersions.add(version);
     }
-    bomVersions.add(VersionData.ALL_VERSIONS_NAME);
+    bomVersions.add(AllVersionsPage.ALL_VERSIONS_NAME);
     for (String version : bomVersions) {
       //We generate the 'All Versions' page after all other pages, since other pages
       //are used to collect data for the 'All Versions' page.
-      if (!VersionData.ALL_VERSIONS_NAME.equals(version)) {
+      if (!AllVersionsPage.ALL_VERSIONS_NAME.equals(version)) {
         generate(String.format("%s:%s:%s", groupId, artifactId, version));
       }
     }
@@ -313,13 +313,13 @@ public class DashboardMain {
    */
   static void generateAllVersionsDashboard()
       throws IOException, TemplateException, URISyntaxException {
-    Map<String, Object> templateData = VersionData.getAllVersionsTemplate();
-    templateData.put("coordinates", VersionData.ALL_VERSIONS_NAME);
+    Map<String, Object> templateData = AllVersionsPage.getAllVersionsTemplateData();
+    templateData.put("coordinates", AllVersionsPage.ALL_VERSIONS_NAME);
     templateData.put("table", new ArrayList<>());
     templateData.put("dependencyGraphs", new ArrayList<>());
 
     Path relativePath = outputDirectory("com.google.cloud", "google-cloud-bom",
-        VersionData.ALL_VERSIONS_NAME);
+        AllVersionsPage.ALL_VERSIONS_NAME);
     Path output = Files.createDirectories(relativePath);
 
     copyResource(output, "css/dashboard.css");
@@ -355,8 +355,7 @@ public class DashboardMain {
     currentVersionDashboard.addData(artifactsData);
 
     if (generateAll) {
-      VersionData.addArtifactsToAllVersions(artifactsData);
-      VersionData.addVersionToAllVersions(cloudBomVersion);
+      AllVersionsPage.addToAllVersions(currentVersionDashboard);
     }
 
     Map<String, Object> templateData = currentVersionDashboard.getTemplateData();
