@@ -48,7 +48,7 @@
   <h2>Library Versions</h2>
 </#if>
 
-<p>Search for artifacts and the versions of associated Google-Cloud-Shared-Dependencies each uses,
+<p>Search for artifacts and the versions of associated google-cloud-shared-dependencies each uses,
   within its correspondence of Google-Cloud-BOM.</p>
 <p>Search by column using column1:value1 (Example: Search for google-cloud-accesssapproval with version 1.4.0
   by using either 'artifact:approval artifact-version:1.4.0' or 'approval 1.4.0' or 'approval, 1.4.0') </p>
@@ -81,8 +81,8 @@
                 <td><a target="_blank" href=${newestPomUrl[key]}>${newestVersion[key]}</a></td>
                 <td><a target="_blank" href=${metadataUrl[key]}>${updatedTime[key]}</a></td>
               </#if>
-              <#if sharedDepsVersion[key]??>
-                <td>${sharedDepsVersion[key]}</td>
+              <#if sharedDependenciesVersion[key]??>
+                <td>${sharedDependenciesVersion[key]}</td>
               <#else>
                 <td>N/A</td>
               </#if>

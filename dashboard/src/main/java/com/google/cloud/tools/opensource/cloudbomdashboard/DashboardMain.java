@@ -17,6 +17,7 @@
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
 import static com.google.common.base.Preconditions.checkArgument;
+
 import com.google.cloud.tools.opensource.dependencies.Bom;
 import com.google.cloud.tools.opensource.dependencies.DependencyGraph;
 import com.google.cloud.tools.opensource.dependencies.DependencyGraphBuilder;
@@ -51,7 +52,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.Set;
 import org.eclipse.aether.RepositoryException;
 import org.eclipse.aether.RepositorySystem;
@@ -71,8 +71,6 @@ public class DashboardMain {
 
   private static final List<String> bomVersions = new ArrayList<>();
 
-  private static boolean generateAll = false;
-
   /**
    * Generates a code hygiene dashboard for a BOM. This tool takes a path to pom.xml of the BOM as
    * an argument or Maven coordinates to a BOM.
@@ -88,7 +86,6 @@ public class DashboardMain {
 
     // If looking to edit the dashboard structure, see DashboardMain#generateDashboard.
     if (dashboardArguments.hasVersionlessCoordinates()) {
-      generateAll = true;
       generateAllVersions(dashboardArguments.getVersionlessCoordinates());
     } else if (dashboardArguments.hasFile()) {
       generate(dashboardArguments.getBomFile());
@@ -116,11 +113,11 @@ public class DashboardMain {
       }
       bomVersions.add(version);
     }
-    bomVersions.add(AllVersionsPage.ALL_VERSIONS_NAME);
+    bomVersions.add(VersionData.ALL_VERSIONS_NAME);
     for (String version : bomVersions) {
       //We generate the 'All Versions' page after all other pages, since other pages
       //are used to collect data for the 'All Versions' page.
-      if (!AllVersionsPage.ALL_VERSIONS_NAME.equals(version)) {
+      if (!VersionData.ALL_VERSIONS_NAME.equals(version)) {
         generate(String.format("%s:%s:%s", groupId, artifactId, version));
       }
     }
@@ -190,8 +187,8 @@ public class DashboardMain {
   }
 
   /**
-   * @throws IOException if we fail to copy the resources to output
-   * @throws URISyntaxException if resourceName produces a URL with a bad URI
+   * @throws IOException              if we fail to copy the resources to output
+   * @throws URISyntaxException       if resourceName produces a URL with a bad URI
    * @throws IllegalArgumentException if resourceName produces an invalid URL
    */
   private static void copyResource(Path output, String resourceName)
@@ -313,13 +310,14 @@ public class DashboardMain {
    */
   static void generateAllVersionsDashboard()
       throws IOException, TemplateException, URISyntaxException {
-    Map<String, Object> templateData = AllVersionsPage.getAllVersionsTemplateData();
-    templateData.put("coordinates", AllVersionsPage.ALL_VERSIONS_NAME);
+    String[] bomVersionsArray = bomVersions.toArray(new String[bomVersions.size()]);
+    Map<String, Object> templateData = VersionData.createTemplateData(bomVersionsArray);
+    templateData.put("coordinates", VersionData.ALL_VERSIONS_NAME);
     templateData.put("table", new ArrayList<>());
     templateData.put("dependencyGraphs", new ArrayList<>());
 
     Path relativePath = outputDirectory("com.google.cloud", "google-cloud-bom",
-        AllVersionsPage.ALL_VERSIONS_NAME);
+        VersionData.ALL_VERSIONS_NAME);
     Path output = Files.createDirectories(relativePath);
 
     copyResource(output, "css/dashboard.css");
@@ -350,15 +348,10 @@ public class DashboardMain {
     String cloudBomVersion = bom.getCoordinates()
         .substring(bom.getCoordinates().lastIndexOf(":") + 1);
 
-    VersionData currentVersionDashboard = new VersionData(cloudBomVersion);
     Set<Artifact> artifactsData = infoMap.keySet();
-    currentVersionDashboard.addData(artifactsData);
+    VersionData.addData(cloudBomVersion, artifactsData);
 
-    if (generateAll) {
-      AllVersionsPage.addToAllVersions(currentVersionDashboard);
-    }
-
-    Map<String, Object> templateData = currentVersionDashboard.getTemplateData();
+    Map<String, Object> templateData = VersionData.createTemplateData(cloudBomVersion);
 
     templateData.put("table", table);
     templateData.put("coordinates", bom.getCoordinates());
