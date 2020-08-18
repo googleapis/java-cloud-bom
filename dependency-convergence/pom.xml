@@ -138,7 +138,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <configuration>
           <skip>false</skip>
-          <mainClass>TestPOM</mainClass>
+          <mainClass>DependencyUpdateTest</mainClass>
         </configuration>
       </plugin>
     </plugins>
