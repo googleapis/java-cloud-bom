@@ -28,7 +28,9 @@ import org.apache.commons.cli.ParseException;
 
 /**
  * Command-line option for {@link DependencyUpdateTest}. The tool takes either a pom.xml file path
- * or Maven coordinates for a BOM. Comes from Java-Cloud-Bom Dashboard.
+ * or Maven coordinates for a BOM.
+ *
+ * @see <a href="https://github.com/googleapis/java-cloud-bom/blob/master/dashboard/src/main/java/com/google/cloud/tools/opensource/cloudbomdashboard/DashboardArguments.java"</a>
  */
 final class Arguments {
 

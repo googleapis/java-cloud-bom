@@ -31,29 +31,42 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.apache.commons.cli.ParseException;
 import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.artifact.DefaultArtifact;
 
-public class DependencyUpdateTest {
+public class RecentCommitCheck {
 
-  private static final String updateDependency = "deps: update dependency com.google.cloud:google-cloud-";
-  private static final String newRelease = "release-v";
   /**
-   * These are the only four possibilities for any given client library A successful client library
-   * has the latest version of google-cloud-shared-dependencies. An unsuccessful library may not
-   * list google-cloud-shared-dependencies, have a version less than the latest, or have a POM that
-   * can't be found.
+   * Identifiers for commits with new releases, or updated dependency versions
    */
+  private static final String updateDependency = "deps: update dependency com.google.cloud:google-cloud-";
+  private static final String newRelease = "chore: release";
+  private static final String snapshot = "SNAPSHOT";
+
   private static final Map<ArtifactData, ClientLibraryStatus> clientLibraries = new HashMap<>();
 
   public static void main(String[] args) throws ParseException, MavenRepositoryException {
     String latestCommitMessage = getLatestCommitMessage();
-    if (latestCommitMessage == null) {
+    int exitCode = execute(latestCommitMessage);
+    printOutput(exitCode);
+    System.exit(exitCode);
+  }
+
+  public static Map<ArtifactData, ClientLibraryStatus> getCurrentClientLibraries() {
+    return new HashMap<>(clientLibraries);
+  }
+
+  /**
+   * @param commitMessage most recent commit message from Git
+   * @return program exit code - 0 for success, 1 for invalid dependencies, 2 for unable to find
+   * latest version of google-cloud-shared-dependencies
+   */
+  public static int execute(String commitMessage) throws ParseException, MavenRepositoryException {
+    if (commitMessage == null || (!commitMessage.contains(updateDependency)
+      && !commitMessage.contains(newRelease)) || commitMessage.contains(snapshot)) {
       System.out.println("Commit message does not update dependencies. Returning success");
-      System.exit(0);
-      return;
+      return 0;
     }
 
     DefaultArtifact latestSharedDependencies = new DefaultArtifact("com.google.cloud",
@@ -62,33 +75,43 @@ public class DependencyUpdateTest {
         .generateArtifactData(latestSharedDependencies);
     String latestSharedDependenciesVersion = sharedDependenciesData.getLatestVersion();
     if (latestSharedDependenciesVersion == null || latestSharedDependenciesVersion.isEmpty()) {
-      System.out.println("Failed to find latest version of google-cloud-shared-dependencies");
-      System.exit(1);
-      return;
+      return 2;
     }
-    System.out.println("The latest version of google-cloud-shared-dependencies is "
-        + latestSharedDependenciesVersion);
 
-    if (latestCommitMessage.contains(updateDependency)) {
-      String dependencyStart = latestCommitMessage
-          .substring(latestCommitMessage.indexOf("com.google.cloud:"));
+    if (commitMessage.contains(updateDependency)) {
+      String dependencyStart = commitMessage.substring(commitMessage.indexOf("com.google.cloud:"));
       // Should be of the form ["groupId:artifactId", "to", "vX.X.X"]
       String[] items = dependencyStart.split(" ");
+      if (items.length != 3) {
+        System.out.println("Commit message does not update dependencies. Returning success");
+        return 0;
+      }
       // We already know the groupId
-      String groupId = "com.google.cloud";
-      String artifactId = items[0].split("")[1];
-      String version = items[2].substring(1);
+      String[] groupAndArtifact = items[0].split(":");
+      if (groupAndArtifact.length != 2) {
+        System.out.println("Commit message does not update dependencies. Returning success");
+        return 0;
+      }
+      String groupId = groupAndArtifact[0];
+      String artifactId = groupAndArtifact[1];
+      String version = items[2];
+
+      if(!version.startsWith("v")) {
+        System.out.println("Commit message does not update dependencies. Returning success");
+        return 0;
+      }
+
+      version = version.substring(1);
 
       Artifact dependencyArtifact = new DefaultArtifact(groupId, artifactId, null, version);
       ArtifactData data = ArtifactData.generateArtifactData(dependencyArtifact);
-      ClientLibraryStatus status = ClientLibraryStatus.getLibraryStatus(data, latestSharedDependenciesVersion);
-      System.out.println(String.format(status.getOutputFormatter(), 1));
+      ClientLibraryStatus status = ClientLibraryStatus
+          .getLibraryStatus(data, latestSharedDependenciesVersion);
+      clientLibraries.put(data, status);
       if (status == ClientLibraryStatus.SUCCESSFUL) {
-        System.exit(0);
-      } else {
-        System.exit(1);
+        return 0;
       }
-      return;
+      return 1;
     }
     // A release PR was found
     Arguments arguments = Arguments.readCommandLine("-f ../pom.xml");
@@ -101,6 +124,15 @@ public class DependencyUpdateTest {
           .put(data, ClientLibraryStatus.getLibraryStatus(data, latestSharedDependenciesVersion));
     }
 
+    long successfulCount = clientLibraries.keySet().stream()
+        .filter(c -> clientLibraries.get(c) == ClientLibraryStatus.SUCCESSFUL).count();
+    if (managedDependencies.size() > successfulCount) {
+      return 1;
+    }
+    return 0;
+  }
+
+  private static void printOutput(int exitCode) {
     for (ClientLibraryStatus status : ClientLibraryStatus.values()) {
       // Grab all artifacts with this status
       Set<ArtifactData> statusArtifacts = clientLibraries.keySet().stream()
@@ -125,16 +157,21 @@ public class DependencyUpdateTest {
       }
     }
 
-    long successfulCount = clientLibraries.keySet().stream()
-        .filter(c -> clientLibraries.get(c) == ClientLibraryStatus.SUCCESSFUL).count();
-    if (managedDependencies.size() > successfulCount) {
-      System.out.println("Total dependencies checked: " + managedDependencies.size());
-      System.exit(1);
-      return;
+    switch (exitCode) {
+      case 0:
+        System.out.println("All found libraries were successful");
+        break;
+      case 1:
+        System.out.println("Invalid dependencies found!");
+        break;
+      case 2:
+        System.out.println("Failed to find latest version of google-cloud-shared-dependencies");
+        break;
+      default:
+        System.out.println("Unknown exit code found");
+        break;
     }
-    System.out.println("Total dependencies checked: " + managedDependencies.size());
-    System.out.println("All found libraries were successful!");
-    System.exit(0);
+    System.out.println("Total dependencies checked: " + clientLibraries.size());
   }
 
   private static String getLatestCommitMessage() {
