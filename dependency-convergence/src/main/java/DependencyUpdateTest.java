@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.apache.commons.cli.ParseException;
 import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.artifact.DefaultArtifact;
@@ -49,6 +48,13 @@ public class DependencyUpdateTest {
   private static final Map<ArtifactData, ClientLibraryStatus> clientLibraries = new HashMap<>();
 
   public static void main(String[] args) throws ParseException, MavenRepositoryException {
+    DefaultArtifact latestSharedDependencies = new DefaultArtifact("com.google.cloud",
+        "google-cloud-shared-dependencies", null, null);
+    ArtifactData sharedDependenciesData = ArtifactData
+        .generateArtifactData(latestSharedDependencies);
+    String latestSharedDependenciesVersion = sharedDependenciesData.getLatestVersion();
+    System.out.println("The latest version of google-cloud-shared-dependencies is "
+        + latestSharedDependenciesVersion);
     // A release PR was found
     Arguments arguments = Arguments.readCommandLine("-f ../pom.xml");
     List<Artifact> managedDependencies = generate(arguments.getBomFile());
