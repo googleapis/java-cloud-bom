@@ -25,7 +25,6 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.BufferedInputStream;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -67,32 +66,8 @@ public class ArtifactData {
     return artifact;
   }
 
-  public String getPomFileUrl() {
-    return pomFileUrl;
-  }
-
-  public String getMetadataUrl() {
-    return metadataUrl;
-  }
-
   public String getLatestVersion() {
     return latestVersion;
-  }
-
-  public boolean hasValidGithubPomUrl() {
-    return getGithubPomUrl() != null;
-  }
-
-  public String getGithubPomUrl() {
-    return githubPomUrl;
-  }
-
-  public boolean foundValidScmSection() {
-    return getScmGithubUrl() != null;
-  }
-
-  public String getScmGithubUrl() {
-    return scmGithubUrl;
   }
 
   public String getSharedDependenciesVersion() {
@@ -150,7 +125,6 @@ public class ArtifactData {
 
       URL url = new URL(metadataUrl);
       FileUtils.copyURLToFile(url, metadataFile);
-
       MetadataXpp3Reader reader = new MetadataXpp3Reader();
       Metadata metadata = reader.read(new FileInputStream(metadataFile));
 
@@ -190,8 +164,7 @@ public class ArtifactData {
       File pomFile = File.createTempFile("pomFile", ".xml");
       pomFile.deleteOnExit();
       URL url = new URL(pomUrl);
-      BufferedInputStream input = new BufferedInputStream(url.openStream());
-      FileUtils.copyInputStreamToFile(input, pomFile);
+      FileUtils.copyURLToFile(url, pomFile);
       MavenXpp3Reader read = new MavenXpp3Reader();
       Model model = read.read(new FileInputStream(pomFile));
       if (model == null) {
@@ -236,8 +209,7 @@ public class ArtifactData {
       File pomFile = File.createTempFile("pomFile", ".xml");
       pomFile.deleteOnExit();
       URL url = new URL(pomUrl);
-      BufferedInputStream input = new BufferedInputStream(url.openStream());
-      FileUtils.copyInputStreamToFile(input, pomFile);
+      FileUtils.copyURLToFile(url, pomFile);
       MavenXpp3Reader read = new MavenXpp3Reader();
       Model model = read.read(new FileInputStream(pomFile));
       if (model.getDependencyManagement() == null) {

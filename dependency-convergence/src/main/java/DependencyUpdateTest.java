@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.cli.ParseException;
 import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.artifact.DefaultArtifact;
@@ -48,13 +49,47 @@ public class DependencyUpdateTest {
   private static final Map<ArtifactData, ClientLibraryStatus> clientLibraries = new HashMap<>();
 
   public static void main(String[] args) throws ParseException, MavenRepositoryException {
+    String latestCommitMessage = getLatestCommitMessage();
+    if (latestCommitMessage == null) {
+      System.out.println("Commit message does not update dependencies. Returning success");
+      System.exit(0);
+      return;
+    }
+
     DefaultArtifact latestSharedDependencies = new DefaultArtifact("com.google.cloud",
         "google-cloud-shared-dependencies", null, null);
     ArtifactData sharedDependenciesData = ArtifactData
         .generateArtifactData(latestSharedDependencies);
     String latestSharedDependenciesVersion = sharedDependenciesData.getLatestVersion();
+    if (latestSharedDependenciesVersion == null || latestSharedDependenciesVersion.isEmpty()) {
+      System.out.println("Failed to find latest version of google-cloud-shared-dependencies");
+      System.exit(1);
+      return;
+    }
     System.out.println("The latest version of google-cloud-shared-dependencies is "
         + latestSharedDependenciesVersion);
+
+    if (latestCommitMessage.contains(updateDependency)) {
+      String dependencyStart = latestCommitMessage
+          .substring(latestCommitMessage.indexOf("com.google.cloud:"));
+      // Should be of the form ["groupId:artifactId", "to", "vX.X.X"]
+      String[] items = dependencyStart.split(" ");
+      // We already know the groupId
+      String groupId = "com.google.cloud";
+      String artifactId = items[0].split("")[1];
+      String version = items[2].substring(1);
+
+      Artifact dependencyArtifact = new DefaultArtifact(groupId, artifactId, null, version);
+      ArtifactData data = ArtifactData.generateArtifactData(dependencyArtifact);
+      ClientLibraryStatus status = ClientLibraryStatus.getLibraryStatus(data, latestSharedDependenciesVersion);
+      System.out.println(String.format(status.getOutputFormatter(), 1));
+      if (status == ClientLibraryStatus.SUCCESSFUL) {
+        System.exit(0);
+      } else {
+        System.exit(1);
+      }
+      return;
+    }
     // A release PR was found
     Arguments arguments = Arguments.readCommandLine("-f ../pom.xml");
     List<Artifact> managedDependencies = generate(arguments.getBomFile());
