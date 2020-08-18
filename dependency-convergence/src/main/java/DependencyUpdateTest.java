@@ -26,7 +26,12 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.cli.ParseException;
 import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.artifact.DefaultArtifact;
@@ -41,72 +46,9 @@ public class DependencyUpdateTest {
    * list google-cloud-shared-dependencies, have a version less than the latest, or have a POM that
    * can't be found.
    */
-  private static final List<ArtifactData> successfulClientLibraries = new ArrayList<>();
-  private static final List<ArtifactData> librariesWithoutSharedDeps = new ArrayList<>();
-  private static final List<ArtifactData> librariesWithBadSharedDepsVersion = new ArrayList<>();
-  private static final List<ArtifactData> unfindableClientLibraries = new ArrayList<>();
-
-  private static final List[] librariesClassified = new List[]{
-      successfulClientLibraries, librariesWithoutSharedDeps,
-      librariesWithBadSharedDepsVersion, unfindableClientLibraries
-  };
-
-  private static final String[] outputStatements = {
-      "SUCCESS - The following %s libraries had the latest version of google-cloud-shared-dependencies: ",
-      "FAIL - The following %s libraries did not contain any version of google-cloud-shared-dependencies: ",
-      "FAIL - The following %s libraries had outdated versions of google-cloud-shared-dependencies: ",
-      "FAIL - The following %s libraries had unfindable POM files: "
-  };
+  private static final Map<ArtifactData, ClientLibraryStatus> clientLibraries = new HashMap<>();
 
   public static void main(String[] args) throws ParseException, MavenRepositoryException {
-    String latestCommitMessage = getLatestCommitMessage();
-    if (latestCommitMessage == null) {
-      System.out.println("Commit message does not update dependencies. Returning success");
-      System.exit(0);
-      return;
-    }
-
-    DefaultArtifact latestSharedDependencies = new DefaultArtifact("com.google.cloud",
-        "google-cloud-shared-dependencies", null, null);
-    ArtifactData sharedDependenciesData = ArtifactData
-        .generateArtifactData(latestSharedDependencies);
-    String latestSharedDependenciesVersion = sharedDependenciesData.getLatestVersion();
-    System.out.println("The latest version of google-cloud-shared-dependencies is "
-        + latestSharedDependenciesVersion);
-
-    if (latestCommitMessage.contains(updateDependency)) {
-      String dependencyStart = latestCommitMessage
-          .substring(latestCommitMessage.indexOf("com.google.cloud:"));
-      // Should be of the form ["groupId:artifactId", "to", "vX.X.X"]
-      String[] items = dependencyStart.split(" ");
-      // We already know the groupId
-      String groupId = "com.google.cloud";
-      String artifactId = items[0].split("")[1];
-      String version = items[2].substring(1);
-
-      Artifact dependencyArtifact = new DefaultArtifact(groupId, artifactId, null, version);
-      String sharedDependenciesVersion = ArtifactData.generateArtifactData(dependencyArtifact)
-          .getSharedDependenciesVersion();
-      if (sharedDependenciesVersion == null) {
-        System.out.println("Update " + dependencyStart + " failed due to an unfindable POM!");
-        System.exit(1);
-      } else if (sharedDependenciesVersion.isEmpty()) {
-        System.out.println("Update " + dependencyStart
-            + " failed due to lacking google-cloud-shared-dependencies");
-        System.exit(1);
-      } else if (sharedDependenciesVersion.equals(latestSharedDependenciesVersion)) {
-        System.out.println("Update " + dependencyStart
-            + " succeeded with google-cloud-shared dependencies version "
-            + sharedDependenciesVersion);
-        System.exit(0);
-      } else {
-        System.out.println(
-            "Update " + dependencyStart + " failed with google-cloud-shared dependencies version "
-                + sharedDependenciesVersion);
-        System.exit(0);
-      }
-      return;
-    }
     // A release PR was found
     Arguments arguments = Arguments.readCommandLine("-f ../pom.xml");
     List<Artifact> managedDependencies = generate(arguments.getBomFile());
@@ -114,33 +56,37 @@ public class DependencyUpdateTest {
       ArtifactData data = ArtifactData.generateArtifactData(artifact);
       // Discovers if the POM was unfound, lacked shared-dependencies, had an old version,
       // or the latest version, and places it into its respective list.
-      classify(data, latestSharedDependenciesVersion);
+      clientLibraries
+          .put(data, ClientLibraryStatus.getLibraryStatus(data, latestSharedDependenciesVersion));
     }
 
-    // Prints all data from each list
-    for (int i = 0; i < librariesClassified.length; i++) {
-      List<ArtifactData> clientLibraryList = (List<ArtifactData>) librariesClassified[i];
-      if (clientLibraryList.isEmpty()) {
-        continue;
-      }
-      String output = outputStatements[i];
-      System.out.println(String.format(output, clientLibraryList.size()));
-      for (ArtifactData artifactData : clientLibraryList) {
-        Artifact artifact = artifactData.getArtifact();
-        System.out.print(artifact.getArtifactId() + ":" + artifact.getVersion());
-        String sharedDependenciesVersion = artifactData.getSharedDependenciesVersion();
-        if (sharedDependenciesVersion == null || sharedDependenciesVersion.isEmpty()) {
-          sharedDependenciesVersion = "";
-        } else {
-          sharedDependenciesVersion = " Version Found: " + sharedDependenciesVersion;
+    for (ClientLibraryStatus status : ClientLibraryStatus.values()) {
+      // Grab all artifacts with this status
+      Set<ArtifactData> statusArtifacts = clientLibraries.keySet().stream()
+          .filter(c -> clientLibraries.get(c) == status).collect(Collectors.toSet());
+      if (!statusArtifacts.isEmpty()) {
+        System.out.println(
+            "------------------------------------------------------------------------------------");
+        System.out.println(String.format(status.getOutputFormatter(), statusArtifacts.size()));
+        for (ArtifactData artifactData : statusArtifacts) {
+          Artifact artifact = artifactData.getArtifact();
+          System.out.print(artifact.getArtifactId() + ":" + artifact.getVersion());
+          String sharedDependenciesVersion = artifactData.getSharedDependenciesVersion();
+          if (sharedDependenciesVersion == null || sharedDependenciesVersion.isEmpty()) {
+            sharedDependenciesVersion = "";
+          } else {
+            sharedDependenciesVersion = " Version Found: " + sharedDependenciesVersion;
+          }
+          System.out.println(sharedDependenciesVersion);
         }
-        System.out.println(sharedDependenciesVersion);
+        System.out.println(
+            "------------------------------------------------------------------------------------");
       }
-      System.out.println(
-          "------------------------------------------------------------------------------------");
     }
 
-    if (managedDependencies.size() > successfulClientLibraries.size()) {
+    long successfulCount = clientLibraries.keySet().stream()
+        .filter(c -> clientLibraries.get(c) == ClientLibraryStatus.SUCCESSFUL).count();
+    if (managedDependencies.size() > successfulCount) {
       System.out.println("Total dependencies checked: " + managedDependencies.size());
       System.exit(1);
       return;
@@ -175,26 +121,6 @@ public class DependencyUpdateTest {
     } catch (IOException ignored) {
     }
     return null;
-  }
-
-  /**
-   * Classifies our artifact data into the four possible outcomes for output - (1) Client library
-   * POM not found (2) Client library does not have shared-dependencies (3) Client library has old
-   * shared-dependencies version (4) Client library has newest shared-dependencies version
-   */
-  private static void classify(ArtifactData artifactData, String latestSharedDependenciesVersion) {
-    String artifactDependenciesVersion = artifactData.getSharedDependenciesVersion();
-    if (artifactDependenciesVersion == null) {
-      unfindableClientLibraries.add(artifactData);
-      return;
-    }
-    if (artifactDependenciesVersion.isEmpty()) {
-      librariesWithoutSharedDeps.add(artifactData);
-    } else if (artifactDependenciesVersion.equals(latestSharedDependenciesVersion)) {
-      successfulClientLibraries.add(artifactData);
-    } else {
-      librariesWithBadSharedDepsVersion.add(artifactData);
-    }
   }
 
   @VisibleForTesting
