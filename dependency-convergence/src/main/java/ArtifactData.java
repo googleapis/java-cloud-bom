@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
 import org.apache.maven.artifact.repository.metadata.Metadata;
 import org.apache.maven.artifact.repository.metadata.io.xpp3.MetadataXpp3Reader;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
-import org.apache.maven.model.Parent;
-import org.apache.maven.model.Scm;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.aether.artifact.Artifact;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -111,9 +106,9 @@ public class ArtifactData {
     String latestVersion = metadata.latestVersion;
     String lastUpdated = metadata.lastUpdated;
 
-    //The artifact given to us may not be present on Maven central yet
-    //We should use the latest version we know exists on Maven central for this
-    //We only use this to get the URL for Github from the scm section
+    // The artifact given to us may not be present on Maven central yet.
+    // We should use the latest version we know exists on Maven central for this.
+    // We only use this to get the URL for Github from the POM's URL section
     Artifact latestArtifact = new DefaultArtifact(artifact.getGroupId(), artifact.getArtifactId(),
         null, latestVersion);
 
@@ -188,7 +183,7 @@ public class ArtifactData {
    * associated parent POM (given that the current POM is not already the parent of our artifact)
    *
    * @param pomUrl the Maven URL of the artifact's POM file
-   * @return Artifact's Github URL
+   * @return artifact's Github URL
    */
   private static String getScmGithubUrl(String pomUrl) {
     try {
@@ -204,8 +199,8 @@ public class ArtifactData {
       }
       return model.getUrl();
     } catch (XmlPullParserException | IOException ignored) {
+      return null;
     }
-    return null;
   }
 
   private static String generatePomFileUrl(Artifact artifact) {

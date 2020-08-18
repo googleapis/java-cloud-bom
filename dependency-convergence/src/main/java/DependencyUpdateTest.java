@@ -19,26 +19,15 @@ import com.google.cloud.tools.opensource.dependencies.MavenRepositoryException;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.io.FileUtils;
-import org.apache.maven.model.Dependency;
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.eclipse.aether.artifact.Artifact;
 import org.eclipse.aether.artifact.DefaultArtifact;
 
@@ -46,8 +35,6 @@ public class DependencyUpdateTest {
 
   private static final String updateDependency = "deps: update dependency com.google.cloud:google-cloud-";
   private static final String newRelease = "release-v";
-
-  private static final String basePath = "https://repo1.maven.org/maven2";
   /**
    * These are the only four possibilities for any given client library A successful client library
    * has the latest version of google-cloud-shared-dependencies. An unsuccessful library may not
@@ -74,7 +61,7 @@ public class DependencyUpdateTest {
   public static void main(String[] args) throws ParseException, MavenRepositoryException {
     String latestCommitMessage = getLatestCommitMessage();
     if (latestCommitMessage == null) {
-      System.out.println("Commit message does not update dependencies! Returning success!");
+      System.out.println("Commit message does not update dependencies. Returning success");
       System.exit(0);
       return;
     }
@@ -90,9 +77,9 @@ public class DependencyUpdateTest {
     if (latestCommitMessage.contains(updateDependency)) {
       String dependencyStart = latestCommitMessage
           .substring(latestCommitMessage.indexOf("com.google.cloud:"));
-      //Should be of the form ["groupId:artifactId", "to", "vX.X.X"]
+      // Should be of the form ["groupId:artifactId", "to", "vX.X.X"]
       String[] items = dependencyStart.split(" ");
-      //We already know the groupId
+      // We already know the groupId
       String groupId = "com.google.cloud";
       String artifactId = items[0].split("")[1];
       String version = items[2].substring(1);
@@ -120,20 +107,20 @@ public class DependencyUpdateTest {
       }
       return;
     }
-    //A release PR was found
+    // A release PR was found
     Arguments arguments = Arguments.readCommandLine("-f ../pom.xml");
     List<Artifact> managedDependencies = generate(arguments.getBomFile());
     for (Artifact artifact : managedDependencies) {
       ArtifactData data = ArtifactData.generateArtifactData(artifact);
-      //Discovers if the POM was unfound, lacked shared-dependencies, had an old version,
-      //or the latest version, and places it into its respective list.
+      // Discovers if the POM was unfound, lacked shared-dependencies, had an old version,
+      // or the latest version, and places it into its respective list.
       classify(data, latestSharedDependenciesVersion);
     }
 
-    //Prints all data from each list
+    // Prints all data from each list
     for (int i = 0; i < librariesClassified.length; i++) {
       List<ArtifactData> clientLibraryList = (List<ArtifactData>) librariesClassified[i];
-      if (clientLibraryList.size() <= 0) {
+      if (clientLibraryList.isEmpty()) {
         continue;
       }
       String output = outputStatements[i];
@@ -165,19 +152,23 @@ public class DependencyUpdateTest {
 
   private static String getLatestCommitMessage() {
     try {
-      InputStream inputStream = Runtime.getRuntime().exec("git rev-parse HEAD").getInputStream();
-      BufferedReader stdInput = new BufferedReader(new InputStreamReader(inputStream));
-      String commitHash = stdInput.readLine();
+      InputStream commitHashInputStream = Runtime.getRuntime().exec("git rev-parse HEAD")
+          .getInputStream();
+      BufferedReader commitHashReader = new BufferedReader(
+          new InputStreamReader(commitHashInputStream));
+      String commitHash = commitHashReader.readLine();
       if (commitHash == null || commitHash.isEmpty()) {
         return null;
       }
 
-      inputStream = Runtime.getRuntime().exec("git log -1 " + commitHash).getInputStream();
-      stdInput = new BufferedReader(new InputStreamReader(inputStream));
+      InputStream commitMessageInputStream = Runtime.getRuntime().exec("git log -1 " + commitHash)
+          .getInputStream();
+      BufferedReader commitMessageReader = new BufferedReader(
+          new InputStreamReader(commitMessageInputStream));
 
       String commitMessage;
       do {
-        commitMessage = stdInput.readLine();
+        commitMessage = commitMessageReader.readLine();
       } while (commitMessage != null && !commitMessage.contains(updateDependency)
           && !commitMessage.contains(newRelease));
       return commitMessage;
@@ -223,122 +214,5 @@ public class DependencyUpdateTest {
           || !"com.google.cloud".equals(a.getGroupId());
     });
     return managedDependencies;
-  }
-
-  private static String sharedDependencyVersion(boolean useParentPom, Artifact artifact) {
-    String groupId = artifact.getGroupId();
-    String artifactId = artifact.getArtifactId();
-    String version = getLatestVersion(groupId, artifactId);
-    String pomURL = useParentPom ? getParentPomFileURL(groupId, artifactId, version) :
-        getPomFileURL(groupId, artifactId, version);
-    String pomLocation = "/pom.xml";
-    File file = new File("pomFile.xml");
-    String repoURL = null;
-    try {
-      URL url = new URL(pomURL);
-      FileUtils.copyURLToFile(url, file);
-      MavenXpp3Reader read = new MavenXpp3Reader();
-      Model model = read.read(new FileReader(file));
-      if (model.getScm() == null || model.getScm().getUrl() == null) {
-        System.out.println("Unable to find scm section for: " + artifact);
-        if (model.getDependencyManagement() == null) {
-          return "";
-        }
-        Iterator<Dependency> iter = model.getDependencyManagement().getDependencies().iterator();
-        while (iter.hasNext()) {
-          Dependency dep = iter.next();
-          if ("com.google.cloud".equals(dep.getGroupId()) && "google-cloud-shared-dependencies"
-              .equals(dep.getArtifactId())) {
-            return dep.getVersion();
-          }
-        }
-        if (useParentPom) {
-          return sharedDependencyVersion(false, artifact);
-        }
-        return "";
-      }
-
-      repoURL = model.getScm().getUrl();
-      String gitPomURL = repoURL.replace("github.com", "raw.githubusercontent.com");
-      gitPomURL += ("/v" + version + pomLocation);
-      ;
-
-      url = new URL(gitPomURL);
-      FileUtils.copyURLToFile(url, file);
-
-      read = new MavenXpp3Reader();
-      model = read.read(new FileReader(file));
-
-      if (model.getDependencyManagement() == null) {
-        if (useParentPom) {
-          return sharedDependencyVersion(false, artifact);
-        }
-        return "";
-      }
-
-      Iterator<Dependency> iter = model.getDependencyManagement().getDependencies().iterator();
-      while (iter.hasNext()) {
-        Dependency dep = iter.next();
-        if ("com.google.cloud".equals(dep.getGroupId()) && "google-cloud-shared-dependencies"
-            .equals(dep.getArtifactId())) {
-          return dep.getVersion();
-        }
-      }
-    } catch (XmlPullParserException | IOException ignored) {
-      System.out.println("Artifact: " + artifactId + ". Original repo URL: " + repoURL);
-      System.out.println("Secondary Repo URL: " + pomURL);
-    }
-    if (useParentPom) {
-      return sharedDependencyVersion(false, artifact);
-    }
-    return null;
-  }
-
-  private static String getLatestVersion(String groupId, String artifactId) {
-    String pomPath = getMetaDataURL(groupId, artifactId);
-
-    try {
-      URL url = new URL(pomPath);
-      URLConnection conn = url.openConnection();
-      conn.setConnectTimeout(2000);
-      conn.setReadTimeout(2000);
-      Scanner s = new Scanner(conn.getInputStream());
-
-      while (s.hasNextLine()) {
-        String string = s.nextLine();
-        if (string.contains("<latest>")) {
-          String version = string.split(">")[1].split("<")[0];
-          return version;
-        }
-      }
-    } catch (IOException var8) {
-      var8.printStackTrace();
-    }
-
-    return null;
-  }
-
-  private static String getMetaDataURL(String groupId, String artifactId) {
-    String groupPath = groupId.replace('.', '/');
-    return basePath + "/" + groupPath
-        + "/" + artifactId
-        + "/maven-metadata.xml";
-  }
-
-  private static String getParentPomFileURL(String groupId, String artifactId, String version) {
-    artifactId += "-parent";
-    String groupPath = groupId.replace('.', '/');
-    return basePath + "/" + groupPath
-        + "/" + artifactId
-        + "/" + version
-        + "/" + artifactId + "-" + version + ".pom";
-  }
-
-  private static String getPomFileURL(String groupId, String artifactId, String version) {
-    String groupPath = groupId.replace('.', '/');
-    return basePath + "/" + groupPath
-        + "/" + artifactId
-        + "/" + version
-        + "/" + artifactId + "-" + version + ".pom";
   }
 }

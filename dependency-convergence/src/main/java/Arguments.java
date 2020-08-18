@@ -27,10 +27,11 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- * Command-line option for {@link TestPOM}. The tool takes either a pom.xml file path or Maven
- * coordinates for a BOM.
+ * Command-line option for {@link DependencyUpdateTest}. The tool takes either a pom.xml file path
+ * or Maven coordinates for a BOM. Comes from Java-Cloud-Bom Dashboard.
  */
 final class Arguments {
+
   private static final Options options = configureOptions();
   private static final HelpFormatter helpFormatter = new HelpFormatter();
 
@@ -59,7 +60,9 @@ final class Arguments {
     return commandLine.hasOption('a');
   }
 
-  /** Returns an absolute path to pom.xml file of a BOM. Null if file is not specified. */
+  /**
+   * Returns an absolute path to pom.xml file of a BOM. Null if file is not specified.
+   */
   @Nullable
   Path getBomFile() {
     if (!commandLine.hasOption('f')) {
@@ -69,7 +72,9 @@ final class Arguments {
     return Paths.get(commandLine.getOptionValue('f').trim()).toAbsolutePath();
   }
 
-  /** Returns the Maven coordinates of a BOM. Null if coordinates are not specified. */
+  /**
+   * Returns the Maven coordinates of a BOM. Null if coordinates are not specified.
+   */
   @Nullable
   String getBomCoordinates() {
     if (!commandLine.hasOption('c')) {
