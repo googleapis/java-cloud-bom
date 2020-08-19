@@ -44,16 +44,12 @@
   </section>
 </#if>
 
-<#if coordinates != "all-versions">
-  <h2>Library Versions</h2>
-</#if>
-
 <p>Search for artifacts and the versions of associated google-cloud-shared-dependencies each uses,
   within its correspondence of Google-Cloud-BOM.</p>
 <p>Search by column using column1:value1 (Example: Search for google-cloud-accesssapproval with version 1.4.0
   by using either 'artifact:approval artifact-version:1.4.0' or 'approval 1.4.0' or 'approval, 1.4.0') </p>
-<input type="text" id="filterBar" onkeyup="filterFunction()" placeholder="Search...">
 <table id="libraryVersions">
+  <input type="text" id="filterBar" onkeyup="filterFunction()" placeholder="Search...">
   <tr class="header">
     <th>google-cloud-bom</th>
     <th>artifact</th>
@@ -135,10 +131,10 @@
                 var name;
                 if (col.indexOf("google-cloud-bom") > -1 || col.indexOf("gcb") > -1) {
                     name = cols[0].textContent || cols[0].innerText;
-                } else if (col.indexOf("artifact") > -1) {
+                } else if (col.indexOf("artifact") > -1 || col === "a") {
                     name = cols[1].textContent || cols[1].innerText;
-                } else if (col.indexOf("artifact-version") > -1) {
-                    name = cols[2].textContent || cols[2].innerText;
+                } else if (col.indexOf("artifact-version") > -1 || col.indexOf("av") > -1) {
+                  name = cols[2].textContent || cols[2].innerText;
                 } else if (col.indexOf("google-cloud-shared-dependencies") > -1 || col.indexOf("gcsd") > -1) {
                     name = cols[cols.length - 1].textContent || cols[cols.length - 1].innerText;
                 }

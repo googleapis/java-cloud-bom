@@ -8,11 +8,15 @@ body {
 #libraryVersions {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
+    margin-left: 12.5%;
+    margin-right: 12.5%;
+    width: 75%;
 }
 
 #libraryVersions td, #libraryVersions th {
     border: 1px solid #ddd;
     padding: 8px;
+    text-align: center;
 }
 
 #libraryVersions th {
@@ -156,10 +160,12 @@ ul.jar-linkage-report-cause > li {
 }
 
 #filterBar {
-    width: 25%;
+    width: 50%;
     font-size: 16px;
-    padding: 12px 20px 12px 40px;
+    padding: 12px 40px 12px 40px;
     border: 1px solid #ddd;
+    margin-left: 25%;
+    margin-right: 25%;
     margin-bottom: 12px;
     background: #f1f1f1;
     height: 30px;
@@ -198,7 +204,7 @@ ul.jar-linkage-report-cause > li {
 }
 
 .dropdown-content a:hover {
-    background-color: white;
+    background-color: #ddd;
     cursor: pointer;
 }
 
@@ -208,6 +214,5 @@ ul.jar-linkage-report-cause > li {
 }
 
 .dropdown:hover .dropdown-button {
-    background-color: #00b26f;
     cursor: pointer;
 }
