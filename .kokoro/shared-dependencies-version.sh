@@ -75,5 +75,5 @@ if [[ ${returnValue} -eq 0 ]]; then
   exit ${exitCode}
 fi
 
-echo "No release or library updates found! Assuming no error."
+echo "No release or library updates found. Assuming no error."
 exit 0
