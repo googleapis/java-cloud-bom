@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package cloudbomcommitcheck;
+package com.google.cloud.cloudbomcommitcheck;
 
 import com.google.common.base.Preconditions;
 
 /**
- * Classifies our artifact data into the four possible outcomes for output - (1) Client library POM
- * not found (2) Client library does not have shared-dependencies (3) Client library has old
- * shared-dependencies version (4) Client library has newest shared-dependencies version
+ *  Classifies our artifact data into the four possible outcomes for output
+ *  (1) Client library POM not found
+ *  (2) Client library does not have google-cloud-shared-dependencies
+ *  (3) Client library has old google-cloud-shared-dependencies version
+ *  (4) Client library has newest google-cloud-shared-dependencies version
  */
 public enum ClientLibraryStatus {
   /**
@@ -62,7 +64,8 @@ public enum ClientLibraryStatus {
 
   public static ClientLibraryStatus getLibraryStatus(ArtifactData artifactData,
       String latestSharedDependencies) {
-    Preconditions.checkNotNull(artifactData, latestSharedDependencies);
+    Preconditions.checkNotNull(artifactData);
+    Preconditions.checkNotNull(latestSharedDependencies);
 
     String artifactDependenciesVersion = artifactData.getSharedDependenciesVersion();
     if (artifactDependenciesVersion == null) {

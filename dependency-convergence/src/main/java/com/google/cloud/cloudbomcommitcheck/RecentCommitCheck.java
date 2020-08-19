@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cloudbomcommitcheck;
+package com.google.cloud.cloudbomcommitcheck;
 
 import com.google.cloud.tools.opensource.dependencies.Bom;
 import com.google.cloud.tools.opensource.dependencies.MavenRepositoryException;
@@ -95,21 +95,25 @@ public class RecentCommitCheck {
       // Should be of the form ["groupId:artifactId", "to", "vX.X.X"]
       String[] items = dependencyStart.split(" ");
       if (items.length != 3) {
-        System.out.println("Commit message does not update dependencies. Returning success");
+        System.out.println("Commit message does not match basic dependency update formatting");
         return 0;
       }
       // We already know the groupId
       String[] groupAndArtifact = items[0].split(":");
       if (groupAndArtifact.length != 2) {
-        System.out.println("Commit message does not update dependencies. Returning success");
+        System.out.println("Dependency update found in commit message does not contain valid group ID /artifact ID");
         return 0;
       }
       String groupId = groupAndArtifact[0];
+      if(!"com.google.cloud".equals(groupId)) {
+        System.out.println("Dependency update found in commit message does not contain group ID com.google.cloud");
+        return 0;
+      }
       String artifactId = groupAndArtifact[1];
       String version = items[2];
 
       if (!version.startsWith("v")) {
-        System.out.println("Commit message does not update dependencies. Returning success");
+        System.out.println("Dependency update found in commit message does not contain a valid version");
         return 0;
       }
 
@@ -175,7 +179,7 @@ public class RecentCommitCheck {
         System.out.println("All found libraries were successful");
         break;
       case 1:
-        System.out.println("Invalid dependencies found!");
+        System.out.println("Invalid dependencies found");
         break;
       case 2:
         System.out.println("Failed to find latest version of google-cloud-shared-dependencies");

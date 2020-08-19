@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cloudbomcommitcheck;
+package com.google.cloud.cloudbomcommitcheck;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

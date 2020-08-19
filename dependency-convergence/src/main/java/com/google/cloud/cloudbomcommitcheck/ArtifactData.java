@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cloudbomcommitcheck;
+package com.google.cloud.cloudbomcommitcheck;
 
 import com.google.common.base.Preconditions;
 import com.google.common.io.ByteStreams;

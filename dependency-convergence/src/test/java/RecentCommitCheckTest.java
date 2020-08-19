@@ -16,10 +16,9 @@
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-
-import cloudbomcommitcheck.ArtifactData;
-import cloudbomcommitcheck.ClientLibraryStatus;
-import cloudbomcommitcheck.RecentCommitCheck;
+import com.google.cloud.cloudbomcommitcheck.ArtifactData;
+import com.google.cloud.cloudbomcommitcheck.ClientLibraryStatus;
+import com.google.cloud.cloudbomcommitcheck.RecentCommitCheck;
 import org.junit.Test;
 import com.google.cloud.tools.opensource.dependencies.MavenRepositoryException;
 import java.util.Map;
