@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
+package cloudbomcommitcheck;
+
+import com.google.common.base.Preconditions;
+import com.google.common.io.ByteStreams;
+import java.io.FileOutputStream;
 import org.apache.maven.artifact.repository.metadata.Metadata;
 import org.apache.maven.artifact.repository.metadata.io.xpp3.MetadataXpp3Reader;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.apache.commons.io.FileUtils;
 import org.eclipse.aether.artifact.Artifact;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import java.io.File;
@@ -105,9 +109,7 @@ public class ArtifactData {
 
   private static String generateGithubPomUrl(String scmGithubUrl, String version,
       String pomLocation) {
-    if (scmGithubUrl == null) {
-      return null;
-    }
+    Preconditions.checkNotNull(scmGithubUrl);
     String rawUrl = scmGithubUrl.replace("github.com", "raw.githubusercontent.com");
     String updatedVersion;
     if (version.contains("-")) {
@@ -124,7 +126,7 @@ public class ArtifactData {
       metadataFile.deleteOnExit();
 
       URL url = new URL(metadataUrl);
-      FileUtils.copyURLToFile(url, metadataFile);
+      ByteStreams.copy(url.openStream(), new FileOutputStream(metadataFile));
       MetadataXpp3Reader reader = new MetadataXpp3Reader();
       Metadata metadata = reader.read(new FileInputStream(metadataFile));
 
@@ -164,7 +166,7 @@ public class ArtifactData {
       File pomFile = File.createTempFile("pomFile", ".xml");
       pomFile.deleteOnExit();
       URL url = new URL(pomUrl);
-      FileUtils.copyURLToFile(url, pomFile);
+      ByteStreams.copy(url.openStream(), new FileOutputStream(pomFile));
       MavenXpp3Reader read = new MavenXpp3Reader();
       Model model = read.read(new FileInputStream(pomFile));
       if (model == null) {
@@ -201,15 +203,16 @@ public class ArtifactData {
     }
   }
 
+  /**
+   * @return null if there was an error in finding the POM file
+   */
   private static String getSharedDependenciesVersionFromUrl(String pomUrl) {
-    if (pomUrl == null) {
-      return null;
-    }
+    Preconditions.checkNotNull(pomUrl);
     try {
       File pomFile = File.createTempFile("pomFile", ".xml");
       pomFile.deleteOnExit();
       URL url = new URL(pomUrl);
-      FileUtils.copyURLToFile(url, pomFile);
+      ByteStreams.copy(url.openStream(), new FileOutputStream(pomFile));
       MavenXpp3Reader read = new MavenXpp3Reader();
       Model model = read.read(new FileInputStream(pomFile));
       if (model.getDependencyManagement() == null) {
@@ -222,6 +225,7 @@ public class ArtifactData {
           return dep.getVersion();
         }
       }
+      // No version of google-cloud-shared-dependencies is found within the POM
       return "";
     } catch (XmlPullParserException | IOException ignored) {
     }

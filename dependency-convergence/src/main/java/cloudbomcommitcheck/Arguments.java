@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Google LLC.
+ * Copyright 2020 Google LLC.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+package cloudbomcommitcheck;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.annotation.Nullable;
@@ -27,8 +29,8 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 /**
- * Command-line option for {@link DependencyUpdateTest}. The tool takes either a pom.xml file path
- * or Maven coordinates for a BOM.
+ * Command-line option for {@link RecentCommitCheck}. The tool takes either a pom.xml file path or
+ * Maven coordinates for a BOM.
  *
  * @see <a href="https://github.com/googleapis/java-cloud-bom/blob/master/dashboard/src/main/java/com/google/cloud/tools/opensource/cloudbomdashboard/DashboardArguments.java"</a>
  */

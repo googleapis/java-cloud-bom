@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
+package cloudbomcommitcheck;
+
 import com.google.cloud.tools.opensource.dependencies.Bom;
 import com.google.cloud.tools.opensource.dependencies.MavenRepositoryException;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,28 +43,38 @@ public class RecentCommitCheck {
   private static final String newRelease = "chore: release";
   private static final String snapshot = "SNAPSHOT";
 
-  private static final Map<ArtifactData, ClientLibraryStatus> clientLibraries = new HashMap<>();
+  private final Map<ArtifactData, ClientLibraryStatus> clientLibraries;
+  private final String commitMessage;
 
   public static void main(String[] args) throws ParseException, MavenRepositoryException {
-    String latestCommitMessage = getLatestCommitMessage();
-    int exitCode = execute(latestCommitMessage);
-    printOutput(exitCode);
+    if (args.length < 1) {
+      System.out.println("Please pass a commit message to run this script!");
+      System.exit(1);
+      return;
+    }
+    RecentCommitCheck commitCheck = new RecentCommitCheck(args[0]);
+    int exitCode = commitCheck.execute();
+    commitCheck.printOutput(exitCode);
     System.exit(exitCode);
   }
 
-  public static Map<ArtifactData, ClientLibraryStatus> getCurrentClientLibraries() {
+  public RecentCommitCheck(String commitMessage) {
+    this.commitMessage = commitMessage;
+    this.clientLibraries = new HashMap<>();
+  }
+
+  public Map<ArtifactData, ClientLibraryStatus> getCurrentClientLibraries() {
     return new HashMap<>(clientLibraries);
   }
 
   /**
-   * @param commitMessage most recent commit message from Git
    * @return program exit code - 0 for success, 1 for invalid dependencies, 2 for unable to find
    * latest version of google-cloud-shared-dependencies
    */
-  public static int execute(String commitMessage) throws ParseException, MavenRepositoryException {
+  public int execute() throws ParseException, MavenRepositoryException {
     if (commitMessage == null || (!commitMessage.contains(updateDependency)
-      && !commitMessage.contains(newRelease)) || commitMessage.contains(snapshot)) {
-      System.out.println("Commit message does not update dependencies. Returning success");
+        && !commitMessage.contains(newRelease)) || commitMessage.contains(snapshot)) {
+      System.out.println("Commit message does not update dependencies. Returning success.");
       return 0;
     }
 
@@ -77,6 +86,9 @@ public class RecentCommitCheck {
     if (latestSharedDependenciesVersion == null || latestSharedDependenciesVersion.isEmpty()) {
       return 2;
     }
+
+    // If we expect to run this twice, clear old dependency data
+    clientLibraries.clear();
 
     if (commitMessage.contains(updateDependency)) {
       String dependencyStart = commitMessage.substring(commitMessage.indexOf("com.google.cloud:"));
@@ -96,7 +108,7 @@ public class RecentCommitCheck {
       String artifactId = groupAndArtifact[1];
       String version = items[2];
 
-      if(!version.startsWith("v")) {
+      if (!version.startsWith("v")) {
         System.out.println("Commit message does not update dependencies. Returning success");
         return 0;
       }
@@ -132,7 +144,7 @@ public class RecentCommitCheck {
     return 0;
   }
 
-  private static void printOutput(int exitCode) {
+  private void printOutput(int exitCode) {
     for (ClientLibraryStatus status : ClientLibraryStatus.values()) {
       // Grab all artifacts with this status
       Set<ArtifactData> statusArtifacts = clientLibraries.keySet().stream()
@@ -144,6 +156,7 @@ public class RecentCommitCheck {
         for (ArtifactData artifactData : statusArtifacts) {
           Artifact artifact = artifactData.getArtifact();
           System.out.print(artifact.getArtifactId() + ":" + artifact.getVersion());
+
           String sharedDependenciesVersion = artifactData.getSharedDependenciesVersion();
           if (sharedDependenciesVersion == null || sharedDependenciesVersion.isEmpty()) {
             sharedDependenciesVersion = "";
@@ -172,33 +185,6 @@ public class RecentCommitCheck {
         break;
     }
     System.out.println("Total dependencies checked: " + clientLibraries.size());
-  }
-
-  private static String getLatestCommitMessage() {
-    try {
-      InputStream commitHashInputStream = Runtime.getRuntime().exec("git rev-parse HEAD")
-          .getInputStream();
-      BufferedReader commitHashReader = new BufferedReader(
-          new InputStreamReader(commitHashInputStream));
-      String commitHash = commitHashReader.readLine();
-      if (commitHash == null || commitHash.isEmpty()) {
-        return null;
-      }
-
-      InputStream commitMessageInputStream = Runtime.getRuntime().exec("git log -1 " + commitHash)
-          .getInputStream();
-      BufferedReader commitMessageReader = new BufferedReader(
-          new InputStreamReader(commitMessageInputStream));
-
-      String commitMessage;
-      do {
-        commitMessage = commitMessageReader.readLine();
-      } while (commitMessage != null && !commitMessage.contains(updateDependency)
-          && !commitMessage.contains(newRelease));
-      return commitMessage;
-    } catch (IOException ignored) {
-    }
-    return null;
   }
 
   @VisibleForTesting

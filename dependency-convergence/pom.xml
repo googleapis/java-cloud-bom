@@ -36,6 +36,10 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
@@ -45,7 +49,7 @@
         <artifactId>exec-maven-plugin</artifactId>
         <configuration>
           <skip>false</skip>
-          <mainClass>DependencyUpdateTest</mainClass>
+          <mainClass>cloudbomcommitcheck.RecentCommitCheck</mainClass>
         </configuration>
       </plugin>
       <plugin>

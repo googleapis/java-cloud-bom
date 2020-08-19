@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
+package cloudbomcommitcheck;
+
+import com.google.common.base.Preconditions;
+
 /**
- * Classifies our artifact data into the four possible outcomes for output - (1) Client library
- * POM not found (2) Client library does not have shared-dependencies (3) Client library has old
+ * Classifies our artifact data into the four possible outcomes for output - (1) Client library POM
+ * not found (2) Client library does not have shared-dependencies (3) Client library has old
  * shared-dependencies version (4) Client library has newest shared-dependencies version
  */
 public enum ClientLibraryStatus {
   /**
    * Library with the most recent version of shared dependencies
    */
-  SUCCESSFUL("SUCCESS - The following %d libraries had the latest version of google-cloud-shared-dependencies: "),
+  SUCCESSFUL(
+      "SUCCESS - The following %d libraries had the latest version of google-cloud-shared-dependencies: "),
 
   /**
    * Library where the POM could not be found
@@ -33,12 +38,14 @@ public enum ClientLibraryStatus {
   /**
    * Library that does not use google-cloud-shared-dependencies
    */
-  NO_SHARED_DEPENDENCIES("FAIL - The following %d libraries did not contain any version of google-cloud-shared-dependencies: "),
+  NO_SHARED_DEPENDENCIES(
+      "FAIL - The following %d libraries did not contain any version of google-cloud-shared-dependencies: "),
 
   /**
    * Library with an old version of google-cloud-shared-dependencies
    */
-  OLD_SHARED_DEPENDENCIES("FAIL - The following %d libraries had outdated versions of google-cloud-shared-dependencies: ");
+  OLD_SHARED_DEPENDENCIES(
+      "FAIL - The following %d libraries had outdated versions of google-cloud-shared-dependencies: ");
 
   private final String outputFormatter;
 
@@ -53,15 +60,15 @@ public enum ClientLibraryStatus {
     return outputFormatter;
   }
 
-  public static ClientLibraryStatus getLibraryStatus(ArtifactData artifactData, String latestSharedDependencies) {
-    if (artifactData == null || latestSharedDependencies == null) {
-      return null;
-    }
+  public static ClientLibraryStatus getLibraryStatus(ArtifactData artifactData,
+      String latestSharedDependencies) {
+    Preconditions.checkNotNull(artifactData, latestSharedDependencies);
+
     String artifactDependenciesVersion = artifactData.getSharedDependenciesVersion();
     if (artifactDependenciesVersion == null) {
       return UNFOUND_POM;
     }
-    if(artifactDependenciesVersion.isEmpty()) {
+    if (artifactDependenciesVersion.isEmpty()) {
       return NO_SHARED_DEPENDENCIES;
     }
     if (latestSharedDependencies.equals(artifactDependenciesVersion)) {

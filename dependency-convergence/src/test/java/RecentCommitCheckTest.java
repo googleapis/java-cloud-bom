@@ -17,6 +17,9 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import cloudbomcommitcheck.ArtifactData;
+import cloudbomcommitcheck.ClientLibraryStatus;
+import cloudbomcommitcheck.RecentCommitCheck;
 import org.junit.Test;
 import com.google.cloud.tools.opensource.dependencies.MavenRepositoryException;
 import java.util.Map;
@@ -29,7 +32,8 @@ public class RecentCommitCheckTest {
    */
   @Test
   public void nullCommitTest() throws MavenRepositoryException, ParseException {
-    int exitCode = RecentCommitCheck.execute(null);
+    RecentCommitCheck commitCheck = new RecentCommitCheck(null);
+    int exitCode = commitCheck.execute();
     assertEquals(0, exitCode);
   }
 
@@ -38,7 +42,8 @@ public class RecentCommitCheckTest {
    */
   @Test
   public void emptyCommitTest() throws MavenRepositoryException, ParseException {
-    int exitCode = RecentCommitCheck.execute("");
+    RecentCommitCheck commitCheck = new RecentCommitCheck("");
+    int exitCode = commitCheck.execute();
     assertEquals(0, exitCode);
   }
 
@@ -47,7 +52,9 @@ public class RecentCommitCheckTest {
    */
   @Test
   public void almostDependencyUpdateTest() throws MavenRepositoryException, ParseException {
-    int exitCode = RecentCommitCheck.execute("deps: update dependency com.google.cloud:google-cloud-");
+    RecentCommitCheck commitCheck = new RecentCommitCheck(
+        "deps: update dependency com.google.cloud:google-cloud-");
+    int exitCode = commitCheck.execute();
     assertEquals(0, exitCode);
   }
 
@@ -56,7 +63,8 @@ public class RecentCommitCheckTest {
    */
   @Test
   public void snapshotCommitTest() throws MavenRepositoryException, ParseException {
-    int exitCode = RecentCommitCheck.execute("chore: release-v1.0.0-SNAPSHOT");
+    RecentCommitCheck commitCheck = new RecentCommitCheck("chore: release-v1.0.0-SNAPSHOT");
+    int exitCode = commitCheck.execute();
     assertEquals(0, exitCode);
   }
 
@@ -65,8 +73,9 @@ public class RecentCommitCheckTest {
    */
   @Test
   public void missingPomTest() throws MavenRepositoryException, ParseException {
-    RecentCommitCheck.execute("chore: release-v1.0.0");
-    Map<ArtifactData, ClientLibraryStatus> data = RecentCommitCheck.getCurrentClientLibraries();
+    RecentCommitCheck commitCheck = new RecentCommitCheck("chore: release-v1.0.0");
+    commitCheck.execute();
+    Map<ArtifactData, ClientLibraryStatus> data = commitCheck.getCurrentClientLibraries();
     assertFalse(data.containsValue(ClientLibraryStatus.UNFOUND_POM));
   }
 
@@ -76,6 +85,7 @@ public class RecentCommitCheckTest {
    */
   @Test
   public void individualDependencyTest() throws MavenRepositoryException, ParseException {
-    RecentCommitCheck.execute("deps: update dependency com.google.cloud:google-cloud-securitycenter to v1.1.0");
+    new RecentCommitCheck(
+        "deps: update dependency com.google.cloud:google-cloud-securitycenter to v1.1.0").execute();
   }
 }
