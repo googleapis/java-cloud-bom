@@ -48,8 +48,8 @@
   within its correspondence of Google-Cloud-BOM.</p>
 <p>Search by column using column1:value1 (Example: Search for google-cloud-accesssapproval with version 1.4.0
   by using either 'artifact:approval artifact-version:1.4.0' or 'approval 1.4.0' or 'approval, 1.4.0') </p>
+<input type="text" id="filterBar" onkeyup="filterFunction()" placeholder="Search...">
 <table id="libraryVersions">
-  <input type="text" id="filterBar" onkeyup="filterFunction()" placeholder="Search...">
   <tr class="header">
     <th>google-cloud-bom</th>
     <th>artifact</th>
