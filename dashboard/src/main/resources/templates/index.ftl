@@ -46,7 +46,10 @@
 
 <p>Search for artifacts and the versions of associated google-cloud-shared-dependencies each uses,
   within its correspondence of Google-Cloud-BOM.</p>
-<p>Search by column using column1:value1 (Example: Search for google-cloud-accesssapproval with version 1.4.0
+<p>Search by specifying "columnName:data". <br/> 
+       Multi-column search is supported. For example, column1:value1,  column2:value2, column3:value3... <br/>
+       Column name shorthand is supported. For example, gcb:0.132.0, gcsd:0.8.3 <br/>
+       Search for google-cloud-accesssapproval with version 1.4.0 
   by using either 'artifact:approval artifact-version:1.4.0' or 'approval 1.4.0' or 'approval, 1.4.0') </p>
 <input type="text" id="filterBar" onkeyup="filterFunction()" placeholder="Search...">
 <table id="libraryVersions">
