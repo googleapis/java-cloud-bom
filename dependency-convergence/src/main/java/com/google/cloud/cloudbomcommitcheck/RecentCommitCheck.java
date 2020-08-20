@@ -67,7 +67,8 @@ public class RecentCommitCheck {
   }
 
   /**
-   * @return 2 for unable to find latest version of google-cloud-shared-dependencies
+   * @return program exit code - 0 for success, 1 for invalid dependencies, 2 for unable to find
+   * latest version of google-cloud-shared-dependencies
    */
   public int execute() throws ParseException, MavenRepositoryException {
     if (commitMessage == null || (!commitMessage.contains(updateDependency)

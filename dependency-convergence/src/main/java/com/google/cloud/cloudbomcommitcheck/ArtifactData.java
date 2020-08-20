@@ -210,9 +210,9 @@ public class ArtifactData {
   }
 
   /**
-   * @return version of google-cloud-shared-dependencies in POM file
-   * @return empty string if google-cloud-shared-dependencies was not in the POM file
-   * @return null if the POM file could not be found
+   * @return version of google-cloud-shared-dependencies in POM file, empty string if
+   * google-cloud-shared-dependencies was not in the POM file, null if the POM file could not be
+   * found
    */
   private static String getSharedDependenciesVersion(String pomUrl) {
     Preconditions.checkNotNull(pomUrl);
