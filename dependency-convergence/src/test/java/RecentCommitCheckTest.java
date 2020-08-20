@@ -16,6 +16,7 @@
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+
 import com.google.cloud.cloudbomcommitcheck.ArtifactData;
 import com.google.cloud.cloudbomcommitcheck.ClientLibraryStatus;
 import com.google.cloud.cloudbomcommitcheck.RecentCommitCheck;
@@ -86,5 +87,15 @@ public class RecentCommitCheckTest {
   public void individualDependencyTest() throws MavenRepositoryException, ParseException {
     new RecentCommitCheck(
         "deps: update dependency com.google.cloud:google-cloud-securitycenter to v1.1.0").execute();
+  }
+
+  /**
+   * Checking sample release to make sure we don't get an exception when
+   * executing (i.e. the code for releases runs properly)
+   */
+  @Test
+  public void releaseTest() throws MavenRepositoryException, ParseException {
+    new RecentCommitCheck(
+        "chore: release 1.0.0").execute();
   }
 }

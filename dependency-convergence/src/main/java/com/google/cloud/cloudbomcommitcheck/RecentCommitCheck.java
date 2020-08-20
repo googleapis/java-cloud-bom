@@ -24,7 +24,6 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +47,7 @@ public class RecentCommitCheck {
 
   public static void main(String[] args) throws ParseException, MavenRepositoryException {
     if (args.length < 1) {
-      System.out.println("Please pass a commit message to run this script!");
+      System.out.println("Please pass a commit message to run this script.");
       System.exit(1);
       return;
     }
@@ -68,8 +67,7 @@ public class RecentCommitCheck {
   }
 
   /**
-   * @return program exit code - 0 for success, 1 for invalid dependencies, 2 for unable to find
-   * latest version of google-cloud-shared-dependencies
+   * @return 2 for unable to find latest version of google-cloud-shared-dependencies
    */
   public int execute() throws ParseException, MavenRepositoryException {
     if (commitMessage == null || (!commitMessage.contains(updateDependency)
@@ -87,7 +85,7 @@ public class RecentCommitCheck {
       return 2;
     }
 
-    // If we expect to run this twice, clear old dependency data
+    // If it's expected to run this twice, clear old dependency data
     clientLibraries.clear();
 
     if (commitMessage.contains(updateDependency)) {
@@ -98,22 +96,25 @@ public class RecentCommitCheck {
         System.out.println("Commit message does not match basic dependency update formatting");
         return 0;
       }
-      // We already know the groupId
+
       String[] groupAndArtifact = items[0].split(":");
       if (groupAndArtifact.length != 2) {
-        System.out.println("Dependency update found in commit message does not contain valid group ID /artifact ID");
+        System.out.println(
+            "Dependency update found in commit message does not contain valid group ID /artifact ID");
         return 0;
       }
       String groupId = groupAndArtifact[0];
-      if(!"com.google.cloud".equals(groupId)) {
-        System.out.println("Dependency update found in commit message does not contain group ID com.google.cloud");
+      if (!"com.google.cloud".equals(groupId)) {
+        System.out.println(
+            "Dependency update found in commit message does not contain group ID com.google.cloud");
         return 0;
       }
       String artifactId = groupAndArtifact[1];
       String version = items[2];
 
       if (!version.startsWith("v")) {
-        System.out.println("Dependency update found in commit message does not contain a valid version");
+        System.out
+            .println("Dependency update found in commit message does not contain a valid version");
         return 0;
       }
 

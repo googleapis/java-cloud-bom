@@ -18,23 +18,23 @@ package com.google.cloud.cloudbomcommitcheck;
 
 import com.google.common.base.Preconditions;
 import com.google.common.io.ByteStreams;
-import java.io.FileOutputStream;
 import org.apache.maven.artifact.repository.metadata.Metadata;
 import org.apache.maven.artifact.repository.metadata.io.xpp3.MetadataXpp3Reader;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.eclipse.aether.artifact.Artifact;
+import org.eclipse.aether.artifact.DefaultArtifact;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.net.URL;
 import java.util.Date;
-import org.eclipse.aether.artifact.DefaultArtifact;
 
 /**
  * Container class for all artifact data pulled from Maven central.
@@ -47,8 +47,13 @@ public class ArtifactData {
 
   private final Artifact artifact;
 
-  private final String latestVersion, lastUpdated, pomFileUrl, metadataUrl,
-      scmGithubUrl, githubPomUrl, sharedDependenciesVersion;
+  private final String latestVersion;
+  private final String lastUpdated;
+  private final String pomFileUrl;
+  private final String metadataUrl;
+  private final String scmGithubUrl;
+  private final String githubPomUrl;
+  private final String sharedDependenciesVersion;
 
   private ArtifactData(Artifact artifact, String latestVersion,
       String lastUpdated, String pomFileUrl, String metadataUrl, String scmGithubUrl,
@@ -102,7 +107,7 @@ public class ArtifactData {
       pomLocation = "/pom.xml";
     }
     String githubPomUrl = generateGithubPomUrl(scmGithubUrl, artifact.getVersion(), pomLocation);
-    String sharedDependenciesVersion = getSharedDependenciesVersionFromUrl(githubPomUrl);
+    String sharedDependenciesVersion = getSharedDependenciesVersion(githubPomUrl);
     return new ArtifactData(artifact, latestVersion, lastUpdated, pomFileUrl, metadataUrl,
         scmGithubUrl, githubPomUrl, sharedDependenciesVersion);
   }
@@ -195,7 +200,8 @@ public class ArtifactData {
 
   private static class LatestMetadata {
 
-    String latestVersion, lastUpdated;
+    String latestVersion;
+    String lastUpdated;
 
     LatestMetadata(String latestVersion, String lastUpdated) {
       this.latestVersion = latestVersion;
@@ -204,9 +210,11 @@ public class ArtifactData {
   }
 
   /**
-   * @return null if there was an error in finding the POM file
+   * @return version of google-cloud-shared-dependencies in POM file
+   * @return empty string if google-cloud-shared-dependencies was not in the POM file
+   * @return null if the POM file could not be found
    */
-  private static String getSharedDependenciesVersionFromUrl(String pomUrl) {
+  private static String getSharedDependenciesVersion(String pomUrl) {
     Preconditions.checkNotNull(pomUrl);
     try {
       File pomFile = File.createTempFile("pomFile", ".xml");
@@ -218,17 +226,18 @@ public class ArtifactData {
       if (model.getDependencyManagement() == null) {
         return null;
       }
-      for (Dependency dep : model.getDependencyManagement()
+      for (Dependency dependency : model.getDependencyManagement()
           .getDependencies()) {
-        if ("com.google.cloud".equals(dep.getGroupId()) && "google-cloud-shared-dependencies"
-            .equals(dep.getArtifactId())) {
-          return dep.getVersion();
+        if ("com.google.cloud".equals(dependency.getGroupId()) && "google-cloud-shared-dependencies"
+            .equals(dependency.getArtifactId())) {
+          return dependency.getVersion();
         }
       }
-      // No version of google-cloud-shared-dependencies is found within the POM
+      // No version of google-cloud-shared-dependencies has been found within the POM
       return "";
     } catch (XmlPullParserException | IOException ignored) {
+      // Error reading POM file
+      return null;
     }
-    return null;
   }
 }

@@ -19,7 +19,7 @@ package com.google.cloud.cloudbomcommitcheck;
 import com.google.common.base.Preconditions;
 
 /**
- *  Classifies our artifact data into the four possible outcomes for output
+ *  Classifies artifact data into the four possible outcomes
  *  (1) Client library POM not found
  *  (2) Client library does not have google-cloud-shared-dependencies
  *  (3) Client library has old google-cloud-shared-dependencies version
