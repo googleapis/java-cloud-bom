@@ -22,4 +22,6 @@ java.common_templates(excludes=[
   'README.md',
   'samples/*',
   '.github/release-please.yml',
+    # excluding samples ci jobs since there are no samples in this repo
+  '.github/workflows/samples.yaml'
 ])
