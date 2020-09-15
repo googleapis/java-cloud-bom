@@ -81,7 +81,7 @@ public class RecentCommitCheckTest {
 
   /**
    * Checking a dependency that is known to exist to make sure we don't get an exception when
-   * looking it up (i.e. the code for individual dependencies runs properly)
+   * looking it up. That is the code for individual dependencies runs properly.
    */
   @Test
   public void individualDependencyTest() throws MavenRepositoryException, ParseException {
