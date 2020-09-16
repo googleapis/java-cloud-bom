@@ -4,7 +4,7 @@
   <groupId>com.google.cloud</groupId>
   <artifactId>google-cloud-bom</artifactId>
   <packaging>pom</packaging>
-  <version>0.135.0</version><!-- {x-version-update:google-cloud-bom:current} -->
+  <version>0.135.1-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
   <name>Google Cloud Java BOM</name>
   <url>https://github.com/googleapis/java-cloud-bom</url>
   <description>
@@ -232,7 +232,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigquery</artifactId>
-        <version>1.117.1</version>
+        <version>1.117.2</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
@@ -636,7 +636,7 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.5</version>
+        <version>0.8.6</version>
         <executions>
           <execution>
             <goals>
