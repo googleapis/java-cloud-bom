@@ -298,7 +298,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-datacatalog-bom</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
