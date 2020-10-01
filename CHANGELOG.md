@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.138.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.137.0...v0.138.0) (2020-10-01)
+
+
+### Dependencies
+
+* update dependency com.google.api:gax-bom to v1.59.0 ([#984](https://www.github.com/googleapis/java-cloud-bom/issues/984)) ([4fd669e](https://www.github.com/googleapis/java-cloud-bom/commit/4fd669eee5a94b590765f100e9a775e33dca519f))
+* update dependency com.google.cloud.tools:dependencies-parent to v1.5.4 ([#980](https://www.github.com/googleapis/java-cloud-bom/issues/980)) ([40e4915](https://www.github.com/googleapis/java-cloud-bom/commit/40e49159237875613b1f28892f4325cd096ce284))
+
 ## [0.137.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.136.0...v0.137.0) (2020-09-29)
 
 
