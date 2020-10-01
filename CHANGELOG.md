@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.139.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.138.0...v0.139.0) (2020-10-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove common dependencies from google-cloud-bom (#989)
+
+### Features
+
+* remove common dependencies from google-cloud-bom ([#989](https://www.github.com/googleapis/java-cloud-bom/issues/989)) ([b49846c](https://www.github.com/googleapis/java-cloud-bom/commit/b49846cd418732375508023d69a33a25729873db))
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-bigquery to v1.121.0 ([#986](https://www.github.com/googleapis/java-cloud-bom/issues/986)) ([d4dce45](https://www.github.com/googleapis/java-cloud-bom/commit/d4dce45587302ddbeda37d2a18c0112e6319536b))
+* update dependency com.google.cloud:google-cloud-bigquery to v1.122.0 ([#992](https://www.github.com/googleapis/java-cloud-bom/issues/992)) ([179937a](https://www.github.com/googleapis/java-cloud-bom/commit/179937a45d883f20a23aa8b819f6962beaff8f30))
+* update dependency com.google.cloud:google-cloud-containeranalysis-bom to v1.2.0 ([#993](https://www.github.com/googleapis/java-cloud-bom/issues/993)) ([89cf747](https://www.github.com/googleapis/java-cloud-bom/commit/89cf747e297f4e2d52bb8e1c319458c1c4ad0dab))
+* update dependency com.google.cloud:google-cloud-talent-bom to v0.39.0 ([#988](https://www.github.com/googleapis/java-cloud-bom/issues/988)) ([24c6d04](https://www.github.com/googleapis/java-cloud-bom/commit/24c6d04f0a30653e9ece66a2f8fddb0188046fae))
+* update dependency com.google.cloud:google-cloud-video-intelligence-bom to v1.5.0 ([#987](https://www.github.com/googleapis/java-cloud-bom/issues/987)) ([e51f644](https://www.github.com/googleapis/java-cloud-bom/commit/e51f644e293101782bdbc79e40fe33918d4d7212))
+
 ## [0.138.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.137.0...v0.138.0) (2020-10-01)
 
 
