@@ -1,0 +1,18 @@
+{
+  "sources": [
+    {
+      "git": {
+        "name": ".",
+        "remote": "https://github.com/googleapis/java-cloud-bom.git",
+        "sha": "0755bcc85d56b322c7ccacddc49869e82276a16a"
+      }
+    },
+    {
+      "git": {
+        "name": "synthtool",
+        "remote": "https://github.com/googleapis/synthtool.git",
+        "sha": "befc24dcdeb8e57ec1259826fd33120b05137e8f"
+      }
+    }
+  ]
+}
