@@ -257,7 +257,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-datalabeling-bom</artifactId>
-        <version>0.119.2</version>
+        <version>0.119.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
