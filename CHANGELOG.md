@@ -1,5 +1,19 @@
 # Changelog
 
+### [0.139.1](https://www.github.com/googleapis/java-cloud-bom/compare/0.139.0...v0.139.1) (2020-10-12)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-accessapproval-bom to v1.0.3 ([#1019](https://www.github.com/googleapis/java-cloud-bom/issues/1019)) ([a95917a](https://www.github.com/googleapis/java-cloud-bom/commit/a95917a360ef997012861e796013065918bff950))
+* update dependency com.google.cloud:google-cloud-bigquery to v1.122.2 ([#998](https://www.github.com/googleapis/java-cloud-bom/issues/998)) ([1aa7926](https://www.github.com/googleapis/java-cloud-bom/commit/1aa7926e0e4b11e71469e66508e9a36c658a0a99))
+* update dependency com.google.cloud:google-cloud-bigquerystorage-bom to v1.5.5 ([#1023](https://www.github.com/googleapis/java-cloud-bom/issues/1023)) ([da4d615](https://www.github.com/googleapis/java-cloud-bom/commit/da4d6150a7340a72dfe16f05c736aafb507f6035))
+* update dependency com.google.cloud:google-cloud-containeranalysis-bom to v1.2.1 ([#1012](https://www.github.com/googleapis/java-cloud-bom/issues/1012)) ([add34a4](https://www.github.com/googleapis/java-cloud-bom/commit/add34a41943abead59f8f8fd67830ae9d4db380a))
+* update dependency com.google.cloud:google-cloud-language-bom to v1.101.3 ([#1015](https://www.github.com/googleapis/java-cloud-bom/issues/1015)) ([d74e69a](https://www.github.com/googleapis/java-cloud-bom/commit/d74e69a02c2f149aa77859c28afe005a628fa64c))
+* update dependency com.google.cloud:google-cloud-recaptchaenterprise-bom to v1.0.3 ([#1022](https://www.github.com/googleapis/java-cloud-bom/issues/1022)) ([5f4d97d](https://www.github.com/googleapis/java-cloud-bom/commit/5f4d97da91c9d69c2f420558b355377b9cc987e5))
+* update dependency com.google.cloud:google-cloud-secretmanager-bom to v1.2.1 ([#1009](https://www.github.com/googleapis/java-cloud-bom/issues/1009)) ([67df673](https://www.github.com/googleapis/java-cloud-bom/commit/67df67352bb2f8297af78559c49fbf28ed8c421f))
+* update dependency com.google.cloud:google-cloud-websecurityscanner-bom to v1.0.3 ([#1021](https://www.github.com/googleapis/java-cloud-bom/issues/1021)) ([4a26dd9](https://www.github.com/googleapis/java-cloud-bom/commit/4a26dd97af9f93794bb7a7222cf236880698610a))
+
 ## [0.139.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.138.0...v0.139.0) (2020-10-01)
 
 
