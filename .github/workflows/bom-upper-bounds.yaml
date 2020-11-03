@@ -13,6 +13,7 @@ jobs:
         with:
           java-version: 8
       - run: java -version
+      - run: sudo apt-get install libxml2-utils
       - run: .kokoro/bom-upper-bounds-check.sh
         env:
           JOB_TYPE: test
