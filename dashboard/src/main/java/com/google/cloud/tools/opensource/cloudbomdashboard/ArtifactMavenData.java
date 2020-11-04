@@ -187,6 +187,10 @@ public class ArtifactMavenData {
           .getDependencies()) {
         if ("com.google.cloud".equals(dep.getGroupId()) && "google-cloud-shared-dependencies"
             .equals(dep.getArtifactId())) {
+          if (dep.getVersion().startsWith("${")) {
+            String sharedVersion = dep.getVersion().substring(1).replaceAll("[{}]", "");
+            return model.getProperties().getProperty(sharedVersion);
+          }
           return dep.getVersion();
         }
       }
