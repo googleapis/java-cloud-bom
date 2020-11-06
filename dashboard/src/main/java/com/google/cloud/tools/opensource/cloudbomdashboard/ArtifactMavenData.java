@@ -156,6 +156,13 @@ public class ArtifactMavenData {
         + "/" + artifact.getArtifactId() + "-deps-bom"
         + "/" + artifact.getVersion()
         + "/" + artifact.getArtifactId() + "-deps-bom-" + artifact.getVersion() + ".pom";
+    String repository = artifact.getArtifactId().substring(13);
+    String releasePath =
+        "https://raw.githubusercontent.com/googleapis/java-"
+            + repository
+            + "/v"
+            + artifact.getVersion().replaceAll("[^.\\d]", "")
+            + "/pom.xml";
     String version = getSharedDependenciesVersionFromUrl(parentPath);
     if (version != null) {
       return new SharedDependenciesData(parentPath, version);
@@ -163,6 +170,10 @@ public class ArtifactMavenData {
     version = getSharedDependenciesVersionFromUrl(pomUrl);
     if (version != null) {
       return new SharedDependenciesData(pomUrl, version);
+    }
+    version = getSharedDependenciesVersionFromUrl(releasePath);
+    if (version != null) {
+      return new SharedDependenciesData(releasePath, version);
     }
     version = getSharedDependenciesVersionFromUrl(depsBomPath);
     if (version != null) {
