@@ -149,9 +149,11 @@ public class DashboardMain {
       // All dependencies with google-cloud-shared-dependencies must have group ID
       // "com.google.cloud". google-cloud-core and bigtable-emulator are unique
       // in that they do not require google-cloud-shared-dependencies.
+      // google-cloud-firestore-admin is a module of google-cloud-firestore
       if ("com.google.cloud".equals(artifact.getGroupId())
           && !artifact.getArtifactId().contains("google-cloud-core")
-          && !artifact.getArtifactId().contains("google-cloud-bigtable-emulator")) {
+          && !artifact.getArtifactId().contains("google-cloud-bigtable-emulator")
+          && !artifact.getArtifactId().contains("google-cloud-firestore-admin")) {
         managedDependencies.add(artifact);
       }
     }
