@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""This script is used to synthesize generated parts of this library."""
+"""This script is used to synthesize generated the README for this library."""
 
-import synthtool.languages.java as java
+from synthtool.languages import java
 
-AUTOSYNTH_MULTIPLE_COMMITS = True
-
-java.common_templates(excludes=[
-  'README.md',
-  'samples/*',
-  '.github/release-please.yml',
-    # excluding samples ci jobs since there are no samples in this repo
-  '.github/workflows/samples.yaml',
-  '.github/trusted-contribution.yml',
-])
+java.custom_templates(["java_library/README.md"])
