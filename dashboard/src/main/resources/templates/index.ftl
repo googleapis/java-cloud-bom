@@ -5,7 +5,6 @@
   <meta charset="utf-8"/>
   <title>Google Cloud Platform Java Open Source Dependency Dashboard</title>
   <link rel="stylesheet" href="dashboard.css"/>
-  <script src="dashboard.js"></script>
 </head>
 <body>
 <h1 style="text-align:center">Google-Cloud-BOM ${staticVersion}</h1>
@@ -96,5 +95,6 @@
 <hr/>
 
 <p id='updated'>Last generated at ${lastUpdated}</p>
+<script src="dashboard.js"></script>
 </body>
 </html>
