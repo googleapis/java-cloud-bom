@@ -150,3 +150,35 @@ function filterFunction() {
         rows[i].style.display = isDisplay ? "" : "none";
     }
 }
+
+/**
+ * ------------------------------------------
+ *
+ * +-------------------------------------+
+ * | Unit Tests for sorting code based   |
+ * | on Maven VersionComparator.         |
+ * |                                     |
+ * | Dashboard will still be created if  |
+ * | the unit tests do not pass, but the |
+ * | console will log errors.            |
+ * +------------------------------------ |
+ *
+ * ------------------------------------------
+ */
+function testCompareVersions() {
+    console.assert(compareVersions("1.2.3", "1.3.3") < 0);
+
+    console.assert(compareVersions("1.22.3", "1.21.3") > 0);
+    console.assert(compareVersions("1.22.3", "1.2.3") > 0);
+    console.assert(compareVersions("1.20.3", "1.19.4") > 0);
+
+    console.assert(compareVersions("1.0.0", "1.0.0") === 0);
+
+    console.assert(compareVersions("1.59.0", "1.100.1") < 0);
+    console.assert(compareVersions("22.99.33", "21.99.33") > 0);
+    console.assert(compareVersions("200.99.33", "22.99.33") > 0);
+
+    console.assert(compareVersions("1.0.0-alpha", "1.0.0-beta") < 0);
+}
+
+testCompareVersions();
