@@ -25,4 +25,5 @@ java.common_templates(excludes=[
     # excluding samples ci jobs since there are no samples in this repo
   '.github/workflows/samples.yaml',
   '.github/trusted-contribution.yml',
+  '.github/workflows/auto-release.yaml',
 ])
