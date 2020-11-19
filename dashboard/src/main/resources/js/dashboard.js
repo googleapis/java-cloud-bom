@@ -56,12 +56,7 @@ const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx]
 // comparator for sorting
 const comparer = (columnHeader, idx, asc) => (a, b) => {
     return (function (v1, v2) {
-        if (columnHeader === "google-cloud-bom" || columnHeader === "artifact-version"
-            || columnHeader === "latest-released-version" || columnHeader
-            === "google-cloud-shared-dependencies") {
-            return compareVersions(v1, v2);
-        }
-        return v1.toString().localeCompare(v2);
+        return compareVersions(v1, v2);
     })
     (getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
 };
