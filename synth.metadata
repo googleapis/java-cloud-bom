@@ -4,14 +4,14 @@
       "git": {
         "name": ".",
         "remote": "https://github.com/googleapis/java-cloud-bom.git",
-        "sha": "e053f71e60f3619296023b86aec82088f7fbc69a"
+        "sha": "186cb8e1e6bb3118c5144a902171ff4962d01afd"
       }
     },
     {
       "git": {
         "name": "synthtool",
         "remote": "https://github.com/googleapis/synthtool.git",
-        "sha": "7fcc405a579d5d53a726ff3da1b7c8c08f0f2d58"
+        "sha": "68742c6016bf0d16948a572633d17955a8737414"
       }
     }
   ],
@@ -25,7 +25,6 @@
     ".github/readme/synth.py",
     ".github/snippet-bot.yml",
     ".github/workflows/approve-readme.yaml",
-    ".github/workflows/auto-release.yaml",
     ".github/workflows/ci.yaml",
     ".github/workflows/formatting.yaml",
     ".kokoro/build.bat",
