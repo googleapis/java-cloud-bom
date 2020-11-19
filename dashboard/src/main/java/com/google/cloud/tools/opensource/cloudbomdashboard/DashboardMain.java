@@ -47,6 +47,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -113,6 +114,11 @@ public class DashboardMain {
       }
       bomVersions.add(version);
     }
+
+    //Reverse the ordering, placing higher versions first
+    VersionComparator comparator = new VersionComparator();
+    Collections.sort(bomVersions, (b1, b2) -> comparator.compare(b2, b1));
+
     bomVersions.add(VersionData.ALL_VERSIONS_NAME);
     for (String version : bomVersions) {
       //We generate the 'All Versions' page after all other pages, since other pages
