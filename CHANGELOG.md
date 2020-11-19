@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.145.1](https://www.github.com/googleapis/java-cloud-bom/compare/0.145.0...v0.145.1) (2020-11-19)
+
+
+### Bug Fixes
+
+* dashboard column checking for sorting by Maven version ([#1248](https://www.github.com/googleapis/java-cloud-bom/issues/1248)) ([792550c](https://www.github.com/googleapis/java-cloud-bom/commit/792550caf0c8fbe0d8363deaaf758aa1db89bb7d))
+
 ## [0.145.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.144.0...v0.145.0) (2020-11-17)
 
 
