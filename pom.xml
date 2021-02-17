@@ -492,7 +492,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-securitycenter-bom</artifactId>
-        <version>1.3.5</version>
+        <version>1.3.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
