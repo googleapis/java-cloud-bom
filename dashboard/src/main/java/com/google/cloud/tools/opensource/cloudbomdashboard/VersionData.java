@@ -16,13 +16,13 @@
 
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
-import org.eclipse.aether.artifact.Artifact;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
+import org.eclipse.aether.artifact.Artifact;
 
 /**
  * Consolidates all instances of ArtifactMavenData and assists in the creation of our template data
@@ -36,12 +36,11 @@ public class VersionData {
 
   public static final String ALL_VERSIONS_NAME = "all-versions";
 
-  private VersionData() {
-  }
+  private VersionData() {}
 
   /**
    * @param cloudBomVersion the version of google-cloud-bom associated with the set of artifacts
-   * @param artifacts       the set of artifacts to be pulled from Maven central
+   * @param artifacts the set of artifacts to be pulled from Maven central
    */
   public static void addData(String cloudBomVersion, Set<Artifact> artifacts) {
     cloudBomVersionToArtifacts.put(cloudBomVersion, artifacts);
@@ -52,9 +51,7 @@ public class VersionData {
     }
   }
 
-  /**
-   * Returns the Freemarker 'template data' formatting of our artifacts
-   */
+  /** Returns the Freemarker 'template data' formatting of our artifacts */
   public static Map<String, Object> createTemplateData(String... versions) {
     // Freemarker template
     Map<String, Object> templateData = new HashMap<>();
@@ -74,8 +71,8 @@ public class VersionData {
     Set<String> artifactIds = new HashSet<>();
 
     Set<String> versionSet = new HashSet<>(Arrays.asList(versions));
-    //There are no artifacts directly associated with the 'all-versions' name.
-    //This acts as a check in case it is passed.
+    // There are no artifacts directly associated with the 'all-versions' name.
+    // This acts as a check in case it is passed.
     versionSet.remove(ALL_VERSIONS_NAME);
 
     for (String cloudBomVersion : versionSet) {
@@ -91,10 +88,10 @@ public class VersionData {
         currentVersion.put(artifactKey, artifact.getVersion());
         newestVersion.put(artifactKey, artifactMavenData.getLatestVersion());
         newestPomUrl.put(artifactKey, artifactMavenData.getPomFileUrl());
-        sharedDependenciesVersion
-            .put(artifactKey, artifactMavenData.getSharedDependenciesVersion());
-        sharedDependenciesPosition
-            .put(artifactKey, artifactMavenData.getSharedDependenciesPosition());
+        sharedDependenciesVersion.put(
+            artifactKey, artifactMavenData.getSharedDependenciesVersion());
+        sharedDependenciesPosition.put(
+            artifactKey, artifactMavenData.getSharedDependenciesPosition());
         updatedTime.put(artifactKey, artifactMavenData.getLastUpdated());
         metadataUrl.put(artifactKey, artifactMavenData.getMetadataUrl());
       }

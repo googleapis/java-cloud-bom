@@ -92,6 +92,10 @@ final class DashboardArguments {
     return commandLine.getOptionValue('a').trim();
   }
 
+  boolean getReport() {
+    return commandLine.hasOption('r');
+  }
+
   static DashboardArguments readCommandLine(String... arguments) throws ParseException {
     CommandLineParser parser = new DefaultParser();
 
@@ -117,8 +121,7 @@ final class DashboardArguments {
         Option.builder("c")
             .longOpt("bom-coordinates")
             .hasArg()
-            .desc(
-                "Maven coordinates of a BOM. For example, com.google.cloud:libraries-bom:1.0.0")
+            .desc("Maven coordinates of a BOM. For example, com.google.cloud:libraries-bom:1.0.0")
             .build();
     inputGroup.addOption(inputCoordinatesOption);
 
@@ -133,6 +136,14 @@ final class DashboardArguments {
     inputGroup.addOption(versionlessCoordinatesOption);
 
     options.addOptionGroup(inputGroup);
+
+    Option reportOption =
+        Option.builder("r")
+            .longOpt("report")
+            .hasArg(false)
+            .desc("Whether to print the report or build the dashboard")
+            .build();
+    options.addOption(reportOption);
     return options;
   }
 }

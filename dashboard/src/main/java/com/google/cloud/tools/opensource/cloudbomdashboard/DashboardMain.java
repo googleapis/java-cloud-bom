@@ -27,7 +27,10 @@ import com.google.cloud.tools.opensource.dependencies.Update;
 import com.google.cloud.tools.opensource.dependencies.VersionComparator;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Splitter;
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.collect.Multimap;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.DefaultObjectWrapperBuilder;
@@ -35,25 +38,29 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateHashModel;
 import freemarker.template.Version;
-import java.net.URL;
-import org.apache.commons.cli.ParseException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedSet;
+
+import org.apache.commons.cli.ParseException;
+import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.eclipse.aether.RepositoryException;
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.artifact.Artifact;
@@ -82,22 +89,38 @@ public class DashboardMain {
    */
   public static void main(String[] arguments)
       throws IOException, TemplateException, RepositoryException, URISyntaxException,
-      ParseException, MavenRepositoryException {
+          ParseException, MavenRepositoryException {
     DashboardArguments dashboardArguments = DashboardArguments.readCommandLine(arguments);
 
     // If looking to edit the dashboard structure, see DashboardMain#generateDashboard.
     if (dashboardArguments.hasVersionlessCoordinates()) {
       generateAllVersions(dashboardArguments.getVersionlessCoordinates());
-    } else if (dashboardArguments.hasFile()) {
-      generate(dashboardArguments.getBomFile());
+      return;
+    }
+
+    Bom bom;
+    if (dashboardArguments.hasFile()) {
+      Path bomFile = dashboardArguments.getBomFile();
+      checkArgument(
+          Files.isRegularFile(bomFile), "The input BOM %s is not a regular file", bomFile);
+      checkArgument(Files.isReadable(bomFile), "The input BOM %s is not readable", bomFile);
+      bom = Bom.readBom(bomFile);
     } else {
-      generate(dashboardArguments.getBomCoordinates());
+      bom = Bom.readBom(dashboardArguments.getBomCoordinates());
+    }
+
+    if (dashboardArguments.getReport()) {
+      if (!report(bom)) {
+        throw new RuntimeException("Failed to converge dependencies");
+      }
+    } else {
+      generate(bom);
     }
   }
 
   private static void generateAllVersions(String versionlessCoordinates)
       throws IOException, TemplateException, RepositoryException, URISyntaxException,
-      MavenRepositoryException {
+          MavenRepositoryException {
     List<String> elements = Splitter.on(':').splitToList(versionlessCoordinates);
     checkArgument(
         elements.size() == 2,
@@ -115,41 +138,29 @@ public class DashboardMain {
       bomVersions.add(version);
     }
 
-    //Reverse the ordering, placing higher versions first
+    // Reverse the ordering, placing higher versions first
     VersionComparator comparator = new VersionComparator();
     Collections.sort(bomVersions, (b1, b2) -> comparator.compare(b2, b1));
 
     bomVersions.add(VersionData.ALL_VERSIONS_NAME);
     for (String version : bomVersions) {
-      //We generate the 'All Versions' page after all other pages, since other pages
-      //are used to collect data for the 'All Versions' page.
+      // We generate the 'All Versions' page after all other pages, since other pages
+      // are used to collect data for the 'All Versions' page.
       if (!VersionData.ALL_VERSIONS_NAME.equals(version)) {
-        generate(String.format("%s:%s:%s", groupId, artifactId, version));
+        generate(Bom.readBom(String.format("%s:%s:%s", groupId, artifactId, version)));
       }
     }
     generateAllVersionsDashboard();
   }
 
-  @VisibleForTesting
-  static Path generate(String bomCoordinates)
-      throws IOException, TemplateException, RepositoryException, URISyntaxException {
-    Path output = generate(Bom.readBom(bomCoordinates));
-    System.out.println("Wrote dashboard for " + bomCoordinates + " to " + output);
-    return output;
-  }
-
-  @VisibleForTesting
-  static Path generate(Path bomFile)
-      throws IOException, TemplateException, URISyntaxException, MavenRepositoryException {
-    checkArgument(Files.isRegularFile(bomFile), "The input BOM %s is not a regular file", bomFile);
-    checkArgument(Files.isReadable(bomFile), "The input BOM %s is not readable", bomFile);
-    Path output = generate(Bom.readBom(bomFile));
-
-    System.out.println("Wrote dashboard for " + bomFile + " to " + output);
-    return output;
-  }
-
   private static Path generate(Bom bom) throws IOException, TemplateException, URISyntaxException {
+    ArtifactCache cache = buildCache(bom);
+    Path output = generateHtml(bom, cache);
+
+    return output;
+  }
+
+  private static ArtifactCache buildCache(Bom bom) {
     List<Artifact> managedDependencies = new ArrayList<>();
     for (Artifact artifact : bom.getManagedDependencies()) {
       // All dependencies with google-cloud-shared-dependencies must have group ID
@@ -164,10 +175,61 @@ public class DashboardMain {
       }
     }
 
-    ArtifactCache cache = loadArtifactInfo(managedDependencies);
-    Path output = generateHtml(bom, cache);
+    return loadArtifactInfo(managedDependencies);
+  }
 
-    return output;
+  private static boolean report(Bom bom) {
+    ArtifactCache cache = buildCache(bom);
+    Map<Artifact, ArtifactInfo> infoMap = cache.getInfoMap();
+    String cloudBomVersion =
+        bom.getCoordinates().substring(bom.getCoordinates().lastIndexOf(":") + 1);
+
+    Set<Artifact> artifactsData = infoMap.keySet();
+    VersionData.addData(cloudBomVersion, artifactsData);
+
+    Map<String, Object> templateData = VersionData.createTemplateData(cloudBomVersion);
+    Map<String, String> sharedDependencyVersions =
+        (Map<String, String>) templateData.get("sharedDependenciesVersion");
+    Map<String, String> currentVersions = (Map<String, String>) templateData.get("currentVersion");
+    Multimap<String, String> sharedDepsToLibraries = ArrayListMultimap.create();
+    ImmutableSortedSet.Builder<ComparableVersion> sharedDepsVersionsBuilder =
+        ImmutableSortedSet.reverseOrder();
+    for (Map.Entry<String, String> entry : sharedDependencyVersions.entrySet()) {
+      if (!entry.getValue().isEmpty()) {
+        sharedDepsToLibraries.put(entry.getValue(), entry.getKey());
+        sharedDepsVersionsBuilder.add(new ComparableVersion(entry.getValue()));
+      }
+    }
+
+    SortedSet<ComparableVersion> sharedDepsVersions = sharedDepsVersionsBuilder.build();
+    if (sharedDepsVersions.size() == 1) {
+      System.out.println("Shared dependencies converge \\o/");
+      return true;
+    }
+
+    // Find the largest shared dependency version
+    ComparableVersion largest = null;
+    for (ComparableVersion version : sharedDepsVersions) {
+      if (largest == null) {
+        largest = version;
+        System.out.println("Greatest shared-dependencies version: " + version.toString());
+      } else {
+        Collection<String> artifacts = sharedDepsToLibraries.get(version.toString());
+        System.out.println("-----------------------");
+        System.out.println(
+            String.format(
+                "Found %d artifacts with shared-dependencies version: %s",
+                artifacts.size(), version.toString()));
+        ;
+        for (String artifactKey : artifacts) {
+          String artifactVersion = currentVersions.get(artifactKey);
+          String artifact = artifactKey.split(":")[0];
+          System.out.println(String.format("- %s:%s", artifact, artifactVersion));
+        }
+      }
+    }
+
+    return false;
   }
 
   private static Path outputDirectory(String groupId, String artifactId, String version) {
@@ -180,8 +242,9 @@ public class DashboardMain {
 
     Artifact bomArtifact = new DefaultArtifact(bom.getCoordinates());
 
-    Path relativePath = outputDirectory(bomArtifact.getGroupId(), bomArtifact.getArtifactId(),
-        bomArtifact.getVersion());
+    Path relativePath =
+        outputDirectory(
+            bomArtifact.getGroupId(), bomArtifact.getArtifactId(), bomArtifact.getVersion());
 
     Path output = Files.createDirectories(relativePath);
 
@@ -195,8 +258,8 @@ public class DashboardMain {
   }
 
   /**
-   * @throws IOException              if we fail to copy the resources to output
-   * @throws URISyntaxException       if resourceName produces a URL with a bad URI
+   * @throws IOException if we fail to copy the resources to output
+   * @throws URISyntaxException if resourceName produces a URL with a bad URI
    * @throws IllegalArgumentException if resourceName produces an invalid URL
    */
   private static void copyResource(Path output, String resourceName)
@@ -241,9 +304,7 @@ public class DashboardMain {
     return table;
   }
 
-  /**
-   * This is the only method that queries the Maven repository.
-   */
+  /** This is the only method that queries the Maven repository. */
   private static ArtifactCache loadArtifactInfo(List<Artifact> artifacts) {
     Map<Artifact, ArtifactInfo> infoMap = new LinkedHashMap<>();
     List<DependencyGraph> globalDependencies = new ArrayList<>();
@@ -268,8 +329,8 @@ public class DashboardMain {
     return cache;
   }
 
-  private static ArtifactResults generateArtifactReport(Artifact artifact,
-      ArtifactInfo artifactInfo) {
+  private static ArtifactResults generateArtifactReport(
+      Artifact artifact, ArtifactInfo artifactInfo) {
     // includes all versions
     DependencyGraph graph = artifactInfo.getCompleteDependencies();
     List<Update> convergenceIssues = graph.findUpdates();
@@ -286,8 +347,7 @@ public class DashboardMain {
   }
 
   private static Map<Artifact, Artifact> findUpperBoundsFailures(
-      Map<String, String> expectedVersionMap,
-      DependencyGraph transitiveDependencies) {
+      Map<String, String> expectedVersionMap, DependencyGraph transitiveDependencies) {
 
     Map<String, String> actualVersionMap = transitiveDependencies.getHighestVersionMap();
 
@@ -324,8 +384,8 @@ public class DashboardMain {
     templateData.put("table", new ArrayList<>());
     templateData.put("dependencyGraphs", new ArrayList<>());
 
-    Path relativePath = outputDirectory("com.google.cloud", "google-cloud-bom",
-        VersionData.ALL_VERSIONS_NAME);
+    Path relativePath =
+        outputDirectory("com.google.cloud", "google-cloud-bom", VersionData.ALL_VERSIONS_NAME);
     Path output = Files.createDirectories(relativePath);
 
     copyResource(output, "css/dashboard.css");
@@ -333,28 +393,28 @@ public class DashboardMain {
 
     // Accessing static methods from Freemarker template
     // https://freemarker.apache.org/docs/pgui_misc_beanwrapper.html#autoid_60
-    DefaultObjectWrapper wrapper = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28)
-        .build();
+    DefaultObjectWrapper wrapper =
+        new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28).build();
     TemplateHashModel staticModels = wrapper.getStaticModels();
     templateData.put("dashboardMain", staticModels.get(DashboardMain.class.getName()));
     templateData.put("bomVersions", bomVersions);
     File dashboardFile = output.resolve("index.html").toFile();
-    try (Writer out = new OutputStreamWriter(new FileOutputStream(dashboardFile),
-        StandardCharsets.UTF_8)) {
-      Template dashboard = DashboardMain.freemarkerConfiguration
-          .getTemplate("/templates/index.ftl");
+    try (Writer out =
+        new OutputStreamWriter(new FileOutputStream(dashboardFile), StandardCharsets.UTF_8)) {
+      Template dashboard =
+          DashboardMain.freemarkerConfiguration.getTemplate("/templates/index.ftl");
       dashboard.process(templateData, out);
     }
   }
 
   @VisibleForTesting
-  static void generateDashboard(Path output, List<ArtifactResults> table, ArtifactCache cache,
-      Bom bom)
+  static void generateDashboard(
+      Path output, List<ArtifactResults> table, ArtifactCache cache, Bom bom)
       throws IOException, TemplateException {
 
     Map<Artifact, ArtifactInfo> infoMap = cache.getInfoMap();
-    String cloudBomVersion = bom.getCoordinates()
-        .substring(bom.getCoordinates().lastIndexOf(":") + 1);
+    String cloudBomVersion =
+        bom.getCoordinates().substring(bom.getCoordinates().lastIndexOf(":") + 1);
 
     Set<Artifact> artifactsData = infoMap.keySet();
     VersionData.addData(cloudBomVersion, artifactsData);
@@ -367,16 +427,16 @@ public class DashboardMain {
 
     // Accessing static methods from Freemarker template
     // https://freemarker.apache.org/docs/pgui_misc_beanwrapper.html#autoid_60
-    DefaultObjectWrapper wrapper = new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28)
-        .build();
+    DefaultObjectWrapper wrapper =
+        new DefaultObjectWrapperBuilder(Configuration.VERSION_2_3_28).build();
     TemplateHashModel staticModels = wrapper.getStaticModels();
     templateData.put("dashboardMain", staticModels.get(DashboardMain.class.getName()));
     templateData.put("bomVersions", bomVersions);
     File dashboardFile = output.resolve("index.html").toFile();
-    try (Writer out = new OutputStreamWriter(
-        new FileOutputStream(dashboardFile), StandardCharsets.UTF_8)) {
-      Template dashboard = DashboardMain.freemarkerConfiguration
-          .getTemplate("/templates/index.ftl");
+    try (Writer out =
+        new OutputStreamWriter(new FileOutputStream(dashboardFile), StandardCharsets.UTF_8)) {
+      Template dashboard =
+          DashboardMain.freemarkerConfiguration.getTemplate("/templates/index.ftl");
       dashboard.process(templateData, out);
     }
   }
