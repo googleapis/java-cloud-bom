@@ -1,0 +1,15 @@
+on:
+  pull_request:
+name: shared-deps
+jobs:
+  convergence:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 8
+    - run: java -version
+    - name: Check for shared-dependencies convergence
+      run: .kokoro/shared-deps.sh
+      shell: bash
