@@ -250,7 +250,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-container-bom</artifactId>
-        <version>1.2.4</version>
+        <version>1.2.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -285,7 +285,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-datastore-bom</artifactId>
-        <version>1.105.7</version>
+        <version>1.105.8</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -299,7 +299,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-dialogflow-bom</artifactId>
-        <version>2.4.6</version>
+        <version>2.5.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -367,7 +367,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-language-bom</artifactId>
-        <version>1.101.10</version>
+        <version>1.101.11</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -407,7 +407,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-monitoring-dashboard-bom</artifactId>
-        <version>1.0.8</version>
+        <version>1.0.9</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -419,7 +419,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-notification</artifactId>
-        <version>0.121.5-beta</version>
+        <version>0.121.6-beta</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
@@ -485,7 +485,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-secretmanager-bom</artifactId>
-        <version>1.2.9</version>
+        <version>1.3.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -525,7 +525,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-storage</artifactId>
-        <version>1.113.10</version>
+        <version>1.113.11</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
@@ -537,7 +537,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-tasks-bom</artifactId>
-        <version>1.30.12</version>
+        <version>1.30.13</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -565,14 +565,14 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-video-intelligence-bom</artifactId>
-        <version>1.5.9</version>
+        <version>1.5.10</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-vision-bom</artifactId>
-        <version>1.100.10</version>
+        <version>1.101.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
