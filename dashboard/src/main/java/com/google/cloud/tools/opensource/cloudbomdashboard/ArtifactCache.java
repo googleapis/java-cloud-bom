@@ -21,9 +21,7 @@ import java.util.List;
 import java.util.Map;
 import org.eclipse.aether.artifact.Artifact;
 
-/**
- * Unified return type to bundle a lot of information  about multiple artifacts together.
- */
+/** Unified return type to bundle a lot of information about multiple artifacts together. */
 class ArtifactCache {
 
   private Map<Artifact, ArtifactInfo> infoMap;
@@ -44,5 +42,4 @@ class ArtifactCache {
   List<DependencyGraph> getGlobalDependencies() {
     return globalDependencies;
   }
-
 }

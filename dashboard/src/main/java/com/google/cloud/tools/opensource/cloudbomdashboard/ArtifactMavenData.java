@@ -16,28 +16,25 @@
 
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
-import org.apache.maven.artifact.repository.metadata.Metadata;
-import org.apache.maven.artifact.repository.metadata.io.xpp3.MetadataXpp3Reader;
-import org.apache.maven.model.Dependency;
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
-import org.apache.commons.io.FileUtils;
-import org.eclipse.aether.artifact.Artifact;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
-
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.BufferedInputStream;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.commons.io.FileUtils;
+import org.apache.maven.artifact.repository.metadata.Metadata;
+import org.apache.maven.artifact.repository.metadata.io.xpp3.MetadataXpp3Reader;
+import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.eclipse.aether.artifact.Artifact;
 
-/**
- * Container class for all artifact data pulled from Maven central.
- */
+/** Container class for all artifact data pulled from Maven central. */
 public class ArtifactMavenData {
 
   private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
@@ -45,14 +42,21 @@ public class ArtifactMavenData {
 
   private final Artifact artifact;
 
-  private final String latestVersion, lastUpdated,
-      sharedDependenciesVersion, sharedDependenciesPosition,
-      pomFileUrl, metadataUrl;
+  private final String latestVersion,
+      lastUpdated,
+      sharedDependenciesVersion,
+      sharedDependenciesPosition,
+      pomFileUrl,
+      metadataUrl;
 
-  private ArtifactMavenData(Artifact artifact, String latestVersion,
-      String lastUpdated, String sharedDependenciesVersion,
+  private ArtifactMavenData(
+      Artifact artifact,
+      String latestVersion,
+      String lastUpdated,
+      String sharedDependenciesVersion,
       String sharedDependenciesPosition,
-      String pomFileUrl, String metadataUrl) {
+      String pomFileUrl,
+      String metadataUrl) {
     this.artifact = artifact;
     this.latestVersion = latestVersion;
     this.lastUpdated = lastUpdated;
@@ -105,9 +109,14 @@ public class ArtifactMavenData {
     String sharedDependenciesPosition = data.sharedDependencyPosition;
     String sharedDependenciesVersion = data.sharedDependencyVersion;
 
-    return new ArtifactMavenData(artifact, latestVersion, lastUpdated,
-        sharedDependenciesVersion, sharedDependenciesPosition,
-        metadataUrl, pomFileUrl);
+    return new ArtifactMavenData(
+        artifact,
+        latestVersion,
+        lastUpdated,
+        sharedDependenciesVersion,
+        sharedDependenciesPosition,
+        metadataUrl,
+        pomFileUrl);
   }
 
   private static LatestMetadata getLatestVersionAndLastUpdated(String metadataUrl) {
@@ -145,17 +154,37 @@ public class ArtifactMavenData {
     }
   }
 
-  private static SharedDependenciesData sharedDependencyPositionAndVersion(String pomUrl,
-      Artifact artifact) {
+  private static SharedDependenciesData sharedDependencyPositionAndVersion(
+      String pomUrl, Artifact artifact) {
     String groupPath = artifact.getGroupId().replace('.', '/');
-    String parentPath = DashboardMain.basePath + "/" + groupPath
-        + "/" + artifact.getArtifactId() + "-parent"
-        + "/" + artifact.getVersion()
-        + "/" + artifact.getArtifactId() + "-parent-" + artifact.getVersion() + ".pom";
-    String depsBomPath = DashboardMain.basePath + "/" + groupPath
-        + "/" + artifact.getArtifactId() + "-deps-bom"
-        + "/" + artifact.getVersion()
-        + "/" + artifact.getArtifactId() + "-deps-bom-" + artifact.getVersion() + ".pom";
+    String parentPath =
+        DashboardMain.basePath
+            + "/"
+            + groupPath
+            + "/"
+            + artifact.getArtifactId()
+            + "-parent"
+            + "/"
+            + artifact.getVersion()
+            + "/"
+            + artifact.getArtifactId()
+            + "-parent-"
+            + artifact.getVersion()
+            + ".pom";
+    String depsBomPath =
+        DashboardMain.basePath
+            + "/"
+            + groupPath
+            + "/"
+            + artifact.getArtifactId()
+            + "-deps-bom"
+            + "/"
+            + artifact.getVersion()
+            + "/"
+            + artifact.getArtifactId()
+            + "-deps-bom-"
+            + artifact.getVersion()
+            + ".pom";
     String repository = artifact.getArtifactId().substring(13);
     String releasePath =
         "https://raw.githubusercontent.com/googleapis/java-"
@@ -194,10 +223,9 @@ public class ArtifactMavenData {
       if (model.getDependencyManagement() == null) {
         return null;
       }
-      for (Dependency dep : model.getDependencyManagement()
-          .getDependencies()) {
-        if ("com.google.cloud".equals(dep.getGroupId()) && "google-cloud-shared-dependencies"
-            .equals(dep.getArtifactId())) {
+      for (Dependency dep : model.getDependencyManagement().getDependencies()) {
+        if ("com.google.cloud".equals(dep.getGroupId())
+            && "google-cloud-shared-dependencies".equals(dep.getArtifactId())) {
           if (dep.getVersion().startsWith("${")) {
             String sharedVersion = dep.getVersion().substring(1).replaceAll("[{}]", "");
             return model.getProperties().getProperty(sharedVersion);
@@ -213,16 +241,27 @@ public class ArtifactMavenData {
 
   private static String generatePomFileUrl(Artifact artifact) {
     String groupPath = artifact.getGroupId().replace('.', '/');
-    return DashboardMain.basePath + "/" + groupPath
-        + "/" + artifact.getArtifactId()
-        + "/" + artifact.getVersion()
-        + "/" + artifact.getArtifactId() + "-" + artifact.getVersion() + ".pom";
+    return DashboardMain.basePath
+        + "/"
+        + groupPath
+        + "/"
+        + artifact.getArtifactId()
+        + "/"
+        + artifact.getVersion()
+        + "/"
+        + artifact.getArtifactId()
+        + "-"
+        + artifact.getVersion()
+        + ".pom";
   }
 
   private static String generateMetadataUrl(Artifact artifact) {
     String groupPath = artifact.getGroupId().replace('.', '/');
-    return DashboardMain.basePath + "/" + groupPath
-        + "/" + artifact.getArtifactId()
+    return DashboardMain.basePath
+        + "/"
+        + groupPath
+        + "/"
+        + artifact.getArtifactId()
         + "/maven-metadata.xml";
   }
 

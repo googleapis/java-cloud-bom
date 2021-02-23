@@ -19,17 +19,14 @@ package com.google.cloud.tools.opensource.cloudbomdashboard;
 import com.google.cloud.tools.opensource.dependencies.DependencyGraph;
 import org.eclipse.aether.RepositoryException;
 
-/** 
- * Cache of info looked up for an artifact.
- */
+/** Cache of info looked up for an artifact. */
 class ArtifactInfo {
 
   private DependencyGraph completeDependencies;
   private DependencyGraph transitiveDependencies;
   private RepositoryException exception;
 
-  ArtifactInfo(DependencyGraph completeDependencies,
-      DependencyGraph transitiveDependencies) {
+  ArtifactInfo(DependencyGraph completeDependencies, DependencyGraph transitiveDependencies) {
     this.completeDependencies = completeDependencies;
     this.transitiveDependencies = transitiveDependencies;
   }
@@ -49,5 +46,4 @@ class ArtifactInfo {
   RepositoryException getException() {
     return exception;
   }
-
 }

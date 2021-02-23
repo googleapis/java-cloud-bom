@@ -22,9 +22,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 import org.eclipse.aether.artifact.Artifact;
 
-/**
- * Collection of test results for a single artifact.
- */
+/** Collection of test results for a single artifact. */
 public final class ArtifactResults {
 
   private final Map<String, Integer> results = new HashMap<>();
@@ -43,9 +41,7 @@ public final class ArtifactResults {
     results.put(testName, failures);
   }
 
-  /**
-   * @return true for pass, false for fail, null for unknown test
-   */
+  /** @return true for pass, false for fail, null for unknown test */
   @Nullable
   public Boolean getResult(String testName) {
     Integer failures = results.get(testName);
@@ -59,19 +55,13 @@ public final class ArtifactResults {
     return Artifacts.toCoordinates(artifact);
   }
 
-  /**
-   *  @return message of exception occurred when running test, null for no exception
-   */
+  /** @return message of exception occurred when running test, null for no exception */
   @Nullable
   public String getExceptionMessage() {
     return exceptionMessage;
   }
 
-  /**
-   * 
-   * @return number of times the specified test failed. Returns 0
-   *     if the test was not run.
-   */
+  /** @return number of times the specified test failed. Returns 0 if the test was not run. */
   public int getFailureCount(String testName) {
     Integer failures = results.get(testName);
     if (failures == null) {
