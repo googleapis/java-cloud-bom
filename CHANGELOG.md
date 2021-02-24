@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.148.1](https://www.github.com/googleapis/java-cloud-bom/compare/0.148.0...v0.148.1) (2021-02-24)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-spanner-bom to v4.0.2 ([#1575](https://www.github.com/googleapis/java-cloud-bom/issues/1575)) ([4044f66](https://www.github.com/googleapis/java-cloud-bom/commit/4044f66a266e1af3a5cea00d40ecf21d735ba031))
+
 ## [0.148.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.147.0...v0.148.0) (2021-02-23)
 
 
