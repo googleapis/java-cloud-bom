@@ -596,6 +596,13 @@
         <artifactId>grafeas</artifactId>
         <version>1.0.9</version>
       </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-core-bom</artifactId>
+        <version>1.94.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
