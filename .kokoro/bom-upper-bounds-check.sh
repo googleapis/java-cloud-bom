@@ -33,7 +33,7 @@ mvn -version
 git version
 
 # Make artifacts available for 'mvn validate' at the bottom
-mvn install -DskipTests=true -Dmaven.javadoc.skip=true -Dgcloud.download.skip=true -B -V
+mvn install -DskipTests=true -Dmaven.javadoc.skip=true -Dgcloud.download.skip=true -B -V -ntp
 
 # The property key for this repository in Google Libraries BOM
 VERSION_KEY=google.cloud.java.version
@@ -52,8 +52,8 @@ echo "Version: ${VERSION}"
 git clone https://github.com/GoogleCloudPlatform/cloud-opensource-java.git
 
 cd cloud-opensource-java/boms/cloud-oss-bom
-mvn install
+mvn install -ntp
 
 # This upper-bounds-check project has the enforcer rule with requireUpperBoundDeps
 cd ../upper-bounds-check
-mvn validate -D${VERSION_KEY}=${VERSION}
+mvn validate -D${VERSION_KEY}=${VERSION} -ntp
