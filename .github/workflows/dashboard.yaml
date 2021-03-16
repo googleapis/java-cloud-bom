@@ -3,7 +3,7 @@ on:
     branches:
     - master
   pull_request:
-name: dashboard
+name: ci
 jobs:
   dashboard:
     runs-on: ubuntu-latest
