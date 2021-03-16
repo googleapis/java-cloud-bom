@@ -473,7 +473,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-resourcemanager</artifactId>
-        <version>0.118.11-alpha</version>
+        <version>0.118.12-alpha</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
