@@ -26,3 +26,19 @@ cd dashboard/
 echo -e "\n******************** BUILDING THE DASHBOARD ********************"
 
 mvn --fail-at-end clean install
+INSTALL_RETURN_CODE=$?
+RETURN_CODE=${INSTALL_RETURN_CODE}
+
+case ${JOB_TYPE} in
+converge)
+    mvn exec:java -Dexec.args="-f ../pom.xml --report"
+    CONVERGE_RETURN_CODE=$?
+    if [[ $INSTALL_RETURN_CODE -eq 0 ]]
+    then
+      RETURN_CODE=${CONVERGE_RETURN_CODE}
+    fi
+    ;;
+esac
+
+echo "exiting with ${RETURN_CODE}"
+exit ${RETURN_CODE}
