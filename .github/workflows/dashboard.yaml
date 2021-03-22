@@ -14,7 +14,8 @@ jobs:
         java-version: 8
     - run: java -version
     - run: .kokoro/dashboard.sh
-
+      env:
+        JOB_TYPE: dashboard-units-check
   dependency-convergence-check:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'googleapis' && github.head_ref == 'release-please/branches/master'
@@ -23,32 +24,6 @@ jobs:
     - uses: actions/setup-java@v1
       with:
         java-version: 8
-        script: |
-          // only checks PRs from release-please
-          if (context.payload.pull_request.user.login !== "release-please") {
-            return;
-          }
-
-          // only checks PRs like "chore: release <release version>"
-          if (!(/^chore: release.*$/.test(context.payload.pull_request.title))) {
-            return;
-          }
-
-          // only checks PRs with README.md, CHANGELOG.md, pom.xml and versions.txt changes
-          const files = new Set(
-            (
-              await github.paginate(
-                github.pulls.listFiles.endpoint({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  pull_number: context.payload.pull_request.number,
-                })
-              )
-            ).map(file => file.filename)
-          );
-          if (files.size != 4 || !files.has("README.md") || !files.has("CHANGELOG.md") || !files.has("pom.xml") || !files.has("versions.txt")) {
-            return;
-          }
     - run: java -version
     - run: .kokoro/dashboard.sh
       env:
