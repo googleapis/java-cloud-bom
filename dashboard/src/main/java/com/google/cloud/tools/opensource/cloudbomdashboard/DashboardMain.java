@@ -178,7 +178,7 @@ public class DashboardMain {
     return loadArtifactInfo(managedDependencies);
   }
 
-  private static boolean report(Bom bom) {
+  private static boolean report(Bom bom) throws IOException {
     ArtifactCache cache = buildCache(bom);
     Map<Artifact, ArtifactInfo> infoMap = cache.getInfoMap();
     String cloudBomVersion =
@@ -194,6 +194,12 @@ public class DashboardMain {
     Multimap<String, String> sharedDepsToLibraries = ArrayListMultimap.create();
     ImmutableSortedSet.Builder<ComparableVersion> sharedDepsVersionsBuilder =
         ImmutableSortedSet.reverseOrder();
+
+    Path relativePath = Paths.get("target/tmp/");
+    Path output = Files.createDirectories(relativePath);
+    File file = new File(output + "/output.txt");
+    FileOutputStream fileOutputStream = new FileOutputStream(file);
+
     for (Map.Entry<String, String> entry : sharedDependencyVersions.entrySet()) {
       if (!entry.getValue().isEmpty()) {
         sharedDepsToLibraries.put(entry.getValue(), entry.getKey());
@@ -204,29 +210,38 @@ public class DashboardMain {
     SortedSet<ComparableVersion> sharedDepsVersions = sharedDepsVersionsBuilder.build();
     if (sharedDepsVersions.size() == 1) {
       System.out.println("Shared dependencies converge \\o/");
+
+        fileOutputStream.write("Shared dependencies converge \\o/".getBytes());
+        fileOutputStream.close();
       return true;
     }
 
     // Find the largest shared dependency version
     ComparableVersion largest = null;
+    StringBuilder outputString = new StringBuilder();
     for (ComparableVersion version : sharedDepsVersions) {
       if (largest == null) {
         largest = version;
         System.out.println("Greatest shared-dependencies version: " + version.toString());
+        outputString.append("Greatest shared-dependencies version: " + version.toString());
       } else {
         Collection<String> artifacts = sharedDepsToLibraries.get(version.toString());
         System.out.println("-----------------------");
+        outputString.append("\n-----------------------");
         System.out.println(
             String.format(
                 "Found %d artifacts with shared-dependencies version: %s",
                 artifacts.size(), version.toString()));
-        ;
+        outputString.append("\nFound " + artifacts.size() + " artifacts with shared dependencies version: "+ version.toString());
+
         for (String artifactKey : artifacts) {
           String artifactVersion = currentVersions.get(artifactKey);
           String artifact = artifactKey.split(":")[0];
           System.out.println(String.format("- %s:%s", artifact, artifactVersion));
+          outputString.append("\n- " + artifact+":"+artifactVersion);
         }
       }
+      fileOutputStream.write(outputString.toString().getBytes());
     }
 
     return false;

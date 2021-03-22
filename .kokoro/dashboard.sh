@@ -20,6 +20,7 @@ scriptDir=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 ## cd to the parent directory, i.e. the root of the git repo
 cd ${scriptDir}/..
 
+output="$scriptDir/dashboard/target/tmp/output.txt"
 ## Move into the dashboard directory
 cd dashboard/
 
@@ -29,16 +30,28 @@ mvn --fail-at-end clean install
 INSTALL_RETURN_CODE=$?
 RETURN_CODE=${INSTALL_RETURN_CODE}
 
+LINE_COUNT=0
+
 case ${JOB_TYPE} in
-converge)
+dependency-convergence-check)
     mvn exec:java -Dexec.args="-f ../pom.xml --report"
     CONVERGE_RETURN_CODE=$?
     if [[ $INSTALL_RETURN_CODE -eq 0 ]]
     then
+      while IFS= read -r line; do
+        msg "$line"
+        LINE_COUNT=$LINECOUNT+1
+      done < "$output"
       RETURN_CODE=${CONVERGE_RETURN_CODE}
     fi
     ;;
 esac
+
+
+if [[ $RETURN_CODE -ne  0  ||  $LINE_COUNT -eq 1 ]]
+then
+  RETURN_CODE=1
+fi
 
 echo "exiting with ${RETURN_CODE}"
 exit ${RETURN_CODE}
