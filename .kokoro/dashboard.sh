@@ -48,7 +48,7 @@ dependency-convergence-check)
 esac
 
 
-if [[ $RETURN_CODE -ne  0  ||  $LINE_COUNT -eq 1 ]]
+if [[ $RETURN_CODE -ne  0  ||  $LINE_COUNT -gt 1 ]]
 then
   RETURN_CODE=1
 fi
