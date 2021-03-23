@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set -eo pipefail
+
 ## Get the directory of the build script
 scriptDir=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 ## cd to the parent directory, i.e. the root of the git repo
@@ -29,6 +31,7 @@ INSTALL_RETURN_CODE=$?
 RETURN_CODE=${INSTALL_RETURN_CODE}
 
 LINE_COUNT=0
+set +e
 
 case ${JOB_TYPE} in
 dashboard-units-check)
