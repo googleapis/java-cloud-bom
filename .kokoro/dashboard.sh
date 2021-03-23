@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -eo pipefail
-
 ## Get the directory of the build script
 scriptDir=$(realpath $(dirname "${BASH_SOURCE[0]}"))
 ## cd to the parent directory, i.e. the root of the git repo
@@ -34,19 +32,22 @@ LINE_COUNT=0
 
 case ${JOB_TYPE} in
 dashboard-units-check)
+    echo -e "\n******************** RUNNING DASHBOARD TESTS ********************"
     mvn test
+    RETURN_CODE=$?
     ;;
 dependency-convergence-check)
+    echo -e "\n******************** CHECKING DEPENDENCY CONVERGENCE ********************"
     mvn exec:java -Dexec.args="-f ../pom.xml -o target/tmp/output.txt"
     CONVERGE_RETURN_CODE=$?
-    if [[ $INSTALL_RETURN_CODE -eq 0 ]]
+    if [[ $INSTALL_RETURN_CODE -eq 0 && $CONVERGE_RETURN_CODE -eg 0 ]]
     then
       while IFS= read -r line; do
         echo "$line"
         LINE_COUNT=$((LINE_COUNT+1))
       done < "$outputFile"
-      RETURN_CODE=${CONVERGE_RETURN_CODE}
     fi
+    RETURN_CODE=${CONVERGE_RETURN_CODE}
     ;;
 esac
 
