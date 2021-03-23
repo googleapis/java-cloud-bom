@@ -126,6 +126,7 @@ public class DashboardMain {
       if (!report(bom,outputStream)) {
         throw new RuntimeException("Failed to converge dependencies");
       }
+      outputStream.close();
     }
   }
 
@@ -216,7 +217,6 @@ public class DashboardMain {
     SortedSet<ComparableVersion> sharedDepsVersions = sharedDepsVersionsBuilder.build();
     if (sharedDepsVersions.size() == 1) {
       outputStream.write("Shared dependencies converge \\o/\n".getBytes());
-      outputStream.close();
       return true;
     }
 
@@ -240,7 +240,6 @@ public class DashboardMain {
       }
       outputStream.write(outputString.toString().getBytes());
     }
-    outputStream.close();
     return false;
   }
 
