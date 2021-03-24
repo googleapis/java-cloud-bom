@@ -96,6 +96,13 @@ final class DashboardArguments {
     return commandLine.hasOption('r');
   }
 
+  Path getOutputFile() {
+    if (!commandLine.hasOption('o')) {
+      return null;
+    }
+    return Paths.get(commandLine.getOptionValue('o').trim()).toAbsolutePath();
+  }
+
   static DashboardArguments readCommandLine(String... arguments) throws ParseException {
     CommandLineParser parser = new DefaultParser();
 
@@ -144,6 +151,15 @@ final class DashboardArguments {
             .desc("Whether to print the report or build the dashboard")
             .build();
     options.addOption(reportOption);
+
+    Option outputOption =
+        Option.builder("o")
+            .longOpt("output-file")
+            .hasArg()
+            .desc("Whether to print the report to a file or display on console")
+            .build();
+    options.addOption(outputOption);
+
     return options;
   }
 }

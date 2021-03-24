@@ -41,6 +41,7 @@ import freemarker.template.Version;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.URISyntaxException;
@@ -89,7 +90,7 @@ public class DashboardMain {
    */
   public static void main(String[] arguments)
       throws IOException, TemplateException, RepositoryException, URISyntaxException,
-          ParseException, MavenRepositoryException {
+      ParseException, MavenRepositoryException {
     DashboardArguments dashboardArguments = DashboardArguments.readCommandLine(arguments);
 
     // If looking to edit the dashboard structure, see DashboardMain#generateDashboard.
@@ -110,17 +111,28 @@ public class DashboardMain {
     }
 
     if (dashboardArguments.getReport()) {
-      if (!report(bom)) {
+      if (!report(bom,System.out)) {
         throw new RuntimeException("Failed to converge dependencies");
       }
     } else {
       generate(bom);
     }
+
+    if (dashboardArguments.getOutputFile() != null) {
+      Path relativePath = dashboardArguments.getOutputFile();
+      Files.createDirectories(relativePath.getParent());
+      File file = new File(String.valueOf(relativePath));
+      OutputStream outputStream = new FileOutputStream(file);
+      if (!report(bom,outputStream)) {
+        throw new RuntimeException("Failed to converge dependencies");
+      }
+      outputStream.close();
+    }
   }
 
   private static void generateAllVersions(String versionlessCoordinates)
       throws IOException, TemplateException, RepositoryException, URISyntaxException,
-          MavenRepositoryException {
+      MavenRepositoryException {
     List<String> elements = Splitter.on(':').splitToList(versionlessCoordinates);
     checkArgument(
         elements.size() == 2,
@@ -178,7 +190,7 @@ public class DashboardMain {
     return loadArtifactInfo(managedDependencies);
   }
 
-  private static boolean report(Bom bom) {
+  private static boolean report(Bom bom, OutputStream outputStream) throws IOException {
     ArtifactCache cache = buildCache(bom);
     Map<Artifact, ArtifactInfo> infoMap = cache.getInfoMap();
     String cloudBomVersion =
@@ -194,6 +206,7 @@ public class DashboardMain {
     Multimap<String, String> sharedDepsToLibraries = ArrayListMultimap.create();
     ImmutableSortedSet.Builder<ComparableVersion> sharedDepsVersionsBuilder =
         ImmutableSortedSet.reverseOrder();
+
     for (Map.Entry<String, String> entry : sharedDependencyVersions.entrySet()) {
       if (!entry.getValue().isEmpty()) {
         sharedDepsToLibraries.put(entry.getValue(), entry.getKey());
@@ -203,32 +216,30 @@ public class DashboardMain {
 
     SortedSet<ComparableVersion> sharedDepsVersions = sharedDepsVersionsBuilder.build();
     if (sharedDepsVersions.size() == 1) {
-      System.out.println("Shared dependencies converge \\o/");
+      outputStream.write("Shared dependencies converge \\o/\n".getBytes());
       return true;
     }
 
     // Find the largest shared dependency version
     ComparableVersion largest = null;
+    StringBuilder outputString = new StringBuilder();
     for (ComparableVersion version : sharedDepsVersions) {
       if (largest == null) {
         largest = version;
-        System.out.println("Greatest shared-dependencies version: " + version.toString());
+        outputString.append("Greatest shared-dependencies version: ").append(version.toString());
       } else {
         Collection<String> artifacts = sharedDepsToLibraries.get(version.toString());
-        System.out.println("-----------------------");
-        System.out.println(
-            String.format(
-                "Found %d artifacts with shared-dependencies version: %s",
-                artifacts.size(), version.toString()));
-        ;
+        outputString.append("\n-----------------------");
+        outputString.append("\nFound " + artifacts.size() + " artifacts with shared dependencies version: "+ version.toString());
+
         for (String artifactKey : artifacts) {
           String artifactVersion = currentVersions.get(artifactKey);
           String artifact = artifactKey.split(":")[0];
-          System.out.println(String.format("- %s:%s", artifact, artifactVersion));
+          outputString.append("\n- " + artifact+":"+artifactVersion);
         }
       }
+      outputStream.write(outputString.toString().getBytes());
     }
-
     return false;
   }
 
