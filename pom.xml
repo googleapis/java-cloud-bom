@@ -163,7 +163,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-accessapproval-bom</artifactId>
-        <version>1.0.16</version>
+        <version>1.0.17</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
