@@ -13,7 +13,12 @@ jobs:
         with:
           java-version: 8
       - run: java -version
-      - run: sudo apt-get install libxml2-utils
-      - run: .kokoro/bom-upper-bounds-check.sh
-        env:
-          JOB_TYPE: test
+      - name: Install Google Cloud BOM
+        run: |
+          mvn -B -V -ntp install
+      # This check is similar to the Libraries BOM's check in the downstream.
+      # https://github.com/GoogleCloudPlatform/cloud-opensource-java/blob/master/boms/upper-bounds-check/pom.xml
+      - name: Validate upper-bound of library dependencies in the Google Cloud BOM
+        run: |
+          mvn -B -V -ntp validate
+        working-directory: upper-bounds-check
