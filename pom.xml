@@ -126,6 +126,15 @@
         <role>Developer</role>
       </roles>
     </developer>
+    <developer>
+      <id>neenushaji</id>
+      <name>Neenu Shaji</name>
+      <email>neenushaji@google.com</email>
+      <organization>Google</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
   </developers>
   <organization>
     <name>Google</name>
@@ -164,6 +173,13 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-accessapproval-bom</artifactId>
         <version>1.0.15</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-api-gateway-bom</artifactId>
+        <version>1.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -453,6 +469,13 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-phishingprotection-bom</artifactId>
         <version>0.29.17</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-profiler-bom</artifactId>
+        <version>1.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
