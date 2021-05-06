@@ -188,6 +188,7 @@
       <artifactId>google-cloud-nio</artifactId>
       <exclusions>
         <exclusion>
+          <!-- Apiary client for storage uses an older version of api-client -->
           <groupId>com.google.apis</groupId>
           <artifactId>google-api-services-storage</artifactId>
         </exclusion>
@@ -234,6 +235,7 @@
       <artifactId>google-cloud-resourcemanager</artifactId>
       <exclusions>
         <exclusion>
+          <!-- Apiary client for resourcemanager uses an older version of api-client -->
           <groupId>com.google.apis</groupId>
           <artifactId>google-api-services-cloudresourcemanager</artifactId>
         </exclusion>
