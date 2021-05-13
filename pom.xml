@@ -501,7 +501,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-resourcemanager-bom</artifactId>
-        <version>0.119.3-alpha</version>
+        <version>0.119.4-alpha</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
