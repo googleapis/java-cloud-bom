@@ -388,7 +388,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-logging-bom</artifactId>
-        <version>2.2.2</version>
+        <version>2.2.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
