@@ -595,7 +595,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-translate-bom</artifactId>
-        <version>1.97.2</version>
+        <version>1.97.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
