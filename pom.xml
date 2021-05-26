@@ -299,7 +299,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-datastore-bom</artifactId>
-        <version>1.106.4</version>
+        <version>1.106.5-sp.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
