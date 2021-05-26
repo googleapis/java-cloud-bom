@@ -459,7 +459,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-phishingprotection-bom</artifactId>
-        <version>0.29.19</version>
+        <version>0.30.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
