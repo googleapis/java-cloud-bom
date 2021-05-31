@@ -109,6 +109,10 @@
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-dataproc-metastore-bom</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-datastore</artifactId>
     </dependency>
     <dependency>
@@ -260,6 +264,10 @@
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-servicedirectory</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.google.cloud</groupId>
+      <artifactId>google-cloud-service-management-bom</artifactId>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
