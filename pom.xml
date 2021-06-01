@@ -298,6 +298,13 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-dataproc-metastore-bom</artifactId>
+        <version>1.0.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-datastore-bom</artifactId>
         <version>1.106.5-sp.1</version>
         <type>pom</type>
@@ -537,6 +544,13 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-servicedirectory-bom</artifactId>
         <version>1.2.4</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-service-management-bom</artifactId>
+        <version>1.1.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
