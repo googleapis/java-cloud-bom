@@ -109,7 +109,7 @@
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
-      <artifactId>google-cloud-dataproc-metastore-bom</artifactId>
+      <artifactId>google-cloud-dataproc-metastore</artifactId>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
@@ -267,7 +267,7 @@
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
-      <artifactId>google-cloud-service-management-bom</artifactId>
+      <artifactId>google-cloud-service-management</artifactId>
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
@@ -323,7 +323,7 @@
     </dependency>
     <dependency>
       <groupId>com.google.cloud</groupId>
-      <artifactId>google-cloud-workflows-bom</artifactId>
+      <artifactId>google-cloud-workflows</artifactId>
     </dependency>
     <dependency>
       <groupId>io.grafeas</groupId>
