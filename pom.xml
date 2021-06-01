@@ -602,7 +602,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-video-intelligence-bom</artifactId>
-        <version>1.6.5</version>
+        <version>1.7.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
