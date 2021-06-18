@@ -4,14 +4,14 @@
       "git": {
         "name": ".",
         "remote": "https://github.com/googleapis/java-cloud-bom.git",
-        "sha": "cfea7870578b3fbea10c6f560e966a0ead2fcd9f"
+        "sha": "a3170d11b8046e957adf805ca26eddc964277ebb"
       }
     },
     {
       "git": {
         "name": "synthtool",
         "remote": "https://github.com/googleapis/synthtool.git",
-        "sha": "8f76a885deaaf2fe234daeba4a8cc4d1b3de8086"
+        "sha": "1c0c698705e668ccb3d68556ae7260f16ce63a6e"
       }
     }
   ],
