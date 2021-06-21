@@ -182,6 +182,7 @@ public class DashboardMain {
       if ("com.google.cloud".equals(artifact.getGroupId())
           && !artifact.getArtifactId().contains("google-cloud-core")
           && !artifact.getArtifactId().contains("google-cloud-bigtable-emulator")
+          && !artifact.getArtifactId().contains("proto-google-cloud-firestore-bundle-v1")
           && !artifact.getArtifactId().contains("google-cloud-firestore-admin")) {
         managedDependencies.add(artifact);
       }
