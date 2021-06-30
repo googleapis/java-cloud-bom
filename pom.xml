@@ -258,8 +258,8 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-compute</artifactId>
-        <version>0.120.2-alpha</version>
+        <artifactId>google-cloud-compute-bom</artifactId>
+        <version>1.2.0-alpha</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
