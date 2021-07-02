@@ -23,7 +23,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bom</artifactId>
-        <version>0.156.1-SNAPSHOT</version><!-- {x-version-update:google-cloud:current} -->
+        <version>0.156.1-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
         <type>pom</type>
         <scope>import</scope>
       </dependency>
