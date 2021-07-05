@@ -734,7 +734,7 @@
       <dependency>
         <groupId>io.grafeas</groupId>
         <artifactId>grafeas</artifactId>
-        <version>1.2.2</version>
+        <version>1.2.3</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
