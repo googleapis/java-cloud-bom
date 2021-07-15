@@ -69,7 +69,7 @@
     }
   ],
   "semanticCommits": true,
-    "dependencyDashboard": true,
+  "dependencyDashboard": true,
   "dependencyDashboardLabels": [
     "type: process"
   ]
