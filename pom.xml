@@ -630,7 +630,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-speech-bom</artifactId>
-        <version>1.29.3</version>
+        <version>1.29.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
