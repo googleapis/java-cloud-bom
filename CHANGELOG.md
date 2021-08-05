@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.159.0](https://www.github.com/googleapis/java-cloud-bom/compare/v0.158.0...v0.159.0) (2021-08-05)
+
+
+### Features
+
+* configure initial sp version ([#2403](https://www.github.com/googleapis/java-cloud-bom/issues/2403)) ([4342fda](https://www.github.com/googleapis/java-cloud-bom/commit/4342fda4fd8440d7fa068a5f84a0afacb84cd6ed))
+
 ## [0.158.0](https://www.github.com/googleapis/java-cloud-bom/compare/0.157.0...v0.158.0) (2021-07-22)
 
 
