@@ -4,7 +4,7 @@
       "git": {
         "name": ".",
         "remote": "https://github.com/googleapis/java-cloud-bom.git",
-        "sha": "5a9f24dacbe060a9101731ced5ad89a859e928d7"
+        "sha": "61a5893f7cb61cb8e292d39889aa585a0ce648cb"
       }
     },
     {
