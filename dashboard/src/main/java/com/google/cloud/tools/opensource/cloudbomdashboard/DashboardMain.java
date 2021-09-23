@@ -59,7 +59,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedSet;
-
 import org.apache.commons.cli.ParseException;
 import org.apache.maven.artifact.versioning.ComparableVersion;
 import org.eclipse.aether.RepositoryException;
@@ -90,7 +89,7 @@ public class DashboardMain {
    */
   public static void main(String[] arguments)
       throws IOException, TemplateException, RepositoryException, URISyntaxException,
-      ParseException, MavenRepositoryException {
+          ParseException, MavenRepositoryException {
     DashboardArguments dashboardArguments = DashboardArguments.readCommandLine(arguments);
 
     // If looking to edit the dashboard structure, see DashboardMain#generateDashboard.
@@ -111,7 +110,7 @@ public class DashboardMain {
     }
 
     if (dashboardArguments.getReport()) {
-      if (!report(bom,System.out)) {
+      if (!report(bom, System.out)) {
         throw new RuntimeException("Failed to converge dependencies");
       }
     } else {
@@ -123,7 +122,7 @@ public class DashboardMain {
       Files.createDirectories(relativePath.getParent());
       File file = new File(String.valueOf(relativePath));
       OutputStream outputStream = new FileOutputStream(file);
-      if (!report(bom,outputStream)) {
+      if (!report(bom, outputStream)) {
         throw new RuntimeException("Failed to converge dependencies");
       }
       outputStream.close();
@@ -132,7 +131,7 @@ public class DashboardMain {
 
   private static void generateAllVersions(String versionlessCoordinates)
       throws IOException, TemplateException, RepositoryException, URISyntaxException,
-      MavenRepositoryException {
+          MavenRepositoryException {
     List<String> elements = Splitter.on(':').splitToList(versionlessCoordinates);
     checkArgument(
         elements.size() == 2,
@@ -231,12 +230,16 @@ public class DashboardMain {
       } else {
         Collection<String> artifacts = sharedDepsToLibraries.get(version.toString());
         outputString.append("\n-----------------------");
-        outputString.append("\nFound " + artifacts.size() + " artifacts with shared dependencies version: "+ version.toString());
+        outputString.append(
+            "\nFound "
+                + artifacts.size()
+                + " artifacts with shared dependencies version: "
+                + version.toString());
 
         for (String artifactKey : artifacts) {
           String artifactVersion = currentVersions.get(artifactKey);
           String artifact = artifactKey.split(":")[0];
-          outputString.append("\n- " + artifact+":"+artifactVersion);
+          outputString.append("\n- " + artifact + ":" + artifactVersion);
         }
       }
       outputStream.write(outputString.toString().getBytes());
