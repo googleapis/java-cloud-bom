@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-    - master
+    - main
   pull_request:
 name: ci
 jobs:
@@ -18,7 +18,7 @@ jobs:
         JOB_TYPE: dashboard-units-check
   dependency-convergence-check:
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'googleapis' && github.head_ref == 'release-please/branches/master'
+    if: github.repository_owner == 'googleapis' && github.head_ref == 'release-please/branches/main'
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-java@v1
