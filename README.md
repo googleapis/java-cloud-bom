@@ -36,7 +36,7 @@ Contributing
 
 Contributions to this library are always welcome and highly encouraged.
 
-See `google-cloud`'s [CONTRIBUTING] documentation and the [shared documentation](https://github.com/googleapis/google-cloud-common/blob/master/contributing/readme.md#how-to-contribute-to-gcloud) for more information on how to get started.
+See `google-cloud`'s [CONTRIBUTING] documentation and the [shared documentation](https://github.com/googleapis/google-cloud-common/blob/main/contributing/readme.md#how-to-contribute-to-gcloud) for more information on how to get started.
 
 Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by its terms. See [Code of Conduct][code-of-conduct] for more information.
 
@@ -46,8 +46,8 @@ License
 Apache 2.0 - See [LICENSE] for more information.
 
 
-[CONTRIBUTING]:https://github.com/googleapis/google-cloud-java/blob/master/CONTRIBUTING.md
-[code-of-conduct]:https://github.com/googleapis/google-cloud-java/blob/master/CODE_OF_CONDUCT.md#contributor-code-of-conduct
-[LICENSE]: https://github.com/googleapis/google-cloud-java/blob/master/LICENSE
-[TESTING]: https://github.com/googleapis/google-cloud-java/blob/master/TESTING.md
+[CONTRIBUTING]:https://github.com/googleapis/google-cloud-java/blob/main/CONTRIBUTING.md
+[code-of-conduct]:https://github.com/googleapis/google-cloud-java/blob/main/CODE_OF_CONDUCT.md#contributor-code-of-conduct
+[LICENSE]: https://github.com/googleapis/google-cloud-java/blob/main/LICENSE
+[TESTING]: https://github.com/googleapis/google-cloud-java/blob/main/TESTING.md
 [cloud-platform]: https://cloud.google.com/
