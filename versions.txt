@@ -1,4 +1,4 @@
 # Format:
 # module:released-version:current-version
 
-google-cloud-bom:0.162.0:0.162.1-SNAPSHOT
+google-cloud-bom:0.163.0:0.163.0
