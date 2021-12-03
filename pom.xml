@@ -193,7 +193,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-asset-bom</artifactId>
-        <version>3.2.10</version>
+        <version>3.2.11</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
