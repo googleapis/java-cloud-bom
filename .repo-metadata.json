@@ -5,5 +5,6 @@
   "language": "java",
   "repo": "googleapis/java-cloud-bom",
   "repo_short": "java-cloud-bom",
+  "library_type": "CORE",
   "distribution_name": "com.google.cloud:google-cloud-bom"
 }
