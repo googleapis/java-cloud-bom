@@ -1,5 +1,5 @@
 {
-  "name": "google-cloud-bom",
+  "api_shortname": "google-cloud-bom",
   "name_pretty": "Google Cloud Bill of Materials",
   "release_level": "alpha",
   "language": "java",
