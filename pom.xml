@@ -467,11 +467,6 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-logging-servlet-initializer</artifactId>
-        <version>0.1.3-alpha</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-mediatranslation-bom</artifactId>
         <version>0.7.5</version>
         <type>pom</type>
