@@ -464,6 +464,13 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-logging-logback</artifactId>
         <version>0.123.0-alpha</version>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-logging-servlet-initializer</artifactId>
+        <version>0.1.3-alpha</version>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
