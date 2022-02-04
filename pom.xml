@@ -192,8 +192,22 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-artifact-registry-bom</artifactId>
+        <version>1.0.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-asset-bom</artifactId>
         <version>3.2.14</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-assured-workloads-bom</artifactId>
+        <version>1.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -260,6 +274,13 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-binary-authorization-bom</artifactId>
+        <version>1.0.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-build-bom</artifactId>
         <version>3.3.8</version>
         <type>pom</type>
@@ -290,6 +311,13 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-containeranalysis-bom</artifactId>
         <version>2.2.7</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-data-fusion-bom</artifactId>
+        <version>1.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -332,6 +360,13 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-debugger-client-bom</artifactId>
         <version>1.1.6</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-deploy-bom</artifactId>
+        <version>1.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -419,6 +454,13 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-gkehub-bom</artifactId>
+        <version>1.0.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-gsuite-addons-bom</artifactId>
         <version>2.1.6</version>
         <type>pom</type>
@@ -429,6 +471,13 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-iamcredentials-bom</artifactId>
         <version>2.0.9</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-ids-bom</artifactId>
+        <version>1.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -467,6 +516,13 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-managed-identities-bom</artifactId>
+        <version>1.0.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-mediatranslation-bom</artifactId>
         <version>0.7.6</version>
         <type>pom</type>
@@ -497,6 +553,13 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-network-management-bom</artifactId>
         <version>1.1.6</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-networkconnectivity-bom</artifactId>
+        <version>1.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -542,6 +605,13 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-phishingprotection-bom</artifactId>
         <version>0.32.6</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-policy-troubleshooter-bom</artifactId>
+        <version>1.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -692,6 +762,13 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-storage-transfer-bom</artifactId>
+        <version>1.0.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-storage</artifactId>
         <version>2.4.0</version>
       </dependency>
@@ -746,8 +823,22 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-video-transcoder-bom</artifactId>
+        <version>1.0.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-vision-bom</artifactId>
         <version>2.0.19</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-vmmigration-bom</artifactId>
+        <version>1.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
