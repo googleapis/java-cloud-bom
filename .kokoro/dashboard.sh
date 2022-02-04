@@ -41,7 +41,7 @@ dashboard-units-check)
     ;;
 dependency-convergence-check)
     echo -e "\n******************** CHECKING DEPENDENCY CONVERGENCE ********************"
-    mvn exec:java -Dexec.args="-f ../pom.xml -o target/tmp/output.txt"
+    mvn exec:java -Dexec.args="-f ../pom.xml --report -o target/tmp/output.txt"
     CONVERGE_RETURN_CODE=$?
     if [[ $INSTALL_RETURN_CODE -eq 0 && $CONVERGE_RETURN_CODE -eq 0 ]]
     then
