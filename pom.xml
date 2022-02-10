@@ -406,7 +406,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-errorreporting-bom</artifactId>
-        <version>0.122.12-beta</version>
+        <version>0.122.13-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
