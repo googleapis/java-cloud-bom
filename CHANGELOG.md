@@ -1,5 +1,13 @@
 # Changelog
 
+### [0.168.1](https://github.com/googleapis/java-cloud-bom/compare/v0.168.0...v0.168.1) (2022-02-28)
+
+
+### Dependencies
+
+* downgrade dependency org.sonatype.plugins:nexus-staging-maven-plugin to v1.6.8 ([#3724](https://github.com/googleapis/java-cloud-bom/issues/3724)) ([eeb64cb](https://github.com/googleapis/java-cloud-bom/commit/eeb64cb9c6133ca5a6a3ddf5e72fb190aff815dc))
+* update actions/github-script action to v6 ([#3617](https://github.com/googleapis/java-cloud-bom/issues/3617)) ([a6b2262](https://github.com/googleapis/java-cloud-bom/commit/a6b22623168653cf30e53c2418b14206c7e094e8))
+
 ## [0.168.0](https://github.com/googleapis/java-cloud-bom/compare/v0.167.0...v0.168.0) (2022-02-28)
 
 
