@@ -26,7 +26,7 @@ cd dashboard/
 
 echo -e "\n******************** BUILDING THE DASHBOARD ********************"
 
-mvn --fail-at-end -DskipTests=true clean install
+mvn --fail-at-end -DskipTests=true clean install -B
 INSTALL_RETURN_CODE=$?
 RETURN_CODE=${INSTALL_RETURN_CODE}
 
@@ -36,12 +36,12 @@ set +e
 case ${JOB_TYPE} in
 dashboard-units-check)
     echo -e "\n******************** RUNNING DASHBOARD TESTS ********************"
-    mvn test
+    mvn test -B
     RETURN_CODE=$?
     ;;
 dependency-convergence-check)
     echo -e "\n******************** CHECKING DEPENDENCY CONVERGENCE ********************"
-    mvn exec:java -Dexec.args="-f ../pom.xml --report -o target/tmp/output.txt"
+    mvn exec:java -Dexec.args="-f ../pom.xml --report -o target/tmp/output.txt" -B
     CONVERGE_RETURN_CODE=$?
     if [[ $INSTALL_RETURN_CODE -eq 0 && $CONVERGE_RETURN_CODE -eq 0 ]]
     then
