@@ -143,6 +143,14 @@
       <artifactId>google-cloud-datastore</artifactId>
       <groupId>com.google.cloud</groupId>
     </dependency>
+     <dependency>
+      <artifactId>google-cloud-datastream</artifactId>
+      <groupId>com.google.cloud</groupId>
+    </dependency>
+     <dependency>
+      <artifactId>google-cloud-dataplex</artifactId>
+      <groupId>com.google.cloud</groupId>
+    </dependency>
     <dependency>
       <artifactId>google-cloud-debugger-client</artifactId>
       <groupId>com.google.cloud</groupId>
