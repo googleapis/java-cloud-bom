@@ -283,6 +283,10 @@
       <groupId>com.google.cloud</groupId>
     </dependency>
     <dependency>
+      <artifactId>google-cloud-optimization</artifactId>
+      <groupId>com.google.cloud</groupId>
+    </dependency>
+    <dependency>
       <artifactId>google-cloud-orchestration-airflow</artifactId>
       <groupId>com.google.cloud</groupId>
     </dependency>
