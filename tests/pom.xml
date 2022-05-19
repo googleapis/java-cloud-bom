@@ -2,14 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.cloud</groupId>
-  <artifactId>java-cloud-bom-root</artifactId>
+  <artifactId>java-cloud-bom-tests</artifactId>
   <packaging>pom</packaging>
-  <!-- This pom.xml is not meant to be published to Maven Central -->
-  <version>0.1.0-SNAPSHOT</version>
-  <name>Google Cloud Java BOM root project</name>
+  <name>A module to test Google Cloud Java BOMs</name>
   <url>https://github.com/googleapis/java-cloud-bom</url>
   <description>
-    BOMs for Google Cloud Java SDK
+    A module to test Google Cloud Java BOMs
   </description>
   <organization>
     <name>Google</name>
@@ -20,6 +18,24 @@
     <url>https://github.com/googleapis/java-cloud-bom</url>
     <tag>HEAD</tag>
   </scm>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.cloud.tools</groupId>
+      <artifactId>dependencies</artifactId>
+      <version>1.5.12</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
   <licenses>
     <license>
       <name>Google Cloud Software License</name>
@@ -27,8 +43,6 @@
     </license>
   </licenses>
   <modules>
-    <module>google-cloud-bom</module>
-    <module>libraries-bom</module>
-    <module>tests</module>
+    <module>dependency-convergence</module>
   </modules>
 </project>
