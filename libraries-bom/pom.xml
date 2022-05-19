@@ -56,7 +56,7 @@
     <!-- We don't use gax-bom because it includes the artifacts with 'testlib' classifier.
         When updating gax.version, update gax.httpjson.version too. -->
     <gax.version>2.16.0</gax.version>
-    <gax.httpjson.version>0.101.0</gax.httpjson.version>
+    <gax.httpjson.version>0.103.1</gax.httpjson.version>
     <auth.version>1.6.0</auth.version>
     <api-common.version>2.1.5</api-common.version>
     <common.protos.version>2.8.3</common.protos.version>
