@@ -29,6 +29,5 @@
   <modules>
     <module>google-cloud-bom</module>
     <module>libraries-bom</module>
-    <module>tests</module>
   </modules>
 </project>

@@ -19,5 +19,5 @@ jobs:
         mvn -B -V -ntp install
     - name: Validate dependency convergence of library dependencies in the Google Cloud BOM
       run: |
-        mvn -B -V -ntp validate
-      working-directory: tests/dependency-convergence
+        mvn -B -V -ntp verify
+      working-directory: tests
