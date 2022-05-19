@@ -80,9 +80,7 @@ public class BomContentTest {
         + "/";
   }
 
-  /**
-   * Asserts that the BOM only provides JARs which contains unique class names to the classpath.
-   */
+  /** Asserts that the BOM only provides JARs which contains unique class names to the classpath. */
   private static void assertUniqueClasses(List<Artifact> allArtifacts)
       throws InvalidVersionSpecificationException, IOException {
 
@@ -124,11 +122,10 @@ public class BomContentTest {
         String previousArtifact = fullClasspathMap.get(className);
 
         if (previousArtifact != null) {
-          String msg = String.format(
-              "Duplicate class %s found in classpath. Found in artifacts %s and %s.\n",
-              className,
-              previousArtifact,
-              artifactCoordinates);
+          String msg =
+              String.format(
+                  "Duplicate class %s found in classpath. Found in artifacts %s and %s.\n",
+                  className, previousArtifact, artifactCoordinates);
           errorMessageBuilder.append(msg);
         } else {
           fullClasspathMap.put(className, artifactCoordinates);
