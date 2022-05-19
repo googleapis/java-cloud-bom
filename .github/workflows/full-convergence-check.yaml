@@ -20,4 +20,4 @@ jobs:
     - name: Validate dependency convergence of library dependencies in the Google Cloud BOM
       run: |
         mvn -B -V -ntp validate
-      working-directory: dependency-convergence
+      working-directory: tests/dependency-convergence

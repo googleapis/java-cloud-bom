@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.google.cloud</groupId>
+  <artifactId>libraries-bom</artifactId>
+  <version>25.3.1-SNAPSHOT</version><!-- {x-version-update:libraries-bom:current} -->
+  <packaging>pom</packaging>
+
+  <name>Google Cloud Platform Supported Libraries</name>
+  <description>
+    A compatible set of Google Cloud open source libraries.
+    Document: https://cloud.google.com/java/docs/bom
+  </description>
+  <url>https://cloud.google.com/java/docs/bom</url>
+  <organization>
+    <name>Google LLC</name>
+    <url>https://cloud.google.com</url>
+  </organization>
+  <inceptionYear>2019</inceptionYear>
+  <issueManagement>
+    <url>https://github.com/googleapis/java-cloud-bom/issues</url>
+  </issueManagement>
+  <scm>
+    <connection>scm:git:git@github.com:googleapis/java-cloud-bom.git</connection>
+    <developerConnection>scm:git:git@github.com:googleapis/java-cloud-bom.git
+    </developerConnection>
+    <url>https://github.com/googleapis/java-cloud-bom</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>sonatype-nexus-snapshots</id>
+      <name>Sonatype Nexus Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-bom</artifactId>
+        <version>0.174.0</version><!-- {x-version-update:google-cloud-bom:current} -->
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>first-party-dependencies</artifactId>
+        <version>2.11.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+</project>
