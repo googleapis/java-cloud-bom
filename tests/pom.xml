@@ -2,14 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.cloud</groupId>
-  <artifactId>java-cloud-bom-root</artifactId>
-  <packaging>pom</packaging>
-  <!-- This pom.xml is not meant to be published to Maven Central -->
+  <artifactId>java-cloud-bom-tests</artifactId>
   <version>0.1.0-SNAPSHOT</version>
-  <name>Google Cloud Java BOM root project</name>
+  <name>A module to test Google Cloud Java BOMs</name>
   <url>https://github.com/googleapis/java-cloud-bom</url>
   <description>
-    BOMs for Google Cloud Java SDK
+    A module to test Google Cloud Java BOMs
   </description>
   <organization>
     <name>Google</name>
@@ -20,30 +18,29 @@
     <url>https://github.com/googleapis/java-cloud-bom</url>
     <tag>HEAD</tag>
   </scm>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+  </properties>
   <licenses>
     <license>
       <name>Google Cloud Software License</name>
       <url>https://raw.githubusercontent.com/googleapis/google-cloud-java/master/LICENSE</url>
     </license>
   </licenses>
-  <modules>
-    <!-- Only modules to be published to Maven Central. Not tests. -->
-    <module>google-cloud-bom</module>
-    <module>libraries-bom</module>
-  </modules>
 
-  <build>
-    <plugins>
-      <plugin>
-        <!-- This root pom.xml is not referenced by the BOMs and no need to
-        be published to Maven Central
-        https://maven.apache.org/plugins/maven-deploy-plugin/faq.html#skip -->
-        <artifactId>maven-deploy-plugin</artifactId>
-        <version>3.0.0-M2</version>
-        <configuration>
-          <skip>true</skip>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+  <dependencies>
+    <dependency>
+      <groupId>com.google.cloud.tools</groupId>
+      <artifactId>dependencies</artifactId>
+      <version>1.5.12</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>
