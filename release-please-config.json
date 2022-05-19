@@ -1,13 +1,10 @@
 {
+  "release-type": "java",
+  "separate-pull-requests": true,
+  "include-component-in-tag": false,
   "packages": {
-    "undefined": {
-      "releaseType": "java",
-      "draft": false,
-      "prerelease": false,
-      "bumpMinorPreMajor": false,
-      "bumpPatchForMinorPreMajor": false,
-      "changelogPath": "CHANGELOG.md",
-      "versioning": "default"
+    ".": {
+      "component": "main"
     }
   }
 }
