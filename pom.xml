@@ -27,7 +27,23 @@
     </license>
   </licenses>
   <modules>
+    <!-- Only modules to be published to Maven Central. Not tests. -->
     <module>google-cloud-bom</module>
     <module>libraries-bom</module>
   </modules>
+
+  <build>
+    <plugins>
+      <plugin>
+        <!-- This root pom.xml is not referenced by the BOMs and no need to
+        be published to Maven Central
+        https://maven.apache.org/plugins/maven-deploy-plugin/faq.html#skip -->
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>3.0.0-M2</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
