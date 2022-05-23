@@ -4,7 +4,8 @@
   "include-component-in-tag": true,
   "packages": {
     "google-cloud-bom": {
-      "component": "google-cloud-bom"
+      "component": "google-cloud-bom",
+      "bumpMinorPreMajor": true
     },
     "libraries-bom": {
       "component": "libraries-bom"
