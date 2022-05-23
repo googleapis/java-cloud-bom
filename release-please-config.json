@@ -1,10 +1,13 @@
 {
-  "release-type": "java",
-  "separate-pull-requests": true,
-  "include-component-in-tag": false,
+  "release-type": "java-bom",
+  "separate-pull-requests": false,
+  "include-component-in-tag": true,
   "packages": {
-    ".": {
-      "component": "main"
+    "google-cloud-bom": {
+      "component": "google-cloud-bom"
+    },
+    "libraries-bom": {
+      "component": "libraries-bom"
     }
   }
 }
