@@ -10,5 +10,8 @@
     "libraries-bom": {
       "component": "libraries-bom"
     }
-  }
+  },
+  "plugins": [
+    "maven-workspace"
+  ]
 }
