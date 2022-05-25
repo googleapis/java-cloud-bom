@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.google.cloud</groupId>
+  <artifactId>java-cloud-bom-tests</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <name>A module to test Google Cloud Java BOMs</name>
+  <url>https://github.com/googleapis/java-cloud-bom</url>
+  <description>
+    A module to test Google Cloud Java BOMs
+  </description>
+  <organization>
+    <name>Google</name>
+  </organization>
+  <scm>
+    <connection>scm:git:git@github.com:googleapis/java-cloud-bom.git</connection>
+    <developerConnection>scm:git:git@github.com:googleapis/java-cloud-bom-java.git</developerConnection>
+    <url>https://github.com/googleapis/java-cloud-bom</url>
+    <tag>HEAD</tag>
+  </scm>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+  </properties>
+  <licenses>
+    <license>
+      <name>Google Cloud Software License</name>
+      <url>https://raw.githubusercontent.com/googleapis/google-cloud-java/master/LICENSE</url>
+    </license>
+  </licenses>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.cloud.tools</groupId>
+      <artifactId>dependencies</artifactId>
+      <version>1.5.12</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
