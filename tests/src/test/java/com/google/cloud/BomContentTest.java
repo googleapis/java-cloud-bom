@@ -70,6 +70,20 @@ public class BomContentTest {
     assertBomIsImported(bom);
   }
 
+  @Test
+  public void testLibrariesBomReachable() throws Exception {
+    Path bomPath = Paths.get("..", "libraries-bom", "pom.xml").toAbsolutePath();
+    checkBomReachable(bomPath);
+  }
+
+  private void checkBomReachable(Path bomPath) throws Exception {
+    Bom bom = Bom.readBom(bomPath);
+    List<Artifact> artifacts = bom.getManagedDependencies();
+    for (Artifact artifact : artifacts) {
+      assertReachable(buildMavenCentralUrl(artifact));
+    }
+  }
+
   private static String buildMavenCentralUrl(Artifact artifact) {
     return "https://repo1.maven.org/maven2/"
         + artifact.getGroupId().replace('.', '/')
