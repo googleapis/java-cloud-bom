@@ -15,6 +15,7 @@ branchProtectionRules:
       - units (8)
       - units (11)
       - cla/google
+      - bom-content-test
   - pattern: java7
     isAdminEnforced: true
     requiredApprovingReviewCount: 1
