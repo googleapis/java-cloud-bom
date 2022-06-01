@@ -5,7 +5,6 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <!-- This is a sample bom with  -->
   <groupId>com.google.cloud</groupId>
   <artifactId>invalid-libraries-bom</artifactId>
   <version>25.3.1-SNAPSHOT</version>
