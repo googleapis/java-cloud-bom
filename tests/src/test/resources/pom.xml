@@ -5,15 +5,15 @@
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <!-- This is a sample bom with  -->
   <groupId>com.google.cloud</groupId>
-  <artifactId>libraries-bom</artifactId>
+  <artifactId>invalid-libraries-bom</artifactId>
   <version>25.3.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Google Cloud Platform Supported Libraries</name>
+  <name>GCP Library Invalid Bom</name>
   <description>
-    A compatible set of Google Cloud open source libraries.
-    Document: https://cloud.google.com/java/docs/bom
+    This is a sample bom with an invalid artifact (guava-invalid) to create a 404
   </description>
   <url>https://cloud.google.com/java/docs/bom</url>
   <organization>
@@ -29,7 +29,6 @@
 
   <dependencyManagement>
     <dependencies>
-      <!-- Use non-existing guava artifact to 404 -->
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava-invalid</artifactId>

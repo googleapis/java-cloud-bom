@@ -84,18 +84,10 @@ public class BomContentTest {
     }
   }
 
-  @Test
-  public void testLibrariesInvalidBom() throws Exception {
+  @Test(expected = IOException.class)
+  public void testLibrariesBomUnreachable() throws Exception {
     Path bomPath = Paths.get("src", "test", "resources", "pom.xml").toAbsolutePath();
-    checkBomUnreachable(bomPath);
-  }
-
-  private void checkBomUnreachable(Path bomPath) throws Exception {
-    Bom bom = Bom.readBom(bomPath);
-    List<Artifact> artifacts = bom.getManagedDependencies();
-    for (Artifact artifact : artifacts) {
-      assertUnreachable(buildMavenCentralUrl(artifact));
-    }
+    checkBomReachable(bomPath);
   }
 
   private static String buildMavenCentralUrl(Artifact artifact) {
@@ -166,30 +158,15 @@ public class BomContentTest {
         "Failing test due to duplicate classes found on classpath:\n" + error, error.isEmpty());
   }
 
-  private static int getMavenResponseCode(String url) throws IOException {
+  private static void assertReachable(String url) throws IOException {
     HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
     connection.setRequestMethod("HEAD");
-    return connection.getResponseCode();
-  }
-
-  private static void assertReachable(String url) {
-    try {
-      int responseCode = getMavenResponseCode(url);
-      Assert.assertEquals(
-          "Could not reach " + url, HttpURLConnection.HTTP_OK, responseCode);
-    } catch (IOException ex) {
-      Assert.fail("Could not reach " + url + "\n" + ex.getMessage());
+    int responseCode = connection.getResponseCode();
+    if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
+      throw new IOException("Received 404 response from invalid artifact " + url);
     }
-  }
-
-  private static void assertUnreachable(String url) {
-    try {
-      int responseCode = getMavenResponseCode(url);
-      Assert.assertEquals(
-          "Found invalid library" + url, HttpURLConnection.HTTP_NOT_FOUND, responseCode);
-    } catch (IOException ex) {
-      Assert.fail("Could not reach (non 404 error) " + url + "\n" + ex.getMessage());
-    }
+    Assert.assertEquals(
+        "Could not reach " + url, HttpURLConnection.HTTP_OK, connection.getResponseCode());
   }
 
   /**
