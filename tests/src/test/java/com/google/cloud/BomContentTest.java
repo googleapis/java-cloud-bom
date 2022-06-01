@@ -84,6 +84,20 @@ public class BomContentTest {
     }
   }
 
+  @Test
+  public void testLibrariesInvalidBom() throws Exception {
+    Path bomPath = Paths.get("src", "test", "resources", "pom.xml").toAbsolutePath();
+    checkBomUnreachable(bomPath);
+  }
+
+  private void checkBomUnreachable(Path bomPath) throws Exception {
+    Bom bom = Bom.readBom(bomPath);
+    List<Artifact> artifacts = bom.getManagedDependencies();
+    for (Artifact artifact : artifacts) {
+      assertUnreachable(buildMavenCentralUrl(artifact));
+    }
+  }
+
   private static String buildMavenCentralUrl(Artifact artifact) {
     return "https://repo1.maven.org/maven2/"
         + artifact.getGroupId().replace('.', '/')
@@ -152,14 +166,29 @@ public class BomContentTest {
         "Failing test due to duplicate classes found on classpath:\n" + error, error.isEmpty());
   }
 
-  private static void assertReachable(String url) throws IOException {
+  private static int getMavenResponseCode(String url) throws IOException {
     HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
     connection.setRequestMethod("HEAD");
+    return connection.getResponseCode();
+  }
+
+  private static void assertReachable(String url) {
     try {
+      int responseCode = getMavenResponseCode(url);
       Assert.assertEquals(
-          "Could not reach " + url, HttpURLConnection.HTTP_OK, connection.getResponseCode());
+          "Could not reach " + url, HttpURLConnection.HTTP_OK, responseCode);
     } catch (IOException ex) {
       Assert.fail("Could not reach " + url + "\n" + ex.getMessage());
+    }
+  }
+
+  private static void assertUnreachable(String url) {
+    try {
+      int responseCode = getMavenResponseCode(url);
+      Assert.assertEquals(
+          "Found invalid library" + url, HttpURLConnection.HTTP_NOT_FOUND, responseCode);
+    } catch (IOException ex) {
+      Assert.fail("Could not reach (non 404 error) " + url + "\n" + ex.getMessage());
     }
   }
 
