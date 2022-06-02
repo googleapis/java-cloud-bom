@@ -60,6 +60,8 @@
           <serverId>sonatype-nexus-staging</serverId>
           <nexusUrl>https://google.oss.sonatype.org/</nexusUrl>
           <autoReleaseAfterClose>false</autoReleaseAfterClose>
+          <!-- We don't release this root project -->
+          <skipRemoteStaging>true</skipRemoteStaging>
         </configuration>
       </plugin>
       <plugin>
