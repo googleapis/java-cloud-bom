@@ -86,7 +86,8 @@ public class BomContentTest {
 
   @Test(expected = IOException.class)
   public void testInvalidBomUnreachable() throws Exception {
-    Path bomPath = Paths.get("src", "test", "resources", "bom-with-typo-artifact.xml").toAbsolutePath();
+    Path bomPath =
+        Paths.get("src", "test", "resources", "bom-with-typo-artifact.xml").toAbsolutePath();
     checkBomReachable(bomPath);
   }
 
