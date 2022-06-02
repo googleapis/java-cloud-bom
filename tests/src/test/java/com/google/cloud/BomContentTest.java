@@ -84,6 +84,12 @@ public class BomContentTest {
     }
   }
 
+  @Test(expected = IOException.class)
+  public void testInvalidBomUnreachable() throws Exception {
+    Path bomPath = Paths.get("src", "test", "resources", "bom-with-typo-artifact.xml").toAbsolutePath();
+    checkBomReachable(bomPath);
+  }
+
   private static String buildMavenCentralUrl(Artifact artifact) {
     return "https://repo1.maven.org/maven2/"
         + artifact.getGroupId().replace('.', '/')
@@ -155,12 +161,12 @@ public class BomContentTest {
   private static void assertReachable(String url) throws IOException {
     HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
     connection.setRequestMethod("HEAD");
-    try {
-      Assert.assertEquals(
-          "Could not reach " + url, HttpURLConnection.HTTP_OK, connection.getResponseCode());
-    } catch (IOException ex) {
-      Assert.fail("Could not reach " + url + "\n" + ex.getMessage());
+    int responseCode = connection.getResponseCode();
+    if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
+      throw new IOException("Received 404 response from invalid artifact " + url);
     }
+    Assert.assertEquals(
+        "Could not reach " + url, HttpURLConnection.HTTP_OK, connection.getResponseCode());
   }
 
   /**
