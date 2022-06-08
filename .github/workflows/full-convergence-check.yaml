@@ -38,7 +38,6 @@ jobs:
         mvn -B -V -ntp install
     - name: Ensure the Libraries BOM does not contain new linkage errors
       run: |
-        export MAVEN_OPTS="-Xmx12g"
         mvn -B -V -ntp test -Dtest="MaximumLinkageErrorsTest"
       working-directory: tests
 
