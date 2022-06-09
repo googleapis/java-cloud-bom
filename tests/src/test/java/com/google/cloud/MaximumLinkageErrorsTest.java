@@ -79,10 +79,12 @@ public class MaximumLinkageErrorsTest {
     }
   }
 
-  LinkageChecker createLinkageChecker(Bom bom)
+  private LinkageChecker createLinkageChecker(Bom bom)
       throws InvalidVersionSpecificationException, IOException {
     ImmutableList<Artifact> managedDependencies = bom.getManagedDependencies();
     ClassPathBuilder classPathBuilder = new ClassPathBuilder();
+
+    // full: false to avoid fetching optional dependencies.
     ClassPathResult classPathResult =
         classPathBuilder.resolve(managedDependencies, false, DependencyMediation.MAVEN);
     ImmutableList<ClassPathEntry> classpath = classPathResult.getClassPath();
