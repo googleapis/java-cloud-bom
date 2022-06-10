@@ -32,11 +32,12 @@ versions and your application runs on a consistent set of the dependencies.
 The content of the Libraries BOM consists of 2 categories: Google Cloud Java
 client libraries and core Google dependency libraries.
 
-### Google Cloud Java client libraries
+### Google Cloud Java client libraries (Stable)
 
 A Google Cloud Java client library is a Java library that communicates with a
 corresponding GCP service.
-We have ~150 Java client libraries for Google Cloud.
+We have ~150 Java client libraries for Google Cloud and most of them are stable
+status and are part of the Libraries BOM.
 
 The `google-cloud-bom` module in this repository produces a BOM that lists
 the consistent versions of the Java client libraries. This consistency means
@@ -52,10 +53,22 @@ Libraries.
 These libraries do not have a specific Google Cloud service
 associated to it.
 
-While the users of Google Cloud do not have to directly interact with the core
-libraries, the Libraries BOM includes the core Google dependency libraries so
-that the users receive a consistent set of the dependencies behind the scene
-when they use the client libraries.
+While the users of Google Cloud usually do not have to directly declare the core
+library dependencies, the Libraries BOM includes the core Google dependency
+libraries.
+This enables the users to receive a consistent set of the dependencies behind
+the scene when the build system (Maven or Gradle) resolves the dependencies.
+
+### Not in Scope: Libraries with Preview Status
+
+Google Cloud client libraries go through the _preview_ status before being
+marked as _stable_.
+We sometimes call this stable status _general availability (GA)_ or version 1.0.
+We add the client libraries to the Libraries BOM when they reach the
+stable status.
+
+Note that there certain libraries with pre-1.0 versions in the Libraries BOM
+already. We are not planning to exclude them.
 
 ### Not in Scope: Framework Integration
 
