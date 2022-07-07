@@ -25,13 +25,13 @@
   </developers>
 
   <issueManagement>
-    <url>https://github.com/GoogleCloudPlatform/cloud-opensource-java/issues</url>
+    <url>https://github.com/googleapis/java-cloud-bom/issues</url>
   </issueManagement>
   <scm>
-    <connection>scm:git:git@github.com:GoogleCloudPlatform/cloud-opensource-java.git</connection>
-    <developerConnection>scm:git:git@github.com:GoogleCloudPlatform/cloud-opensource-java.git
+    <connection>scm:git:git@github.com:googleapis/java-cloud-bom.git</connection>
+    <developerConnection>scm:git:git@github.com:googleapis/java-cloud-bom.git
     </developerConnection>
-    <url>https://github.com/GoogleCloudPlatform/cloud-opensource-java/boms/cloud-oss-bom</url>
+    <url>https://github.com/googleapis/java-cloud-bom</url>
     <tag>HEAD</tag>
   </scm>
 
