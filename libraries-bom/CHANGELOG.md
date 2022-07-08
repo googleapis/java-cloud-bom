@@ -1,5 +1,23 @@
 # Changelog
 
+## [26.0.0](https://github.com/googleapis/java-cloud-bom/compare/libraries-bom-v25.4.0...libraries-bom-v26.0.0) (2022-07-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* preparing for next release (#4691)
+
+### Features
+
+* preparing for next release ([#4691](https://github.com/googleapis/java-cloud-bom/issues/4691)) ([c07cf23](https://github.com/googleapis/java-cloud-bom/commit/c07cf2354c0799e4da7f3a75e4034f1141ad2056))
+
+
+### Dependencies
+
+* shared dependencies BOM 2.13.0 ([#4689](https://github.com/googleapis/java-cloud-bom/issues/4689)) ([2cf36b6](https://github.com/googleapis/java-cloud-bom/commit/2cf36b694547800df497be55351ba8f12278933c))
+* The following workspace dependencies were updated
+    * com.google.cloud:google-cloud-bom bumped to 0.176.0
+
 ## [25.4.0](https://github.com/googleapis/java-cloud-bom/compare/libraries-bom-v25.3.0...libraries-bom-v25.4.0) (2022-06-02)
 
 
