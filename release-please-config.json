@@ -9,6 +9,10 @@
     },
     "libraries-bom": {
       "component": "libraries-bom"
+    },
+    "tests": {
+      "component": "tests",
+      "bump-minor-pre-major": true
     }
   },
   "plugins": [
