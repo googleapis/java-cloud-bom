@@ -343,6 +343,9 @@ public class BomContentTest {
     }
 
     if (!errorMessages.isEmpty()) {
+      errorMessages.add("\nThis means we are about to release an SDK ("+bom.getCoordinates()
+          +") and we did not test these combinations. "
+          +"Please update the dependencies of the libraries above and release them.");
       Assert.fail(Joiner.on(". ").join(errorMessages));
     }
   }
