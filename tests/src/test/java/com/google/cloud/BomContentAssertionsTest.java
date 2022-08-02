@@ -17,11 +17,11 @@
 package com.google.cloud;
 
 import com.google.cloud.tools.opensource.dependencies.Bom;
+import com.google.common.truth.Truth;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.Assert;
-import org.junit.ComparisonFailure;
 import org.junit.Test;
 
 /** Tests for the assertions in BomContentTest. */
@@ -36,33 +36,18 @@ public class BomContentAssertionsTest {
 
   @Test
   public void testAssertDependencyConvergenceWithinCloudJavaLibraries() throws Exception {
+    // Our old BOM release had the problem of non-convergence.
     Bom bom = Bom.readBom("com.google.cloud:libraries-bom:26.0.0");
     try {
       BomContentTest.assertDependencyConvergenceWithinCloudJavaLibraries(bom);
       Assert.fail();
-    } catch (ComparisonFailure ex) {
+    } catch (AssertionError ex) {
       String message = ex.getMessage();
-      Assert.assertEquals(
-          "Managed dependency com.google.cloud:google-cloud-bigquery:jar:2.13.8 has dependency "
-              + "com.google.cloud:google-cloud-bigquerystorage:jar:2.14.2, which should be 2.15.0 "
-              + "(the version in the BOM) expected:<2.1[5.0]> but was:<2.1[4.2]>",
-          message);
-    }
-  }
-
-  @Test
-  public void testAssertDependencyConvergenceWithinCloudJavaLibraries2() throws Exception {
-    Bom bom = Bom.readBom("com.google.cloud:libraries-bom:25.0.0");
-    try {
-      BomContentTest.assertDependencyConvergenceWithinCloudJavaLibraries(bom);
-      Assert.fail();
-    } catch (ComparisonFailure ex) {
-      String message = ex.getMessage();
-      Assert.assertEquals(
-          "Managed dependency com.google.cloud:google-cloud-bigquery:jar:2.13.8 has dependency "
-              + "com.google.cloud:google-cloud-bigquerystorage:jar:2.14.2, which should be 2.15.0 "
-              + "(the version in the BOM) expected:<2.1[5.0]> but was:<2.1[4.2]>",
-          message);
+      Truth.assertThat(message)
+          .contains(
+              "Managed dependency com.google.cloud:google-cloud-bigquery:jar:2.13.8 has dependency"
+                  + " com.google.cloud:google-cloud-bigquerystorage:jar:2.14.2, which should be"
+                  + " 2.15.0 (the version in the BOM)");
     }
   }
 }

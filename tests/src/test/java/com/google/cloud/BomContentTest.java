@@ -72,6 +72,10 @@ public class BomContentTest {
     assertDependencyConvergenceWithinCloudJavaLibraries(bom);
   }
 
+  /**
+   * Ensures that the content of the libraries BOM exist in Maven Central. This check should run in
+   * every pull request, not just release pull requests.
+   */
   @Test
   public void testLibrariesBomReachable() throws Exception {
     Path bomPath = Paths.get("..", "libraries-bom", "pom.xml").toAbsolutePath();
@@ -85,13 +89,6 @@ public class BomContentTest {
     for (Artifact artifact : artifacts) {
       assertReachable(buildMavenCentralUrl(artifact));
     }
-  }
-
-  @Test(expected = IOException.class)
-  public void testInvalidBomUnreachable() throws Exception {
-    Path bomPath =
-        Paths.get("src", "test", "resources", "bom-with-typo-artifact.xml").toAbsolutePath();
-    checkBomReachable(bomPath);
   }
 
   private static String buildMavenCentralUrl(Artifact artifact) {
@@ -310,22 +307,36 @@ public class BomContentTest {
               ImmutableList.of(managedDependency), false, DependencyMediation.MAVEN);
 
       for (ClassPathEntry classPathEntry : result.getClassPath()) {
+        // Found direct dependency
         Artifact dependency = classPathEntry.getArtifact();
+        if (!dependency.getArtifactId().startsWith("google-cloud-")) {
+          continue;
+        }
 
-        String key = Artifacts.makeKey(dependency);
-        if (bomArtifacts.containsKey(key)) {
-          Artifact expectedArtifact = bomArtifacts.get(key);
-          String expectedVersion = expectedArtifact.getVersion();
+        ImmutableList<DependencyPath> dependencyPaths = result.getDependencyPaths(classPathEntry);
+        for (DependencyPath dependencyPath : dependencyPaths) {
+          if (dependencyPath.size() != 2) {
+            // Not checking direct dependency because non-direct dependencies cannot be controlled
+            // by the library (the one in `classPathEntry`) itself.
+            break;
+          }
 
-          if (!expectedVersion.equals(dependency.getVersion())) {
-            errorMessages.add(
-                "Managed dependency "
-                    + managedDependency
-                    + " has dependency "
-                    + dependency
-                    + ", which should be "
-                    + expectedVersion
-                    + " (the version in the BOM)");
+          // Direct dependency found
+          String key = Artifacts.makeKey(dependency);
+          if (bomArtifacts.containsKey(key)) {
+            Artifact expectedArtifact = bomArtifacts.get(key);
+            String expectedVersion = expectedArtifact.getVersion();
+
+            if (!expectedVersion.equals(dependency.getVersion())) {
+              errorMessages.add(
+                  "Managed dependency "
+                      + managedDependency
+                      + " has dependency "
+                      + dependency
+                      + ", which should be "
+                      + expectedVersion
+                      + " (the version in the BOM)");
+            }
           }
         }
       }
