@@ -23,6 +23,7 @@ import com.google.cloud.tools.opensource.classpath.DependencyMediation;
 import com.google.cloud.tools.opensource.dependencies.Artifacts;
 import com.google.cloud.tools.opensource.dependencies.Bom;
 import com.google.cloud.tools.opensource.dependencies.DependencyPath;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import com.google.common.base.Verify;
 import com.google.common.collect.ImmutableList;
@@ -68,6 +69,7 @@ public class BomContentTest {
     assertNoDowngradeRule(bom);
     assertUniqueClasses(artifacts);
     assertBomIsImported(bom);
+    assertDependencyConvergenceWithinCloudJavaLibraries(bom);
   }
 
   @Test
@@ -76,7 +78,8 @@ public class BomContentTest {
     checkBomReachable(bomPath);
   }
 
-  private void checkBomReachable(Path bomPath) throws Exception {
+  @VisibleForTesting
+  static void checkBomReachable(Path bomPath) throws Exception {
     Bom bom = Bom.readBom(bomPath);
     List<Artifact> artifacts = bom.getManagedDependencies();
     for (Artifact artifact : artifacts) {
@@ -269,6 +272,67 @@ public class BomContentTest {
       String artifactId = artifact.getArtifactId();
       Assert.assertFalse(
           artifactId + " must be declared with import type", artifactId.endsWith("-bom"));
+    }
+  }
+
+  /**
+   * Asserts that the Cloud Java client libraries in the BOM depend on the exact versions of other
+   * Cloud Java client libraries.
+   *
+   * <p>For example, it's a violation when
+   *
+   * <ul>
+   *   <li>google-cloud-spanner-jdbc 2.5.11 and
+   *   <li>google-cloud-spanner 6.19.0
+   * </ul>
+   *
+   * <p>are included in a BOM and the former depends on google-cloud-spanner 6.18.0.
+   *
+   * <p>Note that dependency-convergence check (dependencyConvergence enforcer rule) does not help
+   * this case because these are managed dependencies, making the versions falsely converged.
+   */
+  @VisibleForTesting
+  static void assertDependencyConvergenceWithinCloudJavaLibraries(Bom bom)
+      throws InvalidVersionSpecificationException {
+    Map<String, Artifact> bomArtifacts = new HashMap<>();
+    for (Artifact artifact : bom.getManagedDependencies()) {
+      if (artifact.getArtifactId().startsWith("google-cloud")) {
+        bomArtifacts.put(Artifacts.makeKey(artifact), artifact);
+      }
+    }
+
+    ClassPathBuilder classPathBuilder = new ClassPathBuilder();
+
+    List<String> errorMessages = new ArrayList<>();
+    for (Artifact managedDependency : bom.getManagedDependencies()) {
+      ClassPathResult result =
+          classPathBuilder.resolve(
+              ImmutableList.of(managedDependency), false, DependencyMediation.MAVEN);
+
+      for (ClassPathEntry classPathEntry : result.getClassPath()) {
+        Artifact dependency = classPathEntry.getArtifact();
+
+        String key = Artifacts.makeKey(dependency);
+        if (bomArtifacts.containsKey(key)) {
+          Artifact expectedArtifact = bomArtifacts.get(key);
+          String expectedVersion = expectedArtifact.getVersion();
+
+          if (!expectedVersion.equals(dependency.getVersion())) {
+            errorMessages.add(
+                "Managed dependency "
+                    + managedDependency
+                    + " has dependency "
+                    + dependency
+                    + ", which should be "
+                    + expectedVersion
+                    + " (the version in the BOM)");
+          }
+        }
+      }
+    }
+
+    if (!errorMessages.isEmpty()) {
+      Assert.fail(Joiner.on(". ").join(errorMessages));
     }
   }
 }
