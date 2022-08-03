@@ -28,7 +28,7 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <!-- Excluding checking the version of this artifact because it's build-
+      <!--  Excluding checking the version of this artifact because it's build-
         time dependency and should not cause problems in users' environments -->
       <dependency>
         <groupId>org.checkerframework</groupId>
