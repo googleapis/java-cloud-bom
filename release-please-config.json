@@ -10,10 +10,6 @@
     "libraries-bom": {
       "component": "libraries-bom"
     },
-    "tests": {
-      "component": "tests",
-      "bump-minor-pre-major": true
-    },
     "tests/dependency-convergence": {
       "component": "tests-dependency-convergence",
       "bump-minor-pre-major": true
