@@ -21,15 +21,13 @@
   </licenses>
   <dependencyManagement>
     <dependencies>
-      <!-- {x-version-update-start:google-cloud-bom:current} -->
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bom</artifactId>
-        <version>0.176.1-SNAPSHOT</version>
+        <version>0.176.1-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <!-- {x-version-update-end} -->
       <!-- adding comment for testing-->
       <!-- Excluding checking the version of this artifact because it's build-
         time dependency and should not cause problems in users' environments -->
