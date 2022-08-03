@@ -30,7 +30,7 @@
         <scope>import</scope>
       </dependency>
       <!-- {x-version-update-end} -->
-
+      <!-- adding comment for testing-->
       <!-- Excluding checking the version of this artifact because it's build-
         time dependency and should not cause problems in users' environments -->
       <dependency>
