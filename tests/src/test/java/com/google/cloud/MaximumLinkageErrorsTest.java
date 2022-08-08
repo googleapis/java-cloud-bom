@@ -29,10 +29,16 @@ import com.google.cloud.tools.opensource.dependencies.UnresolvableArtifactProble
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.google.common.collect.Sets.SetView;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -43,6 +49,97 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class MaximumLinkageErrorsTest {
+
+  @Test
+  public void testGoogleCloudLibrariesInvalidTestScopeDeclaration() throws Exception {
+    Path bomFile = Paths.get("../google-cloud-bom/pom.xml");
+    Bom bom = Bom.readBom(bomFile);
+
+    HashMap<Artifact, Set<LinkageProblem>> artifactToLinkageProblems = new HashMap<>();
+
+    Map<Artifact, String> formattedProblems = new HashMap<>();
+    int count = 0;
+    int total =  bom.getManagedDependencies().size();
+    for (Artifact managedDependency : bom.getManagedDependencies()) {
+      count++;
+      String managedDependencyArtifactId = managedDependency.getArtifactId();
+      if (!managedDependencyArtifactId.startsWith("google-cloud-")) {
+        continue;
+      }
+      System.out.println("Checking :" + managedDependency + " (" + count + "/" + total + ")");
+      ImmutableSet<LinkageProblem> linkageProblems = findLinkageProblem(managedDependency);
+
+      Set<LinkageProblem> baselineProblems = new HashSet<>();
+
+      for (LinkageProblem linkageProblem : linkageProblems) {
+        Artifact artifactInSource = linkageProblem.getSourceClass().getClassPathEntry()
+            .getArtifact();
+        artifactToLinkageProblems.computeIfAbsent(artifactInSource,
+            MaximumLinkageErrorsTest::findLinkageProblem
+        );
+
+        baselineProblems.addAll(artifactToLinkageProblems.get(artifactInSource));
+      }
+
+      ImmutableSet<LinkageProblem> problemsOnlyInManagedDependency = Sets.difference(linkageProblems, baselineProblems)
+          .stream().filter(MaximumLinkageErrorsTest::linkageProblemInInterest)
+          .collect(ImmutableSet.toImmutableSet());
+
+      if (!problemsOnlyInManagedDependency.isEmpty()) {
+        formattedProblems.put(managedDependency,
+            LinkageProblem.formatLinkageProblems(problemsOnlyInManagedDependency, null));
+      }
+    }
+    System.out.println();
+    for (Entry<Artifact, String> entry : formattedProblems.entrySet()) {
+      Artifact managedDependency = entry.getKey();
+      String message = entry.getValue();
+
+      System.out.println("=============");
+      System.out.println(managedDependency + " has the following errors:\n" +
+          message);
+      System.out.println("\n\n\n");
+    }
+    Assert.assertTrue(formattedProblems.isEmpty());
+  }
+
+  static ImmutableSet<LinkageProblem> findLinkageProblem(Artifact artifact) {
+    try {
+      ClassPathBuilder classPathBuilder = new ClassPathBuilder();
+      ClassPathResult classPathResult =
+          classPathBuilder.resolve(ImmutableList.of(artifact),
+              false, DependencyMediation.MAVEN);
+      ImmutableSet<ClassPathEntry> entryPoints = ImmutableSet.of(
+          classPathResult.getClassPath().get(0)
+      );
+      LinkageChecker linkageChecker = LinkageChecker.create(classPathResult.getClassPath(),
+          entryPoints, null);
+
+      ImmutableSet<LinkageProblem> linkageProblems = linkageChecker.findLinkageProblems();
+
+      /*
+      System.out.println("Artifact: " + artifact +" produced the following linkage problems:");
+      System.out.println(LinkageProblem.formatLinkageProblems(linkageProblems, classPathResult));
+      System.out.println("\n\n\n"); */
+      return linkageProblems;
+    } catch (Exception ex) {
+      throw new RuntimeException("Failed to calculate linkage problems", ex);
+    }
+  }
+
+  static boolean linkageProblemInInterest(LinkageProblem problem) {
+    if (problem.getSymbol().getClassBinaryName().startsWith("sun.misc")) {
+      return false;
+    }
+    if (problem.getSymbol().getClassBinaryName().startsWith("com.google.appengine")) {
+      return false;
+    }
+    if (problem.getSourceClass().getBinaryName().startsWith("io.grpc.googleapis")) {
+      return false;
+    }
+    return true;
+  }
+
 
   @Test
   public void testForNewLinkageErrors()
