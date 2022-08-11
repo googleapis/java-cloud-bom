@@ -45,19 +45,16 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <guava.version>31.1-jre</guava.version>
-    <gson.version>2.9.0</gson.version>
-    <google.cloud.core.version>2.8.0</google.cloud.core.version>
-    <io.grpc.version>1.47.0</io.grpc.version>
-    <http.version>1.42.0</http.version>
-    <protobuf.version>3.21.1</protobuf.version>
-    <!-- We don't use gax-bom because it includes the artifacts with 'testlib' classifier.
-        When updating gax.version, update gax.httpjson.version too. -->
-    <gax.version>2.18.2</gax.version>
-    <gax.httpjson.version>0.103.2</gax.httpjson.version>
-    <auth.version>1.7.0</auth.version>
+    <gson.version>2.9.1</gson.version>
+    <google.cloud.core.version>2.8.6</google.cloud.core.version>
+    <io.grpc.version>1.48.0</io.grpc.version>
+    <http.version>1.42.2</http.version>
+    <protobuf.version>3.21.4</protobuf.version>
+    <gax.version>2.18.7</gax.version>
+    <auth.version>1.8.1</auth.version>
     <api-common.version>2.2.1</api-common.version>
-    <common.protos.version>2.9.0</common.protos.version>
-    <iam.protos.version>1.4.1</iam.protos.version>
+    <common.protos.version>2.9.2</common.protos.version>
+    <iam.protos.version>1.5.2</iam.protos.version>
   </properties>
 
   <distributionManagement>
@@ -233,18 +230,10 @@
       </dependency>
       <dependency>
         <groupId>com.google.api</groupId>
-        <artifactId>gax</artifactId>
+        <artifactId>gax-bom</artifactId>
         <version>${gax.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api</groupId>
-        <artifactId>gax-grpc</artifactId>
-        <version>${gax.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.api</groupId>
-        <artifactId>gax-httpjson</artifactId>
-        <version>${gax.httpjson.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.auth</groupId>
