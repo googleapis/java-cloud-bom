@@ -1,4 +1,4 @@
 # Format:
 # module:released-version:current-version
 
-libraries-bom:26.0.0:26.0.1-SNAPSHOT
+libraries-bom:26.1.0:26.1.0

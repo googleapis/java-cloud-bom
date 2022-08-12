@@ -1,5 +1,19 @@
 # Changelog
 
+## [26.1.0](https://github.com/googleapis/java-cloud-bom/compare/libraries-bom-v26.0.0...libraries-bom-v26.1.0) (2022-08-12)
+
+
+### Features
+
+* Verifying that tests module do not get picked up release please ([#4783](https://github.com/googleapis/java-cloud-bom/issues/4783)) ([e037c08](https://github.com/googleapis/java-cloud-bom/commit/e037c08a4e2cafcebba9f1590d10d0c3b0a8dce1))
+
+
+### Dependencies
+
+* java-shared-dependencies 3.0.1 and using gax-bom ([#4893](https://github.com/googleapis/java-cloud-bom/issues/4893)) ([cf848b5](https://github.com/googleapis/java-cloud-bom/commit/cf848b5986f1513087cce90ee2b36bee455a05c5))
+* The following workspace dependencies were updated
+    * com.google.cloud:google-cloud-bom bumped to 0.177.0
+
 ## [26.0.0](https://github.com/googleapis/java-cloud-bom/compare/libraries-bom-v25.4.0...libraries-bom-v26.0.0) (2022-07-07)
 
 
