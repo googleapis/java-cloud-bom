@@ -23,6 +23,7 @@ import com.google.cloud.tools.opensource.classpath.DependencyMediation;
 import com.google.cloud.tools.opensource.dependencies.Artifacts;
 import com.google.cloud.tools.opensource.dependencies.Bom;
 import com.google.cloud.tools.opensource.dependencies.DependencyPath;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import com.google.common.base.Verify;
 import com.google.common.collect.ImmutableList;
@@ -58,6 +59,12 @@ public class BomContentTest {
     checkBom(bomPath);
   }
 
+  @Test
+  public void testLibrariesBOMCloudClientConvergence() throws Exception {
+    Path bomPath = Paths.get("..", "libraries-bom", "pom.xml").toAbsolutePath();
+    assertDependencyConvergenceWithinCloudJavaLibraries(Bom.readBom(bomPath));
+  }
+
   private void checkBom(Path bomPath) throws Exception {
     Bom bom = Bom.readBom(bomPath);
     List<Artifact> artifacts = bom.getManagedDependencies();
@@ -70,25 +77,23 @@ public class BomContentTest {
     assertBomIsImported(bom);
   }
 
+  /**
+   * Ensures that the content of the libraries BOM exist in Maven Central. This check should run in
+   * every pull request, not just release pull requests.
+   */
   @Test
   public void testLibrariesBomReachable() throws Exception {
     Path bomPath = Paths.get("..", "libraries-bom", "pom.xml").toAbsolutePath();
     checkBomReachable(bomPath);
   }
 
-  private void checkBomReachable(Path bomPath) throws Exception {
+  @VisibleForTesting
+  static void checkBomReachable(Path bomPath) throws Exception {
     Bom bom = Bom.readBom(bomPath);
     List<Artifact> artifacts = bom.getManagedDependencies();
     for (Artifact artifact : artifacts) {
       assertReachable(buildMavenCentralUrl(artifact));
     }
-  }
-
-  @Test(expected = IOException.class)
-  public void testInvalidBomUnreachable() throws Exception {
-    Path bomPath =
-        Paths.get("src", "test", "resources", "bom-with-typo-artifact.xml").toAbsolutePath();
-    checkBomReachable(bomPath);
   }
 
   private static String buildMavenCentralUrl(Artifact artifact) {
@@ -269,6 +274,86 @@ public class BomContentTest {
       String artifactId = artifact.getArtifactId();
       Assert.assertFalse(
           artifactId + " must be declared with import type", artifactId.endsWith("-bom"));
+    }
+  }
+
+  /**
+   * Asserts that the Cloud Java client libraries in the BOM depend on the exact versions of other
+   * Cloud Java client libraries.
+   *
+   * <p>For example, it's a violation when
+   *
+   * <ul>
+   *   <li>google-cloud-spanner-jdbc 2.5.11 and
+   *   <li>google-cloud-spanner 6.19.0
+   * </ul>
+   *
+   * <p>are included in a BOM and the former depends on google-cloud-spanner 6.18.0.
+   *
+   * <p>Note that dependency-convergence check (dependencyConvergence enforcer rule) does not help
+   * this case because these are managed dependencies, making the versions falsely converged.
+   */
+  @VisibleForTesting
+  static void assertDependencyConvergenceWithinCloudJavaLibraries(Bom bom)
+      throws InvalidVersionSpecificationException {
+    Map<String, Artifact> bomArtifacts = new HashMap<>();
+    for (Artifact artifact : bom.getManagedDependencies()) {
+      if (artifact.getArtifactId().startsWith("google-cloud")) {
+        bomArtifacts.put(Artifacts.makeKey(artifact), artifact);
+      }
+    }
+
+    ClassPathBuilder classPathBuilder = new ClassPathBuilder();
+
+    List<String> errorMessages = new ArrayList<>();
+    for (Artifact managedDependency : bom.getManagedDependencies()) {
+      ClassPathResult result =
+          classPathBuilder.resolve(
+              ImmutableList.of(managedDependency), false, DependencyMediation.MAVEN);
+
+      for (ClassPathEntry classPathEntry : result.getClassPath()) {
+        // Found direct dependency
+        Artifact dependency = classPathEntry.getArtifact();
+        if (!dependency.getArtifactId().startsWith("google-cloud-")) {
+          continue;
+        }
+
+        ImmutableList<DependencyPath> dependencyPaths = result.getDependencyPaths(classPathEntry);
+        for (DependencyPath dependencyPath : dependencyPaths) {
+          if (dependencyPath.size() != 2) {
+            // Not checking direct dependency because non-direct dependencies cannot be controlled
+            // by the library (the one in `classPathEntry`) itself.
+            break;
+          }
+
+          // Direct dependency found
+          String key = Artifacts.makeKey(dependency);
+          if (bomArtifacts.containsKey(key)) {
+            Artifact expectedArtifact = bomArtifacts.get(key);
+            String expectedVersion = expectedArtifact.getVersion();
+
+            if (!expectedVersion.equals(dependency.getVersion())) {
+              errorMessages.add(
+                  "Managed dependency "
+                      + managedDependency
+                      + " has dependency "
+                      + dependency
+                      + ", which should be "
+                      + expectedVersion
+                      + " (the version in the BOM)");
+            }
+          }
+        }
+      }
+    }
+
+    if (!errorMessages.isEmpty()) {
+      errorMessages.add(
+          "\nThis means we are about to release an SDK ("
+              + bom.getCoordinates()
+              + ") and we did not test these combinations. "
+              + "Please update the dependencies of the libraries above and release them.");
+      Assert.fail(Joiner.on(". ").join(errorMessages));
     }
   }
 }
