@@ -59,6 +59,12 @@ public class BomContentTest {
     checkBom(bomPath);
   }
 
+  @Test
+  public void testLibrariesBOMCloudClientConvergence() throws Exception {
+    Path bomPath = Paths.get("..", "libraries-bom", "pom.xml").toAbsolutePath();
+    assertDependencyConvergenceWithinCloudJavaLibraries(Bom.readBom(bomPath));
+  }
+
   private void checkBom(Path bomPath) throws Exception {
     Bom bom = Bom.readBom(bomPath);
     List<Artifact> artifacts = bom.getManagedDependencies();
@@ -69,7 +75,6 @@ public class BomContentTest {
     assertNoDowngradeRule(bom);
     assertUniqueClasses(artifacts);
     assertBomIsImported(bom);
-    assertDependencyConvergenceWithinCloudJavaLibraries(bom);
   }
 
   /**

@@ -116,5 +116,5 @@ jobs:
     - name: Ensure convergence among "google-cloud-*" libraries
       run: |
         # BomContentTest should run part of the verify
-        mvn -B -V -ntp verify -Dtest="BomContentTest#assertDependencyConvergenceWithinCloudJavaLibraries"
+        mvn -B -V -ntp verify -Dtest="BomContentTest#testLibrariesBOMCloudClientConvergence"
       working-directory: tests
