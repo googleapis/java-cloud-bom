@@ -15,13 +15,35 @@ jobs:
         distribution: zulu
         java-version: 8
     - run: java -version
-    - name: Install Google Cloud BOM
+    - name: Install BOMs
       run: |
         mvn -B -V -ntp install
-    - name: Ensure the BOM has valid content
+    - name: Ensure the members of the Libraries BOM exist in Maven Central
       run: |
-        # BomContentTest should run part of the verify
         mvn -B -V -ntp verify -Dtest="BomContentTest#testLibrariesBomReachable"
+      working-directory: tests
+    - name: Ensure the BOM has valid content (at releases)
+      if: github.head_ref == 'release-please--branches--main'
+      run: |
+        mvn -B -V -ntp verify -Dtest="BomContentTest#testLibrariesBom"
+      working-directory: tests
+
+  bom-assertion-test:
+    name: BomContentAssertionsTest (Test for assertion logic in BomContentTest)
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'googleapis'
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: zulu
+        java-version: 8
+    - run: java -version
+    - name: Install BOMs
+      run: |
+        mvn -B -V -ntp install
+    - run: |
+        mvn -B -V -ntp verify -Dtest="BomContentAssertionsTest"
       working-directory: tests
 
   linkage-checker:
@@ -52,15 +74,30 @@ jobs:
         distribution: zulu
         java-version: 8
     - run: java -version
-    - name: Install Google Cloud BOM
+    - name: Install BOMs
       run: |
         mvn -B -V -ntp install
     - name: Validate dependency convergence of library dependencies in the Google Cloud BOM
       run: |
         mvn -B -V -ntp validate
       working-directory: tests/dependency-convergence
-    - name: Validate dependency convergence of library dependencies in the Google Cloud BOM
+
+  dependencies-convergence-cloud-client-libraries:
+    name: Checking convergence among "google-cloud-*" libraries (experimental)
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'googleapis' && github.head_ref == 'release-please--branches--main'
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: zulu
+        java-version: 8
+    - run: java -version
+    - name: Install BOMs
+      run: |
+        mvn -B -V -ntp install
+    - name: Ensure convergence among "google-cloud-*" libraries
       run: |
         # BomContentTest should run part of the verify
-        mvn -B -V -ntp verify -Dtest="BomContentTest#testLibrariesBom"
+        mvn -B -V -ntp verify -Dtest="BomContentTest#testLibrariesBOMCloudClientConvergence"
       working-directory: tests
