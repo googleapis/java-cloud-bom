@@ -1,5 +1,18 @@
 # Changelog
 
+## [26.1.1](https://github.com/googleapis/java-cloud-bom/compare/libraries-bom-v26.1.0...libraries-bom-v26.1.1) (2022-08-30)
+
+
+### Bug Fixes
+
+* touching libraries-bom/pom.xml ([#4964](https://github.com/googleapis/java-cloud-bom/issues/4964)) ([0ee7be1](https://github.com/googleapis/java-cloud-bom/commit/0ee7be1fd563b822737fbe0992e0412a81042dea))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+    * com.google.cloud:google-cloud-bom bumped to 0.178.0
+
 ## [26.1.0](https://github.com/googleapis/java-cloud-bom/compare/libraries-bom-v26.0.0...libraries-bom-v26.1.0) (2022-08-12)
 
 
