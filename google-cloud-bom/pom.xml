@@ -526,7 +526,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-logging-logback</artifactId>
-        <version>0.127.5-alpha</version>
+        <version>0.127.6-alpha</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
