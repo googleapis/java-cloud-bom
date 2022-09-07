@@ -905,7 +905,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-datastream-bom</artifactId>
+        <version>1.1.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>io.grafeas</groupId>
         <artifactId>grafeas</artifactId>
