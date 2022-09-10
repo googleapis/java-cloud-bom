@@ -674,7 +674,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-redis-bom</artifactId>
-        <version>2.6.2</version>
+        <version>2.6.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
