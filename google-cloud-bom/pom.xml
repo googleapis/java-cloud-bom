@@ -803,7 +803,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-tasks-bom</artifactId>
-        <version>2.3.6</version>
+        <version>2.3.8</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
