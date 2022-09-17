@@ -296,7 +296,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-compute-bom</artifactId>
-        <version>1.12.0</version>
+        <version>1.12.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
