@@ -186,7 +186,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-api-gateway-bom</artifactId>
-        <version>2.3.4</version>
+        <version>2.3.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -214,7 +214,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-automl-bom</artifactId>
-        <version>2.3.13</version>
+        <version>2.3.15</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -254,7 +254,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigtable-bom</artifactId>
-        <version>2.12.0</version>
+        <version>2.13.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -282,7 +282,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-build-bom</artifactId>
-        <version>3.5.4</version>
+        <version>3.5.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -331,7 +331,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-datalabeling-bom</artifactId>
-        <version>0.123.5</version>
+        <version>0.123.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -394,7 +394,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-dialogflow-bom</artifactId>
-        <version>4.8.5</version>
+        <version>4.8.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -413,14 +413,14 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-document-ai-bom</artifactId>
-        <version>2.7.2</version>
+        <version>2.7.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-errorreporting-bom</artifactId>
-        <version>0.124.11-beta</version>
+        <version>0.124.12-beta</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -484,7 +484,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-iamcredentials-bom</artifactId>
-        <version>2.3.4</version>
+        <version>2.3.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -512,7 +512,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-language-bom</artifactId>
-        <version>2.3.4</version>
+        <version>2.4.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -573,7 +573,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-networkconnectivity-bom</artifactId>
-        <version>1.2.5</version>
+        <version>1.2.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -604,7 +604,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-orgpolicy-bom</artifactId>
-        <version>2.3.4</version>
+        <version>2.3.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -758,7 +758,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-shell-bom</artifactId>
-        <version>2.2.6</version>
+        <version>2.2.7</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -777,7 +777,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-speech-bom</artifactId>
-        <version>2.5.8</version>
+        <version>2.5.9</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -810,7 +810,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-texttospeech-bom</artifactId>
-        <version>2.4.4</version>
+        <version>2.4.7</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -838,7 +838,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-video-intelligence-bom</artifactId>
-        <version>2.2.8</version>
+        <version>2.2.9</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -866,7 +866,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-vpcaccess-bom</artifactId>
-        <version>2.4.0</version>
+        <version>2.4.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
