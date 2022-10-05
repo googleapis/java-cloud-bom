@@ -373,7 +373,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-debugger-client-bom</artifactId>
-        <version>1.3.5</version>
+        <version>1.3.7</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
