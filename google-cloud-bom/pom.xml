@@ -4,7 +4,7 @@
   <groupId>com.google.cloud</groupId>
   <artifactId>google-cloud-bom</artifactId>
   <packaging>pom</packaging>
-  <version>0.180.0</version><!-- {x-version-update:google-cloud-bom:current} -->
+  <version>0.180.1-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
   <name>Google Cloud Java BOM</name>
   <url>https://github.com/googleapis/java-cloud-bom</url>
   <description>
@@ -221,7 +221,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigquery</artifactId>
-        <version>2.17.1</version>
+        <version>2.17.0</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
@@ -380,7 +380,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-deploy-bom</artifactId>
-        <version>1.2.0</version>
+        <version>1.1.8</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -394,7 +394,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-dialogflow-bom</artifactId>
-        <version>4.10.0</version>
+        <version>4.9.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
