@@ -29,6 +29,7 @@ java.common_templates(
         ".github/workflows/samples.yaml",
         ".github/trusted-contribution.yml",
         ".github/workflows/auto-release.yaml",
+        ".kokoro/release/stage.sh",
         "renovate.json"
     ]
 )
