@@ -28,7 +28,6 @@ pushd $(dirname "$0")/../../
 setup_environment_secrets
 create_settings_xml_file "settings.xml"
 
-# First, upload artifacts to Sonatype staging repository (without root pom.xml)
 # attempt to stage 3 times with exponential backoff (starting with 10 seconds)
 retry_with_backoff 3 10 \
   mvn clean deploy -B \
@@ -40,10 +39,9 @@ retry_with_backoff 3 10 \
     -Dgpg.passphrase=${GPG_PASSPHRASE} \
     -Dgpg.homedir=${GPG_HOMEDIR}
 
-# Then, release the staging repository
 if [[ -n "${AUTORELEASE_PR}" ]]
 then
-  mvn nexus-staging:release -B --activate-profiles release-staging-repository \
+  mvn nexus-staging:release -B \
     -DperformRelease=true \
     --settings=settings.xml
 fi
