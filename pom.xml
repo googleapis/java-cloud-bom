@@ -44,18 +44,24 @@
           <skip>true</skip>
         </configuration>
       </plugin>
+      <!--
+        Not adding nexus-staging-maven-plugin here, because it would override
+        the skip configuration above when running "mvn deploy" command and tries to upload
+        this root pom.xml to the staging repository. When we tried the skip configuration
+        of nexus-staging-maven-plugin, it skipped all modules in this repository.
+        Thus, we cannot use nexus-staging-maven-plugin when uploading artifacts to a staging
+        repository.
+        However, when we release the staging repository as the next step,
+        "mvn nexus-staging:release" command requires nexus-staging-maven-plugin.
+        Therefore, the plugin is configured to be available only for the "release" command
+        as defined in the "release-staging-repository" profile below.
+      -->
     </plugins>
   </build>
   <profiles>
     <profile>
       <!-- profile for nexus-staging:release invocation -->
       <id>release-staging-repository</id>
-      <activation>
-        <property>
-          <!-- The root project not using nexus-staging-maven-plugin when signing -->
-          <name>!gpg.executable</name>
-        </property>
-      </activation>
       <distributionManagement>
         <snapshotRepository>
           <id>sonatype-nexus-snapshots</id>
@@ -65,11 +71,6 @@
           <id>sonatype-nexus-staging</id>
           <url>https://google.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
-        <site>
-          <id>github-pages-site</id>
-          <name>Deployment through GitHub's site deployment plugin</name>
-          <url>site/google-cloud-bom</url>
-        </site>
       </distributionManagement>
       <build>
         <plugins>
