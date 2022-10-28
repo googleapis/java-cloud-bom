@@ -186,7 +186,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigtable-bom</artifactId>
-        <version>2.14.1</version>
+        <version>2.15.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -207,7 +207,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-logging-bom</artifactId>
-        <version>3.11.9</version>
+        <version>3.12.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -219,12 +219,12 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-nio</artifactId>
-        <version>0.124.18</version>
+        <version>0.124.19</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsub-bom</artifactId>
-        <version>1.120.22</version>
+        <version>1.120.23</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -245,7 +245,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-spanner-jdbc</artifactId>
-        <version>2.7.11</version>
+        <version>2.7.12</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
