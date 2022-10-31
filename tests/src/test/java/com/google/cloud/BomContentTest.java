@@ -139,9 +139,10 @@ public class BomContentTest {
         if (className.contains("javax.annotation")
             || className.contains("$")
             || className.endsWith("package-info")
+            || className.endsWith("module-info")
             || className.equals("com.google.cloud.location.LocationsGrpc")
             || className.equals("com.google.gwt.core.client.UnsafeNativeLong")) {
-          // Ignore annotations, nested classes, and package-info files.
+          // Ignore annotations, nested classes, module-info and package-info files.
           // Ignore LocationsGrpc classes which are duplicated in generated grpc libraries.
           // Ignore GWT's UnsafeNativeLong, which appear in om.google.gwt:gwt-dev:2.9.0 and
           // com.google.jsinterop:base:1.0.0.
