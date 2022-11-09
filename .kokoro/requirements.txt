@@ -151,7 +151,6 @@ google-api-core==2.8.2 \
     #   google-cloud-core
     #   google-cloud-storage
 google-auth==2.14.1 \
-    --hash=sha256:ccaa901f31ad5cbb562615eb8b664b3dd0bf5404a67618e642307f00613eda4d \
     --hash=sha256:f5d8701633bebc12e0deea4df8abd8aff31c28b355360597f7f2ee60f2e4d016
     # via
     #   -r requirements.in
@@ -165,9 +164,9 @@ google-cloud-core==2.3.1 \
     # via
     #   -r requirements.in
     #   google-cloud-storage
-google-cloud-storage==2.6.0 \
-    --hash=sha256:104ca28ae61243b637f2f01455cc8a05e8f15a2a18ced96cb587241cdd3820f5 \
-    --hash=sha256:4ad0415ff61abdd8bb2ae81c1f8f7ec7d91a1011613f2db87c614c550f97bfe9
+google-cloud-storage==2.0.0 \
+    --hash=sha256:a57a15aead0f9dfbd4381f1bfdbe8bf89818a4bd75bab846cafcefb2db846c47 \
+    --hash=sha256:ec4be60bb223a3a960f0d01697d849b86d91cad815a84915a32ed3635e93a5e7
     # via
     #   -r requirements.in
     #   gcp-docuploader
@@ -255,9 +254,9 @@ jinja2==3.0.3 \
     # via
     #   -r requirements.in
     #   gcp-releasetool
-keyring==23.11.0 \
-    --hash=sha256:3dd30011d555f1345dec2c262f0153f2f0ca6bca041fb1dc4588349bb4c0ac1e \
-    --hash=sha256:ad192263e2cdd5f12875dedc2da13534359a7e760e77f8d04b50968a821c2361
+keyring==23.4.1 \
+    --hash=sha256:17e49fb0d6883c2b4445359434dba95aad84aabb29bbff044ad0ed7100232eca \
+    --hash=sha256:89cbd74d4683ed164c8082fb38619341097741323b3786905c6dac04d6915a55
     # via
     #   -r requirements.in
     #   gcp-releasetool
