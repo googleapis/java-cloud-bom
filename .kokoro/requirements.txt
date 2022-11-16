@@ -139,9 +139,9 @@ gcp-docuploader==0.6.3 \
     --hash=sha256:ba8c9d76b3bbac54b0311c503a373b00edc2dc02d6d54ea9507045adb8e870f7 \
     --hash=sha256:c0f5aaa82ce1854a386197e4e359b120ad6d4e57ae2c812fce42219a3288026b
     # via -r requirements.in
-gcp-releasetool==1.10.0 \
-    --hash=sha256:72a38ca91b59c24f7e699e9227c90cbe4dd71b789383cb0164b088abae294c83 \
-    --hash=sha256:8c7c99320208383d4bb2b808c6880eb7a81424afe7cdba3c8d84b25f4f0e097d
+gcp-releasetool==1.9.1 \
+    --hash=sha256:952f4055d5d986b070ae2a71c4410b250000f9cc5a1e26398fcd55a5bbc5a15f \
+    --hash=sha256:d0d3c814a97c1a237517e837d8cfa668ced8df4b882452578ecef4a4e79c583b
     # via -r requirements.in
 google-api-core==2.8.2 \
     --hash=sha256:06f7244c640322b508b125903bb5701bebabce8832f85aba9335ec00b3d02edc \
@@ -223,9 +223,9 @@ google-resumable-media==2.3.3 \
     # via
     #   -r requirements.in
     #   google-cloud-storage
-googleapis-common-protos==1.57.0 \
-    --hash=sha256:27a849d6205838fb6cc3c1c21cb9800707a661bb21c6ce7fb13e99eb1f8a0c46 \
-    --hash=sha256:a9f4a1d7f6d9809657b7f1316a1aa527f6664891531bcfcc13b6696e685f443c
+googleapis-common-protos==1.56.3 \
+    --hash=sha256:6f1369b58ed6cf3a4b7054a44ebe8d03b29c309257583a2bbdc064cd1e4a1442 \
+    --hash=sha256:87955d7b3a73e6e803f2572a33179de23989ebba725e05ea42f24838b792e461
     # via
     #   -r requirements.in
     #   google-api-core
