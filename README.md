@@ -16,7 +16,7 @@ To use it in Maven, add the following to your POM:
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>libraries-bom</artifactId>
-      <version>26.0.0</version>
+      <version>26.1.5</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -31,7 +31,7 @@ and your application runs on a consistent set of the dependencies.
 ## Libraries in Scope
 
 The content of the Libraries BOM consists of 2 categories:
-- stable Google Cloud Java client libraries and
+- Google Cloud Java client libraries (Maven coordinates `com.google.cloud:google-cloud-XXX`, where XXX is a GCP service name) and
 - core Google dependency libraries, such as gRPC, Protobuf, and Guava.
 
 ## Dependency Dashboard
