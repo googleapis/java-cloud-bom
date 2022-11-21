@@ -25,6 +25,8 @@ To use it in Maven, add the following to your POM:
 ```
 [//]: # ({x-version-update-end})
 
+[![Maven][maven-version-image]][maven-version-link]
+
 When you use the Libraries BOM, you don't specify individual library versions
 and your application runs on a consistent set of the dependencies.
 
@@ -60,3 +62,6 @@ Apache 2.0 - See [LICENSE] for more information.
 [LICENSE]: https://github.com/googleapis/google-cloud-java/blob/main/LICENSE
 [TESTING]: https://github.com/googleapis/google-cloud-java/blob/main/TESTING.md
 [cloud-platform]: https://cloud.google.com/
+[maven-version-image]: https://img.shields.io/maven-central/v/com.google.cloud/libraries-bom.svg
+[maven-version-link]: https://search.maven.org/artifact/com.google.cloud/libraries-bom
+
