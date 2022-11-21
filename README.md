@@ -16,7 +16,7 @@ To use it in Maven, add the following to your POM:
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>libraries-bom</artifactId>
-      <version>26.0.0</version>
+      <version>26.1.5</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -25,13 +25,15 @@ To use it in Maven, add the following to your POM:
 ```
 [//]: # ({x-version-update-end})
 
+[![Maven][maven-version-image]][maven-version-link]
+
 When you use the Libraries BOM, you don't specify individual library versions
 and your application runs on a consistent set of the dependencies.
 
 ## Libraries in Scope
 
 The content of the Libraries BOM consists of 2 categories:
-- stable Google Cloud Java client libraries and
+- Google Cloud Java client libraries (Maven coordinates `com.google.cloud:google-cloud-XXX`, where XXX is a GCP service name) and
 - core Google dependency libraries, such as gRPC, Protobuf, and Guava.
 
 ## Dependency Dashboard
@@ -60,3 +62,6 @@ Apache 2.0 - See [LICENSE] for more information.
 [LICENSE]: https://github.com/googleapis/google-cloud-java/blob/main/LICENSE
 [TESTING]: https://github.com/googleapis/google-cloud-java/blob/main/TESTING.md
 [cloud-platform]: https://cloud.google.com/
+[maven-version-image]: https://img.shields.io/maven-central/v/com.google.cloud/libraries-bom.svg
+[maven-version-link]: https://search.maven.org/artifact/com.google.cloud/libraries-bom
+
