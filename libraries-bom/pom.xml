@@ -38,7 +38,7 @@
   <licenses>
     <license>
       <name>The Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://raw.githubusercontent.com/googleapis/google-cloud-java/main/LICENSE</url>
     </license>
   </licenses>
 
