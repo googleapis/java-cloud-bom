@@ -139,19 +139,20 @@ gcp-docuploader==0.6.3 \
     --hash=sha256:ba8c9d76b3bbac54b0311c503a373b00edc2dc02d6d54ea9507045adb8e870f7 \
     --hash=sha256:c0f5aaa82ce1854a386197e4e359b120ad6d4e57ae2c812fce42219a3288026b
     # via -r requirements.in
-gcp-releasetool==1.9.1 \
-    --hash=sha256:952f4055d5d986b070ae2a71c4410b250000f9cc5a1e26398fcd55a5bbc5a15f \
-    --hash=sha256:d0d3c814a97c1a237517e837d8cfa668ced8df4b882452578ecef4a4e79c583b
+gcp-releasetool==1.10.1 \
+    --hash=sha256:137b7e2e3fb7d94cb08fb4fe867a5e17d64a1e31dc262d3fd02ec17f49b75843 \
+    --hash=sha256:728f8bae63d45032aaf32412c5526bcf9f18bd30efed406ab8171943e117292e
     # via -r requirements.in
-google-api-core==2.8.2 \
-    --hash=sha256:06f7244c640322b508b125903bb5701bebabce8832f85aba9335ec00b3d02edc \
-    --hash=sha256:93c6a91ccac79079ac6bbf8b74ee75db970cc899278b97d53bc012f35908cf50
+google-api-core==2.11.0 \
+    --hash=sha256:4b9bb5d5a380a0befa0573b302651b8a9a89262c1730e37bf423cec511804c22 \
+    --hash=sha256:ce222e27b0de0d7bc63eb043b956996d6dccab14cc3b690aaea91c9cc99dc16e
     # via
     #   -r requirements.in
     #   google-cloud-core
     #   google-cloud-storage
-google-auth==2.14.1 \
-    --hash=sha256:f5d8701633bebc12e0deea4df8abd8aff31c28b355360597f7f2ee60f2e4d016
+google-auth==2.15.0 \
+    --hash=sha256:6897b93556d8d807ad70701bb89f000183aea366ca7ed94680828b37437a4994 \
+    --hash=sha256:72f12a6cfc968d754d7bdab369c5c5c16032106e52d32c6dfd8484e4c01a6d1f
     # via
     #   -r requirements.in
     #   gcp-releasetool
@@ -164,9 +165,9 @@ google-cloud-core==2.3.1 \
     # via
     #   -r requirements.in
     #   google-cloud-storage
-google-cloud-storage==2.0.0 \
-    --hash=sha256:a57a15aead0f9dfbd4381f1bfdbe8bf89818a4bd75bab846cafcefb2db846c47 \
-    --hash=sha256:ec4be60bb223a3a960f0d01697d849b86d91cad815a84915a32ed3635e93a5e7
+google-cloud-storage==2.7.0 \
+    --hash=sha256:1ac2d58d2d693cb1341ebc48659a3527be778d9e2d8989697a2746025928ff17 \
+    --hash=sha256:f78a63525e72dd46406b255bbdf858a22c43d6bad8dc5bdeb7851a42967e95a1
     # via
     #   -r requirements.in
     #   gcp-docuploader
@@ -333,9 +334,9 @@ markupsafe==2.0.1 \
     # via
     #   -r requirements.in
     #   jinja2
-packaging==21.3 \
-    --hash=sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb \
-    --hash=sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522
+packaging==22.0 \
+    --hash=sha256:2198ec20bd4c017b8f9717e00f0c8714076fc2fd93816750ab48e2c41de2cfd3 \
+    --hash=sha256:957e2148ba0e1a3b282772e791ef1d8083648bc131c8ab0c1feba110ce1146c3
     # via
     #   -r requirements.in
     #   gcp-releasetool
