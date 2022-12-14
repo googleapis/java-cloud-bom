@@ -23,7 +23,7 @@
   <licenses>
     <license>
       <name>Google Cloud Software License</name>
-      <url>https://raw.githubusercontent.com/googleapis/google-cloud-java/master/LICENSE</url>
+      <url>https://raw.githubusercontent.com/googleapis/google-cloud-java/main/LICENSE</url>
     </license>
   </licenses>
   <modules>
