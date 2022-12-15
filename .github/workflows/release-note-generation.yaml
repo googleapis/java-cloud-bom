@@ -20,9 +20,13 @@ jobs:
         distribution: zulu
         java-version: 11
     - run: java -version
-    - run: |
-        echo "Release Note Generaton for ${LIBRARIES_BOM_VERSION}"
+    - name: Generate release_note.md
+      run: |
         bash -x .kokoro/generate_release_note.sh
       env:
         LIBRARIES_BOM_VERSION: ${{ inputs.librariesBomVersion }}
-    
+    - name: Update the release note with release_note.md
+      run: |
+        gh release edit "libraries-bom-v{LIBRARIES_BOM_VERSION}" --notes-file release_note.md
+      env:
+        LIBRARIES_BOM_VERSION: ${{ inputs.librariesBomVersion }}
