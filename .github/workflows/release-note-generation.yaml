@@ -1,4 +1,11 @@
 on:
+  workflow_dispatch:
+    inputs:
+      librariesBomVersion:
+        description: 'The version of the Libraries BOM we generate release note (e.g., 26.1.5)'
+        required: true
+        type: string
+
   release: # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
     types: [published]
 
@@ -14,7 +21,8 @@ jobs:
         java-version: 11
     - run: java -version
     - run: |
-        echo "Release Note Generaton"
+        echo "Release Note Generaton for ${LIBRARIES_BOM_VERSION}"
         bash -x .kokoro/generate_release_note.sh
-    
+      env:
+        LIBRARIES_BOM_VERSION: ${{ inputs.librariesBomVersion }}
     

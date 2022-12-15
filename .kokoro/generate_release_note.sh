@@ -7,10 +7,17 @@ set -ef
 
 echo "GITHUB_REF: ${GITHUB_REF}"
 
+echo "LIBRARIES_BOM_VERSION: ${LIBRARIES_BOM_VERSION}"
+
+if [ -z "${LIBRARIES_BOM_VERSION}" ]; then
+  echo "Couldn't retrieve LIBRARIES_BOM_VERSION. Please specify the parameter (e.g., 26.1.5)"
+  exit 1
+fi
+
 # This writes release_note.md
 cd release-note-generation
 mvn compile
-mvn exec:java -Dexec.args="com.google.cloud:libraries-bom:26.1.5"
+mvn exec:java -Dexec.args="com.google.cloud:libraries-bom:${LIBRARIES_BOM_VERSION}"
 
 echo "Release note content:"
 cat release_note.md
