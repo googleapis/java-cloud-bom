@@ -30,7 +30,7 @@
     <!-- Only modules to be published to Maven Central. Not tests. -->
     <module>google-cloud-bom</module>
     <module>libraries-bom</module>
-  </modules>
+	</modules>
 
   <build>
     <plugins>
