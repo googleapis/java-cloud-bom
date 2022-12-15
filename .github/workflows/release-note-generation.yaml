@@ -21,12 +21,18 @@ jobs:
         java-version: 11
     - run: java -version
     - name: Generate release_note.md
+      shell: bash
       run: |
-        bash -x .kokoro/generate_release_note.sh
+        mvn -B -ntp compile
+        # This generates release_note.md file
+        mvn -B -ntp exec:java \
+            -Dexec.args="com.google.cloud:libraries-bom:${LIBRARIES_BOM_VERSION}"
+      working-directory: release-note-generation
       env:
         LIBRARIES_BOM_VERSION: ${{ inputs.librariesBomVersion }}
     - name: Update the release note with release_note.md
       run: |
         gh release edit "libraries-bom-v{LIBRARIES_BOM_VERSION}" --notes-file release_note.md
+      working-directory: release-note-generation
       env:
         LIBRARIES_BOM_VERSION: ${{ inputs.librariesBomVersion }}
