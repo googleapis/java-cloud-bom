@@ -36,3 +36,5 @@ jobs:
       working-directory: release-note-generation
       env:
         LIBRARIES_BOM_VERSION: ${{ inputs.librariesBomVersion }}
+        GH_TOKEN: ${{ github.token }}
+
