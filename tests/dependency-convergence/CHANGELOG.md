@@ -18,6 +18,9 @@
 * The following workspace dependencies were updated
     * com.google.cloud:google-cloud-bom bumped to 0.183.0
 
+* The following workspace dependencies were updated
+    * com.google.cloud:google-cloud-bom bumped to 0.183.1-SNAPSHOT
+
 ## [0.3.0](https://github.com/googleapis/java-cloud-bom/compare/tests-dependency-convergence-v0.2.0...tests-dependency-convergence-v0.3.0) (2022-09-19)
 
 
