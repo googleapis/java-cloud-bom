@@ -9,9 +9,9 @@ on:
   release: # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
     types: [published]
 
-name: ci
+name: release-notes
 jobs:
-  dashboard:
+  release-note-generation:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
