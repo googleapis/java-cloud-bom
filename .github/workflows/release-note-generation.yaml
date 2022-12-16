@@ -7,7 +7,7 @@ on:
         type: string
 
   release: # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
-    types: [published]
+    types: [released]
 
 name: release-notes
 jobs:
@@ -20,6 +20,25 @@ jobs:
         distribution: zulu
         java-version: 11
     - run: java -version
+    - name: Pick Libraries BOM version
+      id: pick-version
+      shell: bash
+      run: |
+        set -x
+        if [ -n "${WORKFLOW_DISPATCH_INPUT}" ]; then
+          echo "WORKFLOW_DISPATCH_INPUT: ${WORKFLOW_DISPATCH_INPUT}"
+          echo "libraries-bom-version=${WORKFLOW_DISPATCH_INPUT}" >> $GITHUB_OUTPUT
+        elif [ -n "${GITHUB_REF}" ]; then
+          # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
+          echo "GITHUB_REF: ${GITHUB_REF}"
+          VERSION=${GITHUB_REF#refs/*/}
+          echo "libraries-bom-version=${VERSION}" >> $GITHUB_OUTPUT
+        else
+          echo "Couldn't find the Libraries BOM version. WORKFLOW_DISPATCH_INPUT and GITHUB_REF are empty."
+          exit 1
+        fi
+      env:
+        WORKFLOW_DISPATCH_INPUT: ${{ inputs.librariesBomVersion }}
     - name: Generate release_note.md
       shell: bash
       run: |
@@ -29,7 +48,7 @@ jobs:
             -Dexec.args="com.google.cloud:libraries-bom:${LIBRARIES_BOM_VERSION}"
       working-directory: release-note-generation
       env:
-        LIBRARIES_BOM_VERSION: ${{ inputs.librariesBomVersion }}
+        LIBRARIES_BOM_VERSION: ${{ steps.pick-version.outputs.libraries-bom-version }}
     - name: Update the release note with release_note.md
       run: |
         TAG="libraries-bom-v${LIBRARIES_BOM_VERSION}"
@@ -37,6 +56,6 @@ jobs:
         gh release edit "${TAG}" --notes-file release_note.md
       working-directory: release-note-generation
       env:
-        LIBRARIES_BOM_VERSION: ${{ inputs.librariesBomVersion }}
+        LIBRARIES_BOM_VERSION: ${{ steps.pick-version.outputs.libraries-bom-version }}
         GH_TOKEN: ${{ github.token }}
 
