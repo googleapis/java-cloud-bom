@@ -28,3 +28,6 @@ docs/
 
 # Python utilities
 *.pyc
+
+# Release note generation
+release_note.md

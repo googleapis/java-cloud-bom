@@ -21,6 +21,7 @@ import com.google.cloud.tools.opensource.dependencies.Bom;
 import com.google.cloud.tools.opensource.dependencies.MavenRepositoryException;
 import com.google.cloud.tools.opensource.dependencies.RepositoryUtility;
 import com.google.cloud.tools.opensource.dependencies.VersionComparator;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.base.Verify;
@@ -50,7 +51,6 @@ public class ReleaseNoteGeneration {
   private static final VersionComparator versionComparator = new VersionComparator();
   private static final Splitter dotSplitter = Splitter.on(".");
   private static final String cloudLibraryArtifactPrefix = "com.google.cloud:google-cloud-";
-  private static final StringBuilder report = new StringBuilder();
   private static final String RELEASE_NOTE_FILE_NAME = "release_note.md";
 
   private static final ImmutableSet<String> splitRepositoryLibraryNames =
@@ -104,6 +104,20 @@ public class ReleaseNoteGeneration {
             ? Bom.readBom(bomCoordinatesOrFile)
             : Bom.readBom(Paths.get(bomCoordinatesOrFile));
 
+    ReleaseNoteGeneration generation = new ReleaseNoteGeneration();
+    String report = generation.generateReport(bom);
+
+    Files.asCharSink(new File(RELEASE_NOTE_FILE_NAME), Charsets.UTF_8).write(report);
+    System.out.println("Wrote " + RELEASE_NOTE_FILE_NAME);
+  }
+
+  @VisibleForTesting final StringBuilder report = new StringBuilder();
+
+  @VisibleForTesting
+  ReleaseNoteGeneration() {}
+
+  @VisibleForTesting
+  String generateReport(Bom bom) throws MavenRepositoryException, ArtifactDescriptorException {
     Bom previousBom = previousBom(bom);
 
     DefaultArtifact bomArtifact = new DefaultArtifact(bom.getCoordinates());
@@ -116,12 +130,10 @@ public class ReleaseNoteGeneration {
     printApiReferenceLink();
 
     report.append("\n\n");
-
-    Files.asCharSink(new File(RELEASE_NOTE_FILE_NAME), Charsets.UTF_8).write(report);
-    System.out.println("Wrote " + RELEASE_NOTE_FILE_NAME);
+    return report.toString();
   }
 
-  private static void printKeyCoreLibraryDependencies(Bom bom) {
+  private void printKeyCoreLibraryDependencies(Bom bom) {
     Map<String, String> versionlessCoordinatesToVersion = createVersionLessCoordinatesToKey(bom);
     report.append("# Core Library Dependencies\n");
     report.append("These client libraries are built with the following Java libraries:\n");
@@ -156,7 +168,7 @@ public class ReleaseNoteGeneration {
         .append("\n");
   }
 
-  private static void printApiReferenceLink() {
+  private void printApiReferenceLink() {
     report.append("# API Reference\n");
     report.append(
         "You can find the API references of the SDK in [Java Cloud Client Libraries]"
@@ -167,10 +179,16 @@ public class ReleaseNoteGeneration {
    * Returns the BOM that was released prior to the {@code bom}, asking Maven repositories for
    * available versions.
    */
-  private static Bom previousBom(Bom bom)
-      throws MavenRepositoryException, ArtifactDescriptorException {
+  @VisibleForTesting
+  static Bom previousBom(Bom bom) throws MavenRepositoryException, ArtifactDescriptorException {
     String coordinates = bom.getCoordinates();
-    DefaultArtifact bomArtifact = new DefaultArtifact(coordinates);
+    DefaultArtifact inputCoordinates = new DefaultArtifact(coordinates);
+    DefaultArtifact bomArtifact =
+        new DefaultArtifact(
+            inputCoordinates.getGroupId(),
+            inputCoordinates.getArtifactId(),
+            "pom",
+            inputCoordinates.getVersion());
 
     // The highest version comes last.
     ImmutableList<String> versions =
@@ -199,7 +217,9 @@ public class ReleaseNoteGeneration {
     return Bom.readBom(bomArtifact.setVersion(previousVersionCandidate).toString());
   }
 
-  private static ImmutableMap<String, String> createVersionLessCoordinatesToKey(Bom bom) {
+  /** Returns a map from versionless coordinates to versions for a {@code bom}. */
+  @VisibleForTesting
+  static ImmutableMap<String, String> createVersionLessCoordinatesToKey(Bom bom) {
     Map<String, String> versionLessCoordinatesToVersion = new HashMap<>();
     List<Artifact> managedDependencies = new ArrayList(bom.getManagedDependencies());
 
@@ -213,7 +233,7 @@ public class ReleaseNoteGeneration {
     return ImmutableMap.copyOf(versionLessCoordinatesToVersion);
   }
 
-  private static void printCloudClientBomDifference(Bom oldBom, Bom newBom)
+  private void printCloudClientBomDifference(Bom oldBom, Bom newBom)
       throws MavenRepositoryException {
     Map<String, String> versionlessCoordinatesToVersionOld =
         createVersionLessCoordinatesToKey(oldBom);
@@ -313,7 +333,15 @@ public class ReleaseNoteGeneration {
     }
   }
 
-  private static void printClientLibraryVersionDifference(
+  /**
+   * Writes the version differences of the libraries to {@code report}. In the output, one line
+   * consists of a markdown bullet point item showing the versions since the previous release with
+   * the link to the release note. Example: {@code - google-cloud-billing:2.6.0 (prev:2.5.0; Release
+   * Notes:
+   * [v2.6.0](https://github.com/googleapis/google-cloud-java/releases/tag/google-cloud-billing-v2.6.0))}
+   */
+  @VisibleForTesting
+  void printClientLibraryVersionDifference(
       Iterable<String> artifactsInBothBoms,
       Map<String, String> versionlessCoordinatesToVersionOld,
       Map<String, String> versionlessCoordinatesToVersionNew)
@@ -413,20 +441,23 @@ public class ReleaseNoteGeneration {
     return releaseNoteVersions.build();
   }
 
-  private static boolean isMajorVersionBump(String previousVersion, String currentVersion) {
+  @VisibleForTesting
+  static boolean isMajorVersionBump(String previousVersion, String currentVersion) {
     List<String> previousVersionElements = dotSplitter.splitToList(previousVersion);
     List<String> currentVersionElements = dotSplitter.splitToList(currentVersion);
     return !previousVersionElements.get(0).equals(currentVersionElements.get(0));
   }
 
-  private static boolean isMinorVersionBump(String previousVersion, String currentVersion) {
+  @VisibleForTesting
+  static boolean isMinorVersionBump(String previousVersion, String currentVersion) {
     List<String> previousVersionElements = dotSplitter.splitToList(previousVersion);
     List<String> currentVersionElements = dotSplitter.splitToList(currentVersion);
     return previousVersionElements.get(0).equals(currentVersionElements.get(0))
         && !previousVersionElements.get(1).equals(currentVersionElements.get(1));
   }
 
-  private static boolean isPatchVersionBump(String previousVersion, String currentVersion) {
+  @VisibleForTesting
+  static boolean isPatchVersionBump(String previousVersion, String currentVersion) {
     List<String> previousVersionElements = dotSplitter.splitToList(previousVersion);
     List<String> currentVersionElements = dotSplitter.splitToList(currentVersion);
     return previousVersionElements.get(0).equals(currentVersionElements.get(0))
