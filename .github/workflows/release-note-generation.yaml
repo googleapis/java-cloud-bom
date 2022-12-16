@@ -1,0 +1,42 @@
+on:
+  workflow_dispatch:
+    inputs:
+      librariesBomVersion:
+        description: 'The version of the Libraries BOM we generate release note (e.g., 26.1.5)'
+        required: true
+        type: string
+
+  release: # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
+    types: [published]
+
+name: release-notes
+jobs:
+  release-note-generation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: zulu
+        java-version: 11
+    - run: java -version
+    - name: Generate release_note.md
+      shell: bash
+      run: |
+        mvn -B -ntp compile
+        # This generates release_note.md file
+        mvn -B -ntp exec:java \
+            -Dexec.args="com.google.cloud:libraries-bom:${LIBRARIES_BOM_VERSION}"
+      working-directory: release-note-generation
+      env:
+        LIBRARIES_BOM_VERSION: ${{ inputs.librariesBomVersion }}
+    - name: Update the release note with release_note.md
+      run: |
+        TAG="libraries-bom-v${LIBRARIES_BOM_VERSION}"
+        echo "Updating ${TAG}"
+        gh release edit "${TAG}" --notes-file release_note.md
+      working-directory: release-note-generation
+      env:
+        LIBRARIES_BOM_VERSION: ${{ inputs.librariesBomVersion }}
+        GH_TOKEN: ${{ github.token }}
+
