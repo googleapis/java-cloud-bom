@@ -10,11 +10,12 @@ import com.google.common.truth.Truth;
 import org.junit.Test;
 
 public class ReleaseNoteGenerationTest {
+  // Uses the released BOM, not the one in this repository, to avoid unnecessarily updating the
+  // assertions.
   static final String LIBRARIES_BOM_COORDINATES = "com.google.cloud:libraries-bom:26.1.5";
 
   @Test
   public void testPreviousBom() throws Exception {
-    // Use the released BOM to avoid unnecessarily updating the assertions.
     Bom bom = Bom.readBom(LIBRARIES_BOM_COORDINATES);
     Bom previousBom = ReleaseNoteGeneration.previousBom(bom);
     Truth.assertThat(previousBom.getCoordinates())
@@ -45,12 +46,15 @@ public class ReleaseNoteGenerationTest {
   public void testIsMinorVersionBump() {
     assertTrue(ReleaseNoteGeneration.isMinorVersionBump("1.2.3", "1.3.0"));
     assertFalse(ReleaseNoteGeneration.isMinorVersionBump("1.2.3", "1.2.5"));
+    assertFalse(ReleaseNoteGeneration.isMinorVersionBump("1.2.3", "2.2.3"));
   }
 
   @Test
   public void testIsPatchVersionBump() {
     assertTrue(ReleaseNoteGeneration.isPatchVersionBump("1.2.3", "1.2.5"));
     assertFalse(ReleaseNoteGeneration.isPatchVersionBump("1.2.3", "1.2.3"));
+    assertFalse(ReleaseNoteGeneration.isPatchVersionBump("1.2.3", "2.2.3"));
+    assertFalse(ReleaseNoteGeneration.isPatchVersionBump("1.2.3", "1.3.3"));
   }
 
   @Test
