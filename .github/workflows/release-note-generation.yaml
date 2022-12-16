@@ -7,7 +7,7 @@ on:
         type: string
 
   release: # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
-    types: [published]
+    types: [released]
 
 name: release-notes
 jobs:
