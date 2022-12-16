@@ -18,3 +18,27 @@ jobs:
       run: |
         mvn -B -ntp verify
       working-directory: release-note-generation
+
+  dry-run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: zulu
+        java-version: 11
+    - run: java -version
+    - name: Dry-run release-note-generation
+      shell: bash
+      run: |
+        mvn -B -ntp compile
+        # This generates release_note.md file
+        mvn -B -ntp exec:java \
+            -Dexec.args="com.google.cloud:libraries-bom:26.1.5"
+      working-directory: release-note-generation
+    - name: Show generated release note
+      shell: bash
+      run: |
+        # This fails if the file does not exist
+        cat release_note.md
+      working-directory: release-note-generation
