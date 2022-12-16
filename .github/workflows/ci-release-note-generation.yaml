@@ -1,0 +1,20 @@
+on:
+  pull_request:
+    paths:
+      - 'release-note-generation/**'
+name: release-notes
+jobs:
+  release-note-generation:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        distribution: zulu
+        java-version: 11
+    - run: java -version
+    - name: Run test in release-note-generation
+      shell: bash
+      run: |
+        mvn -B -ntp verify
+      working-directory: release-note-generation
