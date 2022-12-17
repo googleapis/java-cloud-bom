@@ -86,4 +86,15 @@ public class ReleaseNoteGenerationTest {
                 + "[v3.13.0](https://github.com/googleapis/java-logging/releases/tag/v3.13.0), "
                 + "[v3.13.1](https://github.com/googleapis/java-logging/releases/tag/v3.13.1))");
   }
+
+  @Test
+  public void testFetchReleaseNote() throws Exception {
+    String storageReleaseNote2_16_0 = ReleaseNoteGeneration.fetchReleaseNote("googleapis", "java-storage",
+        "v2.16.0");
+    Truth.assertThat(storageReleaseNote2_16_0)
+        .contains("* Add {Compose,Rewrite,StartResumableWrite}Request.object_checksums and "
+            + "Bucket.RetentionPolicy.retention_duration "
+            + "([#1790](https://github.com/googleapis/java-storage/issues/1790)) "
+            + "([31c1b18](https://github.com/googleapis/java-storage/commit/31c1b18acc3c118e39eb613a82ee292f3e246b8f))");
+  }
 }
