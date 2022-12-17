@@ -31,10 +31,8 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
 import com.google.common.io.Files;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -469,8 +467,8 @@ public class ReleaseNoteGeneration {
   }
 
   /**
-   * Returns the release note content of the release of {@code tag} of {@code owner}/
-   * {@code repository}.
+   * Returns the release note content of the release of {@code tag} of {@code owner}/ {@code
+   * repository}.
    */
   @VisibleForTesting
   static String fetchReleaseNote(String owner, String repository, String tag)
@@ -478,14 +476,12 @@ public class ReleaseNoteGeneration {
     // gh release --repo googleapis/java-storage view v2.16.0
 
     ProcessBuilder builder =
-        new ProcessBuilder("gh", "release", "--repo",owner + "/" + repository,
-            "view", tag);
+        new ProcessBuilder("gh", "release", "--repo", owner + "/" + repository, "view", tag);
     Process process = builder.start();
     String errorOutput = new String(process.getErrorStream().readAllBytes());
     boolean finished = process.waitFor(1, TimeUnit.MINUTES);
     Verify.verify(finished, "The process timed out");
-    Verify.verify(0 == process.exitValue(),
-        "The command failed: %s", errorOutput);
+    Verify.verify(0 == process.exitValue(), "The command failed: %s", errorOutput);
     String output = new String(process.getInputStream().readAllBytes());
     return output;
   }
