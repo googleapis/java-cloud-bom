@@ -72,13 +72,14 @@ public class ReleaseNoteGenerationTest {
             "com.google.cloud:google-cloud-redis",
             "2.9.0",
             "com.google.cloud:google-cloud-logging",
-            "3.13.1"));
+            "3.13.1"),
+        "1.1.0");
 
     String report = generation.report.toString();
     Truth.assertThat(report)
         .contains(
             "- google-cloud-redis:2.9.0 (prev:2.8.0; Release Notes: "
-                + "[v2.9.0](https://github.com/googleapis/google-cloud-java/releases/tag/google-cloud-redis-v2.9.0))");
+                + "[v2.9.0](https://github.com/googleapis/google-cloud-java/releases/tag/v1.1.0))");
     Truth.assertThat(report)
         .contains(
             "- google-cloud-logging:3.13.1 (prev:3.12.0; Release Notes: "
@@ -110,7 +111,7 @@ public class ReleaseNoteGenerationTest {
   }
 
   @Test
-  public void testFilterOnlyRelevantChangelog() throws Exception {
+  public void testFilterOnlyRelevantChangelog_splitRepo() throws Exception {
     String rawChangelog =
         "### Features\n"
             + "\n"
@@ -128,6 +129,8 @@ public class ReleaseNoteGenerationTest {
             + "* Removed WriteObject routing annotations"
             + " ([31c1b18](https://github.com/googleapis/java-storage/commit/31c1b18acc3c118e39eb613a82ee292f3e246b8f))\n"
             + "* Disable REGAPIC transport in storage v2\n"
+            + "* **deps:** update dependency com.google.apis:google-api-services-dns to"
+            + " v1-rev20221110-2.0.0\n"
             + "\n"
             + "\n"
             + "### Documentation";
@@ -148,6 +151,9 @@ public class ReleaseNoteGenerationTest {
     Truth.assertThat(notableChangelog).doesNotContainMatch("^$");
     // The list item is replaced with "- "
     Truth.assertThat(notableChangelog).doesNotContainMatch("^\\* ");
+
+    // Dependency changes, even if it's noted in bug fixes section, shouldn't appear here.
+    Truth.assertThat(notableChangelog).doesNotContainMatch("deps:");
   }
 
   @Test
