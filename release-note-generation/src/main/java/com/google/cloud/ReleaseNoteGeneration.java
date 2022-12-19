@@ -515,7 +515,14 @@ public class ReleaseNoteGeneration {
                   fetchClientLibraryNotableChangeLog(splitRepoName, versionsForReleaseNotes);
               if (!changelog.isEmpty()) {
                 // Only print library name when there are notable changes
-                report.append("## ").append(artifactId).append("\n");
+                report
+                    .append("## ")
+                    .append(artifactId)
+                    .append(" ")
+                    .append(currentVersion)
+                    .append(" (prev: ")
+                    .append(previousVersion)
+                    .append(")");
                 report.append(changelog).append("\n");
               }
             } catch (MavenRepositoryException | IOException | InterruptedException ex) {
