@@ -39,6 +39,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.commons.codec.Charsets;
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.artifact.Artifact;
@@ -53,6 +55,7 @@ public class ReleaseNoteGeneration {
   private static final Splitter dotSplitter = Splitter.on(".");
   private static final String cloudLibraryArtifactPrefix = "com.google.cloud:google-cloud-";
   private static final String RELEASE_NOTE_FILE_NAME = "release_note.md";
+  private static final String GOOGLEAPIS_ORG = "googleapis";
 
   private static final ImmutableSet<String> splitRepositoryLibraryNames =
       ImmutableSet.of(
@@ -124,7 +127,7 @@ public class ReleaseNoteGeneration {
     DefaultArtifact bomArtifact = new DefaultArtifact(bom.getCoordinates());
     report.append("GCP Libraries BOM " + bomArtifact.getVersion() + "\n\n");
 
-    printCloudClientBomDifference(previousBom, bom);
+    reportCloudClientBomDifference(previousBom, bom);
     report.append("\n");
     printKeyCoreLibraryDependencies(bom);
     report.append("\n");
@@ -234,7 +237,7 @@ public class ReleaseNoteGeneration {
     return ImmutableMap.copyOf(versionLessCoordinatesToVersion);
   }
 
-  private void printCloudClientBomDifference(Bom oldBom, Bom newBom)
+  private void reportCloudClientBomDifference(Bom oldBom, Bom newBom)
       throws MavenRepositoryException {
     Map<String, String> versionlessCoordinatesToVersionOld =
         createVersionLessCoordinatesToKey(oldBom);
@@ -293,9 +296,16 @@ public class ReleaseNoteGeneration {
         patchVersionBumpVersionlessCoordinates.add(versionlessCoordinates);
       }
     }
+
+    reportClientLibrariesNotableChangeLogs(
+        minorVersionBumpVersionlessCoordinates,
+        versionlessCoordinatesToVersionOld,
+        versionlessCoordinatesToVersionNew
+    );
+
     if (!majorVersionBumpVersionlessCoordinates.isEmpty()) {
       report.append("## Major Version Upgrades\n");
-      printClientLibraryVersionDifference(
+      reportClientLibraryVersionDifference(
           majorVersionBumpVersionlessCoordinates,
           versionlessCoordinatesToVersionOld,
           versionlessCoordinatesToVersionNew);
@@ -303,7 +313,7 @@ public class ReleaseNoteGeneration {
 
     if (!minorVersionBumpVersionlessCoordinates.isEmpty()) {
       report.append("## Minor Version Upgrades\n");
-      printClientLibraryVersionDifference(
+      reportClientLibraryVersionDifference(
           minorVersionBumpVersionlessCoordinates,
           versionlessCoordinatesToVersionOld,
           versionlessCoordinatesToVersionNew);
@@ -311,7 +321,7 @@ public class ReleaseNoteGeneration {
 
     if (!patchVersionBumpVersionlessCoordinates.isEmpty()) {
       report.append("## Patch Version Upgrades\n");
-      printClientLibraryVersionDifference(
+      reportClientLibraryVersionDifference(
           patchVersionBumpVersionlessCoordinates,
           versionlessCoordinatesToVersionOld,
           versionlessCoordinatesToVersionNew);
@@ -342,7 +352,7 @@ public class ReleaseNoteGeneration {
    * [v2.6.0](https://github.com/googleapis/google-cloud-java/releases/tag/google-cloud-billing-v2.6.0))}
    */
   @VisibleForTesting
-  void printClientLibraryVersionDifference(
+  void reportClientLibraryVersionDifference(
       Iterable<String> artifactsInBothBoms,
       Map<String, String> versionlessCoordinatesToVersionOld,
       Map<String, String> versionlessCoordinatesToVersionNew)
@@ -464,6 +474,62 @@ public class ReleaseNoteGeneration {
     return previousVersionElements.get(0).equals(currentVersionElements.get(0))
         && previousVersionElements.get(1).equals(currentVersionElements.get(1))
         && !previousVersionElements.get(2).equals(currentVersionElements.get(2));
+  }
+
+  /**
+   * Writes user-relevant changelogs for the set of client libraries ({@code artifactsInBothBoms}).
+   *
+   * <p>The user-relevant changelogs include bug fixes and new features.
+   *
+   * <p>The old versions are stored in {@code versionlessCoordinatesToVersionOld} and the new
+   * versions are in {@code versionlessCoordinatesToVersionNew}. This method fetches the changelogs
+   * in between the two versions, not including the old version.
+   */
+  @VisibleForTesting
+  void reportClientLibrariesNotableChangeLogs(
+      Iterable<String> artifactsInBothBoms,
+      Map<String, String> versionlessCoordinatesToVersionOld,
+      Map<String, String> versionlessCoordinatesToVersionNew) {
+    
+  }
+
+  /**
+   * Writes the user-relevant changelog for the {@code versions} of the artifact from the {@code
+   * repository}.
+   */
+  @VisibleForTesting
+  static String fetchClientLibraryNotableChangeLog(String repository, Iterable<String> versions)
+      throws IOException, InterruptedException {
+    StringBuilder relevantChangelog = new StringBuilder();
+
+    for (String version : versions) {
+      String rawReleaseNote = fetchReleaseNote(GOOGLEAPIS_ORG, repository, "v" + version);
+      relevantChangelog.append(filterOnlyRelevantChangelog(rawReleaseNote));
+    }
+
+    return relevantChangelog.toString();
+  }
+
+  static final Pattern featuresSectionPattern =
+      Pattern.compile("### Features\n(.+?)###", Pattern.MULTILINE | Pattern.DOTALL);
+  static final Pattern bugFixSectionPattern =
+      Pattern.compile("### Bug Fixes\n(.+?)###", Pattern.MULTILINE | Pattern.DOTALL);
+
+  @VisibleForTesting
+  static String filterOnlyRelevantChangelog(String changelog) {
+    StringBuilder relevantChangelog = new StringBuilder();
+    Matcher newFeatureMatcher = featuresSectionPattern.matcher(changelog);
+    Matcher bugFixMatcher = bugFixSectionPattern.matcher(changelog);
+
+    for (Matcher matcher : ImmutableList.of(newFeatureMatcher, bugFixMatcher)) {
+      if (matcher.find()) {
+        String matchedSection = matcher.group(1);
+        String sectionFormatted = matchedSection.replaceAll("^$", "");
+        relevantChangelog.append(sectionFormatted);
+      }
+    }
+
+    return relevantChangelog.toString();
   }
 
   /**
