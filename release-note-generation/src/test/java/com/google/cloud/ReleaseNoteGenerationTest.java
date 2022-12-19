@@ -110,7 +110,7 @@ public class ReleaseNoteGenerationTest {
   }
 
   @Test
-  public void testFilterOnlyRelevantChangelog() throws Exception {
+  public void testFilterOnlyRelevantChangelog_splitRepo() throws Exception {
     String rawChangelog =
         "### Features\n"
             + "\n"
@@ -128,6 +128,7 @@ public class ReleaseNoteGenerationTest {
             + "* Removed WriteObject routing annotations"
             + " ([31c1b18](https://github.com/googleapis/java-storage/commit/31c1b18acc3c118e39eb613a82ee292f3e246b8f))\n"
             + "* Disable REGAPIC transport in storage v2\n"
+            + "* **deps:** update dependency com.google.apis:google-api-services-dns to v1-rev20221110-2.0.0\n"
             + "\n"
             + "\n"
             + "### Documentation";
@@ -148,6 +149,9 @@ public class ReleaseNoteGenerationTest {
     Truth.assertThat(notableChangelog).doesNotContainMatch("^$");
     // The list item is replaced with "- "
     Truth.assertThat(notableChangelog).doesNotContainMatch("^\\* ");
+
+    // Dependency changes, even if it's noted in bug fixes section, shouldn't appear here.
+    Truth.assertThat(notableChangelog).doesNotContainMatch("deps:");
   }
 
   @Test

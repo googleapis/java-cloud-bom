@@ -42,10 +42,16 @@ jobs:
     - name: Generate release_note.md
       shell: bash
       run: |
+        set -x
         mvn -B -ntp compile
+
+        GOOGLE_CLOUD_JAVA_VERSION=$(grep -A1 'gapic-libraries-bom' \
+            ../google-cloud-bom/pom.xml |perl -nle 'print $1 if m/<version>(.+)</')
+
         # This generates release_note.md file
         mvn -B -ntp exec:java \
-            -Dexec.args="com.google.cloud:libraries-bom:${LIBRARIES_BOM_VERSION}"
+            -Dlibraries-bom.version="${LIBRARIES_BOM_VERSION}" \
+            -Dgoogle-cloud-java.version="${GOOGLE_CLOUD_JAVA_VERSION}"
       working-directory: release-note-generation
       env:
         LIBRARIES_BOM_VERSION: ${{ steps.pick-version.outputs.libraries-bom-version }}
