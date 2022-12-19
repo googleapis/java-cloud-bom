@@ -25,6 +25,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.base.Verify;
+import com.google.common.base.VerifyException;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -38,6 +39,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -273,10 +276,10 @@ public class ReleaseNoteGeneration {
                 + versionlessCoordinatesToVersionNew.get(versionlessCoordinates)
                 + "\n");
       }
+      report.append("\n");
     }
 
-    report.append("# Version Upgrades\n\n");
-    report.append("The group ID of the following artifacts is `com.google.cloud`.\n");
+    report.append("The group ID of the following artifacts is `com.google.cloud`.\n\n");
     SetView<String> artifactsInBothBoms =
         Sets.intersection(
             cloudLibrariesVersionlessCoordinatesInNew, cloudLibrariesVersionlessCoordinatesInOld);
@@ -297,12 +300,13 @@ public class ReleaseNoteGeneration {
       }
     }
 
+    report.append("# Notable Changes\n\n");
     reportClientLibrariesNotableChangeLogs(
         minorVersionBumpVersionlessCoordinates,
         versionlessCoordinatesToVersionOld,
-        versionlessCoordinatesToVersionNew
-    );
+        versionlessCoordinatesToVersionNew);
 
+    report.append("# Version Upgrades\n\n");
     if (!majorVersionBumpVersionlessCoordinates.isEmpty()) {
       report.append("## Major Version Upgrades\n");
       reportClientLibraryVersionDifference(
@@ -490,7 +494,42 @@ public class ReleaseNoteGeneration {
       Iterable<String> artifactsInBothBoms,
       Map<String, String> versionlessCoordinatesToVersionOld,
       Map<String, String> versionlessCoordinatesToVersionNew) {
-    
+
+    for (String versionlessCoordinates : artifactsInBothBoms) {
+      List<String> coordinates = Splitter.on(":").splitToList(versionlessCoordinates);
+      String artifactId = coordinates.get(1);
+      String previousVersion = versionlessCoordinatesToVersionOld.get(versionlessCoordinates);
+      String currentVersion = versionlessCoordinatesToVersionNew.get(versionlessCoordinates);
+      Optional<String> matchingSplitRepoName =
+          splitRepositoryLibraryNames.stream()
+              .map(libraryName -> artifactId.endsWith(libraryName) ? "java-" + libraryName : null)
+              .filter(Objects::nonNull)
+              .findFirst();
+      matchingSplitRepoName.ifPresent(
+          splitRepoName -> {
+            try {
+              ImmutableList<String> versionsForReleaseNotes =
+                  clientLibraryReleaseNoteVersions(
+                      versionlessCoordinates, previousVersion, currentVersion);
+              String changelog =
+                  fetchClientLibraryNotableChangeLog(splitRepoName, versionsForReleaseNotes);
+              if (!changelog.isEmpty()) {
+                // Only print library name when there are notable changes
+                report.append("## ").append(artifactId).append("\n");
+                report.append(changelog).append("\n");
+              }
+            } catch (MavenRepositoryException | IOException | InterruptedException ex) {
+              throw new VerifyException(
+                  "Couldn't write notable changelog for "
+                      + versionlessCoordinates
+                      + "'s versions between "
+                      + previousVersion
+                      + " and "
+                      + currentVersion,
+                  ex);
+            }
+          });
+    }
   }
 
   /**
@@ -514,6 +553,7 @@ public class ReleaseNoteGeneration {
       Pattern.compile("### Features\n(.+?)###", Pattern.MULTILINE | Pattern.DOTALL);
   static final Pattern bugFixSectionPattern =
       Pattern.compile("### Bug Fixes\n(.+?)###", Pattern.MULTILINE | Pattern.DOTALL);
+  static final String irrelevantFeaturePattern = "(?m)^.+Next release from main branch.+\n";
 
   @VisibleForTesting
   static String filterOnlyRelevantChangelog(String changelog) {
@@ -524,12 +564,17 @@ public class ReleaseNoteGeneration {
     for (Matcher matcher : ImmutableList.of(newFeatureMatcher, bugFixMatcher)) {
       if (matcher.find()) {
         String matchedSection = matcher.group(1);
-        String sectionFormatted = matchedSection.replaceAll("^$", "");
-        relevantChangelog.append(sectionFormatted);
+        String matchedSectionIrrelevantRemoved =
+            matchedSection.replaceAll(irrelevantFeaturePattern, "");
+        relevantChangelog.append(matchedSectionIrrelevantRemoved);
       }
     }
 
-    return relevantChangelog.toString();
+    return relevantChangelog
+        .toString()
+        // Remove empty lines
+        .replaceAll("(?m)^\n$", "")
+        .replaceAll("(?m)^\\* ", "- ");
   }
 
   /**

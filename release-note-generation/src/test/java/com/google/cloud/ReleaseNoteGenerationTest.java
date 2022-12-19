@@ -88,6 +88,9 @@ public class ReleaseNoteGenerationTest {
   }
 
   @Test
+  public void testReportClientLibrariesNotableChangeLogs() throws Exception {}
+
+  @Test
   public void testFetchClientLibraryNotableChangeLog() throws Exception {
     String notableChangelog =
         ReleaseNoteGeneration.fetchClientLibraryNotableChangeLog(
@@ -95,10 +98,10 @@ public class ReleaseNoteGenerationTest {
 
     // A new feature in 2.16.0
     Truth.assertThat(notableChangelog)
-        .contains("* Added a new retention_duration field of Duration type");
+        .contains("- Added a new retention_duration field of Duration type");
 
     // A bug fix in 2.15.1
-    Truth.assertThat(notableChangelog).contains("* Disable REGAPIC transport in storage v2");
+    Truth.assertThat(notableChangelog).contains("- Disable REGAPIC transport in storage v2");
 
     // A dependency update in 2.16.0. A dependency update is not notable.
     Truth.assertThat(notableChangelog).doesNotContain("native-maven-plugin");
@@ -117,6 +120,7 @@ public class ReleaseNoteGenerationTest {
             + " ([31c1b18](https://github.com/googleapis/java-storage/commit/31c1b18acc3c118e39eb613a82ee292f3e246b8f))\n"
             + "* Added a new retention_duration field of Duration type"
             + " ([31c1b18](https://github.com/googleapis/java-storage/commit/31c1b18acc3c118e39eb613a82ee292f3e246b8f))\n"
+            + "* Next release from main branch is 1.122.0\n"
             + "\n"
             + "\n"
             + "### Bug Fixes\n"
@@ -130,15 +134,20 @@ public class ReleaseNoteGenerationTest {
     String notableChangelog = ReleaseNoteGeneration.filterOnlyRelevantChangelog(rawChangelog);
     // A new feature in 2.16.0
     Truth.assertThat(notableChangelog)
-        .contains("* Added a new retention_duration field of Duration type");
+        .contains("- Added a new retention_duration field of Duration type");
 
     // A bug fix in 2.15.1
-    Truth.assertThat(notableChangelog).contains("* Disable REGAPIC transport in storage v2");
+    Truth.assertThat(notableChangelog).contains("- Disable REGAPIC transport in storage v2");
 
     // A dependency update in 2.16.0. A dependency update is not notable.
     Truth.assertThat(notableChangelog).doesNotContain("native-maven-plugin");
 
+    // The forced minor version upgrade is irrelevant to customer
+    Truth.assertThat(notableChangelog).doesNotContain("1.122.0");
+
     Truth.assertThat(notableChangelog).doesNotContainMatch("^$");
+    // The list item is replaced with "- "
+    Truth.assertThat(notableChangelog).doesNotContainMatch("^\\* ");
   }
 
   @Test
