@@ -16,6 +16,8 @@
 
 package com.google.cloud;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
+
 import com.google.cloud.tools.opensource.dependencies.Artifacts;
 import com.google.cloud.tools.opensource.dependencies.Bom;
 import com.google.cloud.tools.opensource.dependencies.MavenRepositoryException;
@@ -31,6 +33,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Sets.SetView;
+import com.google.common.collect.Streams;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
@@ -95,14 +98,15 @@ public class ReleaseNoteGeneration {
 
   /** Generates release note of specified Libraries BOM version to file "release_note.md". */
   public static void main(String[] arguments)
-      throws ArtifactDescriptorException, MavenRepositoryException, IOException,
+      throws ArtifactDescriptorException,
+          MavenRepositoryException,
+          IOException,
           InterruptedException {
 
-    if (arguments.length != 1) {}
     String librariesBomVersion = System.getProperty("libraries-bom.version");
     if (librariesBomVersion == null) {
       System.out.println(
-          "Please provide BOM coordinates. For example," + "-Dlibraries-bom.version=26.2.0");
+          "Please provide Libraries BOM version. For example," + "-Dlibraries-bom.version=26.2.0");
       System.exit(1);
     }
 
@@ -130,7 +134,9 @@ public class ReleaseNoteGeneration {
 
   @VisibleForTesting
   String generateReport(Bom bom, String googleCloudJavaVersion)
-      throws MavenRepositoryException, ArtifactDescriptorException, IOException,
+      throws MavenRepositoryException,
+          ArtifactDescriptorException,
+          IOException,
           InterruptedException {
     Bom previousBom = previousBom(bom);
 
@@ -320,7 +326,8 @@ public class ReleaseNoteGeneration {
       reportClientLibraryVersionDifference(
           majorVersionBumpVersionlessCoordinates,
           versionlessCoordinatesToVersionOld,
-          versionlessCoordinatesToVersionNew);
+          versionlessCoordinatesToVersionNew,
+          googleCloudJavaVersion);
     }
 
     if (!minorVersionBumpVersionlessCoordinates.isEmpty()) {
@@ -328,7 +335,8 @@ public class ReleaseNoteGeneration {
       reportClientLibraryVersionDifference(
           minorVersionBumpVersionlessCoordinates,
           versionlessCoordinatesToVersionOld,
-          versionlessCoordinatesToVersionNew);
+          versionlessCoordinatesToVersionNew,
+          googleCloudJavaVersion);
     }
 
     if (!patchVersionBumpVersionlessCoordinates.isEmpty()) {
@@ -336,7 +344,8 @@ public class ReleaseNoteGeneration {
       reportClientLibraryVersionDifference(
           patchVersionBumpVersionlessCoordinates,
           versionlessCoordinatesToVersionOld,
-          versionlessCoordinatesToVersionNew);
+          versionlessCoordinatesToVersionNew,
+          googleCloudJavaVersion);
     }
 
     SetView<String> artifactsOnlyInOld =
@@ -367,7 +376,8 @@ public class ReleaseNoteGeneration {
   void reportClientLibraryVersionDifference(
       Iterable<String> artifactsInBothBoms,
       Map<String, String> versionlessCoordinatesToVersionOld,
-      Map<String, String> versionlessCoordinatesToVersionNew)
+      Map<String, String> versionlessCoordinatesToVersionNew,
+      String googleCloudJavaVersion)
       throws MavenRepositoryException {
 
     for (String versionlessCoordinates : artifactsInBothBoms) {
@@ -408,7 +418,7 @@ public class ReleaseNoteGeneration {
         String releaseUrl =
             splitRepositoryLibraryNames.contains(libraryName)
                 ? releaseUrlForSplitRepo(libraryName, version)
-                : releaseUrlForMonorepo(libraryName, version);
+                : releaseUrlForMonorepo(libraryName, googleCloudJavaVersion);
         links.add(String.format("[v%s](%s)", versionForReleaseNotes, releaseUrl));
       }
       line.append(Joiner.on(", ").join(links)).append(")");
@@ -423,9 +433,9 @@ public class ReleaseNoteGeneration {
   }
 
   private static String releaseUrlForMonorepo(String libraryName, String version) {
+    // libraryName is unused for the monorepo release note as of Dec 2022
     return String.format(
-        "https://github.com/googleapis/google-cloud-java/releases/tag/google-cloud-%s-v%s",
-        libraryName, version);
+        "https://github.com/googleapis/google-cloud-java/releases/tag/v%s", version);
   }
 
   /**
@@ -505,7 +515,10 @@ public class ReleaseNoteGeneration {
       String googleCloudJavaVersion)
       throws IOException, InterruptedException {
 
-    for (String versionlessCoordinates : artifactsInBothBoms) {
+    ImmutableList<String> sortedVersionlessCoordinates =
+        Streams.stream(artifactsInBothBoms).sorted().collect(toImmutableList());
+
+    for (String versionlessCoordinates : sortedVersionlessCoordinates) {
       List<String> coordinates = Splitter.on(":").splitToList(versionlessCoordinates);
       String artifactId = coordinates.get(1);
       String previousVersion = versionlessCoordinatesToVersionOld.get(versionlessCoordinates);
