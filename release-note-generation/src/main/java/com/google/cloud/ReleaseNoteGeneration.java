@@ -25,6 +25,7 @@ import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.base.Verify;
+import com.google.common.base.VerifyException;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
@@ -38,6 +39,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.commons.codec.Charsets;
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.artifact.Artifact;
@@ -52,6 +58,7 @@ public class ReleaseNoteGeneration {
   private static final Splitter dotSplitter = Splitter.on(".");
   private static final String cloudLibraryArtifactPrefix = "com.google.cloud:google-cloud-";
   private static final String RELEASE_NOTE_FILE_NAME = "release_note.md";
+  private static final String GOOGLEAPIS_ORG = "googleapis";
 
   private static final ImmutableSet<String> splitRepositoryLibraryNames =
       ImmutableSet.of(
@@ -123,7 +130,7 @@ public class ReleaseNoteGeneration {
     DefaultArtifact bomArtifact = new DefaultArtifact(bom.getCoordinates());
     report.append("GCP Libraries BOM " + bomArtifact.getVersion() + "\n\n");
 
-    printCloudClientBomDifference(previousBom, bom);
+    reportCloudClientBomDifference(previousBom, bom);
     report.append("\n");
     printKeyCoreLibraryDependencies(bom);
     report.append("\n");
@@ -233,7 +240,7 @@ public class ReleaseNoteGeneration {
     return ImmutableMap.copyOf(versionLessCoordinatesToVersion);
   }
 
-  private void printCloudClientBomDifference(Bom oldBom, Bom newBom)
+  private void reportCloudClientBomDifference(Bom oldBom, Bom newBom)
       throws MavenRepositoryException {
     Map<String, String> versionlessCoordinatesToVersionOld =
         createVersionLessCoordinatesToKey(oldBom);
@@ -269,10 +276,10 @@ public class ReleaseNoteGeneration {
                 + versionlessCoordinatesToVersionNew.get(versionlessCoordinates)
                 + "\n");
       }
+      report.append("\n");
     }
 
-    report.append("# Version Upgrades\n\n");
-    report.append("The group ID of the following artifacts is `com.google.cloud`.\n");
+    report.append("The group ID of the following artifacts is `com.google.cloud`.\n\n");
     SetView<String> artifactsInBothBoms =
         Sets.intersection(
             cloudLibrariesVersionlessCoordinatesInNew, cloudLibrariesVersionlessCoordinatesInOld);
@@ -292,9 +299,17 @@ public class ReleaseNoteGeneration {
         patchVersionBumpVersionlessCoordinates.add(versionlessCoordinates);
       }
     }
+
+    report.append("# Notable Changes\n\n");
+    reportClientLibrariesNotableChangeLogs(
+        minorVersionBumpVersionlessCoordinates,
+        versionlessCoordinatesToVersionOld,
+        versionlessCoordinatesToVersionNew);
+
+    report.append("# Version Upgrades\n\n");
     if (!majorVersionBumpVersionlessCoordinates.isEmpty()) {
       report.append("## Major Version Upgrades\n");
-      printClientLibraryVersionDifference(
+      reportClientLibraryVersionDifference(
           majorVersionBumpVersionlessCoordinates,
           versionlessCoordinatesToVersionOld,
           versionlessCoordinatesToVersionNew);
@@ -302,7 +317,7 @@ public class ReleaseNoteGeneration {
 
     if (!minorVersionBumpVersionlessCoordinates.isEmpty()) {
       report.append("## Minor Version Upgrades\n");
-      printClientLibraryVersionDifference(
+      reportClientLibraryVersionDifference(
           minorVersionBumpVersionlessCoordinates,
           versionlessCoordinatesToVersionOld,
           versionlessCoordinatesToVersionNew);
@@ -310,7 +325,7 @@ public class ReleaseNoteGeneration {
 
     if (!patchVersionBumpVersionlessCoordinates.isEmpty()) {
       report.append("## Patch Version Upgrades\n");
-      printClientLibraryVersionDifference(
+      reportClientLibraryVersionDifference(
           patchVersionBumpVersionlessCoordinates,
           versionlessCoordinatesToVersionOld,
           versionlessCoordinatesToVersionNew);
@@ -341,7 +356,7 @@ public class ReleaseNoteGeneration {
    * [v2.6.0](https://github.com/googleapis/google-cloud-java/releases/tag/google-cloud-billing-v2.6.0))}
    */
   @VisibleForTesting
-  void printClientLibraryVersionDifference(
+  void reportClientLibraryVersionDifference(
       Iterable<String> artifactsInBothBoms,
       Map<String, String> versionlessCoordinatesToVersionOld,
       Map<String, String> versionlessCoordinatesToVersionNew)
@@ -463,5 +478,129 @@ public class ReleaseNoteGeneration {
     return previousVersionElements.get(0).equals(currentVersionElements.get(0))
         && previousVersionElements.get(1).equals(currentVersionElements.get(1))
         && !previousVersionElements.get(2).equals(currentVersionElements.get(2));
+  }
+
+  /**
+   * Writes user-relevant changelogs for the set of client libraries ({@code artifactsInBothBoms}).
+   *
+   * <p>The user-relevant changelogs include bug fixes and new features.
+   *
+   * <p>The old versions are stored in {@code versionlessCoordinatesToVersionOld} and the new
+   * versions are in {@code versionlessCoordinatesToVersionNew}. This method fetches the changelogs
+   * in between the two versions, not including the old version.
+   */
+  @VisibleForTesting
+  void reportClientLibrariesNotableChangeLogs(
+      Iterable<String> artifactsInBothBoms,
+      Map<String, String> versionlessCoordinatesToVersionOld,
+      Map<String, String> versionlessCoordinatesToVersionNew) {
+
+    for (String versionlessCoordinates : artifactsInBothBoms) {
+      List<String> coordinates = Splitter.on(":").splitToList(versionlessCoordinates);
+      String artifactId = coordinates.get(1);
+      String previousVersion = versionlessCoordinatesToVersionOld.get(versionlessCoordinates);
+      String currentVersion = versionlessCoordinatesToVersionNew.get(versionlessCoordinates);
+      Optional<String> matchingSplitRepoName =
+          splitRepositoryLibraryNames.stream()
+              .map(libraryName -> artifactId.endsWith(libraryName) ? "java-" + libraryName : null)
+              .filter(Objects::nonNull)
+              .findFirst();
+      matchingSplitRepoName.ifPresent(
+          splitRepoName -> {
+            try {
+              ImmutableList<String> versionsForReleaseNotes =
+                  clientLibraryReleaseNoteVersions(
+                      versionlessCoordinates, previousVersion, currentVersion);
+              String changelog =
+                  fetchClientLibraryNotableChangeLog(splitRepoName, versionsForReleaseNotes);
+              if (!changelog.isEmpty()) {
+                // Only print library name when there are notable changes
+                report
+                    .append("## ")
+                    .append(artifactId)
+                    .append(" ")
+                    .append(currentVersion)
+                    .append(" (prev: ")
+                    .append(previousVersion)
+                    .append(")");
+                report.append(changelog).append("\n");
+              }
+            } catch (MavenRepositoryException | IOException | InterruptedException ex) {
+              throw new VerifyException(
+                  "Couldn't write notable changelog for "
+                      + versionlessCoordinates
+                      + "'s versions between "
+                      + previousVersion
+                      + " and "
+                      + currentVersion,
+                  ex);
+            }
+          });
+    }
+  }
+
+  /**
+   * Writes the user-relevant changelog for the {@code versions} of the artifact from the {@code
+   * repository}.
+   */
+  @VisibleForTesting
+  static String fetchClientLibraryNotableChangeLog(String repository, Iterable<String> versions)
+      throws IOException, InterruptedException {
+    StringBuilder relevantChangelog = new StringBuilder();
+
+    for (String version : versions) {
+      String rawReleaseNote = fetchReleaseNote(GOOGLEAPIS_ORG, repository, "v" + version);
+      relevantChangelog.append(filterOnlyRelevantChangelog(rawReleaseNote));
+    }
+
+    return relevantChangelog.toString();
+  }
+
+  static final Pattern featuresSectionPattern =
+      Pattern.compile("### Features\n(.+?)###", Pattern.MULTILINE | Pattern.DOTALL);
+  static final Pattern bugFixSectionPattern =
+      Pattern.compile("### Bug Fixes\n(.+?)###", Pattern.MULTILINE | Pattern.DOTALL);
+  static final String irrelevantFeaturePattern = "(?m)^.+Next release from main branch.+\n";
+
+  @VisibleForTesting
+  static String filterOnlyRelevantChangelog(String changelog) {
+    StringBuilder relevantChangelog = new StringBuilder();
+    Matcher newFeatureMatcher = featuresSectionPattern.matcher(changelog);
+    Matcher bugFixMatcher = bugFixSectionPattern.matcher(changelog);
+
+    for (Matcher matcher : ImmutableList.of(newFeatureMatcher, bugFixMatcher)) {
+      if (matcher.find()) {
+        String matchedSection = matcher.group(1);
+        String matchedSectionIrrelevantRemoved =
+            matchedSection.replaceAll(irrelevantFeaturePattern, "");
+        relevantChangelog.append(matchedSectionIrrelevantRemoved);
+      }
+    }
+
+    return relevantChangelog
+        .toString()
+        // Remove empty lines
+        .replaceAll("(?m)^\n$", "")
+        .replaceAll("(?m)^\\* ", "- ");
+  }
+
+  /**
+   * Returns the release note content of the release of {@code tag} of {@code owner}/ {@code
+   * repository}.
+   */
+  @VisibleForTesting
+  static String fetchReleaseNote(String owner, String repository, String tag)
+      throws IOException, InterruptedException {
+    // gh release --repo googleapis/java-storage view v2.16.0
+
+    ProcessBuilder builder =
+        new ProcessBuilder("gh", "release", "--repo", owner + "/" + repository, "view", tag);
+    Process process = builder.start();
+    String errorOutput = new String(process.getErrorStream().readAllBytes());
+    boolean finished = process.waitFor(1, TimeUnit.MINUTES);
+    Verify.verify(finished, "The process timed out");
+    Verify.verify(0 == process.exitValue(), "The command failed: %s", errorOutput);
+    String output = new String(process.getInputStream().readAllBytes());
+    return output;
   }
 }

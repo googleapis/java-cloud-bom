@@ -18,6 +18,8 @@ jobs:
       run: |
         mvn -B -ntp verify
       working-directory: release-note-generation
+      env:
+        GH_TOKEN: ${{ github.token }}
 
   dry-run:
     runs-on: ubuntu-latest
@@ -36,6 +38,8 @@ jobs:
         mvn -B -ntp exec:java \
             -Dexec.args="com.google.cloud:libraries-bom:26.1.5"
       working-directory: release-note-generation
+      env:
+        GH_TOKEN: ${{ github.token }}
     - name: Show generated release note
       shell: bash
       run: |

@@ -60,7 +60,7 @@ public class ReleaseNoteGenerationTest {
   @Test
   public void testPrintClientLibraryVersionDifference() throws Exception {
     ReleaseNoteGeneration generation = new ReleaseNoteGeneration();
-    generation.printClientLibraryVersionDifference(
+    generation.reportClientLibraryVersionDifference(
         ImmutableList.of(
             "com.google.cloud:google-cloud-redis", "com.google.cloud:google-cloud-logging"),
         ImmutableMap.of(
@@ -85,5 +85,80 @@ public class ReleaseNoteGenerationTest {
                 + "[v3.12.1](https://github.com/googleapis/java-logging/releases/tag/v3.12.1), "
                 + "[v3.13.0](https://github.com/googleapis/java-logging/releases/tag/v3.13.0), "
                 + "[v3.13.1](https://github.com/googleapis/java-logging/releases/tag/v3.13.1))");
+  }
+
+  @Test
+  public void testReportClientLibrariesNotableChangeLogs() throws Exception {}
+
+  @Test
+  public void testFetchClientLibraryNotableChangeLog() throws Exception {
+    String notableChangelog =
+        ReleaseNoteGeneration.fetchClientLibraryNotableChangeLog(
+            "java-storage", ImmutableList.of("2.16.0", "2.15.1"));
+
+    // A new feature in 2.16.0
+    Truth.assertThat(notableChangelog)
+        .contains("- Added a new retention_duration field of Duration type");
+
+    // A bug fix in 2.15.1
+    Truth.assertThat(notableChangelog).contains("- Disable REGAPIC transport in storage v2");
+
+    // A dependency update in 2.16.0. A dependency update is not notable.
+    Truth.assertThat(notableChangelog).doesNotContain("native-maven-plugin");
+
+    Truth.assertThat(notableChangelog).doesNotContainMatch("^$");
+  }
+
+  @Test
+  public void testFilterOnlyRelevantChangelog() throws Exception {
+    String rawChangelog =
+        "### Features\n"
+            + "\n"
+            + "* Add {Compose,Rewrite,StartResumableWrite}Request.object_checksums and"
+            + " Bucket.RetentionPolicy.retention_duration"
+            + " ([#1790](https://github.com/googleapis/java-storage/issues/1790))"
+            + " ([31c1b18](https://github.com/googleapis/java-storage/commit/31c1b18acc3c118e39eb613a82ee292f3e246b8f))\n"
+            + "* Added a new retention_duration field of Duration type"
+            + " ([31c1b18](https://github.com/googleapis/java-storage/commit/31c1b18acc3c118e39eb613a82ee292f3e246b8f))\n"
+            + "* Next release from main branch is 1.122.0\n"
+            + "\n"
+            + "\n"
+            + "### Bug Fixes\n"
+            + "\n"
+            + "* Removed WriteObject routing annotations"
+            + " ([31c1b18](https://github.com/googleapis/java-storage/commit/31c1b18acc3c118e39eb613a82ee292f3e246b8f))\n"
+            + "* Disable REGAPIC transport in storage v2\n"
+            + "\n"
+            + "\n"
+            + "### Documentation";
+    String notableChangelog = ReleaseNoteGeneration.filterOnlyRelevantChangelog(rawChangelog);
+    // A new feature in 2.16.0
+    Truth.assertThat(notableChangelog)
+        .contains("- Added a new retention_duration field of Duration type");
+
+    // A bug fix in 2.15.1
+    Truth.assertThat(notableChangelog).contains("- Disable REGAPIC transport in storage v2");
+
+    // A dependency update in 2.16.0. A dependency update is not notable.
+    Truth.assertThat(notableChangelog).doesNotContain("native-maven-plugin");
+
+    // The forced minor version upgrade is irrelevant to customer
+    Truth.assertThat(notableChangelog).doesNotContain("1.122.0");
+
+    Truth.assertThat(notableChangelog).doesNotContainMatch("^$");
+    // The list item is replaced with "- "
+    Truth.assertThat(notableChangelog).doesNotContainMatch("^\\* ");
+  }
+
+  @Test
+  public void testFetchReleaseNote() throws Exception {
+    String storageReleaseNote2_16_0 =
+        ReleaseNoteGeneration.fetchReleaseNote("googleapis", "java-storage", "v2.16.0");
+    Truth.assertThat(storageReleaseNote2_16_0)
+        .contains(
+            "* Add {Compose,Rewrite,StartResumableWrite}Request.object_checksums and"
+                + " Bucket.RetentionPolicy.retention_duration"
+                + " ([#1790](https://github.com/googleapis/java-storage/issues/1790)) "
+                + "([31c1b18](https://github.com/googleapis/java-storage/commit/31c1b18acc3c118e39eb613a82ee292f3e246b8f))");
   }
 }

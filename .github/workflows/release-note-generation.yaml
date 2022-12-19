@@ -49,6 +49,7 @@ jobs:
       working-directory: release-note-generation
       env:
         LIBRARIES_BOM_VERSION: ${{ steps.pick-version.outputs.libraries-bom-version }}
+        GH_TOKEN: ${{ github.token }}
     - name: Update the release note with release_note.md
       run: |
         TAG="libraries-bom-v${LIBRARIES_BOM_VERSION}"
