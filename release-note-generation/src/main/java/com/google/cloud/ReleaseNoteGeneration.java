@@ -34,7 +34,6 @@ import com.google.common.collect.Sets.SetView;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,15 +95,14 @@ public class ReleaseNoteGeneration {
 
   /** Generates release note of specified Libraries BOM version to file "release_note.md". */
   public static void main(String[] arguments)
-      throws ArtifactDescriptorException, MavenRepositoryException, IOException, InterruptedException {
+      throws ArtifactDescriptorException, MavenRepositoryException, IOException,
+          InterruptedException {
 
-    if (arguments.length != 1) {
-    }
+    if (arguments.length != 1) {}
     String librariesBomVersion = System.getProperty("libraries-bom.version");
     if (librariesBomVersion == null) {
       System.out.println(
-          "Please provide BOM coordinates. For example,"
-              + "-Dlibraries-bom.version=26.2.0");
+          "Please provide BOM coordinates. For example," + "-Dlibraries-bom.version=26.2.0");
       System.exit(1);
     }
 
@@ -116,7 +114,7 @@ public class ReleaseNoteGeneration {
       System.exit(1);
     }
 
-    Bom bom = Bom.readBom("com.google.cloud:libraries-bom:"+librariesBomVersion);
+    Bom bom = Bom.readBom("com.google.cloud:libraries-bom:" + librariesBomVersion);
 
     ReleaseNoteGeneration generation = new ReleaseNoteGeneration();
     String report = generation.generateReport(bom, googleCloudJavaVersion);
@@ -132,7 +130,8 @@ public class ReleaseNoteGeneration {
 
   @VisibleForTesting
   String generateReport(Bom bom, String googleCloudJavaVersion)
-      throws MavenRepositoryException, ArtifactDescriptorException, IOException, InterruptedException {
+      throws MavenRepositoryException, ArtifactDescriptorException, IOException,
+          InterruptedException {
     Bom previousBom = previousBom(bom);
 
     DefaultArtifact bomArtifact = new DefaultArtifact(bom.getCoordinates());
@@ -248,8 +247,7 @@ public class ReleaseNoteGeneration {
     return ImmutableMap.copyOf(versionLessCoordinatesToVersion);
   }
 
-  private void reportCloudClientBomDifference(Bom oldBom, Bom newBom,
-      String googleCloudJavaVersion)
+  private void reportCloudClientBomDifference(Bom oldBom, Bom newBom, String googleCloudJavaVersion)
       throws MavenRepositoryException, IOException, InterruptedException {
     Map<String, String> versionlessCoordinatesToVersionOld =
         createVersionLessCoordinatesToKey(oldBom);
@@ -504,7 +502,8 @@ public class ReleaseNoteGeneration {
       Iterable<String> artifactsInBothBoms,
       Map<String, String> versionlessCoordinatesToVersionOld,
       Map<String, String> versionlessCoordinatesToVersionNew,
-      String googleCloudJavaVersion) throws IOException, InterruptedException {
+      String googleCloudJavaVersion)
+      throws IOException, InterruptedException {
 
     for (String versionlessCoordinates : artifactsInBothBoms) {
       List<String> coordinates = Splitter.on(":").splitToList(versionlessCoordinates);
@@ -551,8 +550,8 @@ public class ReleaseNoteGeneration {
 
     report.append("## Other libraries\n\n");
     String changelog =
-        fetchClientLibraryNotableChangeLog("google-cloud-java",
-            ImmutableList.of(googleCloudJavaVersion));
+        fetchClientLibraryNotableChangeLog(
+            "google-cloud-java", ImmutableList.of(googleCloudJavaVersion));
     report.append(changelog).append("\n");
   }
 
