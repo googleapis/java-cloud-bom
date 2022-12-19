@@ -98,9 +98,7 @@ public class ReleaseNoteGeneration {
 
   /** Generates release note of specified Libraries BOM version to file "release_note.md". */
   public static void main(String[] arguments)
-      throws ArtifactDescriptorException,
-          MavenRepositoryException,
-          IOException,
+      throws ArtifactDescriptorException, MavenRepositoryException, IOException,
           InterruptedException {
 
     String librariesBomVersion = System.getProperty("libraries-bom.version");
@@ -134,9 +132,7 @@ public class ReleaseNoteGeneration {
 
   @VisibleForTesting
   String generateReport(Bom bom, String googleCloudJavaVersion)
-      throws MavenRepositoryException,
-          ArtifactDescriptorException,
-          IOException,
+      throws MavenRepositoryException, ArtifactDescriptorException, IOException,
           InterruptedException {
     Bom previousBom = previousBom(bom);
 
