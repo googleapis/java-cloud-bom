@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.184.0](https://github.com/googleapis/java-cloud-bom/compare/google-cloud-bom-v0.183.0...google-cloud-bom-v0.184.0) (2023-01-05)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-bigquery to v2.20.1 ([#5706](https://github.com/googleapis/java-cloud-bom/issues/5706)) ([02f8a4c](https://github.com/googleapis/java-cloud-bom/commit/02f8a4c1137ba55da57cd5a4733fa106263abd65))
+* update dependency com.google.cloud:google-cloud-bigquerystorage-bom to v2.28.0 ([#5705](https://github.com/googleapis/java-cloud-bom/issues/5705)) ([146e0e5](https://github.com/googleapis/java-cloud-bom/commit/146e0e546480a15b449fee76eb1e002f9911efca))
+* update dependency com.google.cloud:google-cloud-logging-bom to v3.13.7 ([#5696](https://github.com/googleapis/java-cloud-bom/issues/5696)) ([423aa24](https://github.com/googleapis/java-cloud-bom/commit/423aa24ffbf317b0f63d72cd5026aef44d3bd934))
+* update dependency com.google.cloud:google-cloud-logging-logback to v0.129.7-alpha ([#5697](https://github.com/googleapis/java-cloud-bom/issues/5697)) ([088fdee](https://github.com/googleapis/java-cloud-bom/commit/088fdee8678caf58b03d785240c17b11ee3c79ed))
+
 ## [0.183.0](https://github.com/googleapis/java-cloud-bom/compare/google-cloud-bom-v0.182.0...google-cloud-bom-v0.183.0) (2022-12-15)
 
 
