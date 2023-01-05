@@ -4,7 +4,7 @@
   <!-- adding comment for testing-->
   <groupId>com.google.cloud</groupId>
   <artifactId>libraries-bom</artifactId>
-  <version>26.2.1-SNAPSHOT</version><!-- {x-version-update:libraries-bom:current} -->
+  <version>26.3.0-SNAPSHOT</version><!-- {x-version-update:libraries-bom:current} -->
   <packaging>pom</packaging>
 
   <name>Google Cloud Platform Supported Libraries</name>
