@@ -28,13 +28,15 @@ jobs:
         if [ -n "${WORKFLOW_DISPATCH_INPUT}" ]; then
           echo "WORKFLOW_DISPATCH_INPUT: ${WORKFLOW_DISPATCH_INPUT}"
           echo "libraries-bom-version=${WORKFLOW_DISPATCH_INPUT}" >> $GITHUB_OUTPUT
-        elif [ -n "${GITHUB_REF}" ]; then
+        elif [[ "${GITHUB_REF}" == *"libraries-bom"* ]]; then
           # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
+          # Example value refs/tags/libraries-bom-v26.3.3
           echo "GITHUB_REF: ${GITHUB_REF}"
-          VERSION=${GITHUB_REF#refs/*/}
+          VERSION=${GITHUB_REF#refs/*/libraries-bom-v}
           echo "libraries-bom-version=${VERSION}" >> $GITHUB_OUTPUT
         else
-          echo "Couldn't find the Libraries BOM version. WORKFLOW_DISPATCH_INPUT and GITHUB_REF are empty."
+          echo "Couldn't find the Libraries BOM version. WORKFLOW_DISPATCH_INPUT \
+              was empty and GITHUB_REF was ${GITHUB_REF}."
           exit 1
         fi
       env:
