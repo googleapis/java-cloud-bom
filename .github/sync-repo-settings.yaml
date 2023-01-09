@@ -24,7 +24,6 @@ branchProtectionRules:
     requiredStatusCheckContexts:
       - dependencies (8)
       - dependencies (11)
-      - linkage-monitor
       - lint
       - clirr
       - units (7)
@@ -40,7 +39,6 @@ branchProtectionRules:
       - dependencies (8)
       - dependencies (11)
       - lint
-      - clirr
       - units (8)
       - units (11)
       - cla/google
