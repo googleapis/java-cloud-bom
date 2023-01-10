@@ -24,13 +24,25 @@ branchProtectionRules:
     requiredStatusCheckContexts:
       - dependencies (8)
       - dependencies (11)
-      - linkage-monitor
       - lint
       - clirr
       - units (7)
       - units (8)
       - units (11)
       - cla/google
+  - pattern: 26.1.x
+    isAdminEnforced: true
+    requiredApprovingReviewCount: 1
+    requiresCodeOwnerReviews: true
+    requiresStrictStatusChecks: false
+    requiredStatusCheckContexts:
+      - dependencies (8)
+      - dependencies (11)
+      - lint
+      - units (8)
+      - units (11)
+      - cla/google
+      - bom-content-test
 permissionRules:
   - team: yoshi-admins
     permission: admin

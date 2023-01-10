@@ -6,3 +6,7 @@ branches:
     handleGHRelease: true
     bumpMinorPreMajor: true
     branch: java7
+  - releaseType: java-backport
+    manifest: true
+    handleGHRelease: true
+    branch: 26.1.x
