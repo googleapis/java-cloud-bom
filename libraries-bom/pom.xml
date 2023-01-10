@@ -59,6 +59,21 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <!-- overriding GAX and Protobuf versions for Beam's dependency consistency -->
+        <groupId>com.google.api</groupId>
+        <artifactId>gax-bom</artifactId>
+        <version>2.19.6</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-bom</artifactId>
+        <version>3.21.10</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <!-- first-party-dependencies is part of google-cloud-shared-dependencies
            BOM in https://github.com/googleapis/java-shared-dependencies/blob/main/first-party-dependencies/pom.xml.
            This includes Guava, Protobuf, gRPC, Google Auth Libraries, etc. -->
