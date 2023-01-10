@@ -41,6 +41,9 @@ jobs:
         fi
       env:
         WORKFLOW_DISPATCH_INPUT: ${{ inputs.librariesBomVersion }}
+    - name: Install the BOMs locally
+      run: mvn install
+      shell: bash
     - name: Generate release_note.md
       shell: bash
       run: |
