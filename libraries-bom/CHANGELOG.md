@@ -1,5 +1,14 @@
 # Changelog
 
+## [26.1.6](https://github.com/googleapis/java-cloud-bom/compare/libraries-bom-v26.1.5...libraries-bom-v26.1.6) (2023-01-10)
+
+
+### Dependencies
+
+* overriding gax, protobuf, and bigquerystorage to patched versions ([#5721](https://github.com/googleapis/java-cloud-bom/issues/5721)) ([c70b8b2](https://github.com/googleapis/java-cloud-bom/commit/c70b8b252c247ebe17ab4c81bcf6d635c2f48716))
+* The following workspace dependencies were updated
+    * com.google.cloud:google-cloud-bom bumped to 0.182.1
+
 ## [26.1.5](https://github.com/googleapis/java-cloud-bom/compare/libraries-bom-v26.1.4...libraries-bom-v26.1.5) (2022-11-18)
 
 
