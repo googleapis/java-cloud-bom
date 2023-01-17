@@ -1,5 +1,5 @@
 {
   "google-cloud-bom": "0.185.0",
   "libraries-bom": "26.4.0",
-  "tests/dependency-convergence": "0.3.10"
+  "tests/dependency-convergence": "0.3.11"
 }
