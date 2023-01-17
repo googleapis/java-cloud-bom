@@ -1,5 +1,14 @@
 # Changelog
 
+## [26.4.0](https://github.com/googleapis/java-cloud-bom/compare/libraries-bom-v26.3.0...libraries-bom-v26.4.0) (2023-01-17)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:first-party-dependencies to v3.1.1 ([a6b8962](https://github.com/googleapis/java-cloud-bom/commit/a6b8962a5c9c185f35072a6710ef53fff746fc0b))
+* The following workspace dependencies were updated
+    * com.google.cloud:google-cloud-bom bumped to 0.185.0
+
 ## [26.3.0](https://github.com/googleapis/java-cloud-bom/compare/libraries-bom-v26.2.0...libraries-bom-v26.3.0) (2023-01-05)
 
 
