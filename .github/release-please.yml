@@ -1,5 +1,6 @@
-releaseType: java-bom
+releaseType: java-yoshi
 handleGHRelease: true
+primaryBranch: main
 branches:
   - releaseType: java-yoshi
     handleGHRelease: true
