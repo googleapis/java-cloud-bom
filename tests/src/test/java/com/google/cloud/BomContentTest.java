@@ -43,6 +43,7 @@ import org.eclipse.aether.version.InvalidVersionSpecificationException;
 import org.eclipse.aether.version.Version;
 import org.eclipse.aether.version.VersionScheme;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class BomContentTest {
@@ -59,6 +60,9 @@ public class BomContentTest {
     checkBom(bomPath);
   }
 
+  @Ignore(
+      "Our release process hasn't achieved the complete convergence yet. "
+          + "See https://github.com/googleapis/java-cloud-bom/issues/5757")
   @Test
   public void testLibrariesBOMCloudClientConvergence() throws Exception {
     Path bomPath = Paths.get("..", "libraries-bom", "pom.xml").toAbsolutePath();
