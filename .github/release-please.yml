@@ -1,5 +1,4 @@
 releaseType: java-bom
-manifest: true
 handleGHRelease: true
 branches:
   - releaseType: java-yoshi
