@@ -1,4 +1,4 @@
-releaseType: java-yoshi
+releaseType: java-bom
 handleGHRelease: true
 primaryBranch: main
 branches:
