@@ -1,6 +1,7 @@
 releaseType: java-bom
 handleGHRelease: true
 primaryBranch: main
+versioning: "always-bump-minor"
 branches:
   - releaseType: java-yoshi
     handleGHRelease: true
