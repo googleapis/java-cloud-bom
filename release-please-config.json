@@ -3,7 +3,7 @@
   "versioning": "always-bump-minor",
   "separate-pull-requests": false,
   "include-component-in-tag": false,
-  "extraFiles": ["README.md"],
+  "extra-files": ["README.md"],
   "packages": {
     ".": {}
   }
