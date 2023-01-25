@@ -9,7 +9,8 @@ section. For details, please refer to
 
 To use it in Maven, add the following to your POM:
 
-[//]: # ({x-version-update-start:libraries-bom:released})
+<!--- {x-version-update-start:libraries-bom:released} -->
+ 
 ```xml
  <dependencyManagement>
   <dependencies>
@@ -23,7 +24,7 @@ To use it in Maven, add the following to your POM:
   </dependencies>
 </dependencyManagement>
 ```
-[//]: # ({x-version-update-end})
+<!--- {x-version-update-end} -->
 
 [![Maven][maven-version-image]][maven-version-link]
 
