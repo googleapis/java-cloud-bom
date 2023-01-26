@@ -4,7 +4,7 @@
   <groupId>com.google.cloud</groupId>
   <artifactId>java-cloud-bom-root</artifactId>
   <packaging>pom</packaging>
-  <!-- This pom.xml is not meant to be published to Maven Central -->
+  <!--  This pom.xml is not meant to be published to Maven Central -->
   <version>0.1.0</version>
   <name>Google Cloud Java BOM root project</name>
   <url>https://github.com/googleapis/java-cloud-bom</url>
