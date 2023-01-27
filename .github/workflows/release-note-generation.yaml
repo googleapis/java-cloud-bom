@@ -28,11 +28,13 @@ jobs:
         if [ -n "${WORKFLOW_DISPATCH_INPUT}" ]; then
           echo "WORKFLOW_DISPATCH_INPUT: ${WORKFLOW_DISPATCH_INPUT}"
           echo "libraries-bom-version=${WORKFLOW_DISPATCH_INPUT}" >> $GITHUB_OUTPUT
-        elif [[ "${GITHUB_REF}" == *"libraries-bom"* ]]; then
+        elif [[ "${GITHUB_REF}" == *"refs/tags/v"* ]]; then
           # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#release
-          # Example value refs/tags/libraries-bom-v26.3.3
+          # Example value of GITHUB_REF: refs/tags/v26.5.0
+          # With the single-component setup of Release Please, the Libraries BOM
+          # version is the version of this repository release.
           echo "GITHUB_REF: ${GITHUB_REF}"
-          VERSION=${GITHUB_REF#refs/*/libraries-bom-v}
+          VERSION=${GITHUB_REF#refs/*/v}
           echo "libraries-bom-version=${VERSION}" >> $GITHUB_OUTPUT
         else
           echo "Couldn't find the Libraries BOM version. WORKFLOW_DISPATCH_INPUT \
