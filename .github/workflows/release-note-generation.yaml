@@ -65,7 +65,7 @@ jobs:
         GH_TOKEN: ${{ github.token }}
     - name: Update the release note with release_note.md
       run: |
-        TAG="libraries-bom-v${LIBRARIES_BOM_VERSION}"
+        TAG="v${LIBRARIES_BOM_VERSION}"
         echo "Updating ${TAG}"
         gh release edit "${TAG}" --notes-file release_note.md
       working-directory: release-note-generation
