@@ -1,5 +1,17 @@
 # Changelog
 
+## [26.5.1](https://github.com/googleapis/java-cloud-bom/compare/v26.5.0...v26.5.1) (2023-02-02)
+
+
+### Bug Fixes
+
+* README.md to follow java-cloud-bom release ([d1b42b4](https://github.com/googleapis/java-cloud-bom/commit/d1b42b42280aa43adae5e09124e39e447f8be797))
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-bigquerystorage-bom to v2.29.0 ([#5793](https://github.com/googleapis/java-cloud-bom/issues/5793)) ([d572679](https://github.com/googleapis/java-cloud-bom/commit/d572679e92e1003bae2f6f162a75e724aeeac582))
+
 ## [26.5.0](https://github.com/googleapis/java-cloud-bom/compare/v26.4.0...v26.5.0) (2023-01-26)
 
 
