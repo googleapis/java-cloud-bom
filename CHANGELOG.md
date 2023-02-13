@@ -1,5 +1,12 @@
 # Changelog
 
+## [26.8.0](https://github.com/googleapis/java-cloud-bom/compare/v26.7.0...v26.8.0) (2023-02-13)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-bigtable-bom to v2.19.0 ([#5817](https://github.com/googleapis/java-cloud-bom/issues/5817)) ([cacbbd8](https://github.com/googleapis/java-cloud-bom/commit/cacbbd8854cef64615ecf4f14a5699e08c0924e6))
+
 ## [26.7.0](https://github.com/googleapis/java-cloud-bom/compare/v26.5.1...v26.7.0) (2023-02-09)
 
 
