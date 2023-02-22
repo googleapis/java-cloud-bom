@@ -17,7 +17,7 @@ To use it in Maven, add the following to your POM:
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>libraries-bom</artifactId>
-      <version>26.8.0</version>
+      <version>26.9.0</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
