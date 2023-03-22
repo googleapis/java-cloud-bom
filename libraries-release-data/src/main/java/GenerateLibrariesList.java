@@ -18,32 +18,25 @@ package com.google.cloud.dashboard;
 
 import com.google.cloud.tools.opensource.dependencies.Bom;
 import com.google.cloud.tools.opensource.dependencies.MavenRepositoryException;
-import com.google.common.collect.ImmutableList;
-import org.eclipse.aether.artifact.Artifact;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import org.eclipse.aether.artifact.Artifact;
 
 public class GenerateLibrariesList {
 
-    public static void main (String [] argument) throws MavenRepositoryException {
-        System.out.println("running code");
+  public static void main(String[] argument) throws MavenRepositoryException {
+    System.out.println("running code");
 
-        Path bomPath = Paths.get("..", "libraries-bom", "pom.xml").toAbsolutePath();
-        Bom bom = Bom.readBom(bomPath);
-        List<Artifact> artifacts = bom.getManagedDependencies();
-        List<String> artifactList = new ArrayList<>();
+    Path bomPath = Paths.get("..", "libraries-bom", "pom.xml").toAbsolutePath();
+    Bom bom = Bom.readBom(bomPath);
+    List<Artifact> artifacts = bom.getManagedDependencies();
+    List<String> artifactList = new ArrayList<>();
 
-        for (Artifact art : artifacts) {
-            artifactList.add(art.getGroupId()+":"+art.getArtifactId());
-        }
-        System.out.println(artifactList);
+    for (Artifact art : artifacts) {
+      artifactList.add(art.getGroupId() + ":" + art.getArtifactId());
     }
+    System.out.println(artifactList);
+  }
 }
-
-
-
-
-
