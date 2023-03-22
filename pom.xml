@@ -6,6 +6,10 @@
   <packaging>pom</packaging>
   <!--  This pom.xml is not meant to be published to Maven Central -->
   <version>0.1.0</version>
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
   <name>Google Cloud Java BOM root project</name>
   <url>https://github.com/googleapis/java-cloud-bom</url>
   <description>
@@ -30,6 +34,7 @@
     <!-- Only modules to be published to Maven Central. No tests or release note generation. -->
     <module>google-cloud-bom</module>
     <module>libraries-bom</module>
+    <module>libraries-release-data</module>
   </modules>
 
   <build>
