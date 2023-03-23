@@ -32,6 +32,8 @@ set -e
 ##sed -r 's/.*-(.*)/\1/' libraries.txt >> services.txt
 #sed 's/com.google.cloud:google-cloud-//' libraries.txt > output.txt
 
+cd github/java-cloud-bom
+
 cat libraries-release-data/libraries.txt | while read line; do
 
   group_id=${line%:*}
