@@ -54,7 +54,7 @@ done
 sed 's/ \+/,/g' cloud_java_client_library_release_dates_tsv.txt > ./cloud_java_client_library_release_dates.csv
 sed -i '1s/^/version,release_date,artifact_id,service_name\n/' ./cloud_java_client_library_release_dates.csv
 
-bq load --autodetect --source_format=CSV cloud-java-metrics.client_library_versions.cloud_java_client_library_release_dates cloud_java_client_library_release_dates.csv
+bq load --autodetect --project_id=cloud-java-metrics --source_format=CSV cloud-java-metrics.client_library_versions.cloud_java_client_library_release_dates cloud_java_client_library_release_dates.csv
 
 
 rm -f cloud_java_client_library_release_dates_tsv.txt
