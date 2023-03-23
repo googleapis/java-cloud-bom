@@ -1,12 +1,11 @@
 #!/bin/bash
-#input -> text file that lists versionless coordinates
-#
-#example ->
-#com.google.cloud:google-cloud-storage
-#com.google.cloud:google-cloud-vision
+#input -> text file that lists versionless coordinates (libraries.txt)
+# this libraries.txt will be generated on every run of the script.
 
 #Output:
 #cloud_java_client_library_release_dates.csv that holds the data defined below. It has artifact_id,service_name,version, and release_date columns.
+#this csv file will be uploaded to (project) cloud-java-metrics.(dataset) client_library_versions. (table) cloud_java_client_library_release_dates
+#using bq load command
 
 # Fail on any error.
 set -e
