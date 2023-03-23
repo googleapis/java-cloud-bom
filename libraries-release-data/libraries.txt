@@ -1,0 +1,14 @@
+com.google.cloud:google-cloud-accessapproval
+com.google.cloud:google-cloud-aiplatform
+com.google.cloud:google-cloud-analyticshub
+com.google.cloud:google-cloud-bigqueryconnection
+com.google.cloud:google-cloud-bigtable
+com.google.cloud:google-cloud-compute
+com.google.cloud:google-cloud-container
+com.google.cloud:google-cloud-containeranalysis
+com.google.cloud:google-cloud-datacatalog
+com.google.cloud:google-cloud-dataflow
+com.google.cloud:google-cloud-datastore
+com.google.cloud:google-cloud-datastream
+com.google.cloud:google-cloud-firestore
+com.google.cloud:google-cloud-logging
