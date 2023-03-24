@@ -34,28 +34,31 @@ set -e
 
 cd github/java-cloud-bom
 
-cat libraries-release-data/libraries.txt | while read line; do
-
-  group_id=${line%:*}
-  artifact_id=${line#*:}
-  new_group_id="${group_id//.//}"
-  service_name=${artifact_id#*-cloud-}
-
-  if [[ "${artifact_id}" == *storage* ]]; then
-    service_name=bigstore
-  fi
-
-  URL=https://repo1.maven.org/maven2/$new_group_id/$artifact_id
-
-  .kokoro/nightly/fetch-library-data.sh $URL $artifact_id $service_name
-
-done
-
-sed 's/ \+/,/g' cloud_java_client_library_release_dates_tsv.txt > ./cloud_java_client_library_release_dates.csv
-sed -i '1s/^/version,release_date,artifact_id,service_name\n/' ./cloud_java_client_library_release_dates.csv
-
-bq load --autodetect --project_id=cloud-java-metrics --source_format=CSV client_library_versions.cloud_java_client_library_release_dates cloud_java_client_library_release_dates.csv
-
-
-rm -f cloud_java_client_library_release_dates_tsv.txt
-rm -f cloud_java_client_library_release_dates.csv
+echo "the service account is: *******" ${IT_SERVICE_ACCOUNT_EMAIL}
+#
+#cat libraries-release-data/libraries.txt | while read line; do
+#
+#  group_id=${line%:*}
+#  artifact_id=${line#*:}
+#  new_group_id="${group_id//.//}"
+#  service_name=${artifact_id#*-cloud-}
+#
+#  if [[ "${artifact_id}" == *storage* ]]; then
+#    service_name=bigstore
+#  fi
+#
+#  URL=https://repo1.maven.org/maven2/$new_group_id/$artifact_id
+#
+#  .kokoro/nightly/fetch-library-data.sh $URL $artifact_id $service_name
+#
+#done
+#
+#sed 's/ \+/,/g' cloud_java_client_library_release_dates_tsv.txt > ./cloud_java_client_library_release_dates.csv
+#sed -i '1s/^/version,release_date,artifact_id,service_name\n/' ./cloud_java_client_library_release_dates.csv
+#
+#
+#bq load --autodetect --project_id=cloud-java-metrics --source_format=CSV client_library_versions.cloud_java_client_library_release_dates cloud_java_client_library_release_dates.csv
+#
+#
+#rm -f cloud_java_client_library_release_dates_tsv.txt
+#rm -f cloud_java_client_library_release_dates.csv
