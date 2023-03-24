@@ -35,6 +35,8 @@ set -e
 cd github/java-cloud-bom
 
 echo "the service account is: *******" ${IT_SERVICE_ACCOUNT_EMAIL}
+
+gcloud auth list
 #
 #cat libraries-release-data/libraries.txt | while read line; do
 #
