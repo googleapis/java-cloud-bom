@@ -34,7 +34,6 @@
     <!-- Only modules to be published to Maven Central. No tests or release note generation. -->
     <module>google-cloud-bom</module>
     <module>libraries-bom</module>
-    <module>libraries-release-data</module>
   </modules>
 
   <build>

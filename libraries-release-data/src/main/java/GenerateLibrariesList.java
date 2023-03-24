@@ -37,6 +37,7 @@ public class GenerateLibrariesList {
     for (Artifact art : artifacts) {
       artifactList.add(art.getGroupId() + ":" + art.getArtifactId());
     }
+
     System.out.println(artifactList);
   }
 }
