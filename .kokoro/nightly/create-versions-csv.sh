@@ -11,6 +11,8 @@ set -e
 # Display commands being run.
 #set -x
 
+echo %JAVA_HOME%
+
 cd github/java-cloud-bom/libraries-release-data
 
 # M2_HOME is not used since Maven 3.5.0 https://maven.apache.org/docs/3.5.0/release-notes.html
