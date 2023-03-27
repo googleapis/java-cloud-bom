@@ -11,9 +11,13 @@ set -e
 # Display commands being run.
 set -x
 
-cd github/java-cloud-bom/libraries-release-data
+
+cd github/java-cloud-bom
 
 mvn -B clean install
+
+cd github/java-cloud-bom/libraries-release-data
+
 
 list=$(mvn -B exec:java -Dexec.mainClass="com.google.cloud.dashboard.GenerateLibrariesList")
 
