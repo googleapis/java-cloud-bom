@@ -11,12 +11,9 @@ set -e
 # Display commands being run.
 set -x
 
-cd github/java-cloud-bom
+cd github/java-cloud-bom/libraries-release-data
 
-# M2_HOME is not used since Maven 3.5.0 https://maven.apache.org/docs/3.5.0/release-notes.html
-mvn clean install
-
-cd libraries-release-data
+mvn -B clean install
 
 list=$(mvn -B exec:java -Dexec.mainClass="com.google.cloud.dashboard.GenerateLibrariesList")
 
