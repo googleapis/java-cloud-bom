@@ -18,6 +18,7 @@ mvn -B clean install
 
 cd libraries-release-data
 
+mvn clean test
 
 list=$(mvn -B exec:java -Dexec.mainClass="com.google.cloud.dashboard.GenerateLibrariesList")
 
