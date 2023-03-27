@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Output:
+# Output:
 # The script generates cloud_java_client_library_release_dates.csv that holds the data defined below.
 # It has artifact_id,service_name,version, and release_date columns.
 # this csv file will be uploaded to (project) cloud-java-metrics.(dataset) client_library_versions. (table) cloud_java_client_library_release_dates
