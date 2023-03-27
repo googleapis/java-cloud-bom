@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.aether.artifact.Artifact;
 
+/** Class to generate a list of all libraries included in the libraries-bom */
 public class GenerateLibrariesList {
 
   public static void main(String[] argument) throws MavenRepositoryException {
