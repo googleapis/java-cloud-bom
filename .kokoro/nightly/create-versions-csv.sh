@@ -6,10 +6,10 @@
 # this csv file will be uploaded to (project) cloud-java-metrics.(dataset) client_library_versions. (table) cloud_java_client_library_release_dates
 # using bq load command
 
-## Fail on any error.
-#set -e
+# Fail on any error.
+set -e
 # Display commands being run.
-#set -x
+set -x
 
 java -version
 
