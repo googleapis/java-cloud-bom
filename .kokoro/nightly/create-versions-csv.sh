@@ -11,7 +11,7 @@ set -e
 # Display commands being run.
 #set -x
 
-echo %JAVA_HOME%
+java -version
 
 cd github/java-cloud-bom/libraries-release-data
 
