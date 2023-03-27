@@ -28,7 +28,6 @@ public class GenerateLibrariesList {
 
   public static void main(String[] argument) throws MavenRepositoryException {
 
-
     Path bomPath = Paths.get("..", "libraries-bom", "pom.xml").toAbsolutePath();
     Bom bom = Bom.readBom(bomPath);
     List<Artifact> artifacts = bom.getManagedDependencies();
