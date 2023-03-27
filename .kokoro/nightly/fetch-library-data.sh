@@ -1,7 +1,10 @@
 #!/bin/bash
 
-#input for this script will be URL, artifact_id and service_name
+# input for this script will be URL, artifact_id and service_name
 # example: https://repo1.maven.org/maven2/com/google/cloud/google-cloud-vision google-cloud-vision vision
+
+# output: cloud_java_client_library_release_dates_tsv.txt which contains
+# artifact_id,service_name,version, and release_date for the artifacts (without the column headers)
 
 mavenCentralURL=$1
 artifact_id=$2
