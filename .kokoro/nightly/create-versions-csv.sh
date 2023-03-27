@@ -45,7 +45,7 @@ cat libraries.txt | while read line; do
 
   URL=https://repo1.maven.org/maven2/$new_group_id/$artifact_id
 
-  sh github/java-cloud-bom/.kokoro/nightly/fetch-library-data.sh $URL $artifact_id $service_name
+  fetch-library-data.sh $URL $artifact_id $service_name
 
 done
 
