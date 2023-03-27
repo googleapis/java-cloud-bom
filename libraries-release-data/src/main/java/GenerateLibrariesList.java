@@ -27,7 +27,7 @@ import org.eclipse.aether.artifact.Artifact;
 public class GenerateLibrariesList {
 
   public static void main(String[] argument) throws MavenRepositoryException {
-    System.out.println("running code");
+
 
     Path bomPath = Paths.get("..", "libraries-bom", "pom.xml").toAbsolutePath();
     Bom bom = Bom.readBom(bomPath);
