@@ -57,9 +57,9 @@ echo "Inserting client_library_versions.cloud_java_client_library_release_dates.
 head  cloud_java_client_library_release_dates.csv
 echo "===================="
 
-#bq load --autodetect --project_id=cloud-java-metrics --source_format=CSV \
-#client_library_versions.cloud_java_client_library_release_dates \
-#cloud_java_client_library_release_dates.csv
+bq load --autodetect --project_id=cloud-java-metrics --source_format=CSV \
+client_library_versions.cloud_java_client_library_release_dates \
+cloud_java_client_library_release_dates.csv
 
 
 rm -f cloud_java_client_library_release_dates_tsv.txt
