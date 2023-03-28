@@ -11,8 +11,6 @@ set -e
 # Display commands being run.
 set -x
 
-pwd
-
 cd github/java-cloud-bom
 
 mvn -B clean install
@@ -46,8 +44,7 @@ cat libraries.txt | while read line; do
 
   URL=https://repo1.maven.org/maven2/$new_group_id/$artifact_id
 
-  pwd
-#  /../fetch-library-data.sh $URL $artifact_id $service_name
+  /tmpfs/src/github/java-cloud-bom/.kokoro/nightly/fetch-library-data.sh $URL $artifact_id $service_name
 
 done
 
