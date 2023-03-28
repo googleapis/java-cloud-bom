@@ -11,6 +11,7 @@ set -e
 # Display commands being run.
 set -x
 
+pwd
 
 cd github/java-cloud-bom
 
@@ -45,7 +46,8 @@ cat libraries.txt | while read line; do
 
   URL=https://repo1.maven.org/maven2/$new_group_id/$artifact_id
 
-  ./fetch-library-data.sh $URL $artifact_id $service_name
+  pwd
+#  /../fetch-library-data.sh $URL $artifact_id $service_name
 
 done
 
