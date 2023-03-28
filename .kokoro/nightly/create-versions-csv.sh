@@ -17,7 +17,7 @@ mvn -B clean install
 
 cd libraries-release-data
 
-mvn clean test
+mvn compile
 
 list=$(mvn -B exec:java -Dexec.mainClass="com.google.cloud.dashboard.GenerateLibrariesList")
 
@@ -44,7 +44,7 @@ cat libraries.txt | while read line; do
 
   URL=https://repo1.maven.org/maven2/$new_group_id/$artifact_id
 
-  /tmpfs/src/github/java-cloud-bom/.kokoro/nightly/fetch-library-data.sh $URL $artifact_id $service_name
+  ../.kokoro/nightly/fetch-library-data.sh $URL $artifact_id $service_name
 
 done
 
@@ -57,9 +57,9 @@ echo "Inserting client_library_versions.cloud_java_client_library_release_dates.
 head  cloud_java_client_library_release_dates.csv
 echo "===================="
 
-bq load --autodetect --project_id=cloud-java-metrics --source_format=CSV \
-client_library_versions.cloud_java_client_library_release_dates \
-cloud_java_client_library_release_dates.csv
+#bq load --autodetect --project_id=cloud-java-metrics --source_format=CSV \
+#client_library_versions.cloud_java_client_library_release_dates \
+#cloud_java_client_library_release_dates.csv
 
 
 rm -f cloud_java_client_library_release_dates_tsv.txt
