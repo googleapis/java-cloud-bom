@@ -163,6 +163,63 @@
   </licenses>
   <dependencyManagement>
     <dependencies>
+
+      <!-- TODO: Remove the following analytics-related libraries once
+        https://github.com/googleapis/google-cloud-java/issues/9304 is resolved -->
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>grpc-google-analytics-admin-v1alpha</artifactId>
+        <version>0.24.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>grpc-google-analytics-admin-v1beta</artifactId>
+        <version>0.24.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>proto-google-analytics-admin-v1alpha</artifactId>
+        <version>0.24.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>proto-google-analytics-admin-v1beta</artifactId>
+        <version>0.24.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>grpc-google-analytics-data-v1beta</artifactId>
+        <version>0.25.0</version><!-- {x-version-update:grpc-google-analytics-data-v1beta:current} -->
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>grpc-google-analytics-data-v1alpha</artifactId>
+        <version>0.25.0</version><!-- {x-version-update:grpc-google-analytics-data-v1alpha:current} -->
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>proto-google-analytics-data-v1beta</artifactId>
+        <version>0.25.0</version><!-- {x-version-update:proto-google-analytics-data-v1beta:current} -->
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>proto-google-analytics-data-v1alpha</artifactId>
+        <version>0.25.0</version><!-- {x-version-update:proto-google-analytics-data-v1alpha:current} -->
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>grpc-google-area120-tables-v1alpha1</artifactId>
+        <version>0.18.0</version><!-- {x-version-update:grpc-google-area120-tables-v1alpha1:current} -->
+      </dependency>
+      <dependency>
+        <groupId>com.google.api.grpc</groupId>
+        <artifactId>proto-google-area120-tables-v1alpha1</artifactId>
+        <version>0.18.0</version><!-- {x-version-update:proto-google-area120-tables-v1alpha1:current} -->
+      </dependency>
+      <!-- end of temporary bug fix -->
+
       <!-- Artifacts from google-cloud-java monorepo -->
       <dependency>
         <groupId>com.google.cloud</groupId>
