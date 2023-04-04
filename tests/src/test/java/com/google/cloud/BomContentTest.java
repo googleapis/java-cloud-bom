@@ -114,7 +114,6 @@ public class BomContentTest {
       } catch (IOException ex) {
         errors.append(ex.getMessage() + "\n");
       }
-
     }
     if (errors.length() != 0) {
       throw new IOException(errors.toString());
