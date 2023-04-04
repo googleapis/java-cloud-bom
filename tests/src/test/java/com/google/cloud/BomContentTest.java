@@ -76,9 +76,9 @@ public class BomContentTest {
       String artifactId = artifact.getArtifactId();
       String groupId = artifact.getGroupId();
       if (("com.google.analytics.api.grpc".equals(groupId)
-          && (artifactId.contains("analytics-admin") || artifactId.contains("analytics-data")))
+              && (artifactId.contains("analytics-admin") || artifactId.contains("analytics-data")))
           || ("com.google.area120.api.grpc".equals(groupId)
-          && artifactId.contains("google-area120-tables"))) {
+              && artifactId.contains("google-area120-tables"))) {
         // TODO: Remove this logic once https://github.com/googleapis/google-cloud-java/issues/9304
         //  is fixed
         continue;
