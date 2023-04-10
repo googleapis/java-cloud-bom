@@ -11,9 +11,18 @@ set -e
 # Display commands being run.
 set -x
 
-pwd
+cd github
+
+git clone git@github.com:googleapis/google-cloud-java.git
+
+cd google-cloud-java
+
+ls -l
+
 #
-#cd github/java-cloud-bom
+cd ../java-cloud-bom
+
+ls -l
 #
 #mvn -B clean install
 #
