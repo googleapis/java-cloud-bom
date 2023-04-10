@@ -17,12 +17,26 @@ git clone https://github.com/googleapis/google-cloud-java.git
 
 cd google-cloud-java
 
-ls -l
+for module in $(find . -mindepth 2 -maxdepth 2 -name pom.xml | sort | xargs dirname); do
 
-#
+  cd ${module}
+
+  string=$(find . -name '*StubSettings.java' -print -quit | xargs grep -m 1 '.googleapis.com:443')
+
+  service_name=$(echo ${string} | grep -o '".*"' | tr -d '"' | cut -d "." -f 1 | cut -d "-" -f 1)
+
+  artifact_id=$(grep -m 1 "<artifactId>" pom.xml | sed -n 's/.*<artifactId>\(.*\)<\/artifactId>.*/\1/p' | sed 's/-parent$//')
+
+  cd ..
+
+  echo "${artifact_id}:${service_name}">>service_names.txt
+
+  done
+
 cd ../java-cloud-bom
 
-ls -l
+cat ../google-cloud-java/service_names.txt
+
 #
 #mvn -B clean install
 #
