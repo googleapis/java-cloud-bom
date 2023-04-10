@@ -78,6 +78,8 @@ rm -f libraries.txt
 sed 's/ \+/,/g' cloud_java_client_library_release_dates_tsv.txt > cloud_java_client_library_release_dates.csv
 sed -i '1s/^/version,release_date,artifact_id,service_name\n/' cloud_java_client_library_release_dates.csv
 
+cat cloud_java_client_library_release_dates.csv
+
 echo "Inserting client_library_versions.cloud_java_client_library_release_dates. First 10 lines:"
 head  cloud_java_client_library_release_dates.csv
 echo "===================="
