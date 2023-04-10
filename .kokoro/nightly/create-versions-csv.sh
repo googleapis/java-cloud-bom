@@ -13,7 +13,7 @@ set -x
 
 cd github
 
-git clone git@github.com:googleapis/google-cloud-java.git
+gh repo clone googleapis/google-cloud-java
 
 cd google-cloud-java
 
