@@ -21,7 +21,7 @@ for module in $(find . -mindepth 2 -maxdepth 2 -name pom.xml | sort | xargs dirn
 
   cd ${module}
 
-  string=$(find . -name '*StubSettings.java' -print -quit | xargs grep -m 1 '.googleapis.com:443')
+  string=$(find . -name '*StubSettings.java' -print | xargs grep -m 1 '.googleapis.com:443')
 
   service_name=$(echo ${string} | grep -o '".*"' | tr -d '"' | cut -d "." -f 1 | cut -d "-" -f 1)
 
