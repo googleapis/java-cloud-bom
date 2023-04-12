@@ -8,10 +8,11 @@
 
 # Display commands being run.
 set -x
+set -e
 
 cd github
 
-git clone https://github.com/googleapis/google-cloud-java.git
+git clone --depth=1 https://github.com/googleapis/google-cloud-java.git
 
 cd google-cloud-java
 
@@ -19,7 +20,7 @@ for module in $(find . -mindepth 2 -maxdepth 2 -name pom.xml | sort | xargs dirn
 
   cd ${module}
 
-  string=$(find . -name '*StubSettings.java' -print | xargs grep -m 1 '.googleapis.com:443')
+  string=$(find . -name '*StubSettings.java' -print | xargs grep -m 1 '.googleapis.com:443' || true)
 
   service_name_raw=$(echo ${string} | grep -o '".*"' | tr -d '"' | cut -d "." -f 1 | cut -d "-" -f 1)
 
@@ -33,9 +34,6 @@ for module in $(find . -mindepth 2 -maxdepth 2 -name pom.xml | sort | xargs dirn
 
 cd ../java-cloud-bom
 
-cat ../google-cloud-java/service_names.txt
-
-#
 mvn -B clean install
 
 cd libraries-release-data
@@ -44,15 +42,12 @@ mvn compile
 
 list=$(mvn -B exec:java -Dexec.mainClass="com.google.cloud.dashboard.GenerateLibrariesList")
 
-
 final_list=$(echo $list | grep -o 'com.google.cloud[^,]*' | tr '\n' ',' | sed 's/,$//')
-
 
 echo ${final_list} | tr ',' '\n' > unfiltered-libraries.txt
 sed -i '/libraries-release-data/d' unfiltered-libraries.txt
 sort unfiltered-libraries.txt | uniq > libraries.txt
 rm -f unfiltered-libraries.txt
-
 
 cat libraries.txt | while read line; do
 
@@ -61,11 +56,10 @@ cat libraries.txt | while read line; do
   new_group_id="${group_id//.//}"
   service_name=$(cat ../../google-cloud-java/service_names.txt | grep ${artifact_id} | cut -d ":" -f 2)
 
-  echo "the service_name is ${service_name}"
-
-  if [[ "${artifact_id}" == *storage* ]]; then
-    service_name=bigstore
+  if grep -q "${artifact_id}" services_names.txt; then
+    service_name=$(cat services_names.txt | grep ${artifact_id} | cut -d ":" -f 2)
   fi
+
 
   URL=https://repo1.maven.org/maven2/$new_group_id/$artifact_id
 
@@ -88,6 +82,7 @@ echo "===================="
 #client_library_versions.cloud_java_client_library_release_dates \
 #cloud_java_client_library_release_dates.csv
 
-
 rm -f cloud_java_client_library_release_dates_tsv.txt
 rm -f cloud_java_client_library_release_dates.csv
+
+

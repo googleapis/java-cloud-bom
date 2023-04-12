@@ -1,0 +1,12 @@
+google-cloud-bigtable:bigtable
+google-cloud-bigquery:bigquery-json
+google-cloud-bigquerystorage:bigquerystorage
+ggoogle-cloud-datastore:datastore
+google-cloud-dns:dns
+google-cloud-firestore:firestore
+google-cloud-firestore-admin:firestore
+google-cloud-logging:logging
+google-cloud-pubsub:pubsub
+google-cloud-pubsublite:pubsublite
+google-cloud-spanner:spanner
+google-cloud-spanner-executor:spanner
