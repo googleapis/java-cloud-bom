@@ -10,3 +10,4 @@ google-cloud-pubsub:pubsub
 google-cloud-pubsublite:pubsublite
 google-cloud-spanner:spanner
 google-cloud-spanner-executor:spanner
+google-cloud-storage:bigstore
