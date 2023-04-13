@@ -54,10 +54,12 @@ cat libraries.txt | while read line; do
   group_id=${line%:*}
   artifact_id=${line#*:}
   new_group_id="${group_id//.//}"
+  # step 1: Find service name via google-cloud-java repo
   service_name=$(cat ../../google-cloud-java/service_names.txt | grep ${artifact_id} | cut -d ":" -f 2)
 
-  if grep -q "${artifact_id}" services_names.txt; then
-    service_name=$(cat services_names.txt | grep ${artifact_id} | cut -d ":" -f 2)
+  # step 2: for handwritten libraries, search handwritten_libraries_service_names.txt
+  if grep -q "${artifact_id}" handwritten_libraries_service_names.txt; then
+    service_name=$(cat handwritten_libraries_service_names.txt | grep ${artifact_id} | cut -d ":" -f 2)
   fi
 
 
