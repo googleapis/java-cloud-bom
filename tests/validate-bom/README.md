@@ -4,17 +4,17 @@ This composite action validates a BOM specified as argument.
 
 This action performs the following steps:
 
-- It reads the BOM and get all artifacts.
+- It reads the BOM and gets all artifacts.
   - It may filter out "testlib" artifacts if they cause problems in subsequent steps
-- It creates a Maven project (a directory with a pom.xml file) with the artifacts as the dependencies.
-  The project (canary project) uses the BOM and declares the artifacts in the BOM as dependencies.
+- It creates a canary Maven project (a directory with a pom.xml file) with the artifacts as the dependencies.
+  The canary project uses the BOM and declares the artifacts in the BOM as dependencies.
 - It runs `mvn install` in the canary project.
-  If the BOM is valid, it should build the canary project without an error.
+  If the BOM is valid, it should fetch dependencies (the artifacts in the BOM) without an error.
 
 ## Usage
 
 Before running the composite action the caller needs to make the BOM and its
-contents available in Maven Central or local Maven repository.
+listing artifacts available in Maven Central or local Maven repository.
 
 To use Validate Maven BOM GitHub Actions, define the following job in your
 GitHub Actions workflow file:
@@ -29,7 +29,7 @@ GitHub Actions workflow file:
         java-version: 11
         distribution: temurin
         cache: maven
-    - name: Install Maven modules locally
+    - name: Install Maven artifacts locally
       run: |
         mvn install -B -ntp -DskipTests
     - uses: googleapis/java-cloud-bom/tests/validate-bom@main
@@ -37,8 +37,7 @@ GitHub Actions workflow file:
         path: <path_to_bom_pom.xml>
 ```
 
-If there's an error in building the canary project, you would see errors in the
-log:
+If there's an error in building the canary project, you see errors in the log:
 
 ```
 [INFO] ------------------------------------------------------------------------
