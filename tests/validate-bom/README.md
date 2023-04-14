@@ -18,12 +18,18 @@ In your GitHub Actions workflow file, define a job:
 
 ```
   validate-bom:
-    ...
+    runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-java@v3
+      with:
+        java-version: 11
+        distribution: temurin
+        cache: maven
+    - name: Install maven modules
       run: |
-        # Make the BOM and artifacts available
-        mvn install -DskipTests
-      uses: googleapis/java-cloud-bom/tests/validate-bom@main
+        mvn install -B -ntp -DskipTests -Dclirr.skip -Dcheckstyle.skip
+    - uses: googleapis/java-cloud-bom/tests/validate-bom@main
       with:
         path: <path_to_bom_pom.xml>
 ```

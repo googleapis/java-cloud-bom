@@ -2,7 +2,7 @@ name: 'Maven BOM Validation'
 description: 'Validation for the content of a Maven BOM'
 inputs:
   bom-path:
-    description: "Absolute path to the pom.xml file to validate"
+    description: "The relative path from the repository root to the pom.xml file"
     required: true
 runs:
   using: "composite"
@@ -18,7 +18,15 @@ runs:
     shell: bash
     run: |
       echo "pwd: $(pwd)"
-      mvn -ntp -B exec:java -DoutputPath=/tmp/bom-check -DbomPath=${{ inputs.bom-path }}
+      if [ ! -r "${{ inputs.bom-path }}" ]; then
+        echo "The input bom-path ${{ inputs.bom-path }} is not readable"
+        exit 1
+      fi
+      
+      bom_absolute_path=$(realpath "${{ inputs.bom-path }}")
+      cd ${{ github.action_path }}
+      echo "Running Maven in $(pwd)"
+      mvn -V -ntp -B exec:java -DoutputPath=/tmp/bom-check -DbomPath="${bom_absolute_path}"
   - name: Build the canary project that uses the BOM
     shell: bash
     working-directory: /tmp/bom-validation
