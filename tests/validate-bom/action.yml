@@ -26,6 +26,7 @@ runs:
       bom_absolute_path=$(realpath "${{ inputs.bom-path }}")
       cd ${{ github.action_path }}
       echo "Running Maven in $(pwd)"
+      mvn -V -ntp compile
       mvn -V -ntp -B exec:java -DoutputPath=/tmp/bom-check -DbomPath="${bom_absolute_path}"
   - name: Build the canary project that uses the BOM
     shell: bash
