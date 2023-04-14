@@ -1,0 +1,26 @@
+name: 'Maven BOM Validation'
+description: 'Validation for the content of a Maven BOM'
+inputs:
+  bom-path:
+    description: "Absolute path to the pom.xml file to validate"
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - name: Set up Maven
+    uses: stCarolas/setup-maven@v4.5
+    with:
+      maven-version: 3.8.4
+  - name: Create temporary directory /tmp/bom-validation
+    shell: bash
+    run: mkdir -p /tmp/bom-validation
+  - name: Create a canary project that uses the BOM
+    shell: bash
+    run: |
+      echo "pwd: $(pwd)"
+      mvn -ntp -B exec:java -DoutputPath=/tmp/bom-check -DbomPath=${{ inputs.bom-path }}
+  - name: Build the canary project that uses the BOM
+    shell: bash
+    working-directory: /tmp/bom-validation
+    run: mvn -ntp -B install
+
