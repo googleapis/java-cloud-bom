@@ -30,7 +30,7 @@ runs:
       echo "Compiling CreateBomCanaryProject.java in $(pwd)"
       mvn -V -ntp compile
       echo "Running CreateBomCanaryProject with ${bom_absolute_path}"
-      mvn -V -ntp -B exec:java -DoutputPath=/tmp/bom-check -DbomPath="${bom_absolute_path}"
+      mvn -V -ntp -B exec:java -DoutputPath=/tmp/bom-validation -DbomPath="${bom_absolute_path}"
   - name: Build the canary project that uses the BOM
     shell: bash
     working-directory: /tmp/bom-validation
