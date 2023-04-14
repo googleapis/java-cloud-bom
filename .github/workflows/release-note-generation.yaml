@@ -19,6 +19,7 @@ jobs:
       with:
         distribution: zulu
         java-version: 11
+        cache: maven
     - run: java -version
     - name: Pick Libraries BOM version
       id: pick-version

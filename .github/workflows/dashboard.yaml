@@ -13,6 +13,7 @@ jobs:
       with:
         distribution: zulu
         java-version: 8
+        cache: maven
     - run: java -version
     - run: .kokoro/dashboard.sh
       env:

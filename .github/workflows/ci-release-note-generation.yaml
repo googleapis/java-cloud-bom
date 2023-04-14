@@ -12,6 +12,7 @@ jobs:
       with:
         distribution: zulu
         java-version: 11
+        cache: maven
     - run: java -version
     - name: Run test in release-note-generation
       shell: bash
