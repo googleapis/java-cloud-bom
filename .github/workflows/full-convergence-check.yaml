@@ -19,7 +19,7 @@ jobs:
       run: |
         mvn -B -V -ntp install
     - name: Ensure the members of the Libraries BOM exist in Maven Central
-      uses: tests/validate-bom
+      uses: ./tests/validate-bom
       with:
         bom-path: libraries-bom/pom.xml
     - name: Ensure the BOM has valid content (at releases)
