@@ -39,5 +39,7 @@ runs:
   - name: Build the canary project that uses the BOM
     shell: bash
     working-directory: /tmp/bom-validation
-    run: mvn -ntp -B install
+    run: |
+      echo "working directory: $(pwd)"
+      mvn -ntp -B install
 
