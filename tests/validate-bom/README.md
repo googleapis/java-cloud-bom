@@ -1,4 +1,4 @@
-# Validate BOM GitHub Action
+# Validate Maven BOM GitHub Action
 
 This composite action validates a BOM specified as argument.
 
@@ -6,15 +6,18 @@ This action performs the following steps:
 
 - It reads the BOM and get all artifacts.
   - It may filter out "testlib" artifacts if they cause problems in subsequent steps
-- It creates a Maven project (a directory with a pom.xml file) with the artifacts as the dependencies. The project uses the BOM
-- It runs mvn install in the project to confirm the project is built.
+- It creates a Maven project (a directory with a pom.xml file) with the artifacts as the dependencies.
+  The project (canary project) uses the BOM and declares the artifacts in the BOM as dependencies.
+- It runs `mvn install` in the canary project.
+  If the BOM is valid, it should build the canary project without an error.
 
 ## Usage
 
 Before running the composite action the caller needs to make the BOM and its
 contents available in Maven Central or local Maven repository.
 
-In your GitHub Actions workflow file, define a job:
+To use Validate Maven BOM GitHub Actions, define the following job in your
+GitHub Actions workflow file:
 
 ```
   validate-bom:
@@ -26,10 +29,43 @@ In your GitHub Actions workflow file, define a job:
         java-version: 11
         distribution: temurin
         cache: maven
-    - name: Install maven modules
+    - name: Install Maven modules locally
       run: |
-        mvn install -B -ntp -DskipTests -Dclirr.skip -Dcheckstyle.skip
+        mvn install -B -ntp -DskipTests
     - uses: googleapis/java-cloud-bom/tests/validate-bom@main
       with:
         path: <path_to_bom_pom.xml>
 ```
+
+If there's an error in building the canary project, you would see errors in the
+log:
+
+```
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  14.253 s
+[INFO] Finished at: 2023-04-14T20:41:59Z
+[INFO] ------------------------------------------------------------------------
+Error:  Failed to execute goal on project bom-validation-canary-project: Could n
+ot resolve dependencies for project com.google.cloud:bom-validation-canary-proje
+ct:jar:0.0.1-SNAPSHOT: The following artifacts could not be resolved: com.google
+.analytics.api.grpc:grpc-google-analytics-admin-v1alpha:jar:0.24.0 ...
+```
+
+If there's no error, the check passes:
+
+```
+[INFO] Installing /tmp/bom-validation/pom.xml to /home/runner/.m2/repository/...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.147 s
+[INFO] Finished at: 2023-04-14T20:35:58Z
+[INFO] ------------------------------------------------------------------------
+```
+
+# Disclaimer
+
+This is not an official Google product.
+This is intended for Google-internal usages only.
