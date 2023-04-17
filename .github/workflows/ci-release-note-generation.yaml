@@ -10,8 +10,9 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/setup-java@v3
       with:
-        distribution: zulu
+        distribution: temurin
         java-version: 11
+        cache: maven
     - run: java -version
     - name: Run test in release-note-generation
       shell: bash
@@ -27,8 +28,9 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/setup-java@v3
       with:
-        distribution: zulu
+        distribution: temurin
         java-version: 11
+        cache: maven
     - run: java -version
     - name: Dry-run release-note-generation
       shell: bash

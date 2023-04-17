@@ -12,16 +12,17 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/setup-java@v3
       with:
-        distribution: zulu
-        java-version: 8
+        distribution: temurin
+        java-version: 11
+        cache: maven
     - run: java -version
     - name: Install BOMs
       run: |
         mvn -B -V -ntp install
     - name: Ensure the members of the Libraries BOM exist in Maven Central
-      run: |
-        mvn -B -V -ntp verify -Dtest="BomContentTest#testLibrariesBomReachable"
-      working-directory: tests
+      uses: ./tests/validate-bom
+      with:
+        bom-path: libraries-bom/pom.xml
     - name: Ensure the BOM has valid content (at releases)
       if: github.head_ref == 'release-please--branches--main'
       run: |

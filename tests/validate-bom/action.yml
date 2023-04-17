@@ -1,0 +1,47 @@
+name: 'Maven BOM Validation'
+description: 'Validation for the content of a Maven BOM'
+inputs:
+  bom-path:
+    description: "The relative path from the repository root to the pom.xml file"
+    required: true
+runs:
+  using: "composite"
+  steps:
+  - uses: actions/setup-java@v3
+    with:
+      distribution: temurin
+      java-version: 11
+      cache: maven
+  - name: Set up Maven
+    uses: stCarolas/setup-maven@v4.5
+    with:
+      maven-version: 3.8.4
+  - name: Create temporary directory /tmp/bom-validation
+    shell: bash
+    run: mkdir -p /tmp/bom-validation
+  - name: Create a canary project that uses the BOM
+    shell: bash
+    run: |
+      if [ ! -r "${{ inputs.bom-path }}" ]; then
+        echo "The input bom-path ${{ inputs.bom-path }} is not readable"
+        exit 1
+      fi
+      
+      bom_absolute_path=$(realpath "${{ inputs.bom-path }}")
+
+      # Before this "cd", the working directory is the repository that calls
+      # this action. To use validate-bom classes, it needs to change directory
+      # to the directory that defines this action.
+      cd ${{ github.action_path }}
+
+      echo "Compiling CreateBomCanaryProject.java in $(pwd)"
+      mvn -V -ntp compile
+      echo "Running CreateBomCanaryProject with ${bom_absolute_path}"
+      mvn -V -ntp -B exec:java -DoutputPath=/tmp/bom-validation -DbomPath="${bom_absolute_path}"
+  - name: Build the canary project that uses the BOM
+    shell: bash
+    working-directory: /tmp/bom-validation
+    run: |
+      echo "working directory: $(pwd)"
+      mvn -ntp -B install
+
