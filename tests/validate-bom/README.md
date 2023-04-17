@@ -20,8 +20,8 @@ in one of the steps in a job in your GitHub repository.
 Note that before running the composite action the caller needs to make the BOM
 and its listing artifacts available in Maven Central or local Maven repository.
 
-Here is the concrete example to define a job to use "validate-bom" action in
-your GitHub Actions workflow file:
+Here is a concrete example to define a job to use this "validate-bom" action in
+a GitHub Actions workflow file:
 
 ```
   validate-bom:
@@ -43,8 +43,8 @@ your GitHub Actions workflow file:
 
 ### Results
 
-If there's an error in building the canary project, the check fails, and you see
-errors in the log:
+If there's an error in building the canary project, the check fails.
+You see errors in the log:
 
 ```
 [INFO] ------------------------------------------------------------------------
@@ -59,10 +59,10 @@ ct:jar:0.0.1-SNAPSHOT: The following artifacts could not be resolved: com.google
 .analytics.api.grpc:grpc-google-analytics-admin-v1alpha:jar:0.24.0 ...
 ```
 
-This error message tells that there were invalid artifacts defined in the BOM
+In this error message, there were invalid artifacts defined in the BOM
 (wrong group IDs).
 
-If there's no error, the check passes with successful messages:
+If there's no error, the check passes with a successful message:
 
 ```
 [INFO] Installing /tmp/bom-validation/pom.xml to /home/runner/.m2/repository/...
