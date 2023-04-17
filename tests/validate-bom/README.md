@@ -1,6 +1,7 @@
 # Validate Maven BOM GitHub Action
 
-This composite action validates a BOM specified as argument.
+This action validates a [Maven BOM](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#bill-of-materials-bom-poms
+) specified as argument.
 
 This action performs the following steps:
 
@@ -13,11 +14,14 @@ This action performs the following steps:
 
 ## Usage
 
-Before running the composite action the caller needs to make the BOM and its
-listing artifacts available in Maven Central or local Maven repository.
+You can use this action via `uses: googleapis/java-cloud-bom/tests/validate-bom@main`
+in one of the steps in a job in your GitHub repository.
 
-To use Validate Maven BOM GitHub Actions, define the following job in your
-GitHub Actions workflow file:
+Note that before running the composite action the caller needs to make the BOM
+and its listing artifacts available in Maven Central or local Maven repository.
+
+Here is the concrete example to define a job to use "validate-bom" action in
+your GitHub Actions workflow file:
 
 ```
   validate-bom:
@@ -37,7 +41,10 @@ GitHub Actions workflow file:
         path: <path_to_bom_pom.xml>
 ```
 
-If there's an error in building the canary project, you see errors in the log:
+### Results
+
+If there's an error in building the canary project, the check fails, and you see
+errors in the log:
 
 ```
 [INFO] ------------------------------------------------------------------------
@@ -52,7 +59,10 @@ ct:jar:0.0.1-SNAPSHOT: The following artifacts could not be resolved: com.google
 .analytics.api.grpc:grpc-google-analytics-admin-v1alpha:jar:0.24.0 ...
 ```
 
-If there's no error, the check passes:
+This error message tells that there were invalid artifacts defined in the BOM
+(wrong group IDs).
+
+If there's no error, the check passes with successful messages:
 
 ```
 [INFO] Installing /tmp/bom-validation/pom.xml to /home/runner/.m2/repository/...
