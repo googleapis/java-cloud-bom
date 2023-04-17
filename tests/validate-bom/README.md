@@ -17,8 +17,8 @@ This action performs the following steps:
 You can use this action via `uses: googleapis/java-cloud-bom/tests/validate-bom@main`
 in one of the steps in a job in your GitHub repository.
 
-Note that before running the composite action the caller needs to make the BOM
-and its listing artifacts available in Maven Central or local Maven repository.
+Note that before running this action the caller needs to make the BOM and its
+listing artifacts available in Maven Central or local Maven repository.
 
 Here is a concrete example to define a job to use this "validate-bom" action in
 a GitHub Actions workflow file:
