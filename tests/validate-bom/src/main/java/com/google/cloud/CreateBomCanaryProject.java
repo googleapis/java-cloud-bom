@@ -51,8 +51,8 @@ public class CreateBomCanaryProject {
 
     String replacedContent =
         pomTemplate
-            .replace("<!-- DEPENDENCY_MANAGEMENT -->", dependencyManagementSection)
-            .replace("<!-- DEPENDENCIES -->", dependenciesSection);
+            .replace("DEPENDENCY_MANAGEMENT", dependencyManagementSection)
+            .replace("DEPENDENCIES", dependenciesSection);
 
     Path pomToWrite = outputProjectDirectory.resolve("pom.xml");
     Files.write(pomToWrite, replacedContent.getBytes());
