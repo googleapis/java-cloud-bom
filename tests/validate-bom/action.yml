@@ -49,7 +49,8 @@ runs:
     working-directory: /tmp/bom-validation
     run: |
       echo "working directory: $(pwd)"
-      # This should detect errors that may pass "mvn install". For example:
+      # This dependency tree check can detect errors that pass "mvn install".
+      # For example, an invalid group ID in one of pom.xml files:
       # [ERROR] 'dependencies.dependency.groupId' for $com.google.protobuf:protobuf-java:jar with value '$com.google.protobuf' does not match a valid id pattern.
       # https://github.com/googleapis/java-cloud-bom/issues/5936
       ERROR_MESSAGE=$(mvn dependency:tree -X |grep --quiet ERROR)
