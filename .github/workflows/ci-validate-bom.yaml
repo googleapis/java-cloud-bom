@@ -1,4 +1,4 @@
-# Copyright 2022 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,21 +18,21 @@ on:
     branches:
     - main
   pull_request:
-name: validate-bom-test
+name: test for tests/validate-bom logic
 jobs:
   test-invalid-bom:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Fetch bad protobuf-bom version 3.22.1
+    - name: Fetch the bad protobuf-bom version 3.22.1
       shell: bash
-      # 3.22.1 had a known issue
+      # 3.22.1 had a issue in their pom.xml
       # https://github.com/protocolbuffers/protobuf/issues/12170
       run: |
         mkdir -p bad-protobuf-bom
         curl https://repo1.maven.org/maven2/com/google/protobuf/protobuf-bom/3.22.1/protobuf-bom-3.22.1.pom \
             --output bad-protobuf-bom/pom.xml
-    - name: Ensure the members of the Libraries BOM exist in Maven Central
+    - name: Check the bad BOM
       uses: ./tests/validate-bom
       id: validate-bom
       with:
