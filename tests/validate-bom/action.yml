@@ -53,10 +53,8 @@ runs:
       # For example, an invalid group ID in one of pom.xml files:
       # [ERROR] 'dependencies.dependency.groupId' for $com.google.protobuf:protobuf-java:jar with value '$com.google.protobuf' does not match a valid id pattern.
       # https://github.com/googleapis/java-cloud-bom/issues/5936
-      mvn dependency:tree -X
-      echo "tree printed"
-      ERROR_MESSAGE=$(mvn dependency:tree -X |grep -q "ERROR")
-      echo "ERROR_MESSAGE defined: ${ERROR_MESSAGE}"
+      ERROR_MESSAGE=$(mvn dependency:tree -X |grep "ERROR" || true)
+      echo "ERROR_MESSAGE: ${ERROR_MESSAGE}"
       if [ -n "${ERROR_MESSAGE}" ]; then
         echo "${ERROR_MESSAGE}"
         exit 1
