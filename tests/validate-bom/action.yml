@@ -44,4 +44,14 @@ runs:
     run: |
       echo "working directory: $(pwd)"
       mvn -ntp -B install
+  - name: Examine dependency tree for any error
+    shell: bash
+    working-directory: /tmp/bom-validation
+    run: |
+      echo "working directory: $(pwd)"
+      ERROR_MESSAGE=$(mvn dependency:tree -X |grep ERROR)
+      if [ -n "${ERROR_MESSAGE}" ]; then
+        echo "${ERROR_MESSAGE}"
+        exit 1
+      fi
 
