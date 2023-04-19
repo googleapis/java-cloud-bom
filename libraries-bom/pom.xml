@@ -78,11 +78,6 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>foo.bar</groupId>
-        <artifactId>no-such-artifact</artifactId>
-        <version>1.2.3</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
