@@ -146,6 +146,13 @@ public class BomContentTest {
         continue;
       }
 
+      if (currentArtifact.getGroupId().equals("com.google.api")
+          && currentArtifact.getGroupId().getArtifactId().equals("gapic-generator-java")) {
+        // Skip gapic-generator-java artifact, which is part of gapic-generator-java-bom
+        // but not intended to be client library user-facing
+        continue;
+      }
+
       String artifactCoordinates = Artifacts.toCoordinates(currentArtifact);
 
       for (String className : classPathEntry.getFileNames()) {
