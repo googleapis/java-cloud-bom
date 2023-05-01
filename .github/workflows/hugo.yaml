@@ -29,11 +29,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.111.3
-      DOC_PATH: 'site'
     steps:
       - name: Install Hugo CLI
         run: |
-          cd $DOC_PATH && wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
       - name: Install Dart Sass Embedded
         run: sudo snap install dart-sass-embedded
@@ -57,6 +56,7 @@ jobs:
             --gc \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
+            --source site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
