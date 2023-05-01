@@ -51,7 +51,7 @@ jobs:
           # https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#caching-packages-data
           cache-dependency-path: 'site/package-lock.json'
 
-      - run: npm ci
+      - run: cd site && npm ci
       - run: hugo --minify
 
       - name: Deploy
