@@ -47,19 +47,19 @@ jobs:
         id: pages
         uses: actions/configure-pages@v3
 
-      - name: Install Node.js dependencies
-        run: "cd site && [[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true && npm install postcss-cli && npm install autoprefixer"
+#      - name: Install Node.js dependencies
+#        run: "cd site && [[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true && npm install postcss-cli && npm install autoprefixer"
 
-#      - name: Setup Node
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: '18'
-#          cache: 'npm'
-#          # The action defaults to search for the dependency file (package-lock.json,
-#          # npm-shrinkwrap.json or yarn.lock) in the repository root, and uses its
-#          # hash as a part of the cache key.
-#          # https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#caching-packages-data
-#          cache-dependency-path: 'site/package-lock.json'
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          # The action defaults to search for the dependency file (package-lock.json,
+          # npm-shrinkwrap.json or yarn.lock) in the repository root, and uses its
+          # hash as a part of the cache key.
+          # https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#caching-packages-data
+          cache-dependency-path: 'site/package-lock.json'
 
       - name: Build with Hugo
         run: cd site && hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
