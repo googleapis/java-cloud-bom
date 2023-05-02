@@ -51,11 +51,28 @@ jobs:
           # https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#caching-packages-data
           cache-dependency-path: 'site/package-lock.json'
 
-      - run: cd site && npm ci && hugo --minify
+      - run: cd site && npm ci && hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.ref == 'refs/heads/main' }}
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site/public
+      - name: Upload artifact
+          uses: actions/upload-pages-artifact@v1
+          with:
+            path: ./site/public
+
+      # Deployment job
+      deploy:
+        environment:
+          name: github-pages
+          url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        needs: build
+        steps:
+          - name: Deploy to GitHub Pages
+            id: deployment
+            uses: actions/deploy-pages@v2
+
+#      - name: Deploy
+#        uses: peaceiris/actions-gh-pages@v3
+#        if: ${{ github.ref == 'refs/heads/main' }}
+#        with:
+#          github_token: ${{ secrets.GITHUB_TOKEN }}
+#          publish_dir: ./site/public
