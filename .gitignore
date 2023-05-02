@@ -24,7 +24,7 @@ nosetests.xml
 .classpath
 
 # Built documentation
-docs/
+#docs/
 
 # Python utilities
 *.pyc
