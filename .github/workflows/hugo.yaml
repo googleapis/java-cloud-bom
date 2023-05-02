@@ -48,7 +48,7 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Install Node.js dependencies
-        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true && npm install postcss-cli"
+        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true && npm install postcss-cli && npm install autoprefixer"
 
 #      - name: Setup Node
 #        uses: actions/setup-node@v3
