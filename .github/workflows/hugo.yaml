@@ -60,7 +60,7 @@ jobs:
           # hash as a part of the cache key.
           # https://github.com/actions/setup-node/blob/main/docs/advanced-usage.md#caching-packages-data
           cache-dependency-path: 'site/package-lock.json'
-
+      - run: cd site && npm ci
       - name: Build with Hugo
         run: cd site && hugo --gc --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
 
