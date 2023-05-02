@@ -18,6 +18,7 @@ permissions:
   statuses: write
   actions: write
   checks: read
+  pages: write
 
 # Default to bash
 defaults:
