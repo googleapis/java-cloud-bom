@@ -149,7 +149,8 @@ public class BomContentTest {
       if (currentArtifact.getGroupId().equals("com.google.api")
           && currentArtifact.getArtifactId().equals("gapic-generator-java")) {
         // Skip gapic-generator-java artifact, which is part of gapic-generator-java-bom
-        // but not intended to be client library user-facing. It has copied classes of its dependencies in it.
+        // but not intended to be client library user-facing. It has copied classes of its
+        // dependencies in it.
         continue;
       }
 
