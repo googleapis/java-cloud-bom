@@ -1,0 +1,34 @@
+name: Update site variables for Github Pages
+
+# Run this workflow when there's a change made to the content within the versions.txt file
+# TODO:@alicejli this workflow is still untested. Once update_site_variables.py works, test this workflow
+on:
+  push:
+    branches:
+      - main  # Set a branch to deploy
+    paths:
+      - '**/versions.txt'
+
+jobs:
+  update_site_variables:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Update variables
+      run: python update_site_variables.py # Run script to update the site/data/variables.yaml file
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "alicejli@google.com"
+        git add site/data/variables.yaml
+        git commit -m "Update Github Pages site variables" || true
+        git push

@@ -1,6 +1,6 @@
 baseURL = '/'
 languageCode = 'en-us'
-title = 'Javadocs test site'
+title = 'Google Cloud SDK Javadocs'
 
 [module]
 proxy = "direct"
@@ -10,3 +10,25 @@ path = "github.com/google/docsy"
 path = "github.com/google/docsy/dependencies"
 
 contentDir = "content/"
+
+# Highlighting config
+pygmentsCodeFences = true
+pygmentsUseClasses = false
+# Use the new Chroma Go highlighter in Hugo.
+pygmentsUseClassic = false
+#pygmentsOptions = "linenos=table"
+# See https://help.farbox.com/pygments.html
+pygmentsStyle = "tango"
+
+[params]
+libraries_bom_version = "libaries-bom-26.11.0" # Need to update through update_site_variables.py workflow
+
+[params.ui]
+sidebar_menu = true
+
+# Enable to show the side bar menu in its compact state.
+ul_show = 1
+sidebar_menu_foldable = true
+sidebar_cache_limit = 1000
+# Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+sidebar_search_disable = true

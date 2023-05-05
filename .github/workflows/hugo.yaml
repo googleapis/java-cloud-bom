@@ -1,5 +1,6 @@
 name: GitHub Pages
 
+# Run this workflow when there's a change made to the content within the `site` directory
 on:
   push:
     branches:
