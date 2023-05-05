@@ -1,6 +1,8 @@
-# TODO:@alicejli This script should parse https://github.com/googleapis/google-cloud-java/blob/main/versions.txt to update the versions for each module within /site/data/variables.yaml
+# TODO:@alicejli This script should parse versions.txt to update the versions for each module within /site/data/variables.yaml
 
-# Fetch https://github.com/googleapis/google-cloud-java/blob/main/versions.txt
+# Get google-cloud-<service> versions https://github.com/googleapis/google-cloud-java/blob/main/versions.txt
+# Get gax version from https://github.com/googleapis/gapic-generator-java/blob/main/versions.txt
+# Get libraries-bom version from https://github.com/googleapis/java-cloud-bom/blob/main/versions.txt
 
 # Parse the file to get updated module names and version numbers
 
