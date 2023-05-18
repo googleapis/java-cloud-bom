@@ -28,12 +28,9 @@ jobs:
 
     - name: Manual checkout source and javadoc generation for testing purposes
       run: |
-#        cd site/static/google-cloud-bigquery
-#        echo "pineapples" > testfile.txt
         git clone https://github.com/googleapis/java-bigquery.git
         git -C java-bigquery checkout v2.26.0
         cp java-bigquery/google-cloud-bigquery/EnableAutoValue.txt site/static/google-cloud-bigquery
-#        mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false -DdestDir=../../site/static/google-cloud-bigquery/ || true
 
     - name: Commit Javadocs
       run: |
