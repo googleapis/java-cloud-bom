@@ -27,29 +27,10 @@ jobs:
         git checkout v2.26.0
         cd google-cloud-bigquery
         mvn javadoc:javadoc -DdestDir=../../site/static/google-cloud-bigquery/ || true
-#    - name: Read versions.txt and checkout source repositories
-#      run: |
-#        while read repo directory tag; do
-#          git clone https://github.com/googleapis/${repo}.git
-#          cd ${repo}
-#          git checkout ${tag}
-#          cd ..
-#        done <.github/workflows/versions.txt
-#
-#    - name: Generate Javadocs
-#      run: |
-#        while read repo directory tag; do
-#          mkdir -p ../site/static/${directory}  # Make sure the output directory exists
-#          rm -rf ../site/static/${directory}/*  # Clear any existing files in the output directory
-#          cd ${repo}/${directory}
-#          mvn javadoc:javadoc
-#          cp target/site/apidocs/* ../../site/static/${directory}
-#          cd ..
-#        done <.github/workflows/versions.txt
+
     - name: Commit Javadocs
       run: |
-        cd java-cloud-bom/site/static
-#        find site/static/ -name ".git" -type d -exec rm -rf {} + # Remove any .git files that could cause the script to create the files as a submodule
+        cd site/static
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
