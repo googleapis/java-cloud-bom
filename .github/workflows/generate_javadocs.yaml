@@ -17,12 +17,12 @@ jobs:
 
     - name: Manual checkout source and javadoc generation for testing purposes
       run: |
-        git clone https://github.com/googleapis/java-bigquery.git
-        cd java-bigquery
         mkdir -p ../../site/static/google-cloud-bigquery  # Make sure the output directory exists
         rm -rf ../../site/static/google-cloud-bigquery/*  # Clear any existing files in the output directory
+        git clone https://github.com/googleapis/java-bigquery.git
+        cd java-bigquery
         git checkout v2.26.0
-        cd java-bigquery/google-cloud-bigquery
+        cd google-cloud-bigquery
         mvn javadoc:javadoc || true
         cp target/site/apidocs/* ../../site/static/google-cloud-bigquery/
         cd ..
