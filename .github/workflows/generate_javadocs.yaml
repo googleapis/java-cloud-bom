@@ -15,10 +15,13 @@ jobs:
     - name: Checkout this repo
       uses: actions/checkout@v3
 
-    - name: Manual checkout source and javadoc generation for testing purposes
+    - name: Create or clear directories for the javadocs
       run: |
         mkdir -p site/static/google-cloud-bigquery  # Make sure the output directory exists
         rm -rf site/static/google-cloud-bigquery/*  # Clear any existing files in the output directory
+
+    - name: Manual checkout source and javadoc generation for testing purposes
+      run: |
         git clone https://github.com/googleapis/java-bigquery.git
         cd java-bigquery
         git checkout v2.26.0
@@ -46,9 +49,10 @@ jobs:
 
     - name: Commit Javadocs
       run: |
-        find site/static/ -name ".git" -type d -exec rm -rf {} + # Remove any .git files that could cause the script to create the files as a submodule
+        cd java-cloud-bom/site/static
+#        find site/static/ -name ".git" -type d -exec rm -rf {} + # Remove any .git files that could cause the script to create the files as a submodule
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add --all
+        git add .
         git commit -m "Add Javadocs for bigquery" -a || echo "No changes to commit"
         git push
