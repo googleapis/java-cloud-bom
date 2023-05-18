@@ -46,7 +46,6 @@ jobs:
 #          cp target/site/apidocs/* ../../site/static/${directory}
 #          cd ..
 #        done <.github/workflows/versions.txt
-
     - name: Commit Javadocs
       run: |
         cd java-cloud-bom/site/static
