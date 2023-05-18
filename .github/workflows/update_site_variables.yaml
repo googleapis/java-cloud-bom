@@ -3,6 +3,7 @@ name: Update site variables for Github Pages
 # Run this workflow when there's a change made to the content within the versions.txt file
 # TODO:@alicejli this workflow is still untested. Once update_site_variables.py works, test this workflow
 on:
+  workflow_dispatch:
   push:
     branches:
       - main  # Set a branch to deploy

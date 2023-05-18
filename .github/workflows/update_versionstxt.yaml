@@ -1,0 +1,30 @@
+name: Copy https://github.com/googleapis/google-cloud-java/blob/main/versions.txt on new release or manual trigger
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [google_cloud_java_repo_release]
+
+jobs:
+  copy_file:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source repo
+      uses: actions/checkout@v2
+      with:
+        repository: source_owner/source_repo
+        token: ${{ secrets.PAT_SECRET }}
+        path: source_repo
+
+    - name: Copy and rename file
+      run: |
+        cp source_repo/source_file.txt ./renamed_file.txt
+
+    - name: Commit and push
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "Github Action"
+        git add .
+        git commit -m "Update file from source repo"
+        git push

@@ -22,7 +22,7 @@ jobs:
           cd ${repo}
           git checkout ${tag}
           cd ..
-        done <.github/workflows/versions.txt
+        done <versions.txt
 
     - name: Generate Javadocs
       run: |
@@ -32,7 +32,7 @@ jobs:
           rm -rf ../site/static/${repo}/*  # Clear any existing files in the output directory
           mvn javadoc:javadoc -DdestDir=../site/static/${repo}
           cd ..
-        done <.github/workflows/versions.txt
+        done <versions.txt
 
     - name: Commit Javadocs
       run: |

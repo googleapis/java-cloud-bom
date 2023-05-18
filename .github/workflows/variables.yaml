@@ -1,0 +1,13 @@
+# This file will be updated with the latest versions and release dates of the various modules
+
+google-cloud-bom: "google-cloud-bom:v.0.196.0"
+google-cloud-core: "google-cloud-core:v.2.17.0"
+full-convergence-check: "full-convergence-check:v.0.14.0"
+gax-grpc: "gax-grpc:v.2.27.0"
+gax-httpjson: "gax-httpjson:v.0.112.0"
+google-iam-policy: "google-iam-policy:v.1.13.0"
+google-cloud-shared-dependencies: "google-cloud-shared-dependencies:v.3.9.0"
+api-common: "api-common:v.2.10.0"
+java-cloud-bom-tests: "java-cloud-bom-tests:v.0.11.0"
+libraries-bom: "libraries-bom:v.26.15.0"
+gax: "gax:v.2.27.0"
