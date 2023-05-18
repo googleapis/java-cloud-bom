@@ -25,7 +25,7 @@ jobs:
         rm -rf ../site/static/google-cloud-bigquery/*  # Clear any existing files in the output directory
         cd java-bigquery/google-cloud-bigquery
         mvn javadoc:javadoc || true
-        cp target/site/apidocs/* ../../site/static/google-cloud-bigquery/
+        cp target/site/apidocs/* ../site/static/google-cloud-bigquery/
         cd ..
 #    - name: Read versions.txt and checkout source repositories
 #      run: |
