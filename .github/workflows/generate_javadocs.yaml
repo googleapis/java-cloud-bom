@@ -23,7 +23,8 @@ jobs:
         cd java-bigquery
         git checkout v2.26.0
         cd google-cloud-bigquery
-        mvn javadoc:javadoc -DdestDir=../../../../site/static/google-cloud-bigquery/ || true
+        mvn javadoc:javadoc
+        cp target/site/apidocs/* ../../../../site/static/google-cloud-bigquery/ || true
 #    - name: Read versions.txt and checkout source repositories
 #      run: |
 #        while read repo directory tag; do
@@ -48,6 +49,6 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add --all
+        git add ../site/static/*
         git commit -m "Add Javadocs for ${repo}" -a || echo "No changes to commit"
         git push
