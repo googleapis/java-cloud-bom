@@ -27,11 +27,11 @@ jobs:
     - name: Generate Javadocs
       run: |
         while read repo directory tag; do
-          cd ${directory}
           mkdir -p ../site/static/${directory}  # Make sure the output directory exists
           rm -rf ../site/static/${directory}/*  # Clear any existing files in the output directory
+          cd ${repo}/${directory}
           mvn javadoc:javadoc
-          cp target/site/apidocs/* ../site/static/${directory}
+          cp target/site/apidocs/* ../../site/static/${directory}
           cd ..
         done <.github/workflows/versions.txt
 
