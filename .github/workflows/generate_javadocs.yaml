@@ -32,7 +32,7 @@ jobs:
         cd java-bigquery
         git checkout v2.26.0
         cd google-cloud-bigquery
-        mvn javadoc:javadoc -Xdoclint:none -DdestDir=../../site/static/google-cloud-bigquery/ || true
+        mvn javadoc:javadoc -Dmaven.javadoc.failOnError=false -DdestDir=../../site/static/google-cloud-bigquery/ || true
 
     - name: Commit Javadocs
       run: |
