@@ -24,7 +24,7 @@ jobs:
         mkdir -p ../site/static/google-cloud-bigquery  # Make sure the output directory exists
         rm -rf ../site/static/google-cloud-bigquery/*  # Clear any existing files in the output directory
         cd java-bigquery/google-cloud-bigquery
-        mvn javadoc:javadoc
+        mvn javadoc:javadoc || true
         cp target/site/apidocs/* ../../site/static/google-cloud-bigquery/
         cd ..
 #    - name: Read versions.txt and checkout source repositories
