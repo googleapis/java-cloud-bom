@@ -37,7 +37,7 @@ jobs:
       run: |
         git clone https://github.com/googleapis/java-bigquery.git
         git -C java-bigquery checkout v2.26.0
-        mvn -f google-cloud-bigquery/pom.xml javadoc:javadoc -Dmaven.javadoc.failOnError=false -Dmaven.javadoc.outputDirectory=/site/static/google-cloud-bigquery
+        mvn -f java-bigquery/google-cloud-bigquery/pom.xml javadoc:javadoc -Dmaven.javadoc.failOnError=false -Dmaven.javadoc.outputDirectory=/site/static/google-cloud-bigquery
 
     - name: Commit Javadocs
       run: |
