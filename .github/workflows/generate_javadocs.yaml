@@ -41,10 +41,9 @@ jobs:
 
     - name: Commit Javadocs
       run: |
-        cd site/static
+        git -C site/static/google-cloud-bigquery add .
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add .
         git commit -m "Add Javadocs for bigquery" -a || echo "No changes to commit"
         git push
       env:
