@@ -20,11 +20,6 @@ jobs:
     steps:
     - name: Checkout this repo
     - uses: actions/checkout@v3
-    - uses: actions/setup-java@v3
-      with:
-        distribution: temurin
-        java-version: 11
-        cache: maven
 
     - name: Create or clear directories for the javadocs
       run: |
@@ -32,6 +27,11 @@ jobs:
         rm -rf site/static/google-cloud-bigquery/*  # Clear any existing files in the output directory
 
     - name: Manual checkout source and javadoc generation for testing purposes
+    - uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: 11
+        cache: maven
       run: |
         git clone https://github.com/googleapis/java-bigquery.git
         git -C java-bigquery checkout v2.26.0
