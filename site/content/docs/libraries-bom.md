@@ -2,8 +2,7 @@
 customTitle: 'libraries_bom_version'
 ---
 
-# {{< param libraries_bom_version >}}
-
+# {{< variable "libraries-bom" >}}
 
 ### [google-cloud-apikeys-0.11.0-maven_download](https://alicejli.github.io/java-cloud-bom/google-cloud-apikeys/0.11.0/)
 This is what the Javadocs look like when extracted from the Maven artifact for `google-cloud-apikeys`. This is identical to running `mvn:javadoc:javadoc` for the `google-cloud-apikeys` directory using Java8 (to keep the frames).
@@ -17,8 +16,7 @@ This is what the combined Javadocs look like for `google-cloud-apikeys`, `grpc-g
 ### [google-cloud-apikeys-combined_withframes](https://alicejli.github.io/java-cloud-bom/google-cloud-apikeys-0.11.0-combined_withframes/apidocs/)
 This is what the combined Javadocs look like for `google-cloud-apikeys`, `grpc-google-cloud-apikeys`, and `proto-google-cloud-apikeys` with frames.
 
-### [google-cloud-apikeys](/google-cloud-apikeys/0.11.0/)
+### [google-cloud-bigquery](/google-cloud-bigquery/) : {{< variable "google-cloud-bigquery" >}}
 
-{{< variable "google-cloud-bigquery" >}}
 
 

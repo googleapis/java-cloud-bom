@@ -23,8 +23,7 @@ enableInlineShortcodes = true
 
 
 [params]
-libraries_bom_version = "libaries-bom-26.14.0" # Need to update through update_site_variables.py workflow
-google_cloud_bigquery_version = "google-cloud-bigquery: v2.26.0"
+libraries_bom_version = "libraries-bom: v.26.14.0" # Need to update through update_site_variables.py workflow
 
 [params.ui]
 sidebar_menu = true
