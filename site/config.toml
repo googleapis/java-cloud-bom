@@ -19,9 +19,12 @@ pygmentsUseClassic = false
 #pygmentsOptions = "linenos=table"
 # See https://help.farbox.com/pygments.html
 pygmentsStyle = "tango"
+enableInlineShortcodes = true
+
 
 [params]
-libraries_bom_version = "libaries-bom-26.11.0" # Need to update through update_site_variables.py workflow
+libraries_bom_version = "libaries-bom-26.14.0" # Need to update through update_site_variables.py workflow
+google_cloud_bigquery_version = "google-cloud-bigquery: v2.26.0"
 
 [params.ui]
 sidebar_menu = true
