@@ -23,13 +23,19 @@ jobs:
       run: pip install pyyaml toml # Needed for update_site_params.py script
 
     - name: Create and update initial variables.yaml
-      run: python parse_versionstxt.py # Run script to update the site/data/variables.yaml file for the libraries_bom version
+      run: |
+        git -C .github/workflows/javadocs_scripts
+        python parse_versionstxt.py # Run script to update the site/data/variables.yaml file for the libraries_bom version
 
     - name: Update additional variables.yaml
-      run: python parse_google_cloud_bom_pom.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
+      run: |
+        git -C .github/workflows/javadocs_scripts
+        python parse_google_cloud_bom_pom.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
 
     - name: Update site params
-      run: python update_site_params.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
+      run: |
+        git -C .github/workflows/javadocs_scripts
+        python update_site_params.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
 
     - name: Commit and push changes
       run: |
