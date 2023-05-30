@@ -12,11 +12,11 @@ namespaces = {
 exclude_deps = ['google-java-format']
 
 # Parse the XML file
-tree = ET.parse('../../../google-cloud-bom/pom.xml')
+tree = ET.parse('./google-cloud-bom/pom.xml')
 root = tree.getroot()
 
 # Save the gapic-libraries-bom and handwritten library versions to `/site/data/variables.yaml`
-with open(os.path.join('../../../site/data/','variables.yaml'), 'a') as f:
+with open(os.path.join('./site/data/','variables.yaml'), 'a') as f:
   # Iterate over dependencies in the XML
   for dependency in root.findall(".//m:dependencies/m:dependency", namespaces):
     # Find the artifactId and version elements
