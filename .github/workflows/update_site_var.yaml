@@ -48,7 +48,7 @@ jobs:
           git -C "${directory}" checkout $tag
           echo "Updating variables.yaml file using ${repo}'s version.txt file"
           python .github/workflows/javadocs_scripts/parse_versionstxt_automate.py ${directory}/versions.txt
-        done
+        done < .github/workflows/javadocs_scripts/repoVersions.txt
 
     - name: Commit and push changes
       run: |
