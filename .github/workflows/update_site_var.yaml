@@ -41,9 +41,9 @@ jobs:
       run: |
         while IFS= read -r line
         do
-          repo=$(echo $line | awk -F ' \\|\\| ' '{print $1}')
-          directory=$(echo $line | awk -F ' \\|\\| ' '{print $2}')
-          tag=$(echo $line | awk -F ' \\|\\| ' '{print $3}')
+          repo=$(echo "$line" | cut -d '||' -f 1 | awk '{gsub(/^ +| +$/,"")}1')
+          directory=$(echo "$line" | cut -d '||' -f 2 | awk '{gsub(/^ +| +$/,"")}1')
+          tag=$(echo "$line" | cut -d '||' -f 3 | awk '{gsub(/^ +| +$/,"")}1')
           git clone https://github.com/${repo}.git
           git -C "${directory}" checkout $tag
           echo "Updating variables.yaml file using ${repo}'s version.txt file"
