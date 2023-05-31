@@ -48,6 +48,10 @@ jobs:
           git -C "${directory}" checkout $tag
         done < .github/workflows/javadocs_scripts/repoVersions.txt
 
+    - name: Wait for cloning to finish
+      run: |
+        while [ -n "$(jobs -r)" ]; do sleep 1; done
+
     - name: Update variables.yaml using google-cloud-java versions.txt and sdk-platform-java versions.txt files
       run: |
         echo "Updating variables.yaml file using google-cloud-java and sdk-platform-java versions.txt files..."
