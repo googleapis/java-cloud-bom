@@ -38,6 +38,6 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "alicejli@google.com"
-        git add site/data/variables.yaml
+        git add .
         git commit -m "Update Github Pages site variables" || true
         git push
