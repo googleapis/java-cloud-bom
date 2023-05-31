@@ -48,7 +48,7 @@ jobs:
           echo "REPO=$repo" >> $GITHUB_ENV
           echo "DIRECTORY=$directory" >> $GITHUB_ENV
           echo "TAG=$tag" >> $GITHUB_ENV
-        done < ./github/workflows/javadocs_scripts/repoVersions.txt
+        done < .github/workflows/javadocs_scripts/repoVersions.txt
 
     - name: Checkout specific tag and run script
       run: |
@@ -59,7 +59,7 @@ jobs:
           tag=$(echo $line | awk -F ' || ' '{print $3}')
 
           git -C "${directory}" checkout $tag
-        done < ./github/workflows/javadocs_scripts/repoVersions.txt
+        done < .github/workflows/javadocs_scripts/repoVersions.txt
 
     - name: Update variables.yaml using google-cloud-java versions.txt and sdk-platform-java versions.txt files
       run: |
