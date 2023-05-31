@@ -12,6 +12,9 @@ def update_repos_for_versionstxt(file_path, yaml_file):
       repo, directory, tag, artifact_id = parts
       if artifact_id in version_data:
         version = version_data[artifact_id]
+        # exception for sdk-platform-java to use google-cloud-shared-dependencies tag
+        if artifact_id == "first-party-dependencies":
+          version = 'google-cloud-shared-dependencies/' + version
         updated_line = f"{repo} {directory} {version} {artifact_id}\n"
         print(updated_line, end='')
       else:

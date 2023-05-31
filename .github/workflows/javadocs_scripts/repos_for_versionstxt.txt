@@ -1,2 +1,2 @@
-googleapis/sdk-platform-java sdk-platform-java v3.10.1 first-party-dependencies
+googleapis/sdk-platform-java sdk-platform-java google-cloud-shared-dependencies/v3.10.1 first-party-dependencies
 googleapis/google-cloud-java google-cloud-java v1.12.0 gapic-libraries-bom
