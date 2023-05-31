@@ -1,0 +1,79 @@
+name: Update site variables for Github Pages with automated versions
+
+# Run this workflow upon published release
+on:
+  release:
+    types: [ published ]
+  workflow_dispatch:
+
+jobs:
+  update_site_variables:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: pip install pyyaml toml # Needed for update_site_params.py script
+
+    - name: Create and update initial variables.yaml
+      run: |
+        echo "Creating initial variables.yaml file..."
+        python .github/workflows/javadocs_scripts/parse_versionstxt.py # Run script to update the site/data/variables.yaml file for the libraries_bom version
+
+    - name: Update variables.yaml using google-cloud-bom and libraries-bom POM.xml
+      run: |
+        echo "Updating variables.yaml file using google-cloud-bom and libraries-bom POM.xml files..."
+        python .github/workflows/javadocs_scripts/parse_pom.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
+
+    - name: Update site param for libraries-bom version
+      run: |
+        echo "Updating Github Pages site param for libraries-bom version"
+        python .github/workflows/javadocs_scripts/update_site_params.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
+
+    - name: Read repo, directory, and tag from file
+      id: read_file
+      run: echo "::set-output name=content::$(cat ./github/workflows/javadocs_scripts/repoVersions.txt)"
+
+    - name: Extract repo, directory, and tag
+      id: extract_info
+      run: |
+        echo "${{ steps.read_file.outputs.content }}" | while IFS= read -r line
+        do
+          repo=$(echo $line | cut -d' ' -f1)
+          directory=$(echo $line | cut -d' ' -f3)
+          tag=$(echo $line | cut -d' ' -f4)
+          echo "::set-output name=repo::$repo"
+          echo "::set-output name=directory::$directory"
+          echo "::set-output name=tag::$tag"
+        done
+
+    - name: Checkout specific tag and run script
+      run: |
+        echo "${{ steps.read_file.outputs.content }}" | while IFS= read -r line
+        do
+          repo=$(echo $line | cut -d' ' -f1)
+          directory=$(echo $line | cut -d' ' -f3)
+          tag=$(echo $line | cut -d' ' -f4)
+
+          git -C "./${directory}" checkout $tag
+        done
+
+    - name: Update variables.yaml using google-cloud-java versions.txt and sdk-platform-java versions.txt files
+      run: |
+        echo "Updating variables.yaml file using google-cloud-java and sdk-platform-java versions.txt files..."
+        python .github/workflows/javadocs_scripts/parse_versionstxt_secondary.py
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add ./site/data/variables.yaml ./site/config.toml
+        git commit -m "Update Github Pages site variables" || true
+        git push
