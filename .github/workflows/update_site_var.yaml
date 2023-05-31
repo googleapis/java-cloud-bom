@@ -55,8 +55,8 @@ jobs:
         while IFS= read -r line
         do
           repo=$(echo $line | awk -F ' || ' '{print $1}')
-          directory=$(echo $line | awk -F ' || ' '{print $2}')
-          tag=$(echo $line | awk -F ' || ' '{print $3}')
+          directory=$(echo $line | awk -F ' || ' '{print $3}')
+          tag=$(echo $line | awk -F ' || ' '{print $5}')
 
           git -C "${directory}" checkout $tag
         done < .github/workflows/javadocs_scripts/repoVersions.txt
