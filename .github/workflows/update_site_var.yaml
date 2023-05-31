@@ -37,9 +37,14 @@ jobs:
         echo "Updating Github Pages site param for libraries-bom version"
         python .github/workflows/javadocs_scripts/update_site_params.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
 
+    - name: Update repos_for_versionstxt.txt
+      run: |
+        echo "Updating repos_for_versionstxt.txt"
+        python .github/workflows/javadocs_scripts/update_repos_for_versionstxt.py # Run script to update the repos_for_versionstxt.txt file for the sdk-platform-java and google-cloud-java version tags
+
     - name: Read repo, directory, and tag from file and clone repo
       run: |
-        while read -r repo directory tag
+        while read -r repo directory tag artifact
         do
           echo "REPO=$repo"
           echo "DIRECTORY=$directory"
@@ -47,8 +52,8 @@ jobs:
           git clone https://github.com/${repo}.git
           git -C "${directory}" checkout $tag
           echo "Updating variables.yaml file using ${repo}'s version.txt file"
-          python .github/workflows/javadocs_scripts/parse_versionstxt_automate.py ${directory}/versions.txt
-        done < .github/workflows/javadocs_scripts/repoVersions.txt
+          python .github/workflows/javadocs_scripts/parse_versionstxt_addl_repos.py ${directory}/versions.txt
+        done < .github/workflows/javadocs_scripts/repos_for_versionstxt.txt
 
     - name: Commit and push changes
       run: |
