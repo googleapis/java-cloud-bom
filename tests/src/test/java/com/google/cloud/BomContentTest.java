@@ -116,7 +116,11 @@ public class BomContentTest {
         + artifact.getArtifactId()
         + "/"
         + artifact.getVersion()
-        + "/";
+        + "/"
+        + artifact.getArtifactID()
+        + "-"
+        + artifact.getVersion()
+        + ".pom";
   }
 
   /** Asserts that the BOM only provides JARs which contains unique class names to the classpath. */
