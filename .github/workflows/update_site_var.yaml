@@ -39,7 +39,7 @@ jobs:
 
     - name: Read repo, directory, and tag from file and clone repo
       run: |
-        cat .github/workflows/javadocs_scripts/repoVersions.txt | while read -r repo directory tag
+        while read -r repo directory tag
         do
           echo "REPO=$repo"
           echo "DIRECTORY=$directory"
