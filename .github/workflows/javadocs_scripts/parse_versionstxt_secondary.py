@@ -39,7 +39,7 @@ def convert_file(input_filenames, output_filename, exclude_packages):
 
 
 # Test the function
-input_files = ['google-cloud-java/versions.txt','sdk-platform-java/versions.txt']
+input_files = ['./google-cloud-java/versions.txt','./sdk-platform-java/versions.txt']
 output_file = 'variables.yaml'
 
 # Excludes lines in versions.txt files that contain any of the following strings. Since we do not want to publish separate Javadocs for `google-cloud-<service>`, `grpc-google-<service>`, and `proto-google-<service>` artifacts, the latter two packages are excluded.
