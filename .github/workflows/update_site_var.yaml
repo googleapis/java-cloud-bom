@@ -39,12 +39,12 @@ jobs:
 
     - name: Read repo, directory, and tag from file
       id: read_file
-      run: echo "::set-env name=FILE_CONTENT::$(cat ./github/workflows/javadocs_scripts/repoVersions.txt)"
+      run: echo "$(cat .github/workflows/javadocs_scripts/repoVersions.txt)" > env_file.env
 
     - name: Extract repo, directory, and tag
       id: extract_info
       run: |
-        echo "$FILE_CONTENT" | while IFS= read -r line
+        while IFS= read -r line
         do
           repo=$(echo $line | cut -d' ' -f1)
           directory=$(echo $line | cut -d' ' -f3)
@@ -52,18 +52,18 @@ jobs:
           echo "REPO=$repo" >> $GITHUB_ENV
           echo "DIRECTORY=$directory" >> $GITHUB_ENV
           echo "TAG=$tag" >> $GITHUB_ENV
-        done
+        done < env_file.env
 
     - name: Checkout specific tag and run script
       run: |
-        echo "$FILE_CONTENT" | while IFS= read -r line
+        while IFS= read -r line
         do
           repo=$(echo $line | cut -d' ' -f1)
           directory=$(echo $line | cut -d' ' -f3)
           tag=$(echo $line | cut -d' ' -f4)
 
           git -C "${directory}" checkout $tag
-        done
+        done < env_file.env
 
     - name: Update variables.yaml using google-cloud-java versions.txt and sdk-platform-java versions.txt files
       run: |
