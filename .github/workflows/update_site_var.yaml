@@ -39,11 +39,11 @@ jobs:
 
     - name: Read repo, directory, and tag from file and clone repo
       run: |
-        while IFS= read -r line
+        while read -r repo directory tag
         do
-          repo=$(echo "$line" | cut -d '||' -f 1 | awk '{gsub(/^ +| +$/,"")}1')
-          directory=$(echo "$line" | cut -d '||' -f 2 | awk '{gsub(/^ +| +$/,"")}1')
-          tag=$(echo "$line" | cut -d '||' -f 3 | awk '{gsub(/^ +| +$/,"")}1')
+          echo "REPO=$repo"
+          echo "DIRECTORY=$directory"
+          echo "TAG=$tag"
           git clone https://github.com/${repo}.git
           git -C "${directory}" checkout $tag
           echo "Updating variables.yaml file using ${repo}'s version.txt file"
