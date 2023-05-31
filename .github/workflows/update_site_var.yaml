@@ -39,7 +39,7 @@ jobs:
 
     - name: Read repo, directory, and tag from file and clone repo
       run: |
-        while read -r repo directory tag
+        cat .github/workflows/javadocs_scripts/repoVersions.txt | while read -r repo directory tag
         do
           echo "REPO=$repo"
           echo "DIRECTORY=$directory"
@@ -48,7 +48,7 @@ jobs:
           git -C "${directory}" checkout $tag
           echo "Updating variables.yaml file using ${repo}'s version.txt file"
           python .github/workflows/javadocs_scripts/parse_versionstxt_automate.py ${directory}/versions.txt
-        done < .github/workflows/javadocs_scripts/repoVersions.txt
+        done
 
     - name: Commit and push changes
       run: |
