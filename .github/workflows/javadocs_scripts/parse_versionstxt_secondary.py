@@ -32,7 +32,7 @@ def convert_file(input_filenames, output_filename, exclude_packages):
         output_lines.add(convert_line(line))
 
   # Open the output file for writing
-  with open(os.path.join('./site/data/',output_filename), 'w') as outfile:
+  with open(os.path.join('./site/data/',output_filename), 'a') as outfile:
     # Write each unique output line to the output file
     for line in output_lines:
       outfile.write(line + '\n')
