@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.9'
 
@@ -26,18 +26,24 @@ jobs:
       run: |
         python .github/workflows/javadocs_scripts/parse_versionstxt.py # Run script to update the site/data/variables.yaml file for the libraries_bom version
 
-    - name: Update additional variables.yaml
+    - name: Update variables.yaml using google-cloud-bom POM.xml
       run: |
-        python .github/workflows/javadocs_scripts/parse_google_cloud_bom_pom.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
+        python .github/workflows/javadocs_scripts/parse_pom.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
 
-    - name: Update site params
+    - name: Update site params for libraries-bom version
       run: |
         python .github/workflows/javadocs_scripts/update_site_params.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
+
+    - name: Check out sdk-platform-java for additional versions.txt
+      run: |
+
+    - name: Check out sdk-platform-java for additional versions.txt
+      run: |
 
     - name: Commit and push changes
       run: |
         git config --global user.name "GitHub Actions Bot"
-        git config --global user.email "alicejli@google.com"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add .
         git commit -m "Update Github Pages site variables" || true
         git push
