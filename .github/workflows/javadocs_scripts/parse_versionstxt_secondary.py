@@ -7,7 +7,7 @@ def convert_line(line):
   parts = line.strip().split(':')
 
   # Construct the output string
-  output_line = parts[0] + ': "' + parts[0] + ': v.' + parts[1] + '"'
+  output_line = parts[0] + ': "' + 'v.' + parts[1] + '"'
 
   return output_line
 
@@ -32,14 +32,14 @@ def convert_file(input_filenames, output_filename, exclude_packages):
         output_lines.add(convert_line(line))
 
   # Open the output file for writing
-  with open(os.path.join('./site/data/',output_filename), 'a') as outfile:
+  with open(os.path.join('./site/data/',output_filename), 'w') as outfile:
     # Write each unique output line to the output file
     for line in output_lines:
       outfile.write(line + '\n')
 
 
 # Test the function
-input_files = ['./site/versionstxt/sdk-platform-java-versions.txt']
+input_files = ['google-cloud-java/versions.txt','sdk-platform-java/versions.txt']
 output_file = 'variables.yaml'
 
 # Excludes lines in versions.txt files that contain any of the following strings. Since we do not want to publish separate Javadocs for `google-cloud-<service>`, `grpc-google-<service>`, and `proto-google-<service>` artifacts, the latter two packages are excluded.

@@ -24,26 +24,40 @@ jobs:
 
     - name: Create and update initial variables.yaml
       run: |
+        echo "Creating initial variables.yaml file..."
         python .github/workflows/javadocs_scripts/parse_versionstxt.py # Run script to update the site/data/variables.yaml file for the libraries_bom version
 
-    - name: Update variables.yaml using google-cloud-bom POM.xml
+    - name: Update variables.yaml using google-cloud-bom and libraries-bom POM.xml
       run: |
+        echo "Updating variables.yaml file using google-cloud-bom and libraries-bom POM.xml files..."
         python .github/workflows/javadocs_scripts/parse_pom.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
 
-    - name: Update site params for libraries-bom version
+    - name: Update site param for libraries-bom version
       run: |
+        echo "Updating Github Pages site param for libraries-bom version"
         python .github/workflows/javadocs_scripts/update_site_params.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
 
-    - name: Check out sdk-platform-java for additional versions.txt
+    - name: Check out google-cloud-java for additional versions.txt
       run: |
+        echo "Checking out google-cloud-java..."
+        git clone https://github.com/googleapis/google-cloud-java.git
+        git -C google-cloud-java checkout v1.12.0
 
     - name: Check out sdk-platform-java for additional versions.txt
       run: |
+        echo "Checking out sdk-platform-java..."
+        git clone https://github.com/googleapis/sdk-platform-java.git
+        git -C sdk-platform-java checkout google-cloud-shared-dependencies/v3.10.1
+
+    - name: Update variables.yaml using google-cloud-java versions.txt and sdk-platform-java versions.txt files
+      run: |
+        echo "Updating variables.yaml file using google-cloud-java and sdk-platform-java versions.txt files..."
+        python .github/workflows/javadocs_scripts/parse_versionstxt_secondary.py
 
     - name: Commit and push changes
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add .
+        git add ./site/data/variables.yaml ./site/config.toml
         git commit -m "Update Github Pages site variables" || true
         git push
