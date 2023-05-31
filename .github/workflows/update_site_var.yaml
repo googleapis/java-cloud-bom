@@ -39,30 +39,30 @@ jobs:
 
     - name: Read repo, directory, and tag from file
       id: read_file
-      run: echo "::set-output name=content::$(cat ./github/workflows/javadocs_scripts/repoVersions.txt)"
+      run: echo "::set-env name=FILE_CONTENT::$(cat ./github/workflows/javadocs_scripts/repoVersions.txt)"
 
     - name: Extract repo, directory, and tag
       id: extract_info
       run: |
-        echo "${{ steps.read_file.outputs.content }}" | while IFS= read -r line
+        echo "$FILE_CONTENT" | while IFS= read -r line
         do
           repo=$(echo $line | cut -d' ' -f1)
           directory=$(echo $line | cut -d' ' -f3)
           tag=$(echo $line | cut -d' ' -f4)
-          echo "::set-output name=repo::$repo"
-          echo "::set-output name=directory::$directory"
-          echo "::set-output name=tag::$tag"
+          echo "REPO=$repo" >> $GITHUB_ENV
+          echo "DIRECTORY=$directory" >> $GITHUB_ENV
+          echo "TAG=$tag" >> $GITHUB_ENV
         done
 
     - name: Checkout specific tag and run script
       run: |
-        echo "${{ steps.read_file.outputs.content }}" | while IFS= read -r line
+        echo "$FILE_CONTENT" | while IFS= read -r line
         do
           repo=$(echo $line | cut -d' ' -f1)
           directory=$(echo $line | cut -d' ' -f3)
           tag=$(echo $line | cut -d' ' -f4)
 
-          git -C "./${directory}" checkout $tag
+          git -C "${directory}" checkout $tag
         done
 
     - name: Update variables.yaml using google-cloud-java versions.txt and sdk-platform-java versions.txt files
