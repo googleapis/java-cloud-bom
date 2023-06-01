@@ -37,7 +37,7 @@ jobs:
         SDK_PLATFORM_JAVA_TAG=$(grep -oP "(?<=${SDK_PLATFORM_JAVA}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
         echo "SDK_PLATFORM_JAVA_TAG=$SDK_PLATFORM_JAVA_TAG" >> $GITHUB_ENV
 
-        GOOGLE_CLOUD_JAVA_TAG=$(grep -oP "(?<=${SDK_PLATFORM_JAVA}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
+        GOOGLE_CLOUD_JAVA_TAG=$(grep -oP "(?<=${GOOGLE_CLOUD_JAVA}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
         echo "GOOGLE_CLOUD_JAVA_TAG=$GOOGLE_CLOUD_JAVA_TAG" >> $GITHUB_ENV
 
     - name: Generate javadocs for modules within sdk-platform-java repo
