@@ -8,7 +8,7 @@ def convert_line(line):
   parts = line.strip().split(':')
 
   # Construct the output string
-  output_line = parts[0] + ': "' + parts[0] + ': v.' + parts[1] + '"'
+  output_line = parts[0] + ': "' + parts[0] + ': v' + parts[1] + '"'
 
   return output_line
 
