@@ -39,7 +39,7 @@ jobs:
     - name: Generate javadocs for modules within sdk-platform-java repo
       run: |
         git clone https://github.com/googleapis/sdk-platform-java.git
-        git -C sdk-platform-java checkout google-cloud-shared-dependencies/${{ $env.SDK_PLATFORM_JAVA_TAG }}
+        git -C sdk-platform-java checkout google-cloud-shared-dependencies/${{ env.SDK_PLATFORM_JAVA_TAG }}
         while read -r artifact directory
         do
           echo "ARTIFACT=$artifact"
