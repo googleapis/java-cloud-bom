@@ -48,5 +48,5 @@ input_files = ['./versions.txt']
 output_file = 'variables.yaml'
 
 # Excludes lines in versions.txt files that contain any of the following strings. Since we do not want to publish separate Javadocs for `google-cloud-<service>`, `grpc-google-<service>`, and `proto-google-<service>` artifacts, the latter two packages are excluded.
-exclude_packages = ['gapic-generator-java', 'google-cloud-java', 'grpc-google', 'proto-google', 'google-cloud-bom', 'full-convergence-check', 'java-cloud-bom-tests']
+exclude_packages = ['gapic-generator-java', 'google-cloud-java', 'grpc-google-cloud', 'proto-google-cloud', 'google-cloud-bom', 'full-convergence-check', 'java-cloud-bom-tests', 'gax-httpjson', 'google-cloud-shared-dependencies']
 convert_file(input_files, output_file, exclude_packages)

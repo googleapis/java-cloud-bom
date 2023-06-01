@@ -1,0 +1,3 @@
+gax	sdk-platform-java/gax-java
+google-iam-policy	sdk-platform-java/java-iam
+api-common	sdk-platform-java/api-common-java

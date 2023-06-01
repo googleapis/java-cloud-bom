@@ -1,8 +1,9 @@
 name: Generate Javadocs
-
+# Run this workflow once the site/data/variables.yaml file has been updated
 on:
-  release:
-    types: [published]
+  push:
+    paths:
+    - 'site/data/**'
   workflow_dispatch:
 
 permissions:
@@ -26,23 +27,40 @@ jobs:
         java-version: 11
         cache: maven
 
+    - name: Save checkout tags for sdk-platform-java, google-cloud-java, and handwritten libraries
+      id: search
+      run: |
+        SDK_PLATFORM_JAVA_TAG="google-cloud-shared-dependencies"
+        VARIABLES_FILE="site/data/variables.yaml"
+
+        sdkplatformjava=$(grep -oP "(?<=${SDK_PLATFORM_JAVA_TAG}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
+
     - name: Create or clear directories for the javadocs
       run: |
         mkdir -p site/static/google-cloud-bigquery # Make sure the output directory exists
         rm -rf site/static/google-cloud-bigquery/*  # Clear any existing files in the output directory
 
-    - name: Manual checkout source and javadoc generation for testing purposes
+    - name: Generate javadocs for modules within sdk-platform-java repo
       run: |
-        git clone https://github.com/googleapis/java-bigquery.git
-        git -C java-bigquery checkout v2.26.0
-        mvn -f java-bigquery/google-cloud-bigquery/pom.xml javadoc:javadoc -Dmaven.javadoc.failOnError=false && mv java-bigquery/google-cloud-bigquery/target/site/apidocs/ site/static/google-cloud-bigquery/
+        git clone https://github.com/sdk-platform-java/.git
+        git -C sdk-platform-java checkout google-cloud-shared-dependencies${{ steps.search.outputs.sdkplatformjava }}
+        while read -r artifact directory
+        do
+          echo "ARTIFACT=$artifact"
+          echo "DIRECTORY=$directory"
+          echo "Creating and clearing directory for javadocs for ${artifact}"
+          mkdir -p site/static/${artifact} # Make sure the output directory exists
+          rm -rf site/static/${artifact}/ # Clear any existing files in the output directory
+          echo "Generating javadocs for ${artifact}"
+          mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ site/static/${artifact}/
+        done < .github/workflows/javadocs_scripts/sdk-platform-java_javadocs_modules.txt
 
     - name: Commit Javadocs
       run: |
-        git -C site/static/google-cloud-bigquery add .
+        git -C site/static/ add .
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Add Javadocs for bigquery" -a || echo "No changes to commit"
+        git commit -m "Add Javadocs for sdk-platform-java modules" -a || echo "No changes to commit"
         git push
       env:
         GH_TOKEN: ${{ github.token }}
