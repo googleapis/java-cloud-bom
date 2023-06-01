@@ -34,7 +34,7 @@ jobs:
         VARIABLES_FILE="site/data/variables.yaml"
 
         sdkplatformjavatag=$(grep -oP "(?<=${SDK_PLATFORM_JAVA_TAG}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
-        echo "::set-output name=sdkplatformjavatag::$sdkplatformjavatag
+        echo "::set-output name=sdkplatformjavatag::$sdkplatformjavatag"
 
     - name: Create or clear directories for the javadocs
       run: |
