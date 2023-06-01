@@ -43,7 +43,7 @@ retry_with_backoff 3 10 \
 # Then, release the staging repository
 if [[ -n "${AUTORELEASE_PR}" ]]
 then
-  mvn nexus-staging:release -B --activate-profiles release-staging-repository \
+  mvn nexus-staging:release -B -P release-staging-repository \
     -DperformRelease=true \
     --settings=settings.xml
 fi
