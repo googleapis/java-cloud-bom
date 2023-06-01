@@ -110,13 +110,22 @@ public class BomContentTest {
   }
 
   private static String buildMavenCentralUrl(Artifact artifact) {
+    // Due to a maven caching issue, accessing an artifact using the directory link (e.g
+    // https://repo1.maven.org/maven2/com/google/cloud/google-cloud-bigtable/2.23.2)
+    // results in a `404 Not Found` error even if the artifact is published but using a
+    // nested file within the directory works (e.g.
+    // https://repo1.maven.org/maven2/com/google/cloud/google-cloud-bigtable/2.23.2/google-cloud-bigtable-2.23.2.pom)
     return "https://repo1.maven.org/maven2/"
         + artifact.getGroupId().replace('.', '/')
         + "/"
         + artifact.getArtifactId()
         + "/"
         + artifact.getVersion()
-        + "/";
+        + "/"
+        + artifact.getArtifactId()
+        + "-"
+        + artifact.getVersion()
+        + ".pom";
   }
 
   /** Asserts that the BOM only provides JARs which contains unique class names to the classpath. */
