@@ -30,21 +30,16 @@ jobs:
     - name: Save checkout tags for sdk-platform-java, google-cloud-java, and handwritten libraries
       id: save-tags
       run: |
-        SDK_PLATFORM_JAVA_TAG="google-cloud-shared-dependencies"
+        SDK_PLATFORM_JAVA="google-cloud-shared-dependencies"
         VARIABLES_FILE="site/data/variables.yaml"
 
-        sdkplatformjavatag=$(grep -oP "(?<=${SDK_PLATFORM_JAVA_TAG}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
-        echo "sdkplatformjavatag=$sdkplatformjavatag" >> $GITHUB_ENV
-
-    - name: Create or clear directories for the javadocs
-      run: |
-        mkdir -p site/static/google-cloud-bigquery # Make sure the output directory exists
-        rm -rf site/static/google-cloud-bigquery/*  # Clear any existing files in the output directory
+        SDK_PLATFORM_JAVA_TAG=$(grep -oP "(?<=${SDK_PLATFORM_JAVA}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
+        echo "SDK_PLATFORM_JAVA_TAG=$SDK_PLATFORM_JAVA_TAG" >> $GITHUB_ENV
 
     - name: Generate javadocs for modules within sdk-platform-java repo
       run: |
         git clone https://github.com/googleapis/sdk-platform-java.git
-        git -C sdk-platform-java checkout google-cloud-shared-dependencies/${{ $sdkplatformjavatag }}
+        git -C sdk-platform-java checkout google-cloud-shared-dependencies/${{ $SDK_PLATFORM_JAVA_TAG }}
         while read -r artifact directory
         do
           echo "ARTIFACT=$artifact"
