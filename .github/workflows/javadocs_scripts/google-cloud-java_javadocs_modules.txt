@@ -26,7 +26,7 @@ google-cloud-vision	google-cloud-java/java-vision
 google-cloud-alloydb	google-cloud-java/java-alloydb
 google-cloud-domains	google-cloud-java/java-domains
 google-cloud-bigquerymigration	google-cloud-java/java-bigquerymigration
-google-iam-admin	google-cloud-java/javadmin
+google-iam-admin	google-cloud-java/java-iam-admin
 google-cloud-storageinsights	google-cloud-java/java-storageinsights
 google-cloud-monitoring	google-cloud-java/java-monitoring
 google-cloud-os-config	google-cloud-java/java-os-config
@@ -35,13 +35,13 @@ google-cloud-datalineage	google-cloud-java/java-datalineage
 google-cloud-workflows	google-cloud-java/java-workflows
 google-cloud-publicca	google-cloud-java/java-publicca
 google-cloud-speech	google-cloud-java/java-speech
-google-cloud-build	google-cloud-java/java-build
+google-cloud-build	google-cloud-java/java-cloudbuild
 google-cloud-video-transcoder	google-cloud-java/java-video-transcoder
 google-cloud-appengine-admin	google-cloud-java/java-appengine-admin
 google-cloud-certificate-manager	google-cloud-java/java-certificate-manager
 google-cloud-language	google-cloud-java/java-language
 google-cloud-optimization	google-cloud-java/java-optimization
-google-cloud-live-stream	google-cloud-java/java-live-stream
+google-cloud-live-stream	google-cloud-java/java-video-live-stream
 google-cloud-monitoring-metricsscope	google-cloud-java/java-monitoring-metricsscope
 google-cloud-cloudsupport	google-cloud-java/java-cloudsupport
 google-cloud-dataflow	google-cloud-java/java-dataflow
@@ -56,7 +56,7 @@ google-cloud-accessapproval	google-cloud-java/java-accessapproval
 google-cloud-billing	google-cloud-java/java-billing
 google-cloud-network-management	google-cloud-java/java-network-management
 google-cloud-contentwarehouse	google-cloud-java/java-contentwarehouse
-google-maps-mapsplatformdatasets	google-cloud-java/javamapsplatformdatasets
+google-maps-mapsplatformdatasets	google-cloud-java/java-maps-mapsplatformdatasets
 google-cloud-kmsinventory	google-cloud-java/java-kmsinventory
 google-cloud-policy-troubleshooter	google-cloud-java/java-policy-troubleshooter
 google-cloud-channel	google-cloud-java/java-channel
@@ -86,7 +86,7 @@ google-cloud-deploy	google-cloud-java/java-deploy
 google-cloud-beyondcorp-appgateways	google-cloud-java/java-beyondcorp-appgateways
 google-cloud-automl	google-cloud-java/java-automl
 google-iam-policy	google-cloud-java/java-iam
-google-analytics-data	google-cloud-java/javatics-data
+google-analytics-data	google-cloud-java/java-analytics-data
 google-cloud-shell	google-cloud-java/java-shell
 google-cloud-essential-contacts	google-cloud-java/java-essential-contacts
 google-cloud-private-catalog	google-cloud-java/java-private-catalog
@@ -98,12 +98,12 @@ google-cloud-beyondcorp-appconnections	google-cloud-java/java-beyondcorp-appconn
 google-cloud-webrisk	google-cloud-java/java-webrisk
 google-cloud-notebooks	google-cloud-java/java-notebooks
 google-cloud-gke-backup	google-cloud-java/java-gke-backup
-grafeas	google-cloud-java/java
+grafeas	google-cloud-java/java-grafeas
 google-cloud-artifact-registry	google-cloud-java/java-artifact-registry
-google-analytics-admin	google-cloud-java/javatics-admin
+google-analytics-admin	google-cloud-java/java-analytics-admin
 google-cloud-vmmigration	google-cloud-java/java-vmmigration
 google-cloud-discoveryengine	google-cloud-java/java-discoveryengine
-google-area120-tables	google-cloud-java/java20-tables
+google-area120-tables	google-cloud-java/java-area120-tables
 google-cloud-phishingprotection	google-cloud-java/java-phishingprotection
 google-cloud-servicedirectory	google-cloud-java/java-servicedirectory
 google-cloud-containeranalysis	google-cloud-java/java-containeranalysis
@@ -135,7 +135,7 @@ google-cloud-video-intelligence	google-cloud-java/java-video-intelligence
 google-identity-accesscontextmanager	google-cloud-java/java-accesscontextmanager
 google-cloud-debugger-client	google-cloud-java/java-debugger-client
 google-cloud-gsuite-addons	google-cloud-java/java-gsuite-addons
-google-cloud-monitoring-dashboard	google-cloud-java/java-monitoring-dashboard
+google-cloud-monitoring-dashboard	google-cloud-java/java-monitoring-dashboards
 google-cloud-distributedcloudedge	google-cloud-java/java-distributedcloudedge
 google-cloud-gke-connect-gateway	google-cloud-java/java-gke-connect-gateway
 google-cloud-recommender	google-cloud-java/java-recommender
