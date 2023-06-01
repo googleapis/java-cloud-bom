@@ -34,7 +34,7 @@ jobs:
         VARIABLES_FILE="site/data/variables.yaml"
 
         sdkplatformjavatag=$(grep -oP "(?<=${SDK_PLATFORM_JAVA_TAG}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
-        echo "::set-output name=sdkplatformjavatag::$sdkplatformjavatag"
+        echo "sdkplatformjavatag=$sdkplatformjavatag" >> $GITHUB_ENV
 
     - name: Create or clear directories for the javadocs
       run: |
@@ -44,7 +44,7 @@ jobs:
     - name: Generate javadocs for modules within sdk-platform-java repo
       run: |
         git clone https://github.com/googleapis/sdk-platform-java.git
-        git -C sdk-platform-java checkout google-cloud-shared-dependencies${{ steps.save-tags.outputs.sdkplatformjavatag }}
+        git -C sdk-platform-java checkout google-cloud-shared-dependencies/${{ $sdkplatformjavatag }}
         while read -r artifact directory
         do
           echo "ARTIFACT=$artifact"
