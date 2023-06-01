@@ -48,6 +48,7 @@ jobs:
           mkdir -p site/static/${artifact} # Make sure the output directory exists
           rm -rf site/static/${artifact}/ # Clear any existing files in the output directory
           echo "Generating javadocs for ${artifact}"
+          git -C sdk-platform-java
           mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ site/static/${artifact}/
         done < .github/workflows/javadocs_scripts/sdk-platform-java_javadocs_modules.txt
 
