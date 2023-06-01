@@ -17,7 +17,7 @@ pygmentsStyle = "tango"
 enableInlineShortcodes = true
 
 [params]
-libraries_bom_version = "libraries-bom: v.26.15.0"
+libraries_bom_version = "libraries-bom: v26.16.0"
 
 [params.ui]
 sidebar_menu = true
