@@ -15,6 +15,8 @@
 
 set -eo pipefail
 
+echo "HELLO"
+
 # Start the releasetool reporter
 requirementsFile=$(realpath $(dirname "${BASH_SOURCE[0]}")/../requirements.txt)
 python3 -m pip install --require-hashes -r $requirementsFile
