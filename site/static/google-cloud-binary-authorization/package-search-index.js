@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.binaryauthorization.v1beta1"},{"l":"com.google.cloud.binaryauthorization.v1beta1.stub"},{"l":"com.google.protos.google.cloud.binaryauthorization.v1"},{"l":"com.google.protos.google.cloud.binaryauthorization.v1.stub"}]

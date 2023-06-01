@@ -1,0 +1,9 @@
+com.google.apps.script.type
+com.google.apps.script.type.calendar
+com.google.apps.script.type.docs
+com.google.apps.script.type.drive
+com.google.apps.script.type.gmail
+com.google.apps.script.type.sheets
+com.google.apps.script.type.slides
+com.google.cloud.gsuiteaddons.v1
+com.google.cloud.gsuiteaddons.v1.stub

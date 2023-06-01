@@ -1,0 +1,8 @@
+com.google.cloud.documentai.v1
+com.google.cloud.documentai.v1.stub
+com.google.cloud.documentai.v1beta1
+com.google.cloud.documentai.v1beta1.stub
+com.google.cloud.documentai.v1beta2
+com.google.cloud.documentai.v1beta2.stub
+com.google.cloud.documentai.v1beta3
+com.google.cloud.documentai.v1beta3.stub

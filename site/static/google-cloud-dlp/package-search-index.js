@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.dlp.v2"},{"l":"com.google.cloud.dlp.v2.stub"},{"l":"com.google.privacy.dlp.v2"}]

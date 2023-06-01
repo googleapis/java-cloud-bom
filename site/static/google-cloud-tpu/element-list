@@ -1,0 +1,6 @@
+com.google.cloud.tpu.v1
+com.google.cloud.tpu.v1.stub
+com.google.cloud.tpu.v2
+com.google.cloud.tpu.v2.stub
+com.google.cloud.tpu.v2alpha1
+com.google.cloud.tpu.v2alpha1.stub

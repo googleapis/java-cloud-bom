@@ -1,0 +1,4 @@
+com.google.cloud.memcache.v1
+com.google.cloud.memcache.v1.stub
+com.google.cloud.memcache.v1beta2
+com.google.cloud.memcache.v1beta2.stub

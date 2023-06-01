@@ -1,0 +1,4 @@
+com.google.cloud.networkmanagement.v1
+com.google.cloud.networkmanagement.v1.stub
+com.google.cloud.networkmanagement.v1beta1
+com.google.cloud.networkmanagement.v1beta1.stub

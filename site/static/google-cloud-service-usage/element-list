@@ -1,0 +1,4 @@
+com.google.api.serviceusage.v1
+com.google.api.serviceusage.v1.stub
+com.google.api.serviceusage.v1beta1
+com.google.api.serviceusage.v1beta1.stub

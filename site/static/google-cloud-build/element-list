@@ -1,0 +1,6 @@
+com.google.cloud.devtools.cloudbuild.v1
+com.google.cloud.devtools.cloudbuild.v1.stub
+com.google.cloud.devtools.cloudbuild.v2
+com.google.cloud.devtools.cloudbuild.v2.stub
+com.google.cloudbuild.v1
+com.google.cloudbuild.v2

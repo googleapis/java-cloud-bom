@@ -1,0 +1,6 @@
+com.google.cloud.osconfig.v1
+com.google.cloud.osconfig.v1.stub
+com.google.cloud.osconfig.v1alpha
+com.google.cloud.osconfig.v1alpha.stub
+com.google.cloud.osconfig.v1beta
+com.google.cloud.osconfig.v1beta.stub

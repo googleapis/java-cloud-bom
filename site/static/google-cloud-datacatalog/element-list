@@ -1,0 +1,4 @@
+com.google.cloud.datacatalog.v1
+com.google.cloud.datacatalog.v1.stub
+com.google.cloud.datacatalog.v1beta1
+com.google.cloud.datacatalog.v1beta1.stub

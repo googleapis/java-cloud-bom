@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.billing.budgets.v1"},{"l":"com.google.cloud.billing.budgets.v1.stub"},{"l":"com.google.cloud.billing.budgets.v1beta1"},{"l":"com.google.cloud.billing.budgets.v1beta1.stub"}]

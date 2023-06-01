@@ -1,0 +1,6 @@
+com.google.cloud.domains.v1
+com.google.cloud.domains.v1.stub
+com.google.cloud.domains.v1alpha2
+com.google.cloud.domains.v1alpha2.stub
+com.google.cloud.domains.v1beta1
+com.google.cloud.domains.v1beta1.stub

@@ -1,0 +1,8 @@
+com.google.cloud.functions.v1
+com.google.cloud.functions.v1.stub
+com.google.cloud.functions.v2
+com.google.cloud.functions.v2.stub
+com.google.cloud.functions.v2alpha
+com.google.cloud.functions.v2alpha.stub
+com.google.cloud.functions.v2beta
+com.google.cloud.functions.v2beta.stub

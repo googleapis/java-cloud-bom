@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.managedidentities.v1"},{"l":"com.google.cloud.managedidentities.v1.stub"}]

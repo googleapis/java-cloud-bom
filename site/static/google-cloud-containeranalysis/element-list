@@ -1,0 +1,17 @@
+com.google.cloud.devtools.containeranalysis.v1
+com.google.cloud.devtools.containeranalysis.v1.stub
+com.google.cloud.devtools.containeranalysis.v1beta1
+com.google.cloud.devtools.containeranalysis.v1beta1.stub
+com.google.containeranalysis.v1
+com.google.containeranalysis.v1beta1
+io.grafeas.v1beta1
+io.grafeas.v1beta1.attestation
+io.grafeas.v1beta1.build
+io.grafeas.v1beta1.common
+io.grafeas.v1beta1.deployment
+io.grafeas.v1beta1.discovery
+io.grafeas.v1beta1.image
+io.grafeas.v1beta1.pkg
+io.grafeas.v1beta1.provenance
+io.grafeas.v1beta1.source
+io.grafeas.v1beta1.vulnerability

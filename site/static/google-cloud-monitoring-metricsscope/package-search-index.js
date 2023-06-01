@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.monitoring.metricsscope.v1"},{"l":"com.google.monitoring.metricsscope.v1.stub"}]

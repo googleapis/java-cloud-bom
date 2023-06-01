@@ -1,0 +1,4 @@
+com.google.cloud.bigquery.biglake.v1
+com.google.cloud.bigquery.biglake.v1.stub
+com.google.cloud.bigquery.biglake.v1alpha1
+com.google.cloud.bigquery.biglake.v1alpha1.stub

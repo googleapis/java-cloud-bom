@@ -1,0 +1,6 @@
+com.google.cloud.securitycenter.v1
+com.google.cloud.securitycenter.v1.stub
+com.google.cloud.securitycenter.v1beta1
+com.google.cloud.securitycenter.v1beta1.stub
+com.google.cloud.securitycenter.v1p1beta1
+com.google.cloud.securitycenter.v1p1beta1.stub

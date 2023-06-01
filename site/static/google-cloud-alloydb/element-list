@@ -1,0 +1,6 @@
+com.google.cloud.alloydb.v1
+com.google.cloud.alloydb.v1.stub
+com.google.cloud.alloydb.v1alpha
+com.google.cloud.alloydb.v1alpha.stub
+com.google.cloud.alloydb.v1beta
+com.google.cloud.alloydb.v1beta.stub

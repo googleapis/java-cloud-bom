@@ -1,0 +1,13 @@
+com.google.cloud.aiplatform.v1beta1
+com.google.cloud.aiplatform.v1beta1.stub
+com.google.cloud.aiplatform.v1
+com.google.cloud.aiplatform.v1.stub
+com.google.cloud.aiplatform.util
+com.google.cloud.aiplatform.v1.schema.trainingjob.definition
+com.google.cloud.aiplatform.v1.schema.predict.prediction
+com.google.cloud.aiplatform.v1.schema.predict.params
+com.google.cloud.aiplatform.v1.schema.predict.instance
+com.google.cloud.aiplatform.v1beta1.schema.trainingjob.definition
+com.google.cloud.aiplatform.v1beta1.schema.predict.prediction
+com.google.cloud.aiplatform.v1beta1.schema.predict.params
+com.google.cloud.aiplatform.v1beta1.schema.predict.instance

@@ -1,0 +1,6 @@
+com.google.cloud.resourcemanager
+com.google.cloud.resourcemanager.spi
+com.google.cloud.resourcemanager.spi.v1beta1
+com.google.cloud.resourcemanager.testing
+com.google.cloud.resourcemanager.v3
+com.google.cloud.resourcemanager.v3.stub

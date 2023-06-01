@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.retail.v2"},{"l":"com.google.cloud.retail.v2.stub"},{"l":"com.google.cloud.retail.v2alpha"},{"l":"com.google.cloud.retail.v2alpha.stub"},{"l":"com.google.cloud.retail.v2beta"},{"l":"com.google.cloud.retail.v2beta.stub"}]

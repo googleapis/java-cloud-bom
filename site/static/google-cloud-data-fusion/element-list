@@ -1,0 +1,4 @@
+com.google.cloud.datafusion.v1
+com.google.cloud.datafusion.v1.stub
+com.google.cloud.datafusion.v1beta1
+com.google.cloud.datafusion.v1beta1.stub

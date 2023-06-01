@@ -1,0 +1,4 @@
+com.google.cloud.secretmanager.v1
+com.google.cloud.secretmanager.v1.stub
+com.google.cloud.secretmanager.v1beta1
+com.google.cloud.secretmanager.v1beta1.stub

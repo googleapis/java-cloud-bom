@@ -1,0 +1,5 @@
+com.google.cloud.bigquery.connection.v1
+com.google.cloud.bigquery.connection.v1beta1
+com.google.cloud.bigquery.connection.v1beta1.stub
+com.google.cloud.bigqueryconnection.v1
+com.google.cloud.bigqueryconnection.v1.stub

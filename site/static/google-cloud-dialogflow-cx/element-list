@@ -1,0 +1,4 @@
+com.google.cloud.dialogflow.cx.v3
+com.google.cloud.dialogflow.cx.v3.stub
+com.google.cloud.dialogflow.cx.v3beta1
+com.google.cloud.dialogflow.cx.v3beta1.stub

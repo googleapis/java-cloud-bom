@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.commerce.consumer.procurement.v1alpha1"},{"l":"com.google.cloud.commerce.consumer.procurement.v1alpha1.stub"}]

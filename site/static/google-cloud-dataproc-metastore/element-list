@@ -1,0 +1,6 @@
+com.google.cloud.metastore.v1
+com.google.cloud.metastore.v1.stub
+com.google.cloud.metastore.v1alpha
+com.google.cloud.metastore.v1alpha.stub
+com.google.cloud.metastore.v1beta
+com.google.cloud.metastore.v1beta.stub

@@ -1,0 +1,7 @@
+com.google.cloud.speech.v1
+com.google.cloud.speech.v1.stub
+com.google.cloud.speech.v1beta1
+com.google.cloud.speech.v1p1beta1
+com.google.cloud.speech.v1p1beta1.stub
+com.google.cloud.speech.v2
+com.google.cloud.speech.v2.stub

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.metastore.v1"},{"l":"com.google.cloud.metastore.v1.stub"},{"l":"com.google.cloud.metastore.v1alpha"},{"l":"com.google.cloud.metastore.v1alpha.stub"},{"l":"com.google.cloud.metastore.v1beta"},{"l":"com.google.cloud.metastore.v1beta.stub"}]

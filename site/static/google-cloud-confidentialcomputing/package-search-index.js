@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.confidentialcomputing.v1"},{"l":"com.google.cloud.confidentialcomputing.v1.stub"},{"l":"com.google.cloud.confidentialcomputing.v1alpha1"},{"l":"com.google.cloud.confidentialcomputing.v1alpha1.stub"}]

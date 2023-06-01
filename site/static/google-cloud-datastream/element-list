@@ -1,0 +1,4 @@
+com.google.cloud.datastream.v1
+com.google.cloud.datastream.v1.stub
+com.google.cloud.datastream.v1alpha1
+com.google.cloud.datastream.v1alpha1.stub

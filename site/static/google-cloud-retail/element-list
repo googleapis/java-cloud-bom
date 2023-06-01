@@ -1,0 +1,6 @@
+com.google.cloud.retail.v2
+com.google.cloud.retail.v2.stub
+com.google.cloud.retail.v2alpha
+com.google.cloud.retail.v2alpha.stub
+com.google.cloud.retail.v2beta
+com.google.cloud.retail.v2beta.stub

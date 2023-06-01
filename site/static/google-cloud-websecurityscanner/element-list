@@ -1,0 +1,6 @@
+com.google.cloud.websecurityscanner.v1
+com.google.cloud.websecurityscanner.v1.stub
+com.google.cloud.websecurityscanner.v1alpha
+com.google.cloud.websecurityscanner.v1alpha.stub
+com.google.cloud.websecurityscanner.v1beta
+com.google.cloud.websecurityscanner.v1beta.stub

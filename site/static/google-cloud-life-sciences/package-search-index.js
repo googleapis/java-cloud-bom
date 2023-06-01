@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.lifesciences.v2beta"},{"l":"com.google.cloud.lifesciences.v2beta.stub"}]

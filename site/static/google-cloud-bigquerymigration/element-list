@@ -1,0 +1,4 @@
+com.google.cloud.bigquery.migration.v2
+com.google.cloud.bigquery.migration.v2.stub
+com.google.cloud.bigquery.migration.v2alpha
+com.google.cloud.bigquery.migration.v2alpha.stub

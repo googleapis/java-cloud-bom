@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.devtools.artifactregistry.v1"},{"l":"com.google.devtools.artifactregistry.v1.stub"},{"l":"com.google.devtools.artifactregistry.v1beta2"},{"l":"com.google.devtools.artifactregistry.v1beta2.stub"}]

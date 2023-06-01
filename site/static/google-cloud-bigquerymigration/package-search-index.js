@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.bigquery.migration.v2"},{"l":"com.google.cloud.bigquery.migration.v2.stub"},{"l":"com.google.cloud.bigquery.migration.v2alpha"},{"l":"com.google.cloud.bigquery.migration.v2alpha.stub"}]
