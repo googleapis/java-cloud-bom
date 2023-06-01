@@ -46,10 +46,10 @@ jobs:
           echo "ARTIFACT=$artifact"
           echo "DIRECTORY=$directory"
           echo "Creating and clearing directory for javadocs for ${artifact}"
-          mkdir -p ./site/static/${artifact} # Make sure the output directory exists
-          rm -rf ./site/static/${artifact}/ # Clear any existing files in the output directory
+          mkdir -p ../site/static/${artifact} # Make sure the output directory exists
+          rm -rf ../site/static/${artifact}/ # Clear any existing files in the output directory
           echo "Generating javadocs for ${artifact}"
-          mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ site/static/${artifact}/
+          mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ ../site/static/${artifact}/
         done < ../.github/workflows/javadocs_scripts/sdk-platform-java_javadocs_modules.txt
 
     - name: Commit Javadocs
