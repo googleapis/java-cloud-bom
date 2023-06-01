@@ -4,6 +4,12 @@ customTitle: 'libraries_bom_version'
 
 # {{< variable "libraries-bom" >}}
 
+### [gax](https://alicejli.github.io/java-cloud-bom/gax/)
+{{< variable "gax" >}}
+
+### [gax](/gax/)
+{{< variable "gax" >}}
+
 ### [google-cloud-apikeys-0.14.0-generated](https://alicejli.github.io/java-cloud-bom/google-cloud-apikeys-0.11.0-generated/apidocs/)
 This is what the Javadocs look like when generated for `google-cloud-apikeys` using `mvn:javadoc:javadoc` with Java17 that removes the frames.
 

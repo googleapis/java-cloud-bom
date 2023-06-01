@@ -31,10 +31,14 @@ jobs:
       id: save-tags
       run: |
         SDK_PLATFORM_JAVA="google-cloud-shared-dependencies"
+        GOOGLE_CLOUD_JAVA="gapic-libraries-bom"
         VARIABLES_FILE="site/data/variables.yaml"
 
         SDK_PLATFORM_JAVA_TAG=$(grep -oP "(?<=${SDK_PLATFORM_JAVA}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
         echo "SDK_PLATFORM_JAVA_TAG=$SDK_PLATFORM_JAVA_TAG" >> $GITHUB_ENV
+
+        GOOGLE_CLOUD_JAVA_TAG=$(grep -oP "(?<=${SDK_PLATFORM_JAVA}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
+        echo "GOOGLE_CLOUD_JAVA_TAG=$GOOGLE_CLOUD_JAVA_TAG" >> $GITHUB_ENV
 
     - name: Generate javadocs for modules within sdk-platform-java repo
       run: |
@@ -52,12 +56,27 @@ jobs:
           mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ ../site/static/${artifact}/
         done < ../.github/workflows/javadocs_scripts/sdk-platform-java_javadocs_modules.txt
 
+    - name: Generate javadocs for modules within google-cloud-java repo
+      run: |
+        git clone https://github.com/googleapis/google-cloud-java.git
+        git -C google-cloud-java checkout ${{ env.GOOGLE_CLOUD_JAVA_TAG }}
+        while read -r artifact directory
+        do
+          echo "ARTIFACT=$artifact"
+          echo "DIRECTORY=$directory"
+          echo "Creating and clearing directory for javadocs for ${artifact}"
+          mkdir -p ../site/static/${artifact} # Make sure the output directory exists
+          rm -rf ../site/static/${artifact}/ # Clear any existing files in the output directory
+          echo "Generating javadocs for ${artifact}"
+          mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ ../site/static/${artifact}/
+        done < ../.github/workflows/javadocs_scripts/google-cloud-java_javadocs_modules.txt
+
     - name: Commit Javadocs
       run: |
         git -C site/static/ add .
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Add Javadocs for sdk-platform-java modules" -a || echo "No changes to commit"
+        git commit -m "Add Javadocs for sdk-platform-java and google-cloud-java modules" -a || echo "No changes to commit"
         git push
       env:
         GH_TOKEN: ${{ github.token }}
