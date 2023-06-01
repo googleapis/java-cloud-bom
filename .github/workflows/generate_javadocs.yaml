@@ -40,15 +40,15 @@ jobs:
       run: |
         git clone https://github.com/googleapis/sdk-platform-java.git
         git -C sdk-platform-java checkout google-cloud-shared-dependencies/${{ env.SDK_PLATFORM_JAVA_TAG }}
+        cd sdk-platform-java
         while read -r artifact directory
         do
           echo "ARTIFACT=$artifact"
           echo "DIRECTORY=$directory"
           echo "Creating and clearing directory for javadocs for ${artifact}"
-          mkdir -p site/static/${artifact} # Make sure the output directory exists
-          rm -rf site/static/${artifact}/ # Clear any existing files in the output directory
+          mkdir -p ./site/static/${artifact} # Make sure the output directory exists
+          rm -rf ./site/static/${artifact}/ # Clear any existing files in the output directory
           echo "Generating javadocs for ${artifact}"
-          cd sdk-platform-java
           mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ site/static/${artifact}/
         done < .github/workflows/javadocs_scripts/sdk-platform-java_javadocs_modules.txt
 
