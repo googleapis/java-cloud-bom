@@ -28,7 +28,7 @@ jobs:
         cache: maven
 
     - name: Save checkout tags for sdk-platform-java, google-cloud-java, and handwritten libraries
-      id: search
+      id: savetags
       run: |
         SDK_PLATFORM_JAVA_TAG="google-cloud-shared-dependencies"
         VARIABLES_FILE="site/data/variables.yaml"
@@ -42,8 +42,8 @@ jobs:
 
     - name: Generate javadocs for modules within sdk-platform-java repo
       run: |
-        git clone https://github.com/sdk-platform-java/.git
-        git -C sdk-platform-java checkout google-cloud-shared-dependencies${{ steps.search.outputs.sdkplatformjava }}
+        git clone https://github.com/googleapis/sdk-platform-java.git
+        git -C sdk-platform-java checkout google-cloud-shared-dependencies${{ steps.savetags.outputs.sdkplatformjava }}
         while read -r artifact directory
         do
           echo "ARTIFACT=$artifact"
