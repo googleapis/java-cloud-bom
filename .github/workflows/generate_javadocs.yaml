@@ -34,7 +34,7 @@ jobs:
         VARIABLES_FILE="site/data/variables.yaml"
 
         SDK_PLATFORM_JAVA_TAG=$(grep -oP "(?<=${SDK_PLATFORM_JAVA}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
-        echo "SDK_PLATFORM_JAVA_TAG=$SDK_PLATFORM_JAVA_TAG" >> $GITHUB_OUTPUT
+        echo "SDK_PLATFORM_JAVA_TAG=$SDK_PLATFORM_JAVA_TAG" >> $GITHUB_ENV
 
     - name: Generate javadocs for modules within sdk-platform-java repo
       run: |
