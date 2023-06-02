@@ -4,11 +4,6 @@ customTitle: 'libraries_bom_version'
 
 # {{< variable "libraries-bom" >}}
 
-### [gax]({{< variable "github-repo" >}}/gax/)
-{{< variable "gax" >}}
-
-[Google Cloud Docs](https://cloud.google.com/java/docs/reference/gax/latest/overview)
-
 ### [google-cloud-bigquery]({{< variable "github-repo" >}}/google-cloud-bigquery/)
 {{< variable "google-cloud-bigquery" >}}
 
