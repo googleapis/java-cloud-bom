@@ -37,10 +37,10 @@ jobs:
         echo "Updating Github Pages site param for libraries-bom version"
         python .github/workflows/javadocs_scripts/update_site_params.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions
 
-    - name: Update repos_for_versionstxt.txt
+    - name: Update repo_versions
       run: |
-        echo "Updating repos_for_versionstxt.txt"
-        python .github/workflows/javadocs_scripts/update_repos_for_versionstxt.py # Run script to update the repos_for_versionstxt.txt file for the sdk-platform-java and google-cloud-java version tags
+        echo "Run update_repo_versions"
+        python .github/workflows/javadocs_scripts/update_repo_versions.py # Run script to update the handwritten_libraries_javadocs_modules.txt and repos_for_versionstxt.txt files
 
     - name: Read repo, directory, and tag from file and clone repo
       run: |
