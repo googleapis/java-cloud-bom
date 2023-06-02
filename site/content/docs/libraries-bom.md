@@ -74,11 +74,6 @@ customTitle: 'libraries_bom_version'
 
 [Google Cloud Docs](https://cloud.google.com/java/docs/reference/google-cloud-storage-bom/latest/overview)
 
-### [first-party-dependencies]({{< variable "github-repo" >}}/first-party-dependencies/)
-{{< variable "first-party-dependencies" >}}
-
-[Google Cloud Docs](https://cloud.google.com/java/docs/reference/first-party-dependencies/latest/overview)
-
 ### [gax]({{< variable "github-repo" >}}/gax/)
 {{< variable "gax" >}}
 
@@ -89,11 +84,6 @@ customTitle: 'libraries_bom_version'
 
 [Google Cloud Docs](https://cloud.google.com/java/docs/reference/google-iam-policy/latest/overview)
 
-### [gax-httpjson]({{< variable "github-repo" >}}/gax-httpjson/)
-{{< variable "gax-httpjson" >}}
-
-[Google Cloud Docs](https://cloud.google.com/java/docs/reference/gax-httpjson/latest/overview)
-
 ### [google-cloud-core]({{< variable "github-repo" >}}/google-cloud-core/)
 {{< variable "google-cloud-core" >}}
 
@@ -103,11 +93,6 @@ customTitle: 'libraries_bom_version'
 {{< variable "api-common" >}}
 
 [Google Cloud Docs](https://cloud.google.com/java/docs/reference/api-common/latest/overview)
-
-### [google-cloud-shared-dependencies]({{< variable "github-repo" >}}/google-cloud-shared-dependencies/)
-{{< variable "google-cloud-shared-dependencies" >}}
-
-[Google Cloud Docs](https://cloud.google.com/java/docs/reference/google-cloud-shared-dependencies/latest/overview)
 
 ### [google-cloud-tpu]({{< variable "github-repo" >}}/google-cloud-tpu/)
 {{< variable "google-cloud-tpu" >}}
