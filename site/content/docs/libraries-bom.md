@@ -4,7 +4,7 @@ customTitle: 'libraries_bom_version'
 
 # {{< variable "libraries-bom" >}}
 
-### [gax](https://alicejli.github.io/java-cloud-bom/gax/)
+### [gax](https://'github_repo'/gax/)
 {{< variable "gax" >}}
 
 ### [gax](/gax/)
