@@ -1,0 +1,14 @@
+com.google.cloud.datastore
+com.google.cloud.datastore.admin.v1
+com.google.cloud.datastore.admin.v1.stub
+com.google.cloud.datastore.aggregation
+com.google.cloud.datastore.execution
+com.google.cloud.datastore.execution.request
+com.google.cloud.datastore.execution.response
+com.google.cloud.datastore.spi
+com.google.cloud.datastore.spi.v1
+com.google.cloud.datastore.testing
+com.google.datastore.admin.v1
+com.google.datastore.v1
+com.google.datastore.v1.client
+com.google.datastore.v1.client.testing

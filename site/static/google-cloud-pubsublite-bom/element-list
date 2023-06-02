@@ -1,0 +1,9 @@
+com.google.cloud.pubsublite
+com.google.cloud.pubsublite.cloudpubsub
+com.google.cloud.pubsublite.cloudpubsub.internal
+com.google.cloud.pubsublite.internal
+com.google.cloud.pubsublite.internal.testing
+com.google.cloud.pubsublite.internal.wire
+com.google.cloud.pubsublite.proto
+com.google.cloud.pubsublite.v1
+com.google.cloud.pubsublite.v1.stub

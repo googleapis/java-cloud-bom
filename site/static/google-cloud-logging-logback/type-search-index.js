@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"com.google.cloud.logging.logback","l":"LogbackBatchingSettings"},{"p":"com.google.cloud.logging.logback","l":"LoggingAppender"},{"p":"com.google.cloud.logging.logback","l":"LoggingEventEnhancer"},{"p":"com.google.cloud.logging.logback","l":"TraceLoggingEventEnhancer"}]

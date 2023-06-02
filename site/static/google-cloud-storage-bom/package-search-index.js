@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.storage"},{"l":"com.google.cloud.storage.spi"},{"l":"com.google.cloud.storage.spi.v1"},{"l":"com.google.cloud.storage.testing"},{"l":"com.google.storage.v2"},{"l":"com.google.storage.v2.stub"}]

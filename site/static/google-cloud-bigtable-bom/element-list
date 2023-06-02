@@ -1,0 +1,14 @@
+com.google.bigtable.admin.v2
+com.google.bigtable.v2
+com.google.cloud.bigtable
+com.google.cloud.bigtable.admin.v2
+com.google.cloud.bigtable.admin.v2.models
+com.google.cloud.bigtable.admin.v2.stub
+com.google.cloud.bigtable.common
+com.google.cloud.bigtable.data.v2
+com.google.cloud.bigtable.data.v2.models
+com.google.cloud.bigtable.data.v2.stub
+com.google.cloud.bigtable.data.v2.stub.changestream
+com.google.cloud.bigtable.emulator.core
+com.google.cloud.bigtable.emulator.v2
+com.google.cloud.bigtable.stats

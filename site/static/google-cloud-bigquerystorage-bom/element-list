@@ -1,0 +1,10 @@
+com.google.cloud.bigquery.storage.util
+com.google.cloud.bigquery.storage.v1
+com.google.cloud.bigquery.storage.v1.stub
+com.google.cloud.bigquery.storage.v1.stub.readrows
+com.google.cloud.bigquery.storage.v1beta1
+com.google.cloud.bigquery.storage.v1beta1.stub
+com.google.cloud.bigquery.storage.v1beta1.stub.readrows
+com.google.cloud.bigquery.storage.v1beta2
+com.google.cloud.bigquery.storage.v1beta2.stub
+com.google.cloud.bigquery.storage.v1beta2.stub.readrows
