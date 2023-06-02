@@ -17,6 +17,6 @@ If you are using [Google Cloud Client Libraries](https://cloud.google.com/apis/d
 
 This site contains Javadoc reference documentation for the latest published Cloud SDK modules. 
 
-You can select the module you want to see the Javadocs for on the lefthand side.
+You can select the libaries-bom version on the lefthand side.
 
 ---
