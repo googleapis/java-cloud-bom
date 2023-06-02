@@ -1,0 +1,13 @@
+googleapis/java-bigquery	java-bigquery	google-cloud-bigquery
+googleapis/java-bigquerystorage	java-bigquerystorage	google-cloud-bigquerystorage-bom
+googleapis/java-bigtable	java-bigtable	google-cloud-bigtable-bom
+googleapis/java-datastore	java-datastore	google-cloud-datastore-bom
+googleapis/java-firestore	java-firestore	google-cloud-firestore-bom
+googleapis/java-logging	java-logging	google-cloud-logging-bom
+googleapis/java-logging-logback	java-logging-logback	google-cloud-logging-logback
+googleapis/java-storage-nio	java-storage-nio	google-cloud-nio
+googleapis/java-pubsub	java-pubsub	google-cloud-pubsub-bom
+googleapis/java-pubsublite	java-pubsublite	google-cloud-pubsublite-bom
+googleapis/java-spanner	java-spanner	google-cloud-spanner-bom
+googleapis/java-spanner-jdbc	java-spanner-jdbc	google-cloud-spanner-jdbc
+googleapis/java-storage	java-storage	google-cloud-storage-bom

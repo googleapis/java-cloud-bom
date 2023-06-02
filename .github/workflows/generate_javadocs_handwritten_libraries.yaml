@@ -1,4 +1,4 @@
-name: Generate Javadocs for google-cloud-java
+name: Generate Javadocs for handwritten libraries
 # Run this workflow once the site/data/variables.yaml file has been updated
 on:
   push:
@@ -27,36 +27,29 @@ jobs:
         java-version: 11
         cache: maven
 
-    - name: Save checkout tags for google-cloud-java
-      id: save-tags
+    - name: Generate javadocs for each handwritten library
       run: |
-        GOOGLE_CLOUD_JAVA="gapic-libraries-bom"
-        VARIABLES_FILE="site/data/variables.yaml"
-
-        GOOGLE_CLOUD_JAVA_TAG=$(grep -oP "(?<=${GOOGLE_CLOUD_JAVA}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
-        echo "GOOGLE_CLOUD_JAVA_TAG=$GOOGLE_CLOUD_JAVA_TAG" >> $GITHUB_ENV
-
-    - name: Generate javadocs for modules within google-cloud-java repo
-      run: |
-        git clone https://github.com/googleapis/google-cloud-java.git
-        git -C google-cloud-java checkout ${{ env.GOOGLE_CLOUD_JAVA_TAG }}
-        while read -r artifact directory
+        while read -r repo directory artifact
         do
           echo "ARTIFACT=$artifact"
           echo "DIRECTORY=$directory"
+          echo "REPO=$repo"
           echo "Creating and clearing directory for javadocs for ${artifact}"
           mkdir -p site/static/${artifact} # Make sure the output directory exists
           rm -rf site/static/${artifact}/ # Clear any existing files in the output directory
+          echo "Cloning into ${repo}"
+          git clone https://github.com/${repo}.git
+          git -C "${directory}" checkout $tag #handwriten_libraries_javadocs_modules.txt needs to be updated in the update_site_var.yaml workflow
           echo "Generating javadocs for ${artifact}"
           mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ site/static/${artifact}/
-        done < .github/workflows/javadocs_scripts/google-cloud-java_javadocs_modules.txt
+        done < .github/workflows/javadocs_scripts/handwritten_libraries_javadocs_modules.txt
 
     - name: Commit Javadocs
       run: |
         git -C site/static/ add .
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Add Javadocs for google-cloud-java modules" -a || echo "No changes to commit"
+        git commit -m "Add Javadocs for handwritten library modules" -a || echo "No changes to commit"
         git push
       env:
         GH_TOKEN: ${{ github.token }}
