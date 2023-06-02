@@ -18,7 +18,6 @@ enableInlineShortcodes = true
 
 [params]
 libraries_bom_version = "libraries-bom: v26.16.0"
-github_repo = "alicejli.github.io/java-cloud-bom"
 
 [params.ui]
 sidebar_menu = true
