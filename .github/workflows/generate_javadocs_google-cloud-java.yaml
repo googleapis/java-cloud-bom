@@ -4,6 +4,9 @@ on:
   push:
     paths:
     - 'site/data/**'
+  pull_request:
+    paths:
+    - 'site/data/**'
   workflow_dispatch:
 
 permissions:
@@ -53,11 +56,11 @@ jobs:
 
     - name: Commit Javadocs
       run: |
-        git pull --rebase origin main
         git -C site/static/ add .
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Add Javadocs for google-cloud-java modules" -a || echo "No changes to commit"
+        git pull --rebase origin main
         git push
       env:
         GH_TOKEN: ${{ github.token }}
