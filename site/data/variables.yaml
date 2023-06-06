@@ -1,6 +1,6 @@
 # This file will be updated with the latest versions and release dates of the various modules
 
-github-repo: "https://alicejli.github.io/java-cloud-bom" # This line can be removed once this is no longer on the fork
+github-repo: "https://alicejli.github.io/java-cloud-bom" # This line can be removed once the site is live on java-cloud-bom
 libraries-bom: "libraries-bom: v26.16.0"
 gapic-libraries-bom: "v1.12.0"
 google-cloud-bigquery: "v2.27.0"
