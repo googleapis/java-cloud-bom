@@ -54,6 +54,7 @@ jobs:
 
     - name: Commit Javadocs
       run: |
+        git pull --rebase origin main
         git -C site/static/ add .
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
