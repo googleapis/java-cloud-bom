@@ -1,4 +1,4 @@
-# This file contains the artifact id and official Google Cloud product reference link
+# This file contains the artifact id and official Google Cloud product reference link. This file needs to be manually updated for any changes to the links  or for new libraries.
 
 google-cloud-gke-connect-gateway: "https://cloud.google.com/anthos/multicluster-management/gateway/"
 google-cloud-container: "https://cloud.google.com/kubernetes-engine/"

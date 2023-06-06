@@ -1,3 +1,4 @@
 gax	gax-java
 google-iam-policy	java-iam
 api-common	api-common-java
+google-cloud-core java-core

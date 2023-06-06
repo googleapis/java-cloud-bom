@@ -1,4 +1,4 @@
-# This file contains the artifact id and official Google Cloud library reference link
+# This file contains the artifact id and official Google Cloud library reference link. This file needs to be manually updated for any changes to the links  or for new libraries.
 
 google-cloud-gke-connect-gateway: "https://cloud.google.com/java/docs/reference/google-cloud-gke-connect-gateway/latest/overview"
 google-cloud-container: "https://cloud.google.com/java/docs/reference/google-cloud-container/latest/overview"
