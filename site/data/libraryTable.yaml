@@ -1,4 +1,4 @@
-- GCPJavadocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/api-common/latest/overview
   GCPProductDocs: N/A
   artifact: api-common
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/api-common

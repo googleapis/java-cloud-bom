@@ -171,3 +171,4 @@ google-cloud-storage-bom: "https://cloud.google.com/java/docs/reference/google-c
 gax: "https://cloud.google.com/java/docs/reference/gax/latest/overview"
 google-iam-policy: "https://cloud.google.com/java/docs/reference/proto-google-iam-v1/latest/history"
 google-cloud-core: "https://cloud.google.com/java/docs/reference/google-cloud-core/latest/overview"
+api-common: "https://cloud.google.com/java/docs/reference/api-common/latest/overview"
