@@ -14,13 +14,21 @@
       {{- .artifact -}}
     </td>
     <td>
-      {{- .standardJavadocs -}}
+      <a href="{{- .standardJavadocs -}}">Standard Javadocs
     </td>
     <td>
-      {{- .GCPJavadocs -}}
+      {{ if eq .GCPJavadocs "N/A" -}}
+      N/A
+      {{ else -}}
+      <a href="{{- .GCPJavadocs -}}">Google Cloud Javadocs
+        {{ end -}}
     </td>
     <td>
-      {{- .GCPProductDocs -}}
+      {{ if eq .GCPProductDocs "N/A" -}}
+      N/A
+      {{ else -}}
+      <a href="{{- .GCPProductDocs -}}">Google Cloud Product Docs
+        {{ end -}}
     </td>
   </tr>
   {{- end }}
