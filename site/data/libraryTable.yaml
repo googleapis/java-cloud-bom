@@ -1,684 +1,684 @@
 - GCPJavadocs: N/A
   GCPProductDocs: N/A
   artifact: api-common
-  standardJavadocs: https://api-common
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/api-common
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/gax/latest/overview
   GCPProductDocs: N/A
   artifact: gax
-  standardJavadocs: https://gax
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/gax
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-analytics-admin/latest/overview
   GCPProductDocs: https://developers.google.com/analytics
   artifact: google-analytics-admin
-  standardJavadocs: https://google-analytics-admin
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-analytics-admin
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-analytics-data/latest/overview
   GCPProductDocs: https://developers.google.com/analytics/trusted-testing/analytics-data
   artifact: google-analytics-data
-  standardJavadocs: https://google-analytics-data
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-analytics-data
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-area120-tables/latest/overview
   GCPProductDocs: https://area120.google.com/
   artifact: google-area120-tables
-  standardJavadocs: https://google-area120-tables
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-area120-tables
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-accessapproval/latest/overview
   GCPProductDocs: https://cloud.google.com/access-approval/docs/
   artifact: google-cloud-accessapproval
-  standardJavadocs: https://google-cloud-accessapproval
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-accessapproval
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-advisorynotifications/latest/overview
   GCPProductDocs: https://cloud.google.com/advisory-notifications/
   artifact: google-cloud-advisorynotifications
-  standardJavadocs: https://google-cloud-advisorynotifications
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-advisorynotifications
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-aiplatform/latest/overview
   GCPProductDocs: https://cloud.google.com/vertex-ai/docs
   artifact: google-cloud-aiplatform
-  standardJavadocs: https://google-cloud-aiplatform
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-aiplatform
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-alloydb/latest/overview
   GCPProductDocs: https://cloud.google.com/alloydb/
   artifact: google-cloud-alloydb
-  standardJavadocs: https://google-cloud-alloydb
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-alloydb
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-analyticshub/latest/overview
   GCPProductDocs: https://cloud.google.com/bigquery/TBD
   artifact: google-cloud-analyticshub
-  standardJavadocs: https://google-cloud-analyticshub
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-analyticshub
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-api-gateway/latest/overview
   GCPProductDocs: https://cloud.google.com/api-gateway/docs
   artifact: google-cloud-api-gateway
-  standardJavadocs: https://google-cloud-api-gateway
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-api-gateway
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-apigee-connect/latest/overview
   GCPProductDocs: https://cloud.google.com/apigee/docs/hybrid/v1.3/apigee-connect/
   artifact: google-cloud-apigee-connect
-  standardJavadocs: https://google-cloud-apigee-connect
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-apigee-connect
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-apigee-registry/latest/overview
   GCPProductDocs: https://cloud.google.com/apigee/docs/api-hub/get-started-registry-api
   artifact: google-cloud-apigee-registry
-  standardJavadocs: https://google-cloud-apigee-registry
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-apigee-registry
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-apikeys/latest/overview
   GCPProductDocs: https://cloud.google.com/api-keys/
   artifact: google-cloud-apikeys
-  standardJavadocs: https://google-cloud-apikeys
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-apikeys
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-appengine-admin/latest/overview
   GCPProductDocs: https://cloud.google.com/appengine/docs/admin-api/
   artifact: google-cloud-appengine-admin
-  standardJavadocs: https://google-cloud-appengine-admin
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-appengine-admin
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-artifact-registry/latest/overview
   GCPProductDocs: https://cloud.google.com/artifact-registry
   artifact: google-cloud-artifact-registry
-  standardJavadocs: https://google-cloud-artifact-registry
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-artifact-registry
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-asset/latest/overview
   GCPProductDocs: https://cloud.google.com/resource-manager/docs/cloud-asset-inventory/overview
   artifact: google-cloud-asset
-  standardJavadocs: https://google-cloud-asset
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-asset
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-assured-workloads/latest/overview
   GCPProductDocs: https://cloud.google.com/assured-workloads/
   artifact: google-cloud-assured-workloads
-  standardJavadocs: https://google-cloud-assured-workloads
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-assured-workloads
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-automl/latest/overview
   GCPProductDocs: https://cloud.google.com/automl/docs/
   artifact: google-cloud-automl
-  standardJavadocs: https://google-cloud-automl
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-automl
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bare-metal-solution/latest/overview
   GCPProductDocs: https://cloud.google.com/bare-metal/docs
   artifact: google-cloud-bare-metal-solution
-  standardJavadocs: https://google-cloud-bare-metal-solution
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bare-metal-solution
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-batch/latest/overview
   GCPProductDocs: https://cloud.google.com/
   artifact: google-cloud-batch
-  standardJavadocs: https://google-cloud-batch
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-batch
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-beyondcorp-appconnections/latest/overview
   GCPProductDocs: https://cloud.google.com/beyondcorp-enterprise/
   artifact: google-cloud-beyondcorp-appconnections
-  standardJavadocs: https://google-cloud-beyondcorp-appconnections
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-beyondcorp-appconnections
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-beyondcorp-appconnectors/latest/overview
   GCPProductDocs: cloud.google.com/beyondcorp-enterprise/
   artifact: google-cloud-beyondcorp-appconnectors
-  standardJavadocs: https://google-cloud-beyondcorp-appconnectors
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-beyondcorp-appconnectors
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-beyondcorp-appgateways/latest/overview
   GCPProductDocs: https://cloud.google.com/beyondcorp-enterprise/
   artifact: google-cloud-beyondcorp-appgateways
-  standardJavadocs: https://google-cloud-beyondcorp-appgateways
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-beyondcorp-appgateways
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-beyondcorp-clientconnectorservices/latest/overview
   GCPProductDocs: https://cloud.google.com/beyondcorp-enterprise/
   artifact: google-cloud-beyondcorp-clientconnectorservices
-  standardJavadocs: https://google-cloud-beyondcorp-clientconnectorservices
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-beyondcorp-clientconnectorservices
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-beyondcorp-clientgateways/latest/overview
   GCPProductDocs: https://cloud.google.com/beyondcorp-enterprise/
   artifact: google-cloud-beyondcorp-clientgateways
-  standardJavadocs: https://google-cloud-beyondcorp-clientgateways
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-beyondcorp-clientgateways
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-biglake/latest/overview
   GCPProductDocs: https://cloud.google.com/biglake
   artifact: google-cloud-biglake
-  standardJavadocs: https://google-cloud-biglake
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-biglake
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigquery/latest/history
   GCPProductDocs: https://cloud.google.com/bigquery
   artifact: google-cloud-bigquery
-  standardJavadocs: https://google-cloud-bigquery
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigquery
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigquery-data-exchange/latest/overview
   GCPProductDocs: https://cloud.google.com/analytics-hub
   artifact: google-cloud-bigquery-data-exchange
-  standardJavadocs: https://google-cloud-bigquery-data-exchange
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigquery-data-exchange
 - GCPJavadocs: https://cloud.google.com/bigquery/docs/reference/reservations/rpc/google.cloud.bigquery.reservation.v1beta1
   GCPProductDocs: https://cloud.google.com/bigquery/docs/reference/bigqueryconnection/rest
   artifact: google-cloud-bigqueryconnection
-  standardJavadocs: https://google-cloud-bigqueryconnection
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigqueryconnection
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigquerydatapolicy/latest/overview
   GCPProductDocs: https://cloud.google.com/bigquery/docs/reference/datapolicy/
   artifact: google-cloud-bigquerydatapolicy
-  standardJavadocs: https://google-cloud-bigquerydatapolicy
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigquerydatapolicy
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigquerydatatransfer/latest/overview
   GCPProductDocs: https://cloud.google.com/bigquery/transfer/
   artifact: google-cloud-bigquerydatatransfer
-  standardJavadocs: https://google-cloud-bigquerydatatransfer
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigquerydatatransfer
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigquerymigration/latest/overview
   GCPProductDocs: https://cloud.google.com/bigquery/docs
   artifact: google-cloud-bigquerymigration
-  standardJavadocs: https://google-cloud-bigquerymigration
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigquerymigration
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigqueryreservation/latest/overview
   GCPProductDocs: https://cloud.google.com/bigquery/docs/reference/reservations/rpc
   artifact: google-cloud-bigqueryreservation
-  standardJavadocs: https://google-cloud-bigqueryreservation
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigqueryreservation
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigquerystorage/latest/history
   GCPProductDocs: https://cloud.google.com/bigquery/docs/reference/storage/
   artifact: google-cloud-bigquerystorage-bom
-  standardJavadocs: https://google-cloud-bigquerystorage-bom
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigquerystorage-bom
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigtable/latest/history
   GCPProductDocs: https://cloud.google.com/bigtable
   artifact: google-cloud-bigtable-bom
-  standardJavadocs: https://google-cloud-bigtable-bom
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigtable-bom
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-billing/latest/overview
   GCPProductDocs: https://cloud.google.com/billing/docs
   artifact: google-cloud-billing
-  standardJavadocs: https://google-cloud-billing
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-billing
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-billingbudgets/latest/overview
   GCPProductDocs: https://cloud.google.com/billing/docs/how-to/budgets
   artifact: google-cloud-billingbudgets
-  standardJavadocs: https://google-cloud-billingbudgets
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-billingbudgets
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-binary-authorization/latest/overview
   GCPProductDocs: https://cloud.google.com/binary-authorization/docs
   artifact: google-cloud-binary-authorization
-  standardJavadocs: https://google-cloud-binary-authorization
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-binary-authorization
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-build/latest/overview
   GCPProductDocs: https://cloud.google.com/cloud-build/
   artifact: google-cloud-build
-  standardJavadocs: https://google-cloud-build
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-build
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-certificate-manager/latest/overview
   GCPProductDocs: https://cloud.google.com/certificate-manager/docs
   artifact: google-cloud-certificate-manager
-  standardJavadocs: https://google-cloud-certificate-manager
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-certificate-manager
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-channel/latest/overview
   GCPProductDocs: https://cloud.google.com/channel/docs
   artifact: google-cloud-channel
-  standardJavadocs: https://google-cloud-channel
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-channel
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-cloudcommerceconsumerprocurement/latest/overview
   GCPProductDocs: https://cloud.google.com/marketplace/
   artifact: google-cloud-cloudcommerceconsumerprocurement
-  standardJavadocs: https://google-cloud-cloudcommerceconsumerprocurement
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-cloudcommerceconsumerprocurement
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-cloudsupport/latest/overview
   GCPProductDocs: https://cloud.google.com/support/docs/reference/support-api/
   artifact: google-cloud-cloudsupport
-  standardJavadocs: https://google-cloud-cloudsupport
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-cloudsupport
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-compute/latest/overview
   GCPProductDocs: https://cloud.google.com/compute/
   artifact: google-cloud-compute
-  standardJavadocs: https://google-cloud-compute
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-compute
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-confidentialcomputing/latest/overview
   GCPProductDocs: https://cloud.google.com/confidential-computing/
   artifact: google-cloud-confidentialcomputing
-  standardJavadocs: https://google-cloud-confidentialcomputing
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-confidentialcomputing
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-contact-center-insights/latest/overview
   GCPProductDocs: https://cloud.google.com/dialogflow/priv/docs/insights/
   artifact: google-cloud-contact-center-insights
-  standardJavadocs: https://google-cloud-contact-center-insights
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-contact-center-insights
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-container/latest/overview
   GCPProductDocs: https://cloud.google.com/kubernetes-engine/
   artifact: google-cloud-container
-  standardJavadocs: https://google-cloud-container
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-container
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-containeranalysis/latest/overview
   GCPProductDocs: https://cloud.google.com/container-registry/docs/container-analysis
   artifact: google-cloud-containeranalysis
-  standardJavadocs: https://google-cloud-containeranalysis
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-containeranalysis
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-contentwarehouse/latest/overview
   GCPProductDocs: https://cloud.google.com/document-warehouse/docs/overview
   artifact: google-cloud-contentwarehouse
-  standardJavadocs: https://google-cloud-contentwarehouse
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-contentwarehouse
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-core/latest/overview
   GCPProductDocs: N/A
   artifact: google-cloud-core
-  standardJavadocs: https://google-cloud-core
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-core
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-data-fusion/latest/overview
   GCPProductDocs: https://cloud.google.com/data-fusion/docs
   artifact: google-cloud-data-fusion
-  standardJavadocs: https://google-cloud-data-fusion
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-data-fusion
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-datacatalog/latest/overview
   GCPProductDocs: https://cloud.google.com/data-catalog
   artifact: google-cloud-datacatalog
-  standardJavadocs: https://google-cloud-datacatalog
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-datacatalog
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-dataflow/latest/overview
   GCPProductDocs: https://cloud.google.com/dataflow/docs
   artifact: google-cloud-dataflow
-  standardJavadocs: https://google-cloud-dataflow
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-dataflow
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-dataform/latest/overview
   GCPProductDocs: https://cloud.google.com/dataform/docs
   artifact: google-cloud-dataform
-  standardJavadocs: https://google-cloud-dataform
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-dataform
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-datalabeling/latest/overview
   GCPProductDocs: https://cloud.google.com/ai-platform/data-labeling/docs/
   artifact: google-cloud-datalabeling
-  standardJavadocs: https://google-cloud-datalabeling
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-datalabeling
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-datalineage/latest/overview
   GCPProductDocs: https://cloud.google.com/data-catalog/docs/data-lineage/
   artifact: google-cloud-datalineage
-  standardJavadocs: https://google-cloud-datalineage
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-datalineage
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-dataplex/latest/overview
   GCPProductDocs: https://cloud.google.com/dataplex
   artifact: google-cloud-dataplex
-  standardJavadocs: https://google-cloud-dataplex
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-dataplex
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-dataproc/latest/overview
   GCPProductDocs: https://cloud.google.com/dataproc
   artifact: google-cloud-dataproc
-  standardJavadocs: https://google-cloud-dataproc
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-dataproc
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-dataproc-metastore/latest/overview
   GCPProductDocs: https://cloud.google.com/dataproc-metastore/docs
   artifact: google-cloud-dataproc-metastore
-  standardJavadocs: https://google-cloud-dataproc-metastore
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-dataproc-metastore
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-datastore/latest/history
   GCPProductDocs: https://cloud.google.com/datastore
   artifact: google-cloud-datastore-bom
-  standardJavadocs: https://google-cloud-datastore-bom
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-datastore-bom
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-datastream/latest/overview
   GCPProductDocs: https://cloud.google.com/datastream/docs
   artifact: google-cloud-datastream
-  standardJavadocs: https://google-cloud-datastream
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-datastream
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-debugger-client/latest/overview
   GCPProductDocs: https://cloud.google.com/debugger/docs
   artifact: google-cloud-debugger-client
-  standardJavadocs: https://google-cloud-debugger-client
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-debugger-client
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-deploy/latest/overview
   GCPProductDocs: https://cloud.google.com/deploy/docs
   artifact: google-cloud-deploy
-  standardJavadocs: https://google-cloud-deploy
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-deploy
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-dialogflow/latest/overview
   GCPProductDocs: https://cloud.google.com/dialogflow-enterprise/
   artifact: google-cloud-dialogflow
-  standardJavadocs: https://google-cloud-dialogflow
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-dialogflow
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-dialogflow-cx/latest/overview
   GCPProductDocs: https://cloud.google.com/dialogflow/cx/docs
   artifact: google-cloud-dialogflow-cx
-  standardJavadocs: https://google-cloud-dialogflow-cx
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-dialogflow-cx
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-discoveryengine/latest/overview
   GCPProductDocs: https://cloud.google.com/discovery-engine/docs/introduction
   artifact: google-cloud-discoveryengine
-  standardJavadocs: https://google-cloud-discoveryengine
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-discoveryengine
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-distributedcloudedge/latest/overview
   GCPProductDocs: https://cloud.google.com/distributed-cloud/edge/latest/
   artifact: google-cloud-distributedcloudedge
-  standardJavadocs: https://google-cloud-distributedcloudedge
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-distributedcloudedge
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-dms/latest/overview
   GCPProductDocs: https://cloud.google.com/database-migration/docs
   artifact: google-cloud-dms
-  standardJavadocs: https://google-cloud-dms
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-dms
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-dns/latest/overview
   GCPProductDocs: https://cloud.google.com/dns
   artifact: google-cloud-dns
-  standardJavadocs: https://google-cloud-dns
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-dns
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-document-ai/latest/overview
   GCPProductDocs: https://cloud.google.com/compute/docs/documentai/
   artifact: google-cloud-document-ai
-  standardJavadocs: https://google-cloud-document-ai
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-document-ai
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-domains/latest/overview
   GCPProductDocs: https://cloud.google.com/domains
   artifact: google-cloud-domains
-  standardJavadocs: https://google-cloud-domains
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-domains
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-enterpriseknowledgegraph/latest/overview
   GCPProductDocs: https://cloud.google.com/enterprise-knowledge-graph/docs/overview
   artifact: google-cloud-enterpriseknowledgegraph
-  standardJavadocs: https://google-cloud-enterpriseknowledgegraph
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-enterpriseknowledgegraph
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-errorreporting/latest/overview
   GCPProductDocs: https://cloud.google.com/error-reporting
   artifact: google-cloud-errorreporting
-  standardJavadocs: https://google-cloud-errorreporting
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-errorreporting
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-essential-contacts/latest/overview
   GCPProductDocs: https://cloud.google.com/resource-manager/docs/managing-notification-contacts/
   artifact: google-cloud-essential-contacts
-  standardJavadocs: https://google-cloud-essential-contacts
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-essential-contacts
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-eventarc/latest/overview
   GCPProductDocs: https://cloud.google.com/eventarc/docs
   artifact: google-cloud-eventarc
-  standardJavadocs: https://google-cloud-eventarc
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-eventarc
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-eventarc-publishing/latest/overview
   GCPProductDocs: https://cloud.google.com/eventarc/docs
   artifact: google-cloud-eventarc-publishing
-  standardJavadocs: https://google-cloud-eventarc-publishing
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-eventarc-publishing
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-filestore/latest/overview
   GCPProductDocs: https://cloud.google.com/filestore/docs
   artifact: google-cloud-filestore
-  standardJavadocs: https://google-cloud-filestore
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-filestore
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-firestore/latest/history
   GCPProductDocs: https://cloud.google.com/firestore
   artifact: google-cloud-firestore-bom
-  standardJavadocs: https://google-cloud-firestore-bom
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-firestore-bom
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-functions/latest/overview
   GCPProductDocs: https://cloud.google.com/functions
   artifact: google-cloud-functions
-  standardJavadocs: https://google-cloud-functions
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-functions
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-game-servers/latest/overview
   GCPProductDocs: https://cloud.google.com/docs/games/products/
   artifact: google-cloud-game-servers
-  standardJavadocs: https://google-cloud-game-servers
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-game-servers
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-gke-backup/latest/overview
   GCPProductDocs: 'https://cloud.google.com/kubernetes-engine/docs/add-on/backup-for-gke/concepts/backup-for-gke '
   artifact: google-cloud-gke-backup
-  standardJavadocs: https://google-cloud-gke-backup
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-gke-backup
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-gke-connect-gateway/latest/overview
   GCPProductDocs: https://cloud.google.com/anthos/multicluster-management/gateway/
   artifact: google-cloud-gke-connect-gateway
-  standardJavadocs: https://google-cloud-gke-connect-gateway
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-gke-connect-gateway
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-gke-multi-cloud/latest/overview
   GCPProductDocs: https://cloud.google.com/anthos/clusters/docs/multi-cloud
   artifact: google-cloud-gke-multi-cloud
-  standardJavadocs: https://google-cloud-gke-multi-cloud
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-gke-multi-cloud
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-gkehub/latest/overview
   GCPProductDocs: https://cloud.google.com/anthos/gke/docs/
   artifact: google-cloud-gkehub
-  standardJavadocs: https://google-cloud-gkehub
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-gkehub
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-gsuite-addons/latest/overview
   GCPProductDocs: https://developers.google.com/workspace/add-ons/overview
   artifact: google-cloud-gsuite-addons
-  standardJavadocs: https://google-cloud-gsuite-addons
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-gsuite-addons
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-iamcredentials/latest/overview
   GCPProductDocs: https://cloud.google.com/iam/credentials/reference/rest/
   artifact: google-cloud-iamcredentials
-  standardJavadocs: https://google-cloud-iamcredentials
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-iamcredentials
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-ids/latest/overview
   GCPProductDocs: https://cloud.google.com/intrusion-detection-system/docs
   artifact: google-cloud-ids
-  standardJavadocs: https://google-cloud-ids
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-ids
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-iot/latest/overview
   GCPProductDocs: https://cloud.google.com/iot
   artifact: google-cloud-iot
-  standardJavadocs: https://google-cloud-iot
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-iot
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-kms/latest/overview
   GCPProductDocs: https://cloud.google.com/kms
   artifact: google-cloud-kms
-  standardJavadocs: https://google-cloud-kms
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-kms
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-kmsinventory/latest/overview
   GCPProductDocs: https://cloud.google.com/kms/docs/
   artifact: google-cloud-kmsinventory
-  standardJavadocs: https://google-cloud-kmsinventory
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-kmsinventory
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-language/latest/overview
   GCPProductDocs: https://cloud.google.com/natural-language/docs/
   artifact: google-cloud-language
-  standardJavadocs: https://google-cloud-language
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-language
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-life-sciences/latest/overview
   GCPProductDocs: https://cloud.google.com/life-sciences/docs
   artifact: google-cloud-life-sciences
-  standardJavadocs: https://google-cloud-life-sciences
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-life-sciences
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-live-stream/latest/overview
   GCPProductDocs: https://cloud.google.com/livestream/
   artifact: google-cloud-live-stream
-  standardJavadocs: https://google-cloud-live-stream
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-live-stream
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-logging/latest/history
   GCPProductDocs: https://cloud.google.com/logging/docs
   artifact: google-cloud-logging-bom
-  standardJavadocs: https://google-cloud-logging-bom
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-logging-bom
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-logging-logback/latest/history
   GCPProductDocs: https://cloud.google.com/logging/docs/setup/java#logback_appender_for
   artifact: google-cloud-logging-logback
-  standardJavadocs: https://google-cloud-logging-logback
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-logging-logback
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-managed-identities/latest/overview
   GCPProductDocs: https://cloud.google.com/managed-microsoft-ad/
   artifact: google-cloud-managed-identities
-  standardJavadocs: https://google-cloud-managed-identities
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-managed-identities
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-mediatranslation/latest/overview
   GCPProductDocs: https://cloud.google.com/
   artifact: google-cloud-mediatranslation
-  standardJavadocs: https://google-cloud-mediatranslation
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-mediatranslation
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-memcache/latest/overview
   GCPProductDocs: https://cloud.google.com/memorystore/
   artifact: google-cloud-memcache
-  standardJavadocs: https://google-cloud-memcache
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-memcache
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-monitoring/latest/overview
   GCPProductDocs: https://cloud.google.com/monitoring/docs
   artifact: google-cloud-monitoring
-  standardJavadocs: https://google-cloud-monitoring
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-monitoring
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-monitoring-dashboard/latest/overview
   GCPProductDocs: https://cloud.google.com/monitoring/charts/dashboards
   artifact: google-cloud-monitoring-dashboard
-  standardJavadocs: https://google-cloud-monitoring-dashboard
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-monitoring-dashboard
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-monitoring-metricsscope/latest/overview
   GCPProductDocs: https://cloud.google.com/monitoring/api/ref_v3/rest/v1/locations.global.metricsScopes
   artifact: google-cloud-monitoring-metricsscope
-  standardJavadocs: https://google-cloud-monitoring-metricsscope
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-monitoring-metricsscope
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-network-management/latest/overview
   GCPProductDocs: https://cloud.google.com/network-intelligence-center/docs/connectivity-tests/reference/networkmanagement/rest/
   artifact: google-cloud-network-management
-  standardJavadocs: https://google-cloud-network-management
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-network-management
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-network-security/latest/overview
   GCPProductDocs: https://cloud.google.com/traffic-director/docs/reference/network-security/rest
   artifact: google-cloud-network-security
-  standardJavadocs: https://google-cloud-network-security
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-network-security
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-networkconnectivity/latest/overview
   GCPProductDocs: https://cloud.google.com/network-connectivity/docs
   artifact: google-cloud-networkconnectivity
-  standardJavadocs: https://google-cloud-networkconnectivity
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-networkconnectivity
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-nio/latest/history
   GCPProductDocs: https://cloud.google.com/storage/docs
   artifact: google-cloud-nio
-  standardJavadocs: https://google-cloud-nio
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-nio
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-notebooks/latest/overview
   GCPProductDocs: https://cloud.google.com/ai-platform-notebooks
   artifact: google-cloud-notebooks
-  standardJavadocs: https://google-cloud-notebooks
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-notebooks
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-notification/latest/overview
   GCPProductDocs: N/A
   artifact: google-cloud-notification
-  standardJavadocs: https://google-cloud-notification
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-notification
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-optimization/latest/overview
   GCPProductDocs: https://cloud.google.com/optimization/docs
   artifact: google-cloud-optimization
-  standardJavadocs: https://google-cloud-optimization
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-optimization
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-orchestration-airflow/latest/overview
   GCPProductDocs: https://cloud.google.com/composer/docs
   artifact: google-cloud-orchestration-airflow
-  standardJavadocs: https://google-cloud-orchestration-airflow
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-orchestration-airflow
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/proto-google-cloud-orgpolicy-v1/latest/overview
   GCPProductDocs: n/a
   artifact: google-cloud-orgpolicy
-  standardJavadocs: https://google-cloud-orgpolicy
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-orgpolicy
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-os-config/latest/overview
   GCPProductDocs: https://cloud.google.com/compute/docs/os-patch-management
   artifact: google-cloud-os-config
-  standardJavadocs: https://google-cloud-os-config
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-os-config
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-os-login/latest/overview
   GCPProductDocs: https://cloud.google.com/compute/docs/oslogin/
   artifact: google-cloud-os-login
-  standardJavadocs: https://google-cloud-os-login
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-os-login
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-phishingprotection/latest/overview
   GCPProductDocs: https://cloud.google.com/phishing-protection/docs/
   artifact: google-cloud-phishingprotection
-  standardJavadocs: https://google-cloud-phishingprotection
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-phishingprotection
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-policy-troubleshooter/latest/overview
   GCPProductDocs: https://cloud.google.com/iam/docs/troubleshooting-access
   artifact: google-cloud-policy-troubleshooter
-  standardJavadocs: https://google-cloud-policy-troubleshooter
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-policy-troubleshooter
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-private-catalog/latest/overview
   GCPProductDocs: https://cloud.google.com/private-catalog/docs
   artifact: google-cloud-private-catalog
-  standardJavadocs: https://google-cloud-private-catalog
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-private-catalog
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-profiler/latest/overview
   GCPProductDocs: https://cloud.google.com/profiler/docs
   artifact: google-cloud-profiler
-  standardJavadocs: https://google-cloud-profiler
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-profiler
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-publicca/latest/overview
   GCPProductDocs: https://cloud.google.com/certificate-manager/docs/public-ca/
   artifact: google-cloud-publicca
-  standardJavadocs: https://google-cloud-publicca
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-publicca
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-pubsub/latest/history
   GCPProductDocs: https://cloud.google.com/pubsub/docs/
   artifact: google-cloud-pubsub-bom
-  standardJavadocs: https://google-cloud-pubsub-bom
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-pubsub-bom
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-pubsublite/latest/history
   GCPProductDocs: https://cloud.google.com/pubsub/lite/docs
   artifact: google-cloud-pubsublite-bom
-  standardJavadocs: https://google-cloud-pubsublite-bom
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-pubsublite-bom
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-rapidmigrationassessment/latest/overview
   GCPProductDocs: https://cloud.google.com/migration-center/docs
   artifact: google-cloud-rapidmigrationassessment
-  standardJavadocs: https://google-cloud-rapidmigrationassessment
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-rapidmigrationassessment
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-recaptchaenterprise/latest/overview
   GCPProductDocs: https://cloud.google.com/recaptcha-enterprise/docs/
   artifact: google-cloud-recaptchaenterprise
-  standardJavadocs: https://google-cloud-recaptchaenterprise
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-recaptchaenterprise
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-recommendations-ai/latest/overview
   GCPProductDocs: https://cloud.google.com/recommendations-ai/
   artifact: google-cloud-recommendations-ai
-  standardJavadocs: https://google-cloud-recommendations-ai
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-recommendations-ai
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-recommender/latest/overview
   GCPProductDocs: https://cloud.google.com/recommendations/
   artifact: google-cloud-recommender
-  standardJavadocs: https://google-cloud-recommender
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-recommender
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-redis/latest/overview
   GCPProductDocs: https://cloud.google.com/memorystore/docs/redis/
   artifact: google-cloud-redis
-  standardJavadocs: https://google-cloud-redis
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-redis
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-resource-settings/latest/overview
   GCPProductDocs: https://cloud.google.com/resource-manager/docs/reference/resource-settings/rest
   artifact: google-cloud-resource-settings
-  standardJavadocs: https://google-cloud-resource-settings
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-resource-settings
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-resourcemanager/latest/overview
   GCPProductDocs: https://cloud.google.com/resource-manager
   artifact: google-cloud-resourcemanager
-  standardJavadocs: https://google-cloud-resourcemanager
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-resourcemanager
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/overview
   GCPProductDocs: https://cloud.google.com/solutions/retail
   artifact: google-cloud-retail
-  standardJavadocs: https://google-cloud-retail
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-retail
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-run/latest/overview
   GCPProductDocs: https://cloud.google.com/run/docs
   artifact: google-cloud-run
-  standardJavadocs: https://google-cloud-run
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-run
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-scheduler/latest/overview
   GCPProductDocs: https://cloud.google.com/scheduler/docs
   artifact: google-cloud-scheduler
-  standardJavadocs: https://google-cloud-scheduler
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-scheduler
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-secretmanager/latest/overview
   GCPProductDocs: https://cloud.google.com/solutions/secrets-management/
   artifact: google-cloud-secretmanager
-  standardJavadocs: https://google-cloud-secretmanager
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-secretmanager
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-security-private-ca/latest/overview
   GCPProductDocs: https://cloud.google.com/certificate-authority-service/docs
   artifact: google-cloud-security-private-ca
-  standardJavadocs: https://google-cloud-security-private-ca
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-security-private-ca
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-securitycenter/latest/overview
   GCPProductDocs: https://cloud.google.com/security-command-center
   artifact: google-cloud-securitycenter
-  standardJavadocs: https://google-cloud-securitycenter
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-securitycenter
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-securitycenter-settings/latest/overview
   GCPProductDocs: https://cloud.google.com/security-command-center/
   artifact: google-cloud-securitycenter-settings
-  standardJavadocs: https://google-cloud-securitycenter-settings
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-securitycenter-settings
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-service-control/latest/overview
   GCPProductDocs: https://cloud.google.com/service-infrastructure/docs/overview/
   artifact: google-cloud-service-control
-  standardJavadocs: https://google-cloud-service-control
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-service-control
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-service-management/latest/overview
   GCPProductDocs: https://cloud.google.com/service-infrastructure/docs/overview/
   artifact: google-cloud-service-management
-  standardJavadocs: https://google-cloud-service-management
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-service-management
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-service-usage/latest/overview
   GCPProductDocs: https://cloud.google.com/service-usage/docs/overview
   artifact: google-cloud-service-usage
-  standardJavadocs: https://google-cloud-service-usage
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-service-usage
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-servicedirectory/latest/overview
   GCPProductDocs: https://cloud.google.com/service-directory/
   artifact: google-cloud-servicedirectory
-  standardJavadocs: https://google-cloud-servicedirectory
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-servicedirectory
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-shell/latest/overview
   GCPProductDocs: https://cloud.google.com/shell/docs
   artifact: google-cloud-shell
-  standardJavadocs: https://google-cloud-shell
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-shell
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-spanner/latest/history
   GCPProductDocs: https://cloud.google.com/spanner/docs/
   artifact: google-cloud-spanner-bom
-  standardJavadocs: https://google-cloud-spanner-bom
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-spanner-bom
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-spanner-jdbc/latest/history
   GCPProductDocs: https://cloud.google.com/spanner/docs/use-oss-jdbc
   artifact: google-cloud-spanner-jdbc
-  standardJavadocs: https://google-cloud-spanner-jdbc
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-spanner-jdbc
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-speech/latest/overview
   GCPProductDocs: https://cloud.google.com/speech-to-text/docs/
   artifact: google-cloud-speech
-  standardJavadocs: https://google-cloud-speech
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-speech
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-storage/latest/history
   GCPProductDocs: https://cloud.google.com/storage
   artifact: google-cloud-storage-bom
-  standardJavadocs: https://google-cloud-storage-bom
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-storage-bom
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-storage-transfer/latest/overview
   GCPProductDocs: https://cloud.google.com/storage-transfer-service
   artifact: google-cloud-storage-transfer
-  standardJavadocs: https://google-cloud-storage-transfer
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-storage-transfer
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-storageinsights/latest/overview
   GCPProductDocs: https://cloud.google.com/storage/docs/insights/storage-insights/
   artifact: google-cloud-storageinsights
-  standardJavadocs: https://google-cloud-storageinsights
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-storageinsights
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-talent/latest/overview
   GCPProductDocs: https://cloud.google.com/solutions/talent-solution/
   artifact: google-cloud-talent
-  standardJavadocs: https://google-cloud-talent
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-talent
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-tasks/latest/overview
   GCPProductDocs: https://cloud.google.com/tasks/docs/
   artifact: google-cloud-tasks
-  standardJavadocs: https://google-cloud-tasks
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-tasks
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-texttospeech/latest/overview
   GCPProductDocs: https://cloud.google.com/text-to-speech
   artifact: google-cloud-texttospeech
-  standardJavadocs: https://google-cloud-texttospeech
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-texttospeech
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-tpu/latest/overview
   GCPProductDocs: https://cloud.google.com/tpu/docs
   artifact: google-cloud-tpu
-  standardJavadocs: https://google-cloud-tpu
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-tpu
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-trace/latest/overview
   GCPProductDocs: https://cloud.google.com/trace/docs/
   artifact: google-cloud-trace
-  standardJavadocs: https://google-cloud-trace
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-trace
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-translate/latest/overview
   GCPProductDocs: https://cloud.google.com/translate/docs/
   artifact: google-cloud-translate
-  standardJavadocs: https://google-cloud-translate
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-translate
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-video-intelligence/latest/overview
   GCPProductDocs: https://cloud.google.com/video-intelligence/docs/
   artifact: google-cloud-video-intelligence
-  standardJavadocs: https://google-cloud-video-intelligence
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-video-intelligence
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-video-stitcher/latest/overview
   GCPProductDocs: https://cloud.google.com/video-stitcher/
   artifact: google-cloud-video-stitcher
-  standardJavadocs: https://google-cloud-video-stitcher
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-video-stitcher
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-video-transcoder/latest/overview
   GCPProductDocs: https://cloud.google.com/transcoder/docs
   artifact: google-cloud-video-transcoder
-  standardJavadocs: https://google-cloud-video-transcoder
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-video-transcoder
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-vision/latest/overview
   GCPProductDocs: https://cloud.google.com/vision/docs/
   artifact: google-cloud-vision
-  standardJavadocs: https://google-cloud-vision
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-vision
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-vmmigration/latest/overview
   GCPProductDocs: n/a
   artifact: google-cloud-vmmigration
-  standardJavadocs: https://google-cloud-vmmigration
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-vmmigration
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-vmwareengine/latest/overview
   GCPProductDocs: https://cloud.google.com/vmware-engine/
   artifact: google-cloud-vmwareengine
-  standardJavadocs: https://google-cloud-vmwareengine
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-vmwareengine
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-vpcaccess/latest/overview
   GCPProductDocs: https://cloud.google.com/vpc/docs/serverless-vpc-access
   artifact: google-cloud-vpcaccess
-  standardJavadocs: https://google-cloud-vpcaccess
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-vpcaccess
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-webrisk/latest/overview
   GCPProductDocs: https://cloud.google.com/web-risk/docs/
   artifact: google-cloud-webrisk
-  standardJavadocs: https://google-cloud-webrisk
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-webrisk
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-websecurityscanner/latest/overview
   GCPProductDocs: https://cloud.google.com/security-scanner/docs/
   artifact: google-cloud-websecurityscanner
-  standardJavadocs: https://google-cloud-websecurityscanner
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-websecurityscanner
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-workflow-executions/latest/overview
   GCPProductDocs: https://cloud.google.com/workflows
   artifact: google-cloud-workflow-executions
-  standardJavadocs: https://google-cloud-workflow-executions
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-workflow-executions
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-workflows/latest/overview
   GCPProductDocs: https://cloud.google.com/workflows
   artifact: google-cloud-workflows
-  standardJavadocs: https://google-cloud-workflows
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-workflows
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-workstations/latest/overview
   GCPProductDocs: https://cloud.google.com/workstations
   artifact: google-cloud-workstations
-  standardJavadocs: https://google-cloud-workstations
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-workstations
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-iam-admin/latest/overview
   GCPProductDocs: https://cloud.google.com/iam/docs/apis
   artifact: google-iam-admin
-  standardJavadocs: https://google-iam-admin
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-iam-admin
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/proto-google-iam-v1/latest/history
   GCPProductDocs: n/a
   artifact: google-iam-policy
-  standardJavadocs: https://google-iam-policy
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-iam-policy
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-identity-accesscontextmanager/latest/overview
   GCPProductDocs: n/a
   artifact: google-identity-accesscontextmanager
-  standardJavadocs: https://google-identity-accesscontextmanager
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-identity-accesscontextmanager
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-maps-addressvalidation/latest/overview
   GCPProductDocs: https://developers.google.com/maps/documentation/address-validation/
   artifact: google-maps-addressvalidation
-  standardJavadocs: https://google-maps-addressvalidation
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-maps-addressvalidation
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-maps-mapsplatformdatasets/latest/overview
   GCPProductDocs: https://developers.google.com/maps/documentation
   artifact: google-maps-mapsplatformdatasets
-  standardJavadocs: https://google-maps-mapsplatformdatasets
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-maps-mapsplatformdatasets
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-maps-routing/latest/overview
   GCPProductDocs: https://developers.google.com/maps/documentation/routes
   artifact: google-maps-routing
-  standardJavadocs: https://google-maps-routing
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-maps-routing
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/grafeas/latest/overview
   GCPProductDocs: https://grafeas.io
   artifact: grafeas
-  standardJavadocs: https://grafeas
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/grafeas
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-dlp/latest/overview
   GCPProductDocs: https://cloud.google.com/dlp/docs/
   artifact: google-cloud-dlp
-  standardJavadocs: https://google-cloud-dlp
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-dlp

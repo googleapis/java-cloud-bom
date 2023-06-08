@@ -26,9 +26,10 @@ for variable, value in data.items():
     continue
 
   # Create a new dictionary for this entry
+  # @TODO: Update standardJavadocs link once this is pushed to main
   new_entry = {
       'artifact': variable,
-      'standardJavadocs': f"https://{variable}",
+      'standardJavadocs': f"https://alicejli.github.io/java-cloud-bom/{variable}",
       'GCPJavadocs': libraryReference.get(variable, "N/A"),
       'GCPProductDocs': productReference.get(variable, "N/A")
   }
