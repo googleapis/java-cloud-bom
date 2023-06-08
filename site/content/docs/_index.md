@@ -532,3 +532,8 @@ You can select the libaries-bom version on the lefthand side.
 ### grafeas
 - {{< variable "grafeas" >}}([Javadocs]({{< variable "github-repo" >}}/grafeas/), [Google Cloud Java Library Reference]({{< variableLibraryReferenceLinks "grafeas" >}}))
 - [Google Cloud Product Reference]({{< variableProductReferenceLinks "grafeas" >}})
+
+{{< libraryTable >}}
+
+
+

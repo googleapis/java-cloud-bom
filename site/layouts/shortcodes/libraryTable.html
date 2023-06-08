@@ -1,0 +1,28 @@
+<table>
+  <thead>
+  <tr>
+    <th>Artifact ID</th>
+    <th>Standard Javadocs</th>
+    <th>Google Cloud Javadocs</th>
+    <th>Google Cloud Product Docs</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{ range site.Data.libraryTable -}}
+  <tr>
+    <td>
+      {{- .artifact -}}
+    </td>
+    <td>
+      {{- .standardJavadocs -}}
+    </td>
+    <td>
+      {{- .GCPJavadocs -}}
+    </td>
+    <td>
+      {{- .GCPProductDocs -}}
+    </td>
+  </tr>
+  {{- end }}
+  </tbody>
+</table>

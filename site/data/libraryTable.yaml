@@ -1,0 +1,8 @@
+- artifact: google-cloud-gke-connect-gateway
+  standardJavadocs: potato
+  GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-gke-connect-gateway/latest/overview
+  GCPProductDocs: https://cloud.google.com/anthos/multicluster-management/gateway/
+- artifact: google-cloud-gke-connect-gateway
+  standardJavadocs: pineapple
+  GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-gke-connect-gateway/latest/overview
+  GCPProductDocs: https://cloud.google.com/anthos/multicluster-management/gateway/
