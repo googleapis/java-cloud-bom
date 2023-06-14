@@ -1,13 +1,11 @@
 name: Generate Javadocs for handwritten libraries
-# Run this workflow once the site/data/variables.yaml file has been updated
+# Run this workflow once the Javadoc generation for sdk-platform-java modules has run
 on:
-  push:
-    paths:
-    - 'site/data/variables.yaml'
-  pull_request:
-    paths:
-    - 'site/data/variables.yaml'
-  workflow_dispatch:
+  workflow_run:
+    workflows: [ "Generate Javadocs for sdk-platform-java modules" ]
+    types:
+      - completed
+    workflow_dispatch:
 
 permissions:
   contents: write

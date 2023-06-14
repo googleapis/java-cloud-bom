@@ -19,8 +19,9 @@ If you are using [Google Cloud Client Libraries](https://cloud.google.com/apis/d
 This site contains Javadoc reference documentation for the latest published Cloud SDK modules. It contains the same content that is available on [Google Cloud Java Library Reference](https://cloud.google.com/java/docs/reference), just in the standard Javadoc format that may be more familiar to Java developers.
 
 ---
+# [Google Cloud Libraries BOM]((https://cloud.google.com/java/docs/bom))
 
-# {{< variable "libraries-bom" >}}
+All artifacts associated with: **{{< variable "libraries-bom" >}}**
 
 {{< libraryTable >}}
 

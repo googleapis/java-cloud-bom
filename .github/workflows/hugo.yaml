@@ -4,14 +4,13 @@ name: GitHub Pages
 on:
   push:
     branches:
-      - main  # Set a branch to deploy
+      - main
     paths:
       - 'site/**'
   pull_request:
+    types: [opened]
     paths:
       - 'site/**'
-
-# Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages

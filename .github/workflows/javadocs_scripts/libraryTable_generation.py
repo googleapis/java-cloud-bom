@@ -12,6 +12,9 @@ with open('site/data/variableLibraryReferenceLinks.yaml', 'r') as f:
 with open('site/data/variableProductReferenceLinks.yaml', 'r') as f:
   productReference = yaml.safe_load(f)
 
+with open('site/data/name_pretty.yaml', 'r') as f:
+  nameReference = yaml.safe_load(f)
+
 
 # List of modules to ignore
 variables_to_skip = ['libraries-bom', 'gapic-libraries-bom','github-repo','gax-httpjson', 'google-cloud-shared-dependencies', 'first-party-dependencies']
@@ -29,9 +32,11 @@ for variable, value in data.items():
   # @TODO: Update standardJavadocs link once this is pushed to main
   new_entry = {
       'artifact': variable,
+      'version': value,
       'standardJavadocs': f"https://alicejli.github.io/java-cloud-bom/{variable}",
       'GCPJavadocs': libraryReference.get(variable, "N/A"),
-      'GCPProductDocs': productReference.get(variable, "N/A")
+      'GCPProductDocs': productReference.get(variable, "N/A"),
+      'name_pretty': nameReference.get(variable, "N/A")
   }
 
   # Sort the output list by the 'artifact' key
