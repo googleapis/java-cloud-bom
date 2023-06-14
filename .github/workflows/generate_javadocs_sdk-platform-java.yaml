@@ -3,10 +3,10 @@ name: Generate Javadocs for sdk-platform-java modules
 on:
   push:
     paths:
-    - 'site/data/**'
+    - 'site/data/variables.yaml'
   pull_request:
     paths:
-    - 'site/data/**'
+    - 'site/data/variables.yaml'
   workflow_dispatch:
 
 permissions:
