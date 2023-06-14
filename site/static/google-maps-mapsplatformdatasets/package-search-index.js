@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.maps.mapsplatformdatasets.v1alpha"},{"l":"com.google.maps.mapsplatformdatasets.v1alpha.stub"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.maps.mapsplatformdatasets.v1"},{"l":"com.google.maps.mapsplatformdatasets.v1.stub"},{"l":"com.google.maps.mapsplatformdatasets.v1alpha"},{"l":"com.google.maps.mapsplatformdatasets.v1alpha.stub"}]

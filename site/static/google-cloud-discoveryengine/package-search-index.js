@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.discoveryengine.v1beta"},{"l":"com.google.cloud.discoveryengine.v1beta.stub"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.discoveryengine.v1"},{"l":"com.google.cloud.discoveryengine.v1.stub"},{"l":"com.google.cloud.discoveryengine.v1beta"},{"l":"com.google.cloud.discoveryengine.v1beta.stub"}]
