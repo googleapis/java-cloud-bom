@@ -8,7 +8,7 @@ on:
     paths:
       - 'site/**'
   pull_request:
-    types: [opened]
+    types: [closed]
     paths:
       - 'site/**'
   workflow_dispatch:

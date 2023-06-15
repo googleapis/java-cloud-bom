@@ -2,8 +2,8 @@
   <thead>
   <tr>
     <th>Artifact ID</th>
-    <th>Artifact Version</th>
-    <th>Javadoc Reference</th>
+    <th>Javadocs</th>
+    <th>Google Cloud Library Reference</th>
     <th>Google Cloud Product Docs</th>
   </tr>
   </thead>
@@ -14,15 +14,14 @@
       {{- .artifact -}}
     </td>
     <td>
-      {{- .version -}}
+      <a href="{{- .standardJavadocs -}}">{{- .version -}}
     </td>
     <td>
-      <a href="{{- .standardJavadocs -}}">Standard,
-      {{ if eq .GCPJavadocs "N/A" -}}
-      N/A
-      {{ else -}}
-      <a href="{{- .GCPJavadocs -}}">Google Cloud
-        {{ end -}}
+        {{ if eq .GCPJavadocs "N/A" -}}
+        N/A
+        {{ else -}}
+        <a href="{{- .GCPJavadocs -}}">{{- .version -}}
+          {{ end -}}
     </td>
     <td>
       {{ if eq .GCPProductDocs "N/A" -}}
