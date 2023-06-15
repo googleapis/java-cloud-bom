@@ -39,11 +39,11 @@ for variable, value in data.items():
       'name_pretty': nameReference.get(variable, "N/A")
   }
 
-  # Sort the output list by the 'artifact' key
-  output = sorted(output, key=lambda k: k['artifact'])
-
   # Add the new dictionary to the output list
   output.append(new_entry)
+
+  # Sort the output list by the 'artifact' key
+  output = sorted(output, key=lambda k: k['artifact'])
 
 # Write the output list to a new yaml file
 with open('site/data/libraryTable.yaml', 'w') as f:
