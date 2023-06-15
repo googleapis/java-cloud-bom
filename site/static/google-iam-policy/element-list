@@ -1,4 +1,4 @@
-com.google.iam.v1
-com.google.iam.v1.logging
 com.google.iam.v2
+com.google.iam.v2.stub
 com.google.iam.v2beta
+com.google.iam.v2beta.stub
