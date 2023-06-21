@@ -1,12 +1,10 @@
 name: Generate Javadocs for sdk-platform-java modules
-# Run this workflow once the site/data/variables.yaml file has been updated
+# Run this workflow once the update_site_var workflow has been completed
 on:
-  push:
-    paths:
-    - 'site/data/variables.yaml'
-  pull_request:
-    paths:
-    - 'site/data/variables.yaml'
+  workflow_run:
+    workflows: [ "Update site variables for Github Pages with automated versions" ]
+    types:
+    - completed
   workflow_dispatch:
 
 permissions:
