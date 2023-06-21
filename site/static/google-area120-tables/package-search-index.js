@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.area120.tables.v1alpha"},{"l":"com.google.area120.tables.v1alpha.stub"},{"l":"com.google.area120.tables.v1alpha1"}]

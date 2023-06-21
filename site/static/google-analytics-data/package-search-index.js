@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.analytics.data.v1alpha"},{"l":"com.google.analytics.data.v1alpha.stub"},{"l":"com.google.analytics.data.v1beta"},{"l":"com.google.analytics.data.v1beta.stub"}]

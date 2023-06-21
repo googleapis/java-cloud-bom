@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.cloud.devtools.cloudbuild.v1"},{"l":"com.google.cloud.devtools.cloudbuild.v1.stub"},{"l":"com.google.cloud.devtools.cloudbuild.v2"},{"l":"com.google.cloud.devtools.cloudbuild.v2.stub"},{"l":"com.google.cloudbuild.v1"},{"l":"com.google.cloudbuild.v2"}]
