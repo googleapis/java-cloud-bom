@@ -1,5 +1,4 @@
-# Run after `update_libraries_bom_variable.py` and parses `google-cloud-bom/pom.xml` for the gapic-libraries-bom and handwritten library versions and updates those versions to `/site/data/variables.yaml`
-# Can be run concurrently with update_site_params.py
+# Runs after `parse_versionstxt.py` and parses `google-cloud-bom/pom.xml` for the gapic-libraries-bom and handwritten library versions and updates those versions to `/site/data/variables.yaml`
 
 import xml.etree.ElementTree as ET
 import os.path

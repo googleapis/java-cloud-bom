@@ -1,16 +1,26 @@
-# This script parses google-cloud-java/versions.txt and sdk-platform-java/versions.txt to update the versions of the modules within `/site/data/variables.yaml`
+# This script parses google-cloud-java/versions.txt and updates google-cloud-java_javadocs_modules.txt
 
 import sys
+import re
 import os.path
 
 def convert_line(line):
-  # Split the line by ':'
-  parts = line.strip().split(':')
+  parts = line.split(':')
+  service_name = parts[0]
+  javadocs_module = re.sub(r'^google-cloud-', '', service_name)
 
-  # Construct the output string
-  output_line = parts[0] + ': "' + 'v' + parts[1] + '"'
+  # Exceptions for maps modules, grafeas, iam
+  if service_name.startswith("google-maps"):
+    javadocs_module = re.sub(r'^google-', '', service_name)
+  elif service_name.startswith("grafeas"):
+    javadocs_module = "grafeas"
+  elif service_name.startswith("google-iam-admin"):
+    javadocs_module = "iam-admin"
+  elif service_name.startswith("google-iam-policy"):
+    javadocs_module = "iam"
 
-  return output_line
+  artifact_name = f"google-cloud-java/java-{javadocs_module}"
+  return f"{service_name} {artifact_name}"
 
 def convert_file(input_filenames, output_filename, exclude_packages):
   output_lines = set()
@@ -33,7 +43,7 @@ def convert_file(input_filenames, output_filename, exclude_packages):
         output_lines.add(convert_line(line))
 
   # Open the output file for writing
-  with open(os.path.join('./site/data/', output_filename), 'a') as outfile:
+  with open(os.path.join('.github/workflows/javadocs_scripts/', output_filename), 'w') as outfile:
     # Write each unique output line to the output file
     for line in output_lines:
       outfile.write(line + '\n')
@@ -41,7 +51,7 @@ def convert_file(input_filenames, output_filename, exclude_packages):
 # Get the input file from the command line argument
 input_file = sys.argv[1]
 
-output_file = 'variables.yaml'
+output_file = 'google-cloud-java_javadocs_modules.txt'
 
 # Excludes lines in versions.txt files that contain any of the following strings. Since we do not want to publish separate Javadocs for `google-cloud-<service>`, `grpc-google-<service>`, and `proto-google-<service>` artifacts, the latter two packages are excluded.
 exclude_packages = ['gapic-generator-java', 'google-cloud-java', 'grpc-google', 'proto-google', 'google-cloud-bom', 'full-convergence-check', 'java-cloud-bom-tests', 'gax-grpc', ]

@@ -1,4 +1,4 @@
-# This script seeds the table for the index file
+# This script recreates the table of modules for the site
 
 import yaml
 
@@ -42,7 +42,7 @@ for variable, value in data.items():
   # Add the new dictionary to the output list
   output.append(new_entry)
 
-  # Sort the output list by the 'artifact' key
+  # Alphabetize the output list by the 'artifact' key
   output = sorted(output, key=lambda k: k['artifact'])
 
 # Write the output list to a new yaml file

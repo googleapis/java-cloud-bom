@@ -1,4 +1,4 @@
-# Run after update_libraries_bom_variable.py
+# Run after parse_pom.py to update the config.toml file with the libraries-bom version
 
 import yaml
 import toml

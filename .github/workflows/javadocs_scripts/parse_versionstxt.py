@@ -1,4 +1,4 @@
-# This script parses versions.txt to update the version of libraries-bom within `/site/data/variables.yaml`
+# This script parses java-cloud-bom/versions.txt to update the version of libraries-bom within `/site/data/variables.yaml`
 # This script kicks off the version update process.
 
 import os.path
@@ -42,8 +42,7 @@ def convert_file(input_filenames, output_filename, exclude_packages):
     for line in output_lines:
       outfile.write(line + '\n')
 
-
-# Test the function
+# Update for input files
 input_files = ['./versions.txt']
 output_file = 'variables.yaml'
 

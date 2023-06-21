@@ -1,7 +1,7 @@
 import yaml
 import fileinput
 
-# This script updates the versions of the sdk-platform-java, google-cloud-java, and handwritten libraries for checkout
+# Updates the versions of the sdk-platform-java, google-cloud-java, and handwritten libraries for checkout
 def update_repo_versions(file_paths, yaml_file):
   with open(yaml_file, 'r') as yaml_data:
     version_data = yaml.safe_load(yaml_data)
