@@ -55,7 +55,7 @@ jobs:
           echo "Updating variables.yaml file using ${repo}'s version.txt file"
           python .github/workflows/javadocs_scripts/parse_versionstxt_addl_repos.py ${directory}/versions.txt
           if [[ "$repo" == "googleapis/google-cloud-java" ]]; then
-            python updateClientProductDocumentationLinks.py # Update client/product doc links based on .repo-metadata.json files
+            python .github/workflows/javadocs_scripts/updateClientProductDocumentationLinks.py # Update client/product doc links based on .repo-metadata.json files
             python .github/workflows/javadocs_scripts/update_googlecloudjava_javadocs_modules.py ${directory}/versions.txt # Update for any new modules in google-cloud-java
           fi
         done < .github/workflows/javadocs_scripts/repos_for_versionstxt.txt
