@@ -157,3 +157,4 @@ google-cloud-monitoring-metricsscope: "https://cloud.google.com/java/docs/refere
 google-cloud-aiplatform: "https://cloud.google.com/java/docs/reference/google-cloud-aiplatform/latest/overview"
 google-cloud-cloudcommerceconsumerprocurement: "https://cloud.google.com/java/docs/reference/google-cloud-cloudcommerceconsumerprocurement/latest/overview"
 google-cloud-speech: "https://cloud.google.com/java/docs/reference/google-cloud-speech/latest/overview"
+google-auth-library: "https://googleapis.dev/java/google-auth-library/latest/"

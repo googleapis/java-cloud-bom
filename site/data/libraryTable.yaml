@@ -33,6 +33,13 @@
   name_pretty: Area 120 Tables
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-area120-tables
   version: v0.23.0
+- GCPJavadocs: https://googleapis.dev/java/google-auth-library/latest/
+  GCPProductDocs: N/A
+  artifact: google-auth-library
+  libraryType: Product
+  name_pretty: Google Auth Library
+  standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-auth-library
+  version: v1.18.0
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-accessapproval/latest/overview
   GCPProductDocs: https://cloud.google.com/access-approval/docs/
   artifact: google-cloud-accessapproval

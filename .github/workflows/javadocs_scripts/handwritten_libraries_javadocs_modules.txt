@@ -11,3 +11,4 @@ googleapis/java-pubsublite java-pubsublite v1.12.6 google-cloud-pubsublite-bom
 googleapis/java-spanner java-spanner v6.42.3 google-cloud-spanner-bom
 googleapis/java-spanner-jdbc java-spanner-jdbc v2.10.0 google-cloud-spanner-jdbc
 googleapis/java-storage java-storage v2.22.3 google-cloud-storage-bom
+googleapis/google-auth-library-java google-auth-library-java v1.18.0 google-auth-library
