@@ -1,4 +1,4 @@
-# This script parses google-cloud-java/versions.txt and sdk-platform-java/versions.txt to update the versions of the modules within `/site/data/variables.yaml`
+# Parses google-cloud-java/versions.txt and sdk-platform-java/versions.txt to update the versions of the modules within `/site/data/variables.yaml`
 
 import sys
 import os.path

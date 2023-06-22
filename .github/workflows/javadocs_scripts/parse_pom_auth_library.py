@@ -1,5 +1,6 @@
 # Parses sdk-platform-java/gapic-generator-parent-bom/pom.xml for auth library version
 
+import sys
 import xml.etree.ElementTree as ET
 import os.path
 
