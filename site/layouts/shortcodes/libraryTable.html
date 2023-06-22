@@ -2,6 +2,7 @@
   <thead>
   <tr>
     <th>Artifact ID</th>
+    <th>Library Type</th>
     <th>Javadocs</th>
     <th>Google Cloud Library Reference</th>
     <th>Google Cloud Product Docs</th>
@@ -12,6 +13,9 @@
   <tr>
     <td>
       {{- .artifact -}}
+    </td>
+    <td>
+      {{- .libraryType -}}
     </td>
     <td>
       <a href="{{- .standardJavadocs -}}">{{- .version -}}

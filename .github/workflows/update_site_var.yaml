@@ -43,7 +43,7 @@ jobs:
         echo "Updating repo versions for checkout and handwritten modules"
         python .github/workflows/javadocs_scripts/update_repo_versions.py # Run script to update the handwritten_libraries_javadocs_modules.txt and repos_for_versionstxt.txt files
 
-    - name: Read repo, directory, and tag from file and clone repo
+    - name: Update new modules and links for sdk-platform-java and google-cloud-java
       run: |
         while read -r repo directory tag artifact
         do
@@ -59,6 +59,19 @@ jobs:
             python .github/workflows/javadocs_scripts/update_googlecloudjava_javadocs_modules.py ${directory}/versions.txt # Update for any new modules in google-cloud-java
           fi
         done < .github/workflows/javadocs_scripts/repos_for_versionstxt.txt
+
+    - name: Update links for handwritten libraries
+      run: |
+        while read -r repo directory tag artifact
+        do
+          echo "REPO=$repo"
+          echo "DIRECTORY=$directory"
+          echo "TAG=$tag"
+          git clone https://github.com/${repo}.git
+          git -C "${directory}" checkout $tag
+          echo "Updating client and product documentation links using ${repo}'s .repo-metadata.json file"
+          python .github/workflows/javadocs_scripts/updateClientProductDocumentationLinks.py # Update client/product doc links based on .repo-metadata.json files
+        done < .github/workflows/javadocs_scripts/handwritten_libraries_javadocs_modules.txt
 
     - name: Update libraryTable
       run: |

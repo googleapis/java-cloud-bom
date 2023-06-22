@@ -19,6 +19,9 @@ with open('site/data/name_pretty.yaml', 'r') as f:
 # List of modules to ignore
 variables_to_skip = ['libraries-bom', 'gapic-libraries-bom','github-repo','gax-httpjson', 'google-cloud-shared-dependencies', 'first-party-dependencies']
 
+# List of runtime modules
+runtime_modules = ['google-cloud-core', 'gax', 'google-iam-policy', 'api-common']
+
 # Prepare the output list
 output = []
 
@@ -28,16 +31,28 @@ for variable, value in data.items():
   if variable in variables_to_skip:
     continue
 
-  # Create a new dictionary for this entry
-  # @TODO: Update standardJavadocs link once this is pushed to main
-  new_entry = {
-      'artifact': variable,
-      'version': value,
-      'standardJavadocs': f"https://alicejli.github.io/java-cloud-bom/{variable}",
-      'GCPJavadocs': libraryReference.get(variable, "N/A"),
-      'GCPProductDocs': productReference.get(variable, "N/A"),
-      'name_pretty': nameReference.get(variable, "N/A")
-  }
+  if variable in runtime_modules:
+    # Create a new dictionary for this entry
+    # @TODO: Update standardJavadocs link once this is pushed to main
+    new_entry = {
+        'artifact': variable,
+        'version': value,
+        'libraryType': f"Runtime",
+        'standardJavadocs': f"https://alicejli.github.io/java-cloud-bom/{variable}",
+        'GCPJavadocs': libraryReference.get(variable, "N/A"),
+        'GCPProductDocs': productReference.get(variable, "N/A"),
+        'name_pretty': nameReference.get(variable, "N/A")
+    }
+  else:
+    new_entry = {
+        'artifact': variable,
+        'version': value,
+        'libraryType': f"Product",
+        'standardJavadocs': f"https://alicejli.github.io/java-cloud-bom/{variable}",
+        'GCPJavadocs': libraryReference.get(variable, "N/A"),
+        'GCPProductDocs': productReference.get(variable, "N/A"),
+        'name_pretty': nameReference.get(variable, "N/A")
+    }
 
   # Add the new dictionary to the output list
   output.append(new_entry)
