@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.iam.v2"},{"l":"com.google.iam.v2.stub"},{"l":"com.google.iam.v2beta"},{"l":"com.google.iam.v2beta.stub"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.google.iam.v1"},{"l":"com.google.iam.v1.logging"},{"l":"com.google.iam.v2"},{"l":"com.google.iam.v2beta"}]
