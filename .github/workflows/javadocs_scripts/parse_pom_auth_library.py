@@ -9,7 +9,7 @@ ns = {
 }
 
 # Get the input file from the command line argument
-input_file = sys.argv[1]
+input_file = [sys.argv[1]]
 
 for pom_file in input_file:
   # Parse the XML file
