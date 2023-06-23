@@ -22,6 +22,9 @@ variables_to_skip = ['libraries-bom', 'gapic-libraries-bom','github-repo','gax-h
 # List of runtime modules
 runtime_modules = ['google-cloud-core', 'gax', 'google-iam-policy', 'api-common']
 
+# List of modules with special artifact names
+variable_name_exceptions = ['google-cloud-bigquerystorage-bom', 'google-cloud-bigtable-bom','google-cloud-datastore-bom', 'google-cloud-firestore-bom','google-cloud-logging-bom', 'google-cloud-pubsub-bom', 'google-cloud-pubsublite-bom', 'google-cloud-spanner-bom', 'google-cloud-storage-bom']
+
 # Prepare the output list
 output = []
 
@@ -44,15 +47,27 @@ for variable, value in data.items():
         'name_pretty': nameReference.get(variable, "N/A")
     }
   else:
-    new_entry = {
-        'artifact': variable,
-        'version': value,
-        'libraryType': f"Product",
-        'standardJavadocs': f"https://alicejli.github.io/java-cloud-bom/{variable}",
-        'GCPJavadocs': libraryReference.get(variable, "N/A"),
-        'GCPProductDocs': productReference.get(variable, "N/A"),
-        'name_pretty': nameReference.get(variable, "N/A")
-    }
+    if variable in variable_name_exceptions:
+      variableLookup = variable[:-4]
+      new_entry = {
+          'artifact': variable,
+          'version': value,
+          'libraryType': f"Product",
+          'standardJavadocs': f"https://alicejli.github.io/java-cloud-bom/{variable}",
+          'GCPJavadocs': libraryReference.get(variableLookup, "N/A"),
+          'GCPProductDocs': productReference.get(variableLookup, "N/A"),
+          'name_pretty': nameReference.get(variableLookup, "N/A")
+      }
+    else:
+      new_entry = {
+          'artifact': variable,
+          'version': value,
+          'libraryType': f"Product",
+          'standardJavadocs': f"https://alicejli.github.io/java-cloud-bom/{variable}",
+          'GCPJavadocs': libraryReference.get(variable, "N/A"),
+          'GCPProductDocs': productReference.get(variable, "N/A"),
+          'name_pretty': nameReference.get(variable, "N/A")
+      }
 
   # Add the new dictionary to the output list
   output.append(new_entry)

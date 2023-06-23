@@ -243,18 +243,18 @@
   name_pretty: Cloud BigQuery Reservation
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigqueryreservation
   version: v2.20.0
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigquerystorage/latest/history
+  GCPProductDocs: https://cloud.google.com/bigquery/docs/reference/storage/
   artifact: google-cloud-bigquerystorage-bom
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: BigQuery Storage
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigquerystorage-bom
   version: v2.38.0
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigtable/latest/history
+  GCPProductDocs: https://cloud.google.com/bigtable
   artifact: google-cloud-bigtable-bom
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: Cloud Bigtable
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigtable-bom
   version: v2.23.3
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-billing/latest/overview
@@ -425,11 +425,11 @@
   name_pretty: Dataproc Metastore
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-dataproc-metastore
   version: v2.20.0
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-datastore/latest/history
+  GCPProductDocs: https://cloud.google.com/datastore
   artifact: google-cloud-datastore-bom
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: Cloud Datastore
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-datastore-bom
   version: v2.15.0
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-datastream/latest/overview
@@ -558,11 +558,11 @@
   name_pretty: Cloud Filestore API
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-filestore
   version: v1.20.0
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-firestore/latest/history
+  GCPProductDocs: https://cloud.google.com/firestore
   artifact: google-cloud-firestore-bom
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: Cloud Firestore
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-firestore-bom
   version: v3.13.0
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-functions/latest/overview
@@ -670,11 +670,11 @@
   name_pretty: Live Stream API
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-live-stream
   version: v0.21.0
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-logging/latest/history
+  GCPProductDocs: https://cloud.google.com/logging/docs
   artifact: google-cloud-logging-bom
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: Cloud Logging
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-logging-bom
   version: v3.15.3
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-logging-logback/latest/history
@@ -845,18 +845,18 @@
   name_pretty: Public Certificate Authority
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-publicca
   version: v0.16.0
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-pubsub/latest/history
+  GCPProductDocs: https://cloud.google.com/pubsub/docs/
   artifact: google-cloud-pubsub-bom
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: Cloud Pub/Sub
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-pubsub-bom
   version: v1.123.14
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-pubsublite/latest/history
+  GCPProductDocs: https://cloud.google.com/pubsub/lite/docs
   artifact: google-cloud-pubsublite-bom
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: Cloud Pub/Sub Lite
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-pubsublite-bom
   version: v1.12.8
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-rapidmigrationassessment/latest/overview
@@ -992,11 +992,11 @@
   name_pretty: Cloud Shell
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-shell
   version: v2.18.0
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-spanner/latest/history
+  GCPProductDocs: https://cloud.google.com/spanner/docs/
   artifact: google-cloud-spanner-bom
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: Cloud Spanner
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-spanner-bom
   version: v6.43.0
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-spanner-jdbc/latest/history
@@ -1013,11 +1013,11 @@
   name_pretty: Cloud Speech
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-speech
   version: v4.14.0
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-storage/latest/history
+  GCPProductDocs: https://cloud.google.com/storage
   artifact: google-cloud-storage-bom
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: Cloud Storage
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-storage-bom
   version: v2.22.4
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-storage-transfer/latest/overview
