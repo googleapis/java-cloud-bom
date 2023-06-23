@@ -194,11 +194,11 @@
   name_pretty: BigLake
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-biglake
   version: v0.7.0
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigquery/latest/history
+  GCPProductDocs: https://cloud.google.com/bigquery
   artifact: google-cloud-bigquery
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: Cloud BigQuery
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-bigquery
   version: v2.27.1
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigquery-data-exchange/latest/overview
@@ -677,11 +677,11 @@
   name_pretty: N/A
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-logging-bom
   version: v3.15.3
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-logging-logback/latest/history
+  GCPProductDocs: https://cloud.google.com/logging/docs/setup/java#logback_appender_for
   artifact: google-cloud-logging-logback
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: Cloud Logging Logback Appender
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-logging-logback
   version: v0.130.15-alpha
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-managed-identities/latest/overview
@@ -754,11 +754,11 @@
   name_pretty: Network Connectivity Center
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-networkconnectivity
   version: v1.18.0
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-nio/latest/history
+  GCPProductDocs: https://cloud.google.com/storage/docs
   artifact: google-cloud-nio
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: NIO Filesystem Provider for Google Cloud Storage
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-nio
   version: v0.126.17
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-notebooks/latest/overview
@@ -999,11 +999,11 @@
   name_pretty: N/A
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-spanner-bom
   version: v6.43.0
-- GCPJavadocs: N/A
-  GCPProductDocs: N/A
+- GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-spanner-jdbc/latest/history
+  GCPProductDocs: https://cloud.google.com/spanner/docs/use-oss-jdbc
   artifact: google-cloud-spanner-jdbc
   libraryType: Product
-  name_pretty: N/A
+  name_pretty: Google Cloud Spanner JDBC
   standardJavadocs: https://alicejli.github.io/java-cloud-bom/google-cloud-spanner-jdbc
   version: v2.11.0
 - GCPJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-speech/latest/overview
