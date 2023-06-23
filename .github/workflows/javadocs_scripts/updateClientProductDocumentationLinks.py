@@ -49,8 +49,8 @@ for file_path, data_dict in file_data_mapping.items():
         updated_lines.append(f"{key}: \"{data_dict[key]}\"\n")
       else:
         updated_lines.append(line)
-  else:
-    updated_lines = [f"{k}: \"{v}\"\n" for k, v in data_dict.items()]
+    else:
+      updated_lines = [f"{k}: \"{v}\"\n" for k, v in data_dict.items()]
 
   with open(file_path, 'w') as f:
     f.writelines(updated_lines)
