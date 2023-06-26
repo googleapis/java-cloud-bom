@@ -1,0 +1,40 @@
+<table>
+  <thead>
+  <tr>
+    <th>Artifact ID</th>
+    <th>Library Type</th>
+    <th>Javadocs</th>
+    <th>Google Cloud Library Reference</th>
+    <th>Google Cloud Product Docs</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{ range site.Data.libraryTable -}}
+  <tr>
+    <td>
+      {{- .artifact -}}
+    </td>
+    <td>
+      {{- .libraryType -}}
+    </td>
+    <td>
+      <a href="{{- .standardJavadocs -}}">{{- .version -}}
+    </td>
+    <td>
+        {{ if eq .GCPJavadocs "N/A" -}}
+        N/A
+        {{ else -}}
+        <a href="{{- .GCPJavadocs -}}">{{- .version -}}
+          {{ end -}}
+    </td>
+    <td>
+      {{ if eq .GCPProductDocs "N/A" -}}
+      N/A
+      {{ else -}}
+      <a href="{{- .GCPProductDocs -}}">{{- .name_pretty -}}
+        {{ end -}}
+    </td>
+  </tr>
+  {{- end }}
+  </tbody>
+</table>

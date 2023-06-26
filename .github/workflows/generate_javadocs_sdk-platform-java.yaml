@@ -1,0 +1,64 @@
+name: Generate Javadocs for sdk-platform-java modules
+# Run this workflow once the update_site_var workflow has been completed
+on:
+  workflow_run:
+    workflows: [ "Update site variables for Github Pages with automated versions" ]
+    types:
+    - completed
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  on-success:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+    - name: Checkout this repo
+      uses: actions/checkout@v3
+
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: 11
+        cache: maven
+
+    - name: Save checkout tags for sdk-platform-java, google-cloud-java, and handwritten libraries
+      id: save-tags
+      run: |
+        SDK_PLATFORM_JAVA="google-cloud-shared-dependencies"
+        VARIABLES_FILE="site/data/variables.yaml"
+
+        SDK_PLATFORM_JAVA_TAG=$(grep -oP "(?<=${SDK_PLATFORM_JAVA}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
+        echo "SDK_PLATFORM_JAVA_TAG=$SDK_PLATFORM_JAVA_TAG" >> $GITHUB_ENV
+
+    - name: Generate javadocs for modules within sdk-platform-java repo
+      run: |
+        git clone https://github.com/googleapis/sdk-platform-java.git
+        git -C sdk-platform-java checkout google-cloud-shared-dependencies/${{ env.SDK_PLATFORM_JAVA_TAG }}
+        cd sdk-platform-java
+        while read -r artifact directory
+        do
+          echo "ARTIFACT=$artifact"
+          echo "DIRECTORY=$directory"
+          echo "Creating and clearing directory for javadocs for ${artifact}"
+          mkdir -p ../site/static/${artifact} # Make sure the output directory exists
+          rm -rf ../site/static/${artifact}/ # Clear any existing files in the output directory
+          echo "Generating javadocs for ${artifact}"
+          mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ ../site/static/${artifact}/
+        done < ../.github/workflows/javadocs_scripts/sdk-platform-java_javadocs_modules.txt
+
+    - name: Commit Javadocs
+      run: |
+        git -C site/static/ add .
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "Add Javadocs for sdk-platform-java modules" -a || echo "No changes to commit"
+        git pull --rebase origin main
+        git push
+      env:
+        GH_TOKEN: ${{ github.token }}
