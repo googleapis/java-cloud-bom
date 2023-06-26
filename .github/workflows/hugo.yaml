@@ -1,5 +1,4 @@
 name: GitHub Pages
-
 # Run this workflow after javadocs are generated, or on manual trigger
 on:
   workflow_run:

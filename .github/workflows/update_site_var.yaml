@@ -1,5 +1,4 @@
 name: Update site variables for Github Pages with automated versions
-
 # Run this workflow upon published release
 on:
   release:
