@@ -21,7 +21,7 @@ This site contains Javadoc reference documentation for the latest published Clou
 ---
 # [Google Cloud Libraries BOM]((https://cloud.google.com/java/docs/bom))
 
-All artifacts associated with: libraries-bom: **{{< variable "libraries-bom" >}}**
+All artifacts associated with: libraries-bom **{{< variable "libraries-bom" >}}**
 
 {{< libraryTable >}}
 
