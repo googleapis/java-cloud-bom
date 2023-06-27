@@ -74,7 +74,7 @@ jobs:
           git -C "${directory}" checkout $tag
           echo "Updating client and product documentation links using ${repo}'s .repo-metadata.json file"
           python .github/workflows/javadocs_scripts/updateClientProductDocumentationLinks.py # Update client/product doc links based on .repo-metadata.json files
-        done < .github/workflows/javadocs_scripts/handwritten_libraries_javadocs_modules.txt
+        done < site/data/handwritten_libraries_javadocs_modules.txt
 
     - name: Update libraryTable
       run: |
@@ -85,6 +85,6 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add .
+        git add $(git diff --name-only | grep "^site/")
         git commit -m "Update Github Pages site variables - automated" || true
         git push

@@ -50,7 +50,7 @@ jobs:
           rm -rf ../site/static/${artifact}/ # Clear any existing files in the output directory
           echo "Generating javadocs for ${artifact}"
           mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ ../site/static/${artifact}/
-        done < ../.github/workflows/javadocs_scripts/sdk-platform-java_javadocs_modules.txt
+        done < ../site/data/sdk-platform-java_javadocs_modules.txt
 
     - name: Commit Javadocs
       run: |

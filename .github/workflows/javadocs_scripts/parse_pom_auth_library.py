@@ -24,7 +24,7 @@ with open(os.path.join('./site/data/', 'javaModulesVersions.yaml'), 'a') as f:
   f.write(f'google-auth-library: "v{google_auth_version}"\n')
 
 # Save the auth library artifact and version to handwritten_libraries_javadocs_modules.txt
-output_file = ".github/workflows/javadocs_scripts/handwritten_libraries_javadocs_modules.txt"
+output_file = "site/data/handwritten_libraries_javadocs_modules.txt"
 
 with open(output_file, 'a') as f:
   # Update the line in-place
