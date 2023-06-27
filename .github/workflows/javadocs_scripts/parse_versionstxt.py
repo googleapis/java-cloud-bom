@@ -13,7 +13,7 @@ def convert_line(line):
 
   return output_line
 
-def convert_file(input_filename, output_filename, exclude_packages):
+def convert_file(input_filename, output_filename):
   output_lines = set()
 
   # Open the input file for reading
@@ -22,10 +22,6 @@ def convert_file(input_filename, output_filename, exclude_packages):
     for line in infile:
       # Skip lines that start with '#' (commented lines) or blank lines
       if line.startswith('#') or len(line.strip()) == 0:
-        continue
-
-      # Skip lines that contain any of the excluded packages
-      if any(exclude_package in line for exclude_package in exclude_packages):
         continue
 
       # Convert the line and add it to the set of output lines
@@ -51,15 +47,4 @@ def convert_file(input_filename, output_filename, exclude_packages):
 input_file = sys.argv[1]
 output_file = 'javaModulesVersions.yaml'
 
-# Excludes lines in versions.txt files that contain any of the following strings. Since we do not want to publish separate Javadocs for `google-cloud-<service>`, `grpc-google-<service>`, and `proto-google-<service>` artifacts, the latter two packages are excluded.
-exclude_packages = [
-    'gapic-generator-java',
-    'google-cloud-java',
-    'grpc-google-cloud',
-    'proto-google-cloud',
-    'google-cloud-bom',
-    'full-convergence-check',
-    'java-cloud-bom-tests',
-    'gax-httpjson',
-]
-convert_file(input_file, output_file, exclude_packages)
+convert_file(input_file, output_file)

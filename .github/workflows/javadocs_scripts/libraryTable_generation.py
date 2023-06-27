@@ -15,12 +15,29 @@ with open('site/data/javaModulesProductReferenceLinks.yaml', 'r') as f:
 with open('site/data/javaModulesNamePretty.yaml', 'r') as f:
   nameReference = yaml.safe_load(f)
 
+# Get list of runtime_modules from sdk-platform-java_javadocs_modules.txt
+def get_runtime_modules(filename):
+  runtime_modules = []
+
+  # Open the text file
+  with open(filename, 'r') as f:
+    # Iterate over each line in the file
+    for line in f:
+      # Split the line into two parts and keep only the first part
+      module = line.split()[0]
+
+      # Append the module to the list
+      runtime_modules.append(module)
+
+  # Return the list of modules
+  return runtime_modules
+
+# Usage
+filename = '.github/workflows/javadocs_scripts/sdk-platform-java_javadocs_modules.txt'
+runtime_modules = get_runtime_modules(filename)
 
 # List of modules to ignore
 modules_to_skip = ['libraries-bom', 'gapic-libraries-bom','github-repo','gax-httpjson', 'google-cloud-shared-dependencies', 'first-party-dependencies']
-
-# List of runtime modules
-runtime_modules = ['google-cloud-core', 'gax', 'google-iam-policy', 'api-common']
 
 # List of modules with special artifact names
 modules_name_exceptions = ['google-cloud-bigquerystorage-bom', 'google-cloud-bigtable-bom','google-cloud-datastore-bom', 'google-cloud-firestore-bom','google-cloud-logging-bom', 'google-cloud-pubsub-bom', 'google-cloud-pubsublite-bom', 'google-cloud-spanner-bom', 'google-cloud-storage-bom']
