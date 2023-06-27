@@ -35,7 +35,7 @@ def convert_file(input_filenames, output_filename, exclude_packages):
   # Open the output file for writing
   with open(os.path.join('./site/data/',output_filename), 'w') as outfile:
     # Write the two comment lines at the top of the file
-    outfile.write("# This file will be updated with the latest versions and release dates of the various modules\n")
+    outfile.write("# This file will be updated with the latest versions of each published Java module\n")
     outfile.write("\n")
 
     # Write each unique output line to the output file
