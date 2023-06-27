@@ -85,6 +85,6 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add $(git diff --name-only | grep "^site/")
+        git add .
         git commit -m "Update Github Pages site variables - automated" || true
         git push
