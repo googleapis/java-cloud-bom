@@ -31,8 +31,14 @@ def convert_file(input_filename, output_filename, exclude_packages):
       # Convert the line and add it to the set of output lines
       output_lines.add(convert_line(line))
 
+  # If "libraries-bom" is in the output_lines then create new file. Otherwise, append to existing file
+  if any("libraries-bom" in line for line in output_lines):
+    mode = 'w'
+  else:
+    mode = 'a'
+
   # Open the output file for writing
-  with open(os.path.join('./site/data/', output_filename), 'w') as outfile:
+  with open(os.path.join('./site/data/', output_filename), mode) as outfile:
     # Write the two comment lines at the top of the file
     outfile.write("# This file will be updated with the latest versions and release dates of the various modules\n")
     outfile.write("\n")
