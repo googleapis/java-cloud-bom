@@ -224,7 +224,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsub-bom</artifactId>
-        <version>1.123.15</version>
+        <version>1.123.16</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -238,14 +238,14 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-spanner-bom</artifactId>
-        <version>6.43.0</version>
+        <version>6.43.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-spanner-jdbc</artifactId>
-        <version>2.11.0</version>
+        <version>2.11.1</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
