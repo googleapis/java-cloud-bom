@@ -7,9 +7,6 @@ namespaces = {
     "m": "http://maven.apache.org/POM/4.0.0"
 }
 
-# List the dependencies to exclude from the javaModulesVersions.yaml file
-exclude_deps = ['google-java-format', 'google-cloud-bom']
-
 # List of pom.xml files to process
 pom_files = ['./google-cloud-bom/pom.xml', './libraries-bom/pom.xml']
 
@@ -27,8 +24,5 @@ with open(os.path.join('./site/data/', 'javaModulesVersions.yaml'), 'a') as f:
       version = dependency.find("m:version", namespaces)
 
       if artifactId is not None and version is not None:
-        # Skip this dependency if its name is in the exclude list
-        if artifactId.text in exclude_deps:
-          continue
         # Write the artifactId and version to the output file
         f.write(f'{artifactId.text}: "v{version.text}"\n')
