@@ -1,4 +1,4 @@
-# Parses google-cloud-java/versions.txt and sdk-platform-java/versions.txt to update the versions of the modules within `/site/data/variables.yaml`
+# Parses google-cloud-java/versions.txt and sdk-platform-java/versions.txt to update the versions of the modules within `/site/data/javaModulesVersions.yaml`
 
 import sys
 import os.path
@@ -41,7 +41,7 @@ def convert_file(input_filenames, output_filename, exclude_packages):
 # Get the input file from the command line argument
 input_file = sys.argv[1]
 
-output_file = 'variables.yaml'
+output_file = 'javaModulesVersions.yaml'
 
 # Excludes lines in versions.txt files that contain any of the following strings. Since we do not want to publish separate Javadocs for `google-cloud-<service>`, `grpc-google-<service>`, and `proto-google-<service>` artifacts, the latter two packages are excluded.
 exclude_packages = ['gapic-generator-java', 'google-cloud-java', 'grpc-google', 'proto-google', 'google-cloud-bom', 'full-convergence-check', 'java-cloud-bom-tests', 'gax-grpc', ]

@@ -1,4 +1,4 @@
-# This script parses java-cloud-bom/versions.txt to update the version of libraries-bom within `/site/data/variables.yaml`
+# This script parses java-cloud-bom/versions.txt to update the version of libraries-bom within `/site/data/javaModulesVersions.yaml`
 # This script kicks off the version update process.
 
 import os.path
@@ -44,7 +44,7 @@ def convert_file(input_filenames, output_filename, exclude_packages):
 
 # Update for input files
 input_files = ['./versions.txt']
-output_file = 'variables.yaml'
+output_file = 'javaModulesVersions.yaml'
 
 # Excludes lines in versions.txt files that contain any of the following strings. Since we do not want to publish separate Javadocs for `google-cloud-<service>`, `grpc-google-<service>`, and `proto-google-<service>` artifacts, the latter two packages are excluded.
 exclude_packages = ['gapic-generator-java', 'google-cloud-java', 'grpc-google-cloud', 'proto-google-cloud', 'google-cloud-bom', 'full-convergence-check', 'java-cloud-bom-tests', 'gax-httpjson', 'google-cloud-shared-dependencies']

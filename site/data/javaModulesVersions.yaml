@@ -1,4 +1,4 @@
-# This file will be updated with the latest versions and release dates of the various modules
+# This file will be updated with the latest versions of each published Java module
 
 libraries-bom: "libraries-bom: v26.17.0"
 gapic-libraries-bom: "v1.13.0"

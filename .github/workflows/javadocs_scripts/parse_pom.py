@@ -1,4 +1,4 @@
-# Runs after `parse_versionstxt.py` and parses `google-cloud-bom/pom.xml` for the gapic-libraries-bom and handwritten library versions and updates those versions to `/site/data/variables.yaml`
+# Runs after `parse_versionstxt.py` and parses `google-cloud-bom/pom.xml` for the gapic-libraries-bom and handwritten library versions and updates those versions to `/site/data/javaModulesVersions.yaml`
 
 import xml.etree.ElementTree as ET
 import os.path
@@ -7,14 +7,14 @@ namespaces = {
     "m": "http://maven.apache.org/POM/4.0.0"
 }
 
-# List the dependencies to exclude from the variables.yaml file
+# List the dependencies to exclude from the javaModulesVersions.yaml file
 exclude_deps = ['google-java-format', 'google-cloud-bom']
 
 # List of pom.xml files to process
 pom_files = ['./google-cloud-bom/pom.xml', './libraries-bom/pom.xml']
 
-# Save the dependency artifact names and versions to `/site/data/variables.yaml`
-with open(os.path.join('./site/data/', 'variables.yaml'), 'a') as f:
+# Save the dependency artifact names and versions to `/site/data/javaModulesVersions.yaml`
+with open(os.path.join('./site/data/', 'javaModulesVersions.yaml'), 'a') as f:
   for pom_file in pom_files:
     # Parse the XML file
     tree = ET.parse(pom_file)
