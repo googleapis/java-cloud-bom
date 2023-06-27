@@ -21,12 +21,12 @@ jobs:
     - name: Install dependencies
       run: pip install pyyaml toml # Needed for update_site_params.py script
 
-    - name: Create and update initial variables.yaml
+    - name: Create and update initial javaModulesVersions.yaml
       run: |
         echo "Creating initial variables.yaml file..."
         python .github/workflows/javadocs_scripts/parse_versionstxt.py ./versions.txt # Run script to update the site/data/variables.yaml file for the libraries_bom version
 
-    - name: Update variables.yaml using google-cloud-bom and libraries-bom POM.xml
+    - name: Update javaModulesVersions.yaml using google-cloud-bom and libraries-bom POM.xml
       run: |
         echo "Updating variables.yaml file using google-cloud-bom and libraries-bom POM.xml files..."
         python .github/workflows/javadocs_scripts/parse_pom.py # Run script to update the site/data/variables.yaml file for the gapic_libraries_bom version and handwritten library versions

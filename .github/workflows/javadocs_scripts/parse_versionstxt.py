@@ -1,4 +1,4 @@
-# This script parses java-cloud-bom/versions.txt to update the version of libraries-bom within `/site/data/variables.yaml`
+# This script parses java-cloud-bom/versions.txt to update the version of libraries-bom within `/site/data/javaModulesVersions.yaml`
 # This script kicks off the version update process.
 
 import os.path
@@ -50,7 +50,7 @@ def convert_file(input_filename, output_filename, exclude_packages):
 
 # Input file path
 input_file = sys.argv[1]
-output_file = 'variables.yaml'
+output_file = 'javaModulesVersions.yaml'
 
 # Excludes lines in versions.txt files that contain any of the following strings.
 # Since we do not want to publish separate Javadocs for `google-cloud-<service>`,
