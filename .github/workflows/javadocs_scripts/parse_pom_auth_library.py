@@ -9,16 +9,15 @@ ns = {
 }
 
 # Get the input file from the command line argument
-input_file = [sys.argv[1]]
+input_file = sys.argv[1]
 
-for pom_file in input_file:
-  # Parse the XML file
-  tree = ET.parse(pom_file)
-  root = tree.getroot()
+# Parse the XML file
+tree = ET.parse(input_file)
+root = tree.getroot()
 
-  # Find the google-auth.version property
-  property_element = root.find("./maven:properties/maven:google.auth.version", ns)
-  google_auth_version = property_element.text
+# Find the google-auth.version property
+property_element = root.find("./maven:properties/maven:google.auth.version", ns)
+google_auth_version = property_element.text
 
 # Save the auth library artifact and version to `/site/data/javaModulesVersions.yaml`
 with open(os.path.join('./site/data/', 'javaModulesVersions.yaml'), 'a') as f:
