@@ -21,17 +21,17 @@
       <a href="{{- .standardJavadocs -}}">{{- .version -}}
     </td>
     <td>
-        {{ if eq .GCPJavadocs "N/A" -}}
+        {{ if eq .gcpJavadocs "N/A" -}}
         N/A
         {{ else -}}
-        <a href="{{- .GCPJavadocs -}}">{{- .version -}}
+        <a href="{{- .gcpJavadocs -}}">{{- .version -}}
           {{ end -}}
     </td>
     <td>
-      {{ if eq .GCPProductDocs "N/A" -}}
+      {{ if eq .gcpProductDocs "N/A" -}}
       N/A
       {{ else -}}
-      <a href="{{- .GCPProductDocs -}}">{{- .name_pretty -}}
+      <a href="{{- .gcpProductDocs -}}">{{- .name_pretty -}}
         {{ end -}}
     </td>
   </tr>

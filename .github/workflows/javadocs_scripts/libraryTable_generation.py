@@ -42,9 +42,9 @@ for module, version in javaModuleList.items():
         'version': version,
         'libraryType': f"Runtime",
         'standardJavadocs': f"https://alicejli.github.io/java-cloud-bom/{module}",
-        'GCPJavadocs': libraryReference.get(module, "N/A"),
-        'GCPProductDocs': productReference.get(module, "N/A"),
-        'name_pretty': nameReference.get(module, "N/A")
+        'gcpJavadocs': libraryReference.get(module, "N/A"),
+        'gcpProductDocs': productReference.get(module, "N/A"),
+        'namePretty': nameReference.get(module, "N/A")
     }
   else:
     if module in modules_name_exceptions:
@@ -54,9 +54,9 @@ for module, version in javaModuleList.items():
           'version': version,
           'libraryType': f"Product",
           'standardJavadocs': f"https://alicejli.github.io/java-cloud-bom/{module}",
-          'GCPJavadocs': libraryReference.get(moduleLookup, "N/A"),
-          'GCPProductDocs': productReference.get(moduleLookup, "N/A"),
-          'name_pretty': nameReference.get(moduleLookup, "N/A")
+          'gcpJavadocs': libraryReference.get(moduleLookup, "N/A"),
+          'gcpProductDocs': productReference.get(moduleLookup, "N/A"),
+          'namePretty': nameReference.get(moduleLookup, "N/A")
       }
     else:
       new_entry = {
@@ -64,9 +64,9 @@ for module, version in javaModuleList.items():
           'version': version,
           'libraryType': f"Product",
           'standardJavadocs': f"https://alicejli.github.io/java-cloud-bom/{module}",
-          'GCPJavadocs': libraryReference.get(module, "N/A"),
-          'GCPProductDocs': productReference.get(module, "N/A"),
-          'name_pretty': nameReference.get(module, "N/A")
+          'gcpJavadocs': libraryReference.get(module, "N/A"),
+          'gcpProductDocs': productReference.get(module, "N/A"),
+          'namePretty': nameReference.get(module, "N/A")
       }
 
   # Add the new dictionary to the output list
