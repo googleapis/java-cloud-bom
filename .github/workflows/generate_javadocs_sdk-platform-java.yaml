@@ -27,7 +27,7 @@ jobs:
         java-version: 11
         cache: maven
 
-    - name: Save checkout tags for sdk-platform-java, google-cloud-java, and handwritten libraries
+    - name: Save checkout tags for sdk-platform-java
       id: save-tags
       run: |
         SDK_PLATFORM_JAVA="google-cloud-shared-dependencies"
