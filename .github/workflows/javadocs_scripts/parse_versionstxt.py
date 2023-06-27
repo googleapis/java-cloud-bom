@@ -40,8 +40,9 @@ def convert_file(input_filename, output_filename, exclude_packages):
   # Open the output file for writing
   with open(os.path.join('./site/data/', output_filename), mode) as outfile:
     # Write the two comment lines at the top of the file
-    outfile.write("# This file will be updated with the latest versions and release dates of the various modules\n")
-    outfile.write("\n")
+    if(mode == 'w'):
+      outfile.write("# This file will be updated with the latest versions and release dates of the various modules\n")
+      outfile.write("\n")
 
     # Write each unique output line to the output file
     for line in output_lines:
@@ -63,7 +64,6 @@ exclude_packages = [
     'full-convergence-check',
     'java-cloud-bom-tests',
     'gax-httpjson',
-    'google-cloud-shared-dependencies'
 ]
 
 convert_file(input_file, output_file, exclude_packages)
