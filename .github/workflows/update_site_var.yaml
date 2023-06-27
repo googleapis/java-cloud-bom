@@ -61,7 +61,7 @@ jobs:
             echo "Updating variables.yaml file for the auth library"
             python .github/workflows/javadocs_scripts/parse_pom_auth_library.py ${directory}/gapic-generator-java-pom-parent/pom.xml # Update auth library version
           fi
-        done < .github/workflows/javadocs_scripts/repos_for_versionstxt.txt
+        done < site/data/repos_for_versionstxt.txt
 
     - name: Update links for handwritten libraries
       run: |
