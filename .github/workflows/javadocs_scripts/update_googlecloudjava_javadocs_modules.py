@@ -41,7 +41,7 @@ def convert_file(input_file, output_file, exclude_modules):
       output_lines.add(convert_line(line))
 
   # Open the output file for writing
-  with open(os.path.join('./site/data/', output_file), 'w') as outfile:
+  with open(os.path.join('./site/javadocHelpers/', output_file), 'w') as outfile:
     # Write each unique output line to the output file
     for line in output_lines:
       outfile.write(line + '\n')

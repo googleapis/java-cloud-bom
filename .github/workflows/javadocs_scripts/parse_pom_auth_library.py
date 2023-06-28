@@ -20,11 +20,11 @@ property_element = root.find("./maven:properties/maven:google.auth.version", ns)
 google_auth_version = property_element.text
 
 # Save the auth library artifact and version to `/site/data/javaModulesVersions.yaml`
-with open(os.path.join('./site/data/', 'javaModulesVersions.yaml'), 'a') as f:
+with open(os.path.join('./site/javadocHelpers/', 'javaModulesVersions.yaml'), 'a') as f:
   f.write(f'google-auth-library: "v{google_auth_version}"\n')
 
 # Save the auth library artifact and version to handwritten_libraries_javadocs_modules.txt
-output_file = "site/data/handwritten_libraries_javadocs_modules.txt"
+output_file = "site/javadocHelpers/handwritten_libraries_javadocs_modules.txt"
 
 with open(output_file, 'a') as f:
   # Update the line in-place

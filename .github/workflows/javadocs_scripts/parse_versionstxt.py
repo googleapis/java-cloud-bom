@@ -34,7 +34,7 @@ def convert_file(input_filename, output_filename):
     mode = 'a'
 
   # Open the output file for writing
-  with open(os.path.join('./site/data/',output_filename), mode) as outfile:
+  with open(os.path.join('./site/javadocHelpers/',output_filename), mode) as outfile:
     # Write the two comment lines at the top of the file
     if(mode == 'w'):
       outfile.write("# This file will be updated with the latest versions of each published Java module\n")

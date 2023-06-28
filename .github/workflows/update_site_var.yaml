@@ -62,7 +62,7 @@ jobs:
             echo "Updating variables.yaml file for the auth library"
             python .github/workflows/javadocs_scripts/parse_pom_auth_library.py ${directory}/gapic-generator-java-pom-parent/pom.xml # Update auth library version
           fi
-        done < site/data/repos_for_versionstxt.txt
+        done < site/javadocHelpers/repos_for_versionstxt.txt
 
     - name: Update links for handwritten libraries
       run: |
@@ -75,7 +75,7 @@ jobs:
           git -C "${directory}" checkout $tag
           echo "Updating client and product documentation links using ${repo}'s .repo-metadata.json file"
           python .github/workflows/javadocs_scripts/updateClientProductDocumentationLinks.py # Update client/product doc links based on .repo-metadata.json files
-        done < site/data/handwritten_libraries_javadocs_modules.txt
+        done < site/javadocHelpers/handwritten_libraries_javadocs_modules.txt
 
     - name: Update libraryTable
       run: |

@@ -1,6 +1,7 @@
 # This script recreates the table of modules for the site
 
 import yaml
+import re
 
 # Load the yaml files
 with open('site/data/javaModulesVersions.yaml', 'r') as f:
@@ -33,11 +34,12 @@ def get_runtime_modules(filename):
   return runtime_modules
 
 # Usage
-filename = 'site/data/sdk-platform-java_javadocs_modules.txt'
+filename = 'site/javadocHelpers/sdk-platform-java_javadocs_modules.txt'
 runtime_modules = get_runtime_modules(filename)
 
 # List of modules to ignore
-modules_to_skip = ['libraries-bom', 'gapic-libraries-bom','github-repo','gax-httpjson', 'google-cloud-shared-dependencies', 'first-party-dependencies']
+modules_to_skip = ['libraries-bom', 'gapic-libraries-bom','github-repo','gax-httpjson', 'google-cloud-shared-dependencies', 'first-party-dependencies', 'full-convergence-check', 'gapic-generator-java', 'java-cloud-bom-tests', 'gax-grpc', 'grpc-google-', 'proto-google-', 'google-cloud-bom', 'google-cloud-java', 'google-java-format']
+regex_modules_to_skip = "(" + ")|(".join(modules_to_skip) + ")"
 
 # List of modules with special artifact names
 modules_name_exceptions = ['google-cloud-bigquerystorage-bom', 'google-cloud-bigtable-bom','google-cloud-datastore-bom', 'google-cloud-firestore-bom','google-cloud-logging-bom', 'google-cloud-pubsub-bom', 'google-cloud-pubsublite-bom', 'google-cloud-spanner-bom', 'google-cloud-storage-bom']
@@ -48,7 +50,7 @@ output = []
 # For each key-value pair in the input yaml file
 for module, version in javaModuleList.items():
   # If the module is in the list of modules to skip, continue to next iteration
-  if module in modules_to_skip:
+  if re.match(regex_modules_to_skip, module):
     continue
 
   if module in runtime_modules:

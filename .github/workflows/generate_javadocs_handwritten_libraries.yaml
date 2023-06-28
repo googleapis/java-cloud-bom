@@ -42,7 +42,7 @@ jobs:
           git -C "${directory}" checkout $tag
           echo "Generating javadocs for ${artifact}"
           mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ site/static/${artifact}/
-        done < site/data/handwritten_libraries_javadocs_modules.txt
+        done < site/javadocHelpers/handwritten_libraries_javadocs_modules.txt
 
     - name: Commit Javadocs
       run: |

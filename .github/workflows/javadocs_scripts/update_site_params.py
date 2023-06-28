@@ -15,7 +15,7 @@ def main():
   # Update `libraries_bom_version`
   config['params']['libraries_bom_version'] = variables['libraries-bom']
 
-# Write the updated data back to the config.toml file
+  # Write the updated data back to the config.toml file
   with open('./site/config.toml', 'w') as file:
     toml.dump(config, file)
 

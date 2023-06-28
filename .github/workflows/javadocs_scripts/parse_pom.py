@@ -11,7 +11,7 @@ namespaces = {
 pom_files = ['./google-cloud-bom/pom.xml', './libraries-bom/pom.xml']
 
 # Save the dependency artifact names and versions to `/site/data/javaModulesVersions.yaml`
-with open(os.path.join('./site/data/', 'javaModulesVersions.yaml'), 'a') as f:
+with open(os.path.join('./site/javadocHelpers/', 'javaModulesVersions.yaml'), 'a') as f:
   for pom_file in pom_files:
     # Parse the XML file
     tree = ET.parse(pom_file)
