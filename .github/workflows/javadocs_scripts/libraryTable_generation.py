@@ -33,7 +33,7 @@ def get_runtime_modules(filename):
   return runtime_modules
 
 # Usage
-filename = '.github/workflows/javadocs_scripts/sdk-platform-java_javadocs_modules.txt'
+filename = 'site/data/sdk-platform-java_javadocs_modules.txt'
 runtime_modules = get_runtime_modules(filename)
 
 # List of modules to ignore

@@ -31,7 +31,7 @@ jobs:
       id: save-tags
       run: |
         GOOGLE_CLOUD_JAVA="gapic-libraries-bom"
-        VARIABLES_FILE="site/data/variables.yaml"
+        VARIABLES_FILE="site/data/javaModulesVersions.yaml"
 
         GOOGLE_CLOUD_JAVA_TAG=$(grep -oP "(?<=${GOOGLE_CLOUD_JAVA}: \")[^\"]*" "$VARIABLES_FILE" | tr -d '\n')
         echo "GOOGLE_CLOUD_JAVA_TAG=$GOOGLE_CLOUD_JAVA_TAG" >> $GITHUB_ENV
@@ -49,7 +49,7 @@ jobs:
           rm -rf site/static/${artifact}/ # Clear any existing files in the output directory
           echo "Generating javadocs for ${artifact}"
           mvn -f ${directory}/pom.xml javadoc:aggregate -Dmaven.javadoc.failOnError=false && mv ${directory}/target/site/apidocs/ site/static/${artifact}/
-        done < .github/workflows/javadocs_scripts/google-cloud-java_javadocs_modules.txt
+        done < site/data/google-cloud-java_javadocs_modules.txt
 
     - name: Commit Javadocs
       run: |
