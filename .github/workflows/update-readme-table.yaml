@@ -1,0 +1,85 @@
+name: Update README with libraries-bom table
+# Run this workflow upon published release
+
+on:
+  release:
+    types:
+    - published
+    workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Get latest release tag
+      id: latest_tag
+      run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
+
+    - name: Create javaModulesVersions.yaml file using google-cloud-bom and libraries-bom POM.xml
+      run: |
+        echo "Updating javaModulesVersions.yaml file with handwritten libraries' and gapic-libraries-bom versions..."
+        git checkout ${{ steps.latest_tag.outputs.tag }}
+        python libraries-bom-table-generation/scripts/parse_pom.py
+    - name: Update repo_versions
+      run: |
+        echo "Updating repo versions for checkout and handwritten modules"
+        python libraries-bom-table-generation/scripts/update_repo_versions.py
+        git checkout -
+    - name: Update for new modules and links for sdk-platform-java and google-cloud-java
+      run: |
+        while read -r repo directory tag artifact
+        do
+          echo "REPO=$repo"
+          echo "DIRECTORY=$directory"
+          echo "TAG=$tag"
+          git clone https://github.com/${repo}.git
+          git -C "${directory}" checkout $tag
+          echo "Updating javaModulesVersions.yaml file using ${repo}'s versions.txt file"
+          python libraries-bom-table-generation/scripts/parse_versionstxt.py ${directory}/versions.txt
+          if [[ "$repo" == "googleapis/google-cloud-java" ]]; then
+            echo "Updating javaModulesLibraryReferenceLinks.yaml, javaModulesNamePretty.yaml, and javaModulesProductReferenceLinks.yaml files using ${repo}'s client/product links"
+            python libraries-bom-table-generation/scripts/updateClientProductDocumentationLinks.py # Update client/product doc links based on .repo-metadata.json files
+            echo "Updating google-cloud-java_javadocs_modules.txt"
+            python libraries-bom-table-generation/scripts/update_googlecloudjava_javadocs_modules.py ${directory}/versions.txt # Update for any new modules in google-cloud-java
+          fi
+          if [[ "$repo" == "googleapis/sdk-platform-java" ]]; then
+            echo "Updating javaModulesVersions.yaml file for the auth library"
+            python libraries-bom-table-generation/scripts/parse_pom_auth_library.py ${directory}/gapic-generator-java-pom-parent/pom.xml # Update auth library version
+          fi
+        done < libraries-bom-table-generation/helpers/repos_for_versionstxt.txt
+    - name: Update links for handwritten libraries
+      run: |
+        while read -r repo directory tag artifact
+        do
+          echo "REPO=$repo"
+          echo "DIRECTORY=$directory"
+          echo "TAG=$tag"
+          git clone https://github.com/${repo}.git
+          git -C "${directory}" checkout $tag
+          echo "Updating client and product documentation links using ${repo}'s .repo-metadata.json file"
+          python libraries-bom-table-generation/scripts/updateClientProductDocumentationLinks.py # Update client/product doc links based on .repo-metadata.json files
+        done < libraries-bom-table-generation/helpers/handwritten_libraries_javadocs_modules.txt
+    - name: Update libraryTable
+      run: |
+        echo "Updating libraryTable"
+        python libraries-bom-table-generation/scripts/libraryTable_generation.py
+    - name: Update README
+      run: |
+        echo "Updating README"
+        python libraries-bom-table-generation/scripts/updateREADME.py
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git commit -am "Update README with release table"
+        git push
