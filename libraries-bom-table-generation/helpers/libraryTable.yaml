@@ -31,7 +31,7 @@
 - artifact: google-auth-library
   gcpJavadocs: https://googleapis.dev/java/google-auth-library/latest/
   gcpProductDocs: N/A
-  libraryType: Product
+  libraryType: Runtime
   namePretty: Google Auth Library
   version: v1.18.0
 - artifact: google-cloud-accessapproval
@@ -208,17 +208,23 @@
   libraryType: Product
   namePretty: Cloud BigQuery Reservation
   version: v2.21.0
-- artifact: google-cloud-bigquerystorage-bom
+- artifact: google-cloud-bigquerystorage
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigquerystorage/latest/history
   gcpProductDocs: https://cloud.google.com/bigquery/docs/reference/storage/
   libraryType: Product
   namePretty: BigQuery Storage
   version: v2.39.1
-- artifact: google-cloud-bigtable-bom
+- artifact: google-cloud-bigtable
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-bigtable/latest/history
   gcpProductDocs: https://cloud.google.com/bigtable
   libraryType: Product
   namePretty: Cloud Bigtable
+  version: v2.24.1
+- artifact: google-cloud-bigtable-stats
+  gcpJavadocs: N/A
+  gcpProductDocs: N/A
+  libraryType: Product
+  namePretty: N/A
   version: v2.24.1
 - artifact: google-cloud-billing
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-billing/latest/overview
@@ -364,7 +370,7 @@
   libraryType: Product
   namePretty: Dataproc Metastore
   version: v2.21.0
-- artifact: google-cloud-datastore-bom
+- artifact: google-cloud-datastore
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-datastore/latest/history
   gcpProductDocs: https://cloud.google.com/datastore
   libraryType: Product
@@ -478,7 +484,7 @@
   libraryType: Product
   namePretty: Cloud Filestore API
   version: v1.21.0
-- artifact: google-cloud-firestore-bom
+- artifact: google-cloud-firestore
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-firestore/latest/history
   gcpProductDocs: https://cloud.google.com/firestore
   libraryType: Product
@@ -498,7 +504,7 @@
   version: v2.20.0
 - artifact: google-cloud-gke-backup
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-gke-backup/latest/overview
-  gcpProductDocs: 'https://cloud.google.com/kubernetes-engine/docs/add-on/backup-for-gke/concepts/backup-for-gke '
+  gcpProductDocs: https://cloud.google.com/kubernetes-engine/docs/add-on/backup-for-gke/concepts/backup-for-gke
   libraryType: Product
   namePretty: Backup for GKE
   version: v0.19.0
@@ -574,7 +580,7 @@
   libraryType: Product
   namePretty: Live Stream API
   version: v0.22.0
-- artifact: google-cloud-logging-bom
+- artifact: google-cloud-logging
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-logging/latest/history
   gcpProductDocs: https://cloud.google.com/logging/docs
   libraryType: Product
@@ -724,13 +730,13 @@
   libraryType: Product
   namePretty: Public Certificate Authority
   version: v0.17.0
-- artifact: google-cloud-pubsub-bom
+- artifact: google-cloud-pubsub
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-pubsub/latest/history
   gcpProductDocs: https://cloud.google.com/pubsub/docs/
   libraryType: Product
   namePretty: Cloud Pub/Sub
   version: v1.123.17
-- artifact: google-cloud-pubsublite-bom
+- artifact: google-cloud-pubsublite
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-pubsublite/latest/history
   gcpProductDocs: https://cloud.google.com/pubsub/lite/docs
   libraryType: Product
@@ -850,7 +856,7 @@
   libraryType: Product
   namePretty: Cloud Shell
   version: v2.19.0
-- artifact: google-cloud-spanner-bom
+- artifact: google-cloud-spanner
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-spanner/latest/history
   gcpProductDocs: https://cloud.google.com/spanner/docs/
   libraryType: Product
@@ -868,7 +874,7 @@
   libraryType: Product
   namePretty: Cloud Speech
   version: v4.15.0
-- artifact: google-cloud-storage-bom
+- artifact: google-cloud-storage
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-cloud-storage/latest/history
   gcpProductDocs: https://cloud.google.com/storage
   libraryType: Product
@@ -994,6 +1000,12 @@
   libraryType: Product
   namePretty: Cloud Workstations
   version: v0.8.0
+- artifact: google-http-client
+  gcpJavadocs: N/A
+  gcpProductDocs: N/A
+  libraryType: Runtime
+  namePretty: N/A
+  version: v1.43.3
 - artifact: google-iam-admin
   gcpJavadocs: https://cloud.google.com/java/docs/reference/google-iam-admin/latest/overview
   gcpProductDocs: https://cloud.google.com/iam/docs/apis
@@ -1012,24 +1024,6 @@
   libraryType: Product
   namePretty: Identity Access Context Manager
   version: v1.21.0
-- artifact: google-maps-addressvalidation
-  gcpJavadocs: https://cloud.google.com/java/docs/reference/google-maps-addressvalidation/latest/overview
-  gcpProductDocs: https://developers.google.com/maps/documentation/address-validation/
-  libraryType: Product
-  namePretty: Address Validation API
-  version: v0.14.0
-- artifact: google-maps-mapsplatformdatasets
-  gcpJavadocs: https://cloud.google.com/java/docs/reference/google-maps-mapsplatformdatasets/latest/overview
-  gcpProductDocs: https://developers.google.com/maps/documentation
-  libraryType: Product
-  namePretty: Maps Platform Datasets API
-  version: v0.9.0
-- artifact: google-maps-routing
-  gcpJavadocs: https://cloud.google.com/java/docs/reference/google-maps-routing/latest/overview
-  gcpProductDocs: https://developers.google.com/maps/documentation/routes
-  libraryType: Product
-  namePretty: Routes API
-  version: v1.5.0
 - artifact: grafeas
   gcpJavadocs: https://cloud.google.com/java/docs/reference/grafeas/latest/overview
   gcpProductDocs: https://grafeas.io
