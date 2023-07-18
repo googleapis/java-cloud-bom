@@ -32,17 +32,15 @@ jobs:
 
     - name: Update table of artifacts
       run: |
-        echo "Updating javaModulesVersions.yaml file with latest versions..."
-        python libraries-bom-table-generation/scripts/parse_pom.py
-        echo "Updating libraryTable"
-        python libraries-bom-table-generation/scripts/libraryTable_generation.py
-        echo "Updating README"
-        python libraries-bom-table-generation/scripts/updateREADME.py
+        echo "Updating README.md with table of artifacts associated with the latest libraries-bom..."
+        python libraries-bom-table-generation/updateREADMETable.py
+        echo "Cleaning up flattened pom.xml files..."
+        mvn flatten:clean
 
     - name: Commit and push changes
       run: |
         git config --global user.name "GitHub Actions Bot"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add libraries-bom-table-generation/javaModulesVersions.yaml libraries-bom-table-generation/libraryTable.yaml README.md 
+        git add README.md
         git commit -m "Update README with release table"
         git push
