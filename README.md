@@ -39,6 +39,10 @@ The content of the Libraries BOM consists of 2 categories:
 
 This is the table of modules included in the latest libraries-bom release:
 
+<!--- {x-version-update-start:libraries-bom:released} -->
+### libraries-bom: v<version>26.18.0</version>
+<!--- {x-version-update-end} -->
+
 <!-- TABLE_START -->
 | Artifact ID | Library Type | Google Cloud Library Reference | Google Cloud Product Reference | 
 | --------- | ------------ | ------------ | ------------ |
