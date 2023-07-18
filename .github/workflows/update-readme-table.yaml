@@ -20,22 +20,10 @@ jobs:
       with:
         python-version: '3.9'
 
-    - name: Get latest release tag
-      id: latest_tag
-      run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
-
-    - name: Run maven flatten plugin
-      run: |
-        echo "Flattening pom.xml..."
-        git checkout ${{ steps.latest_tag.outputs.tag }}
-        mvn flatten:flatten
-
     - name: Update table of artifacts
       run: |
         echo "Updating README.md with table of artifacts associated with the latest libraries-bom..."
         python libraries-bom-table-generation/updateREADMETable.py
-        echo "Cleaning up flattened pom.xml files..."
-        mvn flatten:clean
 
     - name: Commit and push changes
       run: |

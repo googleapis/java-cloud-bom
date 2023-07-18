@@ -1,7 +1,15 @@
+import subprocess
 import xml.etree.ElementTree as ET
 import yaml
 import re
 
+def run_maven_flatten():
+  subprocess.run(['mvn', 'flatten:flatten'])
+
+def run_maven_flatten_clean():
+  subprocess.run(['mvn', 'flatten:clean'])
+
+run_maven_flatten()
 # Load the flattened pom.xml file
 pom_file = "libraries-bom/.flattened-pom.xml"
 namespaces = {
@@ -122,3 +130,4 @@ updated_readme = table_pattern.sub(table_start_comment + "\n" + table + table_en
 
 with open('README.md', 'w') as readme_file:
   readme_file.write(updated_readme)
+run_maven_flatten_clean()
