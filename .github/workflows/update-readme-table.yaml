@@ -1,0 +1,34 @@
+name: Update README with libraries-bom table
+# Run this workflow upon published release
+
+on:
+  release:
+    types:
+    - published
+    workflow_dispatch:
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Update table of artifacts
+      run: |
+        echo "Updating README.md with table of artifacts associated with the latest libraries-bom..."
+        python libraries-bom-table-generation/updateREADMETable.py
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Actions Bot"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git add README.md
+        git commit -m "Update README with release table"
+        git push

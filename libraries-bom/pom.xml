@@ -94,6 +94,15 @@
           <autoReleaseAfterClose>false</autoReleaseAfterClose>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <configuration>
+          <pomElements>
+            <dependencyManagement>expand</dependencyManagement>
+          </pomElements>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <profiles>
