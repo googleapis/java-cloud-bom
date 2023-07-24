@@ -20,6 +20,9 @@ jobs:
       with:
         python-version: '3.9'
 
+    - name: Install dependencies
+      run: pip install pyyaml
+
     - name: Update table of artifacts
       run: |
         echo "Updating README.md with table of artifacts associated with the latest libraries-bom..."
