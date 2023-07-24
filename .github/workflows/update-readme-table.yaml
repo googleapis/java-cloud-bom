@@ -34,4 +34,11 @@ jobs:
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         git add README.md
         git commit -m "Update README with release table"
-        git push
+        git checkout -b update-readme
+        git push origin update-readme
+
+    - name: Create Pull Request
+      run: |
+        gh pr create --base main --head update-readme --title "Update README with release table" --body "Updating README with the table of artifacts associated with the latest libraries-bom release"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
