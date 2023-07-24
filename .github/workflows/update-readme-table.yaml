@@ -2,10 +2,10 @@ name: Update README with libraries-bom table
 # Run this workflow upon published release
 
 on:
+  workflow_dispatch:
   release:
     types:
     - published
-    workflow_dispatch:
 
 jobs:
   update-readme:
