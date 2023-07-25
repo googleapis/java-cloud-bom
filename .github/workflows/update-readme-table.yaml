@@ -30,10 +30,10 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git config --global user.name "GitHub Actions Bot"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "Cloud Java Bot"
+        git config --global user.email "cloud-java-bot@google.com"
         git add README.md
-        git commit -m "Update README with release table"
+        git commit -m "chore: update README with release table"
         git checkout -b update-readme
         git push origin update-readme
 
@@ -41,4 +41,4 @@ jobs:
       run: |
         gh pr create --base main --head update-readme --title "chore: Update README with release table" --body "Updating README with the table of artifacts associated with the latest libraries-bom release"
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.CLOUD_JAVA_BOT_GITHUB_TOKEN }}
