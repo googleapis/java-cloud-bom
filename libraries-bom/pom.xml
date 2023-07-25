@@ -4,7 +4,7 @@
   <!-- adding comment for testing-->
   <groupId>com.google.cloud</groupId>
   <artifactId>libraries-bom</artifactId>
-  <version>26.18.0-SNAPSHOT</version><!-- {x-version-update:libraries-bom:current} -->
+  <version>26.20.0-SNAPSHOT</version><!-- {x-version-update:libraries-bom:current} -->
   <packaging>pom</packaging>
 
   <name>Google Cloud Platform Supported Libraries</name>
@@ -65,7 +65,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>first-party-dependencies</artifactId>
-        <version>3.11.0</version>
+        <version>3.13.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -74,7 +74,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bom</artifactId>
-        <version>0.199.0-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
+        <version>0.201.0-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -92,6 +92,15 @@
           <serverId>sonatype-nexus-staging</serverId>
           <nexusUrl>https://google.oss.sonatype.org/</nexusUrl>
           <autoReleaseAfterClose>false</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>flatten-maven-plugin</artifactId>
+        <configuration>
+          <pomElements>
+            <dependencyManagement>expand</dependencyManagement>
+          </pomElements>
         </configuration>
       </plugin>
     </plugins>
