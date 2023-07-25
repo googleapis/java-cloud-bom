@@ -44,6 +44,6 @@ jobs:
 
     - name: Create Pull Request
       run: |
-        gh pr create --base main --head update-readme --title "chore: Update README with release table" --body "Updating README with the table of artifacts associated with the latest libraries-bom release"
+        gh pr create --base main --head update-readme-bot --title "chore: Update README with release table" --body "Updating README with the table of artifacts associated with the latest libraries-bom release"
       env:
-        GH_TOKEN: ${{ secrets.CLOUD_JAVA_BOT_GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.CLOUD_JAVA_BOT_GITHUB_TOKEN }}
