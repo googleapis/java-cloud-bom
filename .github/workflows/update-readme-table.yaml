@@ -46,4 +46,4 @@ jobs:
       run: |
         gh pr create --base main --head update-readme --title "chore: Update README with release table" --body "Updating README with the table of artifacts associated with the latest libraries-bom release"
       env:
-        GH_TOKEN: ${{ secrets.YOSHI_CODE_BOT_TOKEN }}
+        ACCESS_TOKEN: ${{ secrets.YOSHI_CODE_BOT_TOKEN }}
