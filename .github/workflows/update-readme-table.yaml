@@ -20,6 +20,11 @@ jobs:
       with:
         python-version: '3.9'
 
+    - name: Delete existing 'update-readme-bot' branch
+      run: |
+        git push --delete origin update-readme-bot || echo "Branch doesn't exist, continuing..."
+        git branch -D update-readme-bot || echo "Branch doesn't exist, continuing..."
+
     - name: Install dependencies
       run: pip install pyyaml
 
@@ -34,8 +39,8 @@ jobs:
         git config --global user.email "cloud-java-bot@google.com"
         git add README.md
         git commit -m "chore: update README with release table"
-        git checkout -b update-readme
-        git push origin update-readme
+        git checkout -b update-readme-bot
+        git push origin update-readme-bot
 
     - name: Create Pull Request
       run: |
