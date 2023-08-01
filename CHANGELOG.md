@@ -1,5 +1,17 @@
 # Changelog
 
+## [26.21.0](https://github.com/googleapis/java-cloud-bom/compare/v26.20.0...v26.21.0) (2023-08-01)
+
+
+### Bug Fixes
+
+* Use Guava v32.1.2 to resolve gradle metadata issue ([#6140](https://github.com/googleapis/java-cloud-bom/issues/6140)) ([d4cf969](https://github.com/googleapis/java-cloud-bom/commit/d4cf9697766e5ac11927bb1e10bf4d5c2a149f63))
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-firestore-bom to v3.13.8 ([#6138](https://github.com/googleapis/java-cloud-bom/issues/6138)) ([2c47308](https://github.com/googleapis/java-cloud-bom/commit/2c4730820ed9993690fafe4184dece137a46a4c0))
+
 ## [26.20.0](https://github.com/googleapis/java-cloud-bom/compare/v26.19.0...v26.20.0) (2023-07-27)
 
 
