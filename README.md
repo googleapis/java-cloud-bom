@@ -127,7 +127,7 @@ This is the table of modules included in the latest libraries-bom release:
 | google-cloud-eventarc | Product | [1.22.0](https://cloud.google.com/java/docs/reference/google-cloud-eventarc/latest/overview) | [Eventarc](https://cloud.google.com/eventarc/docs) |
 | google-cloud-eventarc-publishing | Product | [0.22.0](https://cloud.google.com/java/docs/reference/google-cloud-eventarc-publishing/latest/overview) | [Eventarc Publishing](https://cloud.google.com/eventarc/docs) |
 | google-cloud-filestore | Product | [1.23.0](https://cloud.google.com/java/docs/reference/google-cloud-filestore/latest/overview) | [Cloud Filestore API](https://cloud.google.com/filestore/docs) |
-| google-cloud-firestore | Product | [3.13.7](https://cloud.google.com/java/docs/reference/google-cloud-firestore/latest/overview) | [Cloud Firestore](https://cloud.google.com/firestore) |
+| google-cloud-firestore | Product | [3.13.8](https://cloud.google.com/java/docs/reference/google-cloud-firestore/latest/overview) | [Cloud Firestore](https://cloud.google.com/firestore) |
 | google-cloud-functions | Product | [2.24.0](https://cloud.google.com/java/docs/reference/google-cloud-functions/latest/overview) | [Cloud Functions](https://cloud.google.com/functions) |
 | google-cloud-game-servers | Product | [2.22.0](https://cloud.google.com/java/docs/reference/google-cloud-game-servers/latest/overview) | [Cloud Gaming](https://cloud.google.com/docs/games/products/) |
 | google-cloud-gke-backup | Product | [0.21.0](https://cloud.google.com/java/docs/reference/google-cloud-gke-backup/latest/overview) | [Backup for GKE](https://cloud.google.com/kubernetes-engine/docs/add-on/backup-for-gke/concepts/backup-for-gke) |
