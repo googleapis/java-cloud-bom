@@ -23,7 +23,7 @@ jobs:
   test-invalid-bom:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Fetch the bad protobuf-bom version 3.22.1
       shell: bash
       # 3.22.1 had a issue in their pom.xml
