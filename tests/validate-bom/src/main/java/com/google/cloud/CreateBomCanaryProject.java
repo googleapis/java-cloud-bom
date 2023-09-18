@@ -77,7 +77,7 @@ public class CreateBomCanaryProject {
     String version = coordinatesElements[2];
 
     StringBuilder builder = new StringBuilder();
-    if (artifactId.equals("grpc-android")) {
+    if (artifactId.equals("grpc-bom")) {
       builder.append("  <dependencyManagement>\n");
       builder.append("    <dependencies>\n");
       builder.append("      <dependency>\n");
