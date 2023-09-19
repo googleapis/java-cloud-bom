@@ -76,10 +76,6 @@ public class CreateBomCanaryProject {
     String artifactId = coordinatesElements[1];
     String version = coordinatesElements[2];
 
-    if (artifactId.equals("grpc-bom")){
-      System.out.println("ARTIFACT iS GRPC");
-    }
-
     StringBuilder builder = new StringBuilder();
     builder.append("  <dependencyManagement>\n");
     builder.append("    <dependencies>\n");
