@@ -111,12 +111,13 @@ public class CreateBomCanaryProject {
         continue;
       }
 
-      // Skipping grpc-android as it is not used by Google Cloud Client Libraries for Java. Checking
-      // for availability of
-      // this unused artifact on Maven Central has caused BOM validation check to fail in the past.
-      // See
+      // Skipping grpc-android, grpc-binder and grpc-cronet as they are not used by Google Cloud
+      // Client Libraries for Java. Checking for availability of these unused artifacts on Maven
+      // Central has caused BOM validation check to fail in the past. See
       // https://github.com/googleapis/sdk-platform-java/pull/1989#issuecomment-1724039670
-      if ("grpc-android".equals(managedDependency.getArtifactId())) {
+      if ("grpc-android".equals(managedDependency.getArtifactId())
+          || "grpc-binder".equals(managedDependency.getArtifactId())
+          || "grpc-cronet".equals(managedDependency.getArtifactId())) {
         continue;
       }
 
