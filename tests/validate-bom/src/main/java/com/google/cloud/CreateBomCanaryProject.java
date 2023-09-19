@@ -76,27 +76,11 @@ public class CreateBomCanaryProject {
     String artifactId = coordinatesElements[1];
     String version = coordinatesElements[2];
 
-    StringBuilder builder = new StringBuilder();
-    if (artifactId.equals("grpc-bom")) {
-      builder.append("  <dependencyManagement>\n");
-      builder.append("    <dependencies>\n");
-      builder.append("      <dependency>\n");
-      builder.append("        <groupId>").append(groupId).append("</groupId>\n");
-      builder.append("        <artifactId>").append(artifactId).append("</artifactId>\n");
-      builder.append("        <version>").append(version).append("</version>\n");
-      builder.append("        <type>pom</type>\n");
-      builder.append("        <scope>import</scope>\n");
-      builder.append("        <exclusions>\n");
-      builder.append("          <exclusion>\n");
-      builder.append("            <groupId>io.grpc</groupId>\n");
-      builder.append("            <artifactId>grpc-android</artifactId>\n");
-      builder.append("          <exclusion>\n");
-      builder.append("        <exclusions>\n");
-      builder.append("      </dependency>\n");
-      builder.append("    </dependencies>\n");
-      builder.append("  </dependencyManagement>\n");
-      return builder.toString();
+    if (artifactId.equals("grpc-bom")){
+      System.out.println("ARTIFACT iS GRPC");
     }
+
+    StringBuilder builder = new StringBuilder();
     builder.append("  <dependencyManagement>\n");
     builder.append("    <dependencies>\n");
     builder.append("      <dependency>\n");
@@ -128,6 +112,9 @@ public class CreateBomCanaryProject {
         // Some artifacts have :pom" type, such as io.grpc:protoc-gen-grpc-java
         // and com.google.api-client:google-api-client-assembly. We are only interested
         // in "jar" artifacts.
+        continue;
+      }
+      if ("grpc-android".equals(managedDependency.getArtifactId())) {
         continue;
       }
 
