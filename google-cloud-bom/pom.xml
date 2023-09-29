@@ -207,7 +207,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-logging-bom</artifactId>
-        <version>3.15.9</version>
+        <version>3.15.10</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
