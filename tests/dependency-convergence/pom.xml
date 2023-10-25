@@ -200,10 +200,6 @@
       <groupId>com.google.cloud</groupId>
     </dependency>
     <dependency>
-      <artifactId>google-cloud-game-servers</artifactId>
-      <groupId>com.google.cloud</groupId>
-    </dependency>
-    <dependency>
       <artifactId>google-cloud-gkehub</artifactId>
       <groupId>com.google.cloud</groupId>
     </dependency>
