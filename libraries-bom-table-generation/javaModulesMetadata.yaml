@@ -124,7 +124,6 @@ google-cloud-eventarc-publishing: https://cloud.google.com/eventarc/docs, Eventa
 google-cloud-filestore: https://cloud.google.com/filestore/docs, Cloud Filestore API
 google-cloud-firestore: https://cloud.google.com/firestore, Cloud Firestore
 google-cloud-functions: https://cloud.google.com/functions, Cloud Functions
-google-cloud-game-servers: https://cloud.google.com/docs/games/products/, Cloud Gaming
 google-cloud-gke-backup: https://cloud.google.com/kubernetes-engine/docs/add-on/backup-for-gke/concepts/backup-for-gke,
   Backup for GKE
 google-cloud-gke-connect-gateway: https://cloud.google.com/anthos/multicluster-management/gateway/,
