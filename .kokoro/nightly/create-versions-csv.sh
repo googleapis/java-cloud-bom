@@ -57,7 +57,7 @@ echo "Inserting client_library_versions.cloud_java_client_library_release_dates.
 head  cloud_java_client_library_release_dates.csv
 echo "===================="
 
-bq load --skip_leading_rows=1 --project_id=cloud-java-metrics --source_format=CSV --null_marker="-"\
+bq load --skip_leading_rows=1 --project_id=cloud-java-metrics --source_format=CSV --null_marker="-" \
 client_library_versions.cloud_java_client_library_release_dates \
 cloud_java_client_library_release_dates.csv
 
