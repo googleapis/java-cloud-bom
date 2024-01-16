@@ -38,8 +38,11 @@ cat libraries.txt | while read line; do
   new_group_id="${group_id//.//}"
   service_name=${artifact_id#*-cloud-}
 
-  if [[ "${artifact_id}" == *storage* ]]; then
+  if [[ "${artifact_id}" == google-cloud-storage ]]; then
     service_name=bigstore
+  fi
+  if [[ "${artifact_id}" == google-cloud-storage-transfer ]]; then
+    service_name=storagetransfer
   fi
 
   URL=https://repo1.maven.org/maven2/$new_group_id/$artifact_id
