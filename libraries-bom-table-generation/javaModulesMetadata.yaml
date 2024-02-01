@@ -1,6 +1,5 @@
-# TODO:@alicejli Remove this file once Maven Central is updated with product links/name
-# https://github.com/googleapis/java-cloud-bom/issues/6098
 # This file was created by a one-time scrape of each module's .repo-metdata.json file
+# TODO: Create script to update this on an ongoing basis: https://github.com/googleapis/java-cloud-bom/issues/6409
 google-analytics-admin: https://developers.google.com/analytics, Analytics Admin
 google-analytics-data: https://developers.google.com/analytics/trusted-testing/analytics-data,
   Analytics Data
