@@ -11,7 +11,7 @@ set -e
 # Display commands being run.
 set -x
 
-cd github/java-cloud-bom
+cd ./java-cloud-bom
 
 # prepare list of artifact id and service name match
 .kokoro/nightly/get-service-names.sh
@@ -54,27 +54,48 @@ cat libraries.txt | while read line; do
 
   URL=https://repo1.maven.org/maven2/$new_group_id/$artifact_id
 
-  ../.kokoro/nightly/fetch-library-data.sh $URL $artifact_id $service_name
+  ../.kokoro/nightly/fetch-library-data.sh $URL $artifact_id $service_name >> cloud_java_client_library_release_dates.csv
 
 done
 
+# apiary list
+
+sort artifacts_to_services_apiary.txt | uniq > artifacts_to_services_apiary_uniq.txt
+
+input_file="artifacts_to_services_apiary_uniq.txt"
+#output_file="fileB.txt"  # Output file
+#
+## Clear the output file (or create it if it doesn't exist)
+#> "$output_file"
+
+# Read the input file line by line
+while IFS= read -r line; do
+    # Split line into values using comma as delimiter
+    IFS=',' read -r -a values <<< "$line"
+    group_id=${values[0]}
+    artifact_id=${values[1]}
+    service_name=${values[2]}
+    new_group_id="${group_id//./\/}"
+    URL=https://repo1.maven.org/maven2/$new_group_id/$artifact_id
+    ../.kokoro/nightly/fetch-library-data.sh $URL $artifact_id $service_name >> cloud_java_client_library_release_dates.csv
+done < "$input_file"
+
 rm -f libraries.txt
 
-sed 's/ \+/,/g' cloud_java_client_library_release_dates_tsv.txt > cloud_java_client_library_release_dates.csv
 sed -i '1s/^/version,release_date,artifact_id,service_name\n/' cloud_java_client_library_release_dates.csv
+#
+## remove where service match not found
+#sed -i '/,$/d' cloud_java_client_library_release_dates.csv
+#
+#echo "Inserting client_library_versions.cloud_java_client_library_release_dates. First 10 lines:"
+#head  cloud_java_client_library_release_dates.csv
+#echo "===================="
 
-# remove where service match not found
-sed -i '/,$/d' cloud_java_client_library_release_dates.csv
-
-echo "Inserting client_library_versions.cloud_java_client_library_release_dates. First 10 lines:"
-head  cloud_java_client_library_release_dates.csv
-echo "===================="
-
-bq load --skip_leading_rows=1 --project_id=cloud-java-metrics --source_format=CSV --null_marker="-" \
-client_library_versions.cloud_java_client_library_release_dates \
-cloud_java_client_library_release_dates.csv
-
-
-rm -f cloud_java_client_library_release_dates_tsv.txt
-rm -f cloud_java_client_library_release_dates.csv
-rm -f artifacts_to_services.txt
+#bq load --skip_leading_rows=1 --project_id=cloud-java-metrics --source_format=CSV --null_marker="-" \
+#client_library_versions.cloud_java_client_library_release_dates \
+#cloud_java_client_library_release_dates.csv
+#
+#
+#rm -f cloud_java_client_library_release_dates_tsv.txt
+#rm -f cloud_java_client_library_release_dates.csv
+#rm -f artifacts_to_services.txt
