@@ -3,6 +3,11 @@
 # This scripts downloads google-cloud-java repo, loop through modules with names starting "java-",
 # grabs artifactId from pom.xml file within submodule name starting with "google-", and
 # service name from *StubSettings.java file.
+
+# Run this script from repo root dir
+# input: N/A
+# output: txt file with comma separated artifact_id, service_name.
+
 git clone https://github.com/googleapis/google-cloud-java.git
 
 cd ./google-cloud-java || exit
@@ -38,7 +43,7 @@ for module in $(find . -mindepth 2 -maxdepth 2 -name pom.xml | sort | xargs dirn
     cd .. # exit from ${module}
 done
 
-# handwritten libraries.
+# add handwritten libraries manually.
 {
   echo "google-cloud-bigquery, bigquery"
   echo "google-cloud-bigtable, bigtable"

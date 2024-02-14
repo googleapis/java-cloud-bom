@@ -33,22 +33,4 @@ awk '{$3=a}1' a="${artifact_id}" | \
 awk '{$4=b}1' b="${service_name}" | \
 sed 's/ \+/,/g'
 
-
-
-#grep -E '<a href=".*">' mavenFile > mavenContents.txt
-#
-#awk  '/a/ {print  $2 "\t" $4}'  mavenContents.txt > finalContents.txt
-#sed -i 1d  finalContents.txt
-#sed -i '/maven-metadata/d' finalContents.txt
-#sed -i 's/href="//g' finalContents.txt
-#sed -i 's/"//g' finalContents.txt
-#sed -i 's|/||g' finalContents.txt
-#awk '{$3=a}1' a="${2}" finalContents.txt > newfile.txt
-#awk '{$4=b}1' b="${3}" newfile.txt > final.txt
-##cat final.txt >> cloud_java_client_library_release_dates_tsv.txt
-
-#rm -f final.txt
-#rm -f newfile.txt
-#rm -f mavenFile
-#rm -f mavenContents.txt
-#rm -f finalContents.txt
+rm -f mavenFile

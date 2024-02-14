@@ -3,7 +3,7 @@
 # Output:
 # The script generates cloud_java_client_library_release_dates.csv that holds the data defined below.
 # It has artifact_id,service_name,version, and release_date columns.
-# this csv file will be uploaded to (project) cloud-java-metrics.(dataset) client_library_versions. (table) cloud_java_client_library_release_dates
+# this csv file is uploaded to (project) cloud-java-metrics.(dataset) client_library_versions. (table) cloud_java_client_library_release_dates
 # using bq load command
 
 # Fail on any error.
@@ -11,10 +11,11 @@ set -e
 # Display commands being run.
 set -x
 
-cd ./java-cloud-bom
+cd github/java-cloud-bom
 
 # prepare list of artifact id and service name match
 .kokoro/nightly/get-service-names.sh
+.kokoro/nightly/get-apiary-service-names.sh
 
 mvn -B clean install
 
@@ -62,11 +63,7 @@ done
 
 sort artifacts_to_services_apiary.txt | uniq > artifacts_to_services_apiary_uniq.txt
 
-input_file="artifacts_to_services_apiary_uniq.txt"
-#output_file="fileB.txt"  # Output file
-#
-## Clear the output file (or create it if it doesn't exist)
-#> "$output_file"
+apiary_list="artifacts_to_services_apiary_uniq.txt"
 
 # Read the input file line by line
 while IFS= read -r line; do
@@ -78,24 +75,28 @@ while IFS= read -r line; do
     new_group_id="${group_id//./\/}"
     URL=https://repo1.maven.org/maven2/$new_group_id/$artifact_id
     ../.kokoro/nightly/fetch-library-data.sh $URL $artifact_id $service_name >> cloud_java_client_library_release_dates.csv
-done < "$input_file"
+done < "$apiary_list"
+
+# add spring cloud gcp, "service_name" is tool_name
+../.kokoro/nightly/fetch-library-data.sh https://repo1.maven.org/maven2/com/google/cloud/spring-cloud-gcp-dependencies/ spring-cloud-gcp-dependencies spring-cloud-gcp >> cloud_java_client_library_release_dates.csv
+../.kokoro/nightly/fetch-library-data.sh https://repo1.maven.org/maven2/org/springframework/cloud/spring-cloud-gcp-dependencies/ spring-cloud-gcp-dependencies spring-cloud-gcp >> cloud_java_client_library_release_dates.csv
 
 rm -f libraries.txt
+rm -f artifacts_to_services_apiary.txt
+rm -f "$apiary_list"
 
 sed -i '1s/^/version,release_date,artifact_id,service_name\n/' cloud_java_client_library_release_dates.csv
-#
-## remove where service match not found
-#sed -i '/,$/d' cloud_java_client_library_release_dates.csv
-#
-#echo "Inserting client_library_versions.cloud_java_client_library_release_dates. First 10 lines:"
-#head  cloud_java_client_library_release_dates.csv
-#echo "===================="
 
-#bq load --skip_leading_rows=1 --project_id=cloud-java-metrics --source_format=CSV --null_marker="-" \
-#client_library_versions.cloud_java_client_library_release_dates \
-#cloud_java_client_library_release_dates.csv
-#
-#
-#rm -f cloud_java_client_library_release_dates_tsv.txt
-#rm -f cloud_java_client_library_release_dates.csv
-#rm -f artifacts_to_services.txt
+# remove where service match not found
+sed -i '/,$/d' cloud_java_client_library_release_dates.csv
+
+echo "Inserting client_library_versions.cloud_java_client_library_release_dates. First 10 lines:"
+head  cloud_java_client_library_release_dates.csv
+echo "===================="
+
+bq load --skip_leading_rows=1 --project_id=cloud-java-metrics --source_format=CSV --null_marker="-" \
+client_library_versions.cloud_java_client_library_release_dates \
+cloud_java_client_library_release_dates.csv
+
+rm -f cloud_java_client_library_release_dates.csv
+rm -f artifacts_to_services.txt

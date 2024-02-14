@@ -5,17 +5,23 @@
 # apiary repo git@github.com:googleapis/google-api-java-client-services.git
 # from discovery docs for each service
 # parse artifact-id ("name") and service name ("rootUrl").
+
 # Run this script from repo root dir
+# input: N/A
+# output: txt file with comma separated group_id, artifact_id, service_name.
 
 git clone https://github.com/googleapis/discovery-artifact-manager.git
 
 cd ./discovery-artifact-manager/discoveries || exit
 output_filename="../../libraries-release-data/artifacts_to_services_apiary.txt"
 
+# install jq to extract info from JSON data
+sudo apt-get update
+sudo apt-getinstall -q -y jq
 
-# loop through dicovery jsons
+# loop through dicovery json files
 for file in *.json; do
-    # Use jq to extract the "name" field (assumes you have jq installed)
+    # Use jq to extract the "name" field
 
     # group_id logic: https://github.com/googleapis/google-api-java-client-services/blob/421c5d6ed56d5eb1257d3fc057d7d6b4fd2f9bb7/generator/src/googleapis/codegen/utilities/maven_utils.py#L50
     # artifact_id logic: https://github.com/googleapis/google-api-java-client-services/blob/421c5d6ed56d5eb1257d3fc057d7d6b4fd2f9bb7/generator/src/googleapis/codegen/utilities/maven_utils.py#L42-L47
@@ -41,4 +47,4 @@ done
 
 cd ../..
 
-#rm -rf discovery-artifact-manager/
+rm -rf discovery-artifact-manager/
