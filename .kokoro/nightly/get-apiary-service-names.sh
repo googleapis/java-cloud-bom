@@ -17,7 +17,7 @@ output_filename="../../libraries-release-data/artifacts_to_services_apiary.txt"
 
 # install jq to extract info from JSON data
 sudo apt-get update
-sudo apt-getinstall -q -y jq
+sudo apt-get install -q -y jq
 
 # loop through dicovery json files
 for file in *.json; do
