@@ -1,5 +1,39 @@
 # Changelog
 
+## [26.33.0](https://github.com/googleapis/java-cloud-bom/compare/v26.32.0...v26.33.0) (2024-02-21)
+
+
+### Bug Fixes
+
+* **libraries-release-data:** add service name lookup from artifact id for gapic libraries, add apiary libraries and spring cloud gcp to release data table. ([#6437](https://github.com/googleapis/java-cloud-bom/issues/6437)) ([9491edf](https://github.com/googleapis/java-cloud-bom/commit/9491edfea6e348bcd66396ba2640f37cb0cd667c))
+
+
+### Dependencies
+
+* update actions/checkout action to v4 ([#6431](https://github.com/googleapis/java-cloud-bom/issues/6431)) ([20590f6](https://github.com/googleapis/java-cloud-bom/commit/20590f69dab4ea9852099add3c8812c11f547eac))
+* update actions/github-script action to v7 ([#6432](https://github.com/googleapis/java-cloud-bom/issues/6432)) ([d346c79](https://github.com/googleapis/java-cloud-bom/commit/d346c7951f11fac70bcb5b97b4799e543b7e28bd))
+* update actions/setup-java action to v4 ([#6405](https://github.com/googleapis/java-cloud-bom/issues/6405)) ([e1a6840](https://github.com/googleapis/java-cloud-bom/commit/e1a684024b12f227ed13265ee36fafbddbda70e9))
+* update actions/setup-java action to v4 ([#6455](https://github.com/googleapis/java-cloud-bom/issues/6455)) ([b9581e0](https://github.com/googleapis/java-cloud-bom/commit/b9581e0309a7fbefae89d487147a3dc7f885f217))
+* update actions/setup-node action to v4 ([#6406](https://github.com/googleapis/java-cloud-bom/issues/6406)) ([8b42fc4](https://github.com/googleapis/java-cloud-bom/commit/8b42fc4794678e904ddccaf3673b0d5408661219))
+* update actions/setup-node action to v4 ([#6456](https://github.com/googleapis/java-cloud-bom/issues/6456)) ([a453127](https://github.com/googleapis/java-cloud-bom/commit/a45312788052a6737eebc34112215f4e05aaca71))
+* update dependency com.google.cloud:first-party-dependencies to v3.25.0 ([#6434](https://github.com/googleapis/java-cloud-bom/issues/6434)) ([2e5f090](https://github.com/googleapis/java-cloud-bom/commit/2e5f09062e80a01e1e3d2188c7472fa6cf3a2f29))
+* update dependency com.google.cloud:gapic-libraries-bom to v1.30.0 ([#6447](https://github.com/googleapis/java-cloud-bom/issues/6447)) ([8412bea](https://github.com/googleapis/java-cloud-bom/commit/8412bea5e7d96bd7dc3af8163a314ff8dd290045))
+* update dependency com.google.cloud:google-cloud-bigquery to v2.37.2 ([#6439](https://github.com/googleapis/java-cloud-bom/issues/6439)) ([322a9a3](https://github.com/googleapis/java-cloud-bom/commit/322a9a33ea7802c0776417351b1177a1731f8142))
+* update dependency com.google.cloud:google-cloud-bigquerystorage-bom to v3.2.0 ([#6448](https://github.com/googleapis/java-cloud-bom/issues/6448)) ([31cdb19](https://github.com/googleapis/java-cloud-bom/commit/31cdb19ca40a44815d311dfb09eace9f4cbeee6b))
+* update dependency com.google.cloud:google-cloud-bigtable-bom to v2.34.0 ([#6449](https://github.com/googleapis/java-cloud-bom/issues/6449)) ([d40b4f9](https://github.com/googleapis/java-cloud-bom/commit/d40b4f9b28ef29de348a94d90f73f2abe72dc0e1))
+* update dependency com.google.cloud:google-cloud-datastore-bom to v2.18.4 ([#6436](https://github.com/googleapis/java-cloud-bom/issues/6436)) ([1150cd8](https://github.com/googleapis/java-cloud-bom/commit/1150cd804311567f3881ec48a09850f2d93d849f))
+* update dependency com.google.cloud:google-cloud-firestore-bom to v3.17.0 ([#6450](https://github.com/googleapis/java-cloud-bom/issues/6450)) ([90fda7d](https://github.com/googleapis/java-cloud-bom/commit/90fda7d084db343cf612465768121ce8d9d02627))
+* update dependency com.google.cloud:google-cloud-logging-bom to v3.16.0 ([#6451](https://github.com/googleapis/java-cloud-bom/issues/6451)) ([6fe6069](https://github.com/googleapis/java-cloud-bom/commit/6fe606934862d299afca2ae14e4e3a3b8525221a))
+* update dependency com.google.cloud:google-cloud-logging-logback to v0.131.2-alpha ([#6443](https://github.com/googleapis/java-cloud-bom/issues/6443)) ([9f22028](https://github.com/googleapis/java-cloud-bom/commit/9f2202899ba161cd36ded6b999d55dc59d62fc7c))
+* update dependency com.google.cloud:google-cloud-nio to v0.127.13 ([#6440](https://github.com/googleapis/java-cloud-bom/issues/6440)) ([f6e2a93](https://github.com/googleapis/java-cloud-bom/commit/f6e2a93a291e9197d5155dbe2e8c73271273c885))
+* update dependency com.google.cloud:google-cloud-pubsub-bom to v1.126.6 ([#6435](https://github.com/googleapis/java-cloud-bom/issues/6435)) ([b6fa98c](https://github.com/googleapis/java-cloud-bom/commit/b6fa98cd9ca6763fe42f7734b25407f1279a1695))
+* update dependency com.google.cloud:google-cloud-pubsublite-bom to v1.13.0 ([#6452](https://github.com/googleapis/java-cloud-bom/issues/6452)) ([a5a4258](https://github.com/googleapis/java-cloud-bom/commit/a5a4258cb3d7df70a4215a64f24245ebcc6c7187))
+* update dependency com.google.cloud:google-cloud-spanner-bom to v6.60.0 ([#6453](https://github.com/googleapis/java-cloud-bom/issues/6453)) ([6c8eaf2](https://github.com/googleapis/java-cloud-bom/commit/6c8eaf2ec3e68268310ed92a9b76908df27ae0be))
+* update dependency com.google.cloud:google-cloud-spanner-jdbc to v2.15.4 ([#6444](https://github.com/googleapis/java-cloud-bom/issues/6444)) ([4c6e2bc](https://github.com/googleapis/java-cloud-bom/commit/4c6e2bcaddd6c7149b23ef64ab76e19b2350e768))
+* update dependency com.google.cloud:google-cloud-spanner-jdbc to v2.15.5 ([#6459](https://github.com/googleapis/java-cloud-bom/issues/6459)) ([9ab47cf](https://github.com/googleapis/java-cloud-bom/commit/9ab47cfbcd7395d28ebabb446a6b8981066ab2ae))
+* update dependency com.google.cloud:google-cloud-storage-bom to v2.34.0 ([#6438](https://github.com/googleapis/java-cloud-bom/issues/6438)) ([ccef02e](https://github.com/googleapis/java-cloud-bom/commit/ccef02ef9b1efa4f9ac7c4cc9f1cf4026f98e7be))
+* update dependency com.google.googlejavaformat:google-java-format to v1.20.0 ([#6454](https://github.com/googleapis/java-cloud-bom/issues/6454)) ([33b7b5a](https://github.com/googleapis/java-cloud-bom/commit/33b7b5ab5ea1b000f6843b9ff258f73fdbddf412))
+
 ## [26.32.0](https://github.com/googleapis/java-cloud-bom/compare/v26.31.0...v26.32.0) (2024-02-12)
 
 
