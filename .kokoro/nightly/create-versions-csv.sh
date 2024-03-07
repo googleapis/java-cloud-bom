@@ -77,9 +77,11 @@ while IFS= read -r line; do
     ../.kokoro/nightly/fetch-library-data.sh $URL $artifact_id $service_name >> cloud_java_client_library_release_dates.csv
 done < "$apiary_list"
 
-# add spring cloud gcp, "service_name" is tool_name
+# add spring cloud gcp and autogen, "service_name" is tool_name
 ../.kokoro/nightly/fetch-library-data.sh https://repo1.maven.org/maven2/com/google/cloud/spring-cloud-gcp-dependencies/ spring-cloud-gcp-dependencies spring-cloud-gcp >> cloud_java_client_library_release_dates.csv
 ../.kokoro/nightly/fetch-library-data.sh https://repo1.maven.org/maven2/org/springframework/cloud/spring-cloud-gcp-dependencies/ spring-cloud-gcp-dependencies spring-cloud-gcp >> cloud_java_client_library_release_dates.csv
+
+../.kokoro/nightly/fetch-library-data.sh https://repo1.maven.org/maven2/com/google/cloud/google-cloud-language-spring-starter/ google-cloud-language-spring-starter spring-autogen >> cloud_java_client_library_release_dates.csv
 
 rm -f libraries.txt
 rm -f artifacts_to_services_apiary.txt
