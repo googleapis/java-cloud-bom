@@ -164,6 +164,12 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java</artifactId>
+        <version>3.25.2</version>
+        <scope>compile</scope>
+      </dependency>
+      <dependency>
         <!-- Artifacts from google-cloud-java monorepo -->
         <groupId>com.google.cloud</groupId>
         <artifactId>gapic-libraries-bom</artifactId>
