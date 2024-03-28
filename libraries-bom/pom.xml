@@ -74,6 +74,12 @@
         <version>3.28.1</version>
         <type>pom</type>
         <scope>import</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <!-- google-cloud-java from https://github.com/googleapis/java-cloud-bom -->
