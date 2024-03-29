@@ -1,7 +1,7 @@
 # Format:
 # module:released-version:current-version
 
-google-cloud-bom:0.215.0:0.216.0-SNAPSHOT
-libraries-bom:26.34.0:26.35.0-SNAPSHOT
-java-cloud-bom-tests:0.30.0:0.31.0-SNAPSHOT
-full-convergence-check:0.33.0:0.34.0-SNAPSHOT
+google-cloud-bom:0.216.0:0.216.0
+libraries-bom:26.35.0:26.35.0
+java-cloud-bom-tests:0.31.0:0.31.0
+full-convergence-check:0.34.0:0.34.0
