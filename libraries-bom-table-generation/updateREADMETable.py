@@ -63,7 +63,8 @@ modules_to_skip = ['libraries-bom',
                    'google-cloud-core-grpc',
                    'google-cloud-core-http',
                    'google-cloud-firestore-admin',
-                   'google-cloud-spanner-executor'
+                   'google-cloud-spanner-executor',
+                   'google-cloud-bigtable-stats' #exclude per https://github.com/googleapis/java-bigtable/blob/v2.32.0/pom.xml#L334
                    ]
 regex_modules_to_skip = "(" + ")|(".join(modules_to_skip) + ")"
 
