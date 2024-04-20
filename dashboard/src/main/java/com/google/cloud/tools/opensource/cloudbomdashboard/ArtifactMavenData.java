@@ -25,14 +25,26 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.google.cloud.tools.opensource.dependencies.RepositoryUtility;
+import com.google.common.collect.ImmutableList;
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.artifact.repository.metadata.Metadata;
 import org.apache.maven.artifact.repository.metadata.io.xpp3.MetadataXpp3Reader;
-import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.building.DefaultModelBuilderFactory;
+import org.apache.maven.model.building.DefaultModelBuildingRequest;
+import org.apache.maven.model.building.ModelBuilder;
+import org.apache.maven.model.building.ModelBuildingException;
+import org.apache.maven.model.building.ModelBuildingRequest;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
+import org.apache.maven.project.ProjectModelResolver;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.eclipse.aether.RepositorySystem;
+import org.eclipse.aether.RepositorySystemSession;
 import org.eclipse.aether.artifact.Artifact;
+import org.eclipse.aether.internal.impl.DefaultRemoteRepositoryManager;
+import org.eclipse.aether.repository.RemoteRepository;
 
 /** Container class for all artifact data pulled from Maven central. */
 public class ArtifactMavenData {
@@ -95,7 +107,7 @@ public class ArtifactMavenData {
     return sharedDependenciesVersion;
   }
 
-  public static ArtifactMavenData generateArtifactMavenData(Artifact artifact) {
+  public static ArtifactMavenData generateArtifactMavenData(Artifact artifact) throws ModelBuildingException {
     String metadataUrl = generateMetadataUrl(artifact);
     String pomFileUrl = generatePomFileUrl(artifact);
 
@@ -155,7 +167,7 @@ public class ArtifactMavenData {
   }
 
   private static SharedDependenciesData sharedDependencyPositionAndVersion(
-      String pomUrl, Artifact artifact) {
+      String pomUrl, Artifact artifact) throws ModelBuildingException {
     String groupPath = artifact.getGroupId().replace('.', '/');
     String parentPath =
         DashboardMain.basePath
@@ -211,7 +223,7 @@ public class ArtifactMavenData {
     return new SharedDependenciesData("", "");
   }
 
-  private static String getSharedDependenciesVersionFromUrl(String pomUrl) {
+  private static String getSharedDependenciesVersionFromUrl(String pomUrl) throws ModelBuildingException {
     try {
       File pomFile = File.createTempFile("pomFile", ".xml");
       pomFile.deleteOnExit();
@@ -220,20 +232,30 @@ public class ArtifactMavenData {
       FileUtils.copyInputStreamToFile(input, pomFile);
       MavenXpp3Reader read = new MavenXpp3Reader();
       Model model = read.read(new FileInputStream(pomFile));
-      if (model.getDependencyManagement() == null) {
-        return null;
-      }
-      for (Dependency dep : model.getDependencyManagement().getDependencies()) {
-        if ("com.google.cloud".equals(dep.getGroupId())
-            && "google-cloud-shared-dependencies".equals(dep.getArtifactId())) {
-          if (dep.getVersion().startsWith("${")) {
-            String sharedVersion = dep.getVersion().substring(1).replaceAll("[{}]", "");
-            return model.getProperties().getProperty(sharedVersion);
-          }
-          return dep.getVersion();
-        }
-      }
+      ModelBuildingRequest request = new DefaultModelBuildingRequest();
+      request.setRawModel(model);
+      RepositorySystem repositorySystem = RepositoryUtility.newRepositorySystem();
+      RepositorySystemSession session = RepositoryUtility.newSession(repositorySystem);
 
+      // Set model resolver to locate parent POM on Maven Central.
+      RemoteRepository mavenCentral =
+              new RemoteRepository.Builder("central", "default", "https://repo1.maven.org/maven2/").build();
+      request.setModelResolver(
+              new ProjectModelResolver(
+                      session,
+                      null,
+                      repositorySystem,
+                      new DefaultRemoteRepositoryManager(),
+                      ImmutableList.of(mavenCentral),
+                      null,
+                      null));
+
+      // Capture java version from system environment for profile activation.
+      request.setSystemProperties(System.getProperties());
+
+      ModelBuilder builder = new DefaultModelBuilderFactory().newInstance();
+      Model effectiveModel =  builder.build(request).getEffectiveModel();
+      return effectiveModel.getProperties().getProperty("google-cloud-shared-dependencies.version");
     } catch (XmlPullParserException | IOException ignored) {
     }
     return null;

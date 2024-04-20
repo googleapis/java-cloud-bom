@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.maven.model.building.ModelBuildingException;
 import org.eclipse.aether.artifact.Artifact;
 
 /**
@@ -42,7 +44,7 @@ public class VersionData {
    * @param cloudBomVersion the version of google-cloud-bom associated with the set of artifacts
    * @param artifacts the set of artifacts to be pulled from Maven central
    */
-  public static void addData(String cloudBomVersion, Set<Artifact> artifacts) {
+  public static void addData(String cloudBomVersion, Set<Artifact> artifacts) throws ModelBuildingException {
     cloudBomVersionToArtifacts.put(cloudBomVersion, artifacts);
     for (Artifact artifact : artifacts) {
       if (!artifactData.containsKey(artifact)) {
