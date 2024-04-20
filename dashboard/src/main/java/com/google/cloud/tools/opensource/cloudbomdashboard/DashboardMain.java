@@ -89,13 +89,8 @@ public class DashboardMain {
    * snapshot version.
    */
   public static void main(String[] arguments)
-      throws IOException,
-          TemplateException,
-          RepositoryException,
-          URISyntaxException,
-          ParseException,
-          MavenRepositoryException,
-          ModelBuildingException {
+      throws IOException, TemplateException, RepositoryException, URISyntaxException,
+          ParseException, MavenRepositoryException, ModelBuildingException {
     DashboardArguments dashboardArguments = DashboardArguments.readCommandLine(arguments);
 
     // If looking to edit the dashboard structure, see DashboardMain#generateDashboard.
@@ -136,12 +131,8 @@ public class DashboardMain {
   }
 
   private static void generateAllVersions(String versionlessCoordinates)
-      throws IOException,
-          TemplateException,
-          RepositoryException,
-          URISyntaxException,
-          MavenRepositoryException,
-          ModelBuildingException {
+      throws IOException, TemplateException, RepositoryException, URISyntaxException,
+          MavenRepositoryException, ModelBuildingException {
     List<String> elements = Splitter.on(':').splitToList(versionlessCoordinates);
     checkArgument(
         elements.size() == 2,
