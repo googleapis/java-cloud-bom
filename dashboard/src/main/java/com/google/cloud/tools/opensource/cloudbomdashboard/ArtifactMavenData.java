@@ -29,7 +29,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.maven.artifact.repository.metadata.Metadata;
 import org.apache.maven.artifact.repository.metadata.io.xpp3.MetadataXpp3Reader;
@@ -261,7 +260,7 @@ public class ArtifactMavenData {
       ModelBuilder builder = new DefaultModelBuilderFactory().newInstance();
       Model effectiveModel = builder.build(request).getEffectiveModel();
       return effectiveModel.getProperties().getProperty("google-cloud-shared-dependencies.version");
-    } catch (XmlPullParserException | IOException | ModelBuildingException exception ) {
+    } catch (XmlPullParserException | IOException | ModelBuildingException exception) {
       LOGGER.log(Level.SEVERE, "Failed to parse contents of POM file: {0}", pomUrl);
     }
     return null;
