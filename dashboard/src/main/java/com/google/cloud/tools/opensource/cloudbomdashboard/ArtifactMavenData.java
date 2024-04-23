@@ -261,7 +261,7 @@ public class ArtifactMavenData {
       Model effectiveModel = builder.build(request).getEffectiveModel();
       return effectiveModel.getProperties().getProperty("google-cloud-shared-dependencies.version");
     } catch (XmlPullParserException | IOException | ModelBuildingException exception) {
-      LOGGER.log(Level.SEVERE, "Failed to parse contents of POM file: {0}", pomUrl);
+      LOGGER.log(Level.SEVERE, exception, () -> "Failed to parse contents of POM file: " + pomUrl);
     }
     return null;
   }
