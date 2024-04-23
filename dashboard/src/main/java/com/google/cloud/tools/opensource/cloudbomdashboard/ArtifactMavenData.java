@@ -25,6 +25,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.google.cloud.tools.opensource.dependencies.RepositoryUtility;
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.io.FileUtils;
@@ -50,6 +53,8 @@ public class ArtifactMavenData {
 
   private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
   private static DateFormat outputFormat = new SimpleDateFormat("MM-dd-yyyy");
+
+  private static final Logger LOGGER = Logger.getLogger(ArtifactMavenData.class.getName());
 
   private final Artifact artifact;
 
@@ -106,7 +111,7 @@ public class ArtifactMavenData {
     return sharedDependenciesVersion;
   }
 
-  public static ArtifactMavenData generateArtifactMavenData(Artifact artifact) throws ModelBuildingException {
+  public static ArtifactMavenData generateArtifactMavenData(Artifact artifact) {
     String metadataUrl = generateMetadataUrl(artifact);
     String pomFileUrl = generatePomFileUrl(artifact);
 
@@ -166,7 +171,7 @@ public class ArtifactMavenData {
   }
 
   private static SharedDependenciesData sharedDependencyPositionAndVersion(
-      String pomUrl, Artifact artifact) throws ModelBuildingException {
+      String pomUrl, Artifact artifact) {
     String groupPath = artifact.getGroupId().replace('.', '/');
     String parentPath =
         DashboardMain.basePath
@@ -222,7 +227,7 @@ public class ArtifactMavenData {
     return new SharedDependenciesData("", "");
   }
 
-  private static String getSharedDependenciesVersionFromUrl(String pomUrl) throws ModelBuildingException {
+  private static String getSharedDependenciesVersionFromUrl(String pomUrl) {
     try {
       File pomFile = File.createTempFile("pomFile", ".xml");
       pomFile.deleteOnExit();
@@ -255,7 +260,8 @@ public class ArtifactMavenData {
       ModelBuilder builder = new DefaultModelBuilderFactory().newInstance();
       Model effectiveModel =  builder.build(request).getEffectiveModel();
       return effectiveModel.getProperties().getProperty("google-cloud-shared-dependencies.version");
-    } catch (XmlPullParserException | IOException ignored) {
+    } catch (XmlPullParserException | IOException | ModelBuildingException exception ) {
+      LOGGER.log(Level.SEVERE, "Failed to parse contents of POM file: {0}", pomUrl);
     }
     return null;
   }

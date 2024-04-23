@@ -61,7 +61,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import org.apache.commons.cli.ParseException;
 import org.apache.maven.artifact.versioning.ComparableVersion;
-import org.apache.maven.model.building.ModelBuildingException;
 import org.eclipse.aether.RepositoryException;
 import org.eclipse.aether.RepositorySystem;
 import org.eclipse.aether.artifact.Artifact;
@@ -94,8 +93,7 @@ public class DashboardMain {
           RepositoryException,
           URISyntaxException,
           ParseException,
-          MavenRepositoryException,
-          ModelBuildingException {
+          MavenRepositoryException {
     DashboardArguments dashboardArguments = DashboardArguments.readCommandLine(arguments);
 
     // If looking to edit the dashboard structure, see DashboardMain#generateDashboard.
@@ -140,8 +138,7 @@ public class DashboardMain {
           TemplateException,
           RepositoryException,
           URISyntaxException,
-          MavenRepositoryException,
-          ModelBuildingException {
+          MavenRepositoryException {
     List<String> elements = Splitter.on(':').splitToList(versionlessCoordinates);
     checkArgument(
         elements.size() == 2,
@@ -175,7 +172,7 @@ public class DashboardMain {
   }
 
   private static Path generate(Bom bom)
-      throws IOException, TemplateException, URISyntaxException, ModelBuildingException {
+      throws IOException, TemplateException, URISyntaxException {
     ArtifactCache cache = buildCache(bom);
     Path output = generateHtml(bom, cache);
 
@@ -202,7 +199,7 @@ public class DashboardMain {
   }
 
   private static boolean report(Bom bom, OutputStream outputStream)
-      throws IOException, ModelBuildingException {
+      throws IOException {
     ArtifactCache cache = buildCache(bom);
     Map<Artifact, ArtifactInfo> infoMap = cache.getInfoMap();
     String cloudBomVersion =
@@ -265,7 +262,7 @@ public class DashboardMain {
   }
 
   private static Path generateHtml(Bom bom, ArtifactCache cache)
-      throws IOException, TemplateException, URISyntaxException, ModelBuildingException {
+      throws IOException, TemplateException, URISyntaxException {
 
     Artifact bomArtifact = new DefaultArtifact(bom.getCoordinates());
 
@@ -437,7 +434,7 @@ public class DashboardMain {
   @VisibleForTesting
   static void generateDashboard(
       Path output, List<ArtifactResults> table, ArtifactCache cache, Bom bom)
-      throws IOException, TemplateException, ModelBuildingException {
+      throws IOException, TemplateException {
 
     Map<Artifact, ArtifactInfo> infoMap = cache.getInfoMap();
     String cloudBomVersion =

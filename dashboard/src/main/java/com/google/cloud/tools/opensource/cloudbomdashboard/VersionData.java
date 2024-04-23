@@ -44,7 +44,7 @@ public class VersionData {
    * @param cloudBomVersion the version of google-cloud-bom associated with the set of artifacts
    * @param artifacts the set of artifacts to be pulled from Maven central
    */
-  public static void addData(String cloudBomVersion, Set<Artifact> artifacts) throws ModelBuildingException {
+  public static void addData(String cloudBomVersion, Set<Artifact> artifacts) {
     cloudBomVersionToArtifacts.put(cloudBomVersion, artifacts);
     for (Artifact artifact : artifacts) {
       if (!artifactData.containsKey(artifact)) {
