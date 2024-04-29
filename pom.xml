@@ -39,7 +39,7 @@
         be published to Maven Central
         https://maven.apache.org/plugins/maven-deploy-plugin/faq.html#skip -->
         <artifactId>maven-deploy-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.1.2</version>
         <configuration>
           <skip>true</skip>
         </configuration>
