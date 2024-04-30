@@ -22,11 +22,14 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
@@ -207,30 +210,30 @@ public class ArtifactMavenData {
             + "/v"
             + artifact.getVersion().replaceAll("[^.\\d]", "")
             + "/pom.xml";
-    String version = getSharedDependenciesVersionFromUrl(parentPath);
-    if (version != null) {
-      return new SharedDependenciesData(parentPath, version);
+    Optional<String> version = getSharedDependenciesVersionFromUrl(parentPath);
+    if (version.isPresent()) {
+      return new SharedDependenciesData(parentPath, version.get());
     }
     version = getSharedDependenciesVersionFromUrl(pomUrl);
-    if (version != null) {
-      return new SharedDependenciesData(pomUrl, version);
+    if (version.isPresent()) {
+      return new SharedDependenciesData(pomUrl, version.get());
     }
     version = getSharedDependenciesVersionFromUrl(releasePath);
-    if (version != null) {
-      return new SharedDependenciesData(releasePath, version);
+    if (version.isPresent()) {
+      return new SharedDependenciesData(releasePath, version.get());
     }
     version = getSharedDependenciesVersionFromUrl(depsBomPath);
-    if (version != null) {
-      return new SharedDependenciesData(depsBomPath, version);
-    }
-    return new SharedDependenciesData("", "");
+    return version.map(s -> new SharedDependenciesData(depsBomPath, s)).orElseGet(() -> new SharedDependenciesData("", ""));
   }
 
-  private static String getSharedDependenciesVersionFromUrl(String pomUrl) {
+  private static Optional<String> getSharedDependenciesVersionFromUrl(String pomUrl) {
     try {
       File pomFile = File.createTempFile("pomFile", ".xml");
       pomFile.deleteOnExit();
       URL url = new URL(pomUrl);
+      if (!isReachableUrl(url)) {
+        return Optional.empty();
+      }
       BufferedInputStream input = new BufferedInputStream(url.openStream());
       FileUtils.copyInputStreamToFile(input, pomFile);
       MavenXpp3Reader read = new MavenXpp3Reader();
@@ -259,11 +262,12 @@ public class ArtifactMavenData {
 
       ModelBuilder builder = new DefaultModelBuilderFactory().newInstance();
       Model effectiveModel = builder.build(request).getEffectiveModel();
-      return effectiveModel.getProperties().getProperty("google-cloud-shared-dependencies.version");
+      String sharedDependenciesVersion = effectiveModel.getProperties().getProperty("google-cloud-shared-dependencies.version");
+      return sharedDependenciesVersion != null ? Optional.of(sharedDependenciesVersion) : Optional.empty();
     } catch (XmlPullParserException | IOException | ModelBuildingException exception) {
       LOGGER.log(Level.SEVERE, exception, () -> "Failed to parse contents of POM file: " + pomUrl);
     }
-    return null;
+    return Optional.empty();
   }
 
   private static String generatePomFileUrl(Artifact artifact) {
@@ -290,6 +294,13 @@ public class ArtifactMavenData {
         + "/"
         + artifact.getArtifactId()
         + "/maven-metadata.xml";
+  }
+
+  private static Boolean isReachableUrl(URL url) throws IOException {
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestMethod("HEAD");
+    int responseCode = connection.getResponseCode();
+    return responseCode == HttpURLConnection.HTTP_OK;
   }
 
   private static class LatestMetadata {
