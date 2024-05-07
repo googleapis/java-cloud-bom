@@ -31,6 +31,8 @@ java.common_templates(
         ".github/trusted-contribution.yml",
         ".github/workflows/auto-release.yaml",
         ".kokoro/release/stage.sh",
-        "renovate.json"
+        "renovate.json",
+        ".kokoro/requirements.in",
+        ".kokoro/requirements.txt"
     ]
 )
