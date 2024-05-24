@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -195,7 +194,9 @@ public class ArtifactMavenData {
       return new SharedDependenciesData(releasePath, version.get());
     }
     version = getSharedDependenciesVersionFromUrl(depsBomPath);
-    return version.map(s -> new SharedDependenciesData(depsBomPath, s)).orElseGet(() -> new SharedDependenciesData("", ""));
+    return version
+        .map(s -> new SharedDependenciesData(depsBomPath, s))
+        .orElseGet(() -> new SharedDependenciesData("", ""));
   }
 
   private static Optional<String> getSharedDependenciesVersionFromUrl(String pomUrl) {
@@ -234,8 +235,11 @@ public class ArtifactMavenData {
 
       ModelBuilder builder = new DefaultModelBuilderFactory().newInstance();
       Model effectiveModel = builder.build(request).getEffectiveModel();
-      String sharedDependenciesVersion = effectiveModel.getProperties().getProperty("google-cloud-shared-dependencies.version");
-      return sharedDependenciesVersion != null ? Optional.of(sharedDependenciesVersion) : Optional.empty();
+      String sharedDependenciesVersion =
+          effectiveModel.getProperties().getProperty("google-cloud-shared-dependencies.version");
+      return sharedDependenciesVersion != null
+          ? Optional.of(sharedDependenciesVersion)
+          : Optional.empty();
     } catch (XmlPullParserException | IOException | ModelBuildingException exception) {
       LOGGER.log(Level.SEVERE, exception, () -> "Failed to parse contents of POM file: " + pomUrl);
     }
