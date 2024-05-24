@@ -143,7 +143,8 @@ public class ArtifactMavenData {
     }
   }
 
-  public static SharedDependenciesData sharedDependencyPositionAndVersion(
+  @VisibleForTesting
+  static SharedDependenciesData sharedDependencyPositionAndVersion(
       String pomUrl, Artifact artifact) {
     String groupPath = artifact.getGroupId().replace('.', '/');
     String parentPath =
