@@ -195,7 +195,7 @@ public class ArtifactMavenData {
     }
     version = getSharedDependenciesVersionFromUrl(depsBomPath);
     return version
-        .map(s -> new SharedDependenciesData(depsBomPath, s))
+        .map(v -> new SharedDependenciesData(depsBomPath, v))
         .orElseGet(() -> new SharedDependenciesData("", ""));
   }
 
