@@ -17,6 +17,7 @@
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
 import com.google.cloud.tools.opensource.dependencies.RepositoryUtility;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -53,11 +54,9 @@ import org.eclipse.aether.repository.RemoteRepository;
 /** Container class for all artifact data pulled from Maven central. */
 public class ArtifactMavenData {
 
+  private static final Logger LOGGER = Logger.getLogger(ArtifactMavenData.class.getName());
   private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
   private static DateFormat outputFormat = new SimpleDateFormat("MM-dd-yyyy");
-
-  private static final Logger LOGGER = Logger.getLogger(ArtifactMavenData.class.getName());
-
   private final Artifact artifact;
 
   private final String latestVersion,
@@ -83,34 +82,6 @@ public class ArtifactMavenData {
 
     this.pomFileUrl = pomFileUrl;
     this.metadataUrl = metadataUrl;
-  }
-
-  public Artifact getArtifact() {
-    return artifact;
-  }
-
-  public String getSharedDependenciesPosition() {
-    return sharedDependenciesPosition;
-  }
-
-  public String getPomFileUrl() {
-    return pomFileUrl;
-  }
-
-  public String getMetadataUrl() {
-    return metadataUrl;
-  }
-
-  public String getLatestVersion() {
-    return latestVersion;
-  }
-
-  public String getLastUpdated() {
-    return lastUpdated;
-  }
-
-  public String getSharedDependenciesVersion() {
-    return sharedDependenciesVersion;
   }
 
   public static ArtifactMavenData generateArtifactMavenData(Artifact artifact) {
@@ -172,7 +143,7 @@ public class ArtifactMavenData {
     }
   }
 
-  private static SharedDependenciesData sharedDependencyPositionAndVersion(
+  public static SharedDependenciesData sharedDependencyPositionAndVersion(
       String pomUrl, Artifact artifact) {
     String groupPath = artifact.getGroupId().replace('.', '/');
     String parentPath =
@@ -231,7 +202,7 @@ public class ArtifactMavenData {
       File pomFile = File.createTempFile("pomFile", ".xml");
       pomFile.deleteOnExit();
       URL url = new URL(pomUrl);
-      if (!isReachableUrl(url)) {
+      if (!isReachable(url)) {
         return Optional.empty();
       }
       BufferedInputStream input = new BufferedInputStream(url.openStream());
@@ -296,11 +267,40 @@ public class ArtifactMavenData {
         + "/maven-metadata.xml";
   }
 
-  private static Boolean isReachableUrl(URL url) throws IOException {
+  @VisibleForTesting
+  static Boolean isReachable(URL url) throws IOException {
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
     connection.setRequestMethod("HEAD");
     int responseCode = connection.getResponseCode();
     return responseCode == HttpURLConnection.HTTP_OK;
+  }
+
+  public Artifact getArtifact() {
+    return artifact;
+  }
+
+  public String getSharedDependenciesPosition() {
+    return sharedDependenciesPosition;
+  }
+
+  public String getPomFileUrl() {
+    return pomFileUrl;
+  }
+
+  public String getMetadataUrl() {
+    return metadataUrl;
+  }
+
+  public String getLatestVersion() {
+    return latestVersion;
+  }
+
+  public String getLastUpdated() {
+    return lastUpdated;
+  }
+
+  public String getSharedDependenciesVersion() {
+    return sharedDependenciesVersion;
   }
 
   private static class LatestMetadata {
@@ -313,13 +313,22 @@ public class ArtifactMavenData {
     }
   }
 
-  private static class SharedDependenciesData {
+  @VisibleForTesting
+  static class SharedDependenciesData {
 
     String sharedDependencyPosition, sharedDependencyVersion;
 
     SharedDependenciesData(String sharedDependencyPosition, String sharedDependencyVersion) {
       this.sharedDependencyPosition = sharedDependencyPosition;
       this.sharedDependencyVersion = sharedDependencyVersion;
+    }
+
+    String getSharedDependencyPosition() {
+      return this.sharedDependencyPosition;
+    }
+
+    String getSharedDependencyVersion() {
+      return this.sharedDependencyVersion;
     }
   }
 }
