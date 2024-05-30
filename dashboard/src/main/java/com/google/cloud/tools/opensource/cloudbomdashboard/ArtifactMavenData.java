@@ -17,16 +17,19 @@
 package com.google.cloud.tools.opensource.cloudbomdashboard;
 
 import com.google.cloud.tools.opensource.dependencies.RepositoryUtility;
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
@@ -50,11 +53,9 @@ import org.eclipse.aether.repository.RemoteRepository;
 /** Container class for all artifact data pulled from Maven central. */
 public class ArtifactMavenData {
 
+  private static final Logger LOGGER = Logger.getLogger(ArtifactMavenData.class.getName());
   private static DateFormat dateFormat = new SimpleDateFormat("yyyyMMddhhmmss");
   private static DateFormat outputFormat = new SimpleDateFormat("MM-dd-yyyy");
-
-  private static final Logger LOGGER = Logger.getLogger(ArtifactMavenData.class.getName());
-
   private final Artifact artifact;
 
   private final String latestVersion,
@@ -80,34 +81,6 @@ public class ArtifactMavenData {
 
     this.pomFileUrl = pomFileUrl;
     this.metadataUrl = metadataUrl;
-  }
-
-  public Artifact getArtifact() {
-    return artifact;
-  }
-
-  public String getSharedDependenciesPosition() {
-    return sharedDependenciesPosition;
-  }
-
-  public String getPomFileUrl() {
-    return pomFileUrl;
-  }
-
-  public String getMetadataUrl() {
-    return metadataUrl;
-  }
-
-  public String getLatestVersion() {
-    return latestVersion;
-  }
-
-  public String getLastUpdated() {
-    return lastUpdated;
-  }
-
-  public String getSharedDependenciesVersion() {
-    return sharedDependenciesVersion;
   }
 
   public static ArtifactMavenData generateArtifactMavenData(Artifact artifact) {
@@ -169,7 +142,8 @@ public class ArtifactMavenData {
     }
   }
 
-  private static SharedDependenciesData sharedDependencyPositionAndVersion(
+  @VisibleForTesting
+  static SharedDependenciesData sharedDependencyPositionAndVersion(
       String pomUrl, Artifact artifact) {
     String groupPath = artifact.getGroupId().replace('.', '/');
     String parentPath =
@@ -207,30 +181,32 @@ public class ArtifactMavenData {
             + "/v"
             + artifact.getVersion().replaceAll("[^.\\d]", "")
             + "/pom.xml";
-    String version = getSharedDependenciesVersionFromUrl(parentPath);
-    if (version != null) {
-      return new SharedDependenciesData(parentPath, version);
+    Optional<String> version = getSharedDependenciesVersionFromUrl(parentPath);
+    if (version.isPresent()) {
+      return new SharedDependenciesData(parentPath, version.get());
     }
     version = getSharedDependenciesVersionFromUrl(pomUrl);
-    if (version != null) {
-      return new SharedDependenciesData(pomUrl, version);
+    if (version.isPresent()) {
+      return new SharedDependenciesData(pomUrl, version.get());
     }
     version = getSharedDependenciesVersionFromUrl(releasePath);
-    if (version != null) {
-      return new SharedDependenciesData(releasePath, version);
+    if (version.isPresent()) {
+      return new SharedDependenciesData(releasePath, version.get());
     }
     version = getSharedDependenciesVersionFromUrl(depsBomPath);
-    if (version != null) {
-      return new SharedDependenciesData(depsBomPath, version);
-    }
-    return new SharedDependenciesData("", "");
+    return version
+        .map(v -> new SharedDependenciesData(depsBomPath, v))
+        .orElseGet(() -> new SharedDependenciesData("", ""));
   }
 
-  private static String getSharedDependenciesVersionFromUrl(String pomUrl) {
+  private static Optional<String> getSharedDependenciesVersionFromUrl(String pomUrl) {
     try {
       File pomFile = File.createTempFile("pomFile", ".xml");
       pomFile.deleteOnExit();
       URL url = new URL(pomUrl);
+      if (!isReachable(url)) {
+        return Optional.empty();
+      }
       BufferedInputStream input = new BufferedInputStream(url.openStream());
       FileUtils.copyInputStreamToFile(input, pomFile);
       MavenXpp3Reader read = new MavenXpp3Reader();
@@ -259,11 +235,15 @@ public class ArtifactMavenData {
 
       ModelBuilder builder = new DefaultModelBuilderFactory().newInstance();
       Model effectiveModel = builder.build(request).getEffectiveModel();
-      return effectiveModel.getProperties().getProperty("google-cloud-shared-dependencies.version");
+      String sharedDependenciesVersion =
+          effectiveModel.getProperties().getProperty("google-cloud-shared-dependencies.version");
+      return sharedDependenciesVersion != null
+          ? Optional.of(sharedDependenciesVersion)
+          : Optional.empty();
     } catch (XmlPullParserException | IOException | ModelBuildingException exception) {
       LOGGER.log(Level.SEVERE, exception, () -> "Failed to parse contents of POM file: " + pomUrl);
     }
-    return null;
+    return Optional.empty();
   }
 
   private static String generatePomFileUrl(Artifact artifact) {
@@ -292,6 +272,42 @@ public class ArtifactMavenData {
         + "/maven-metadata.xml";
   }
 
+  @VisibleForTesting
+  static Boolean isReachable(URL url) throws IOException {
+    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    connection.setRequestMethod("HEAD");
+    int responseCode = connection.getResponseCode();
+    return responseCode == HttpURLConnection.HTTP_OK;
+  }
+
+  public Artifact getArtifact() {
+    return artifact;
+  }
+
+  public String getSharedDependenciesPosition() {
+    return sharedDependenciesPosition;
+  }
+
+  public String getPomFileUrl() {
+    return pomFileUrl;
+  }
+
+  public String getMetadataUrl() {
+    return metadataUrl;
+  }
+
+  public String getLatestVersion() {
+    return latestVersion;
+  }
+
+  public String getLastUpdated() {
+    return lastUpdated;
+  }
+
+  public String getSharedDependenciesVersion() {
+    return sharedDependenciesVersion;
+  }
+
   private static class LatestMetadata {
 
     String latestVersion, lastUpdated;
@@ -302,13 +318,22 @@ public class ArtifactMavenData {
     }
   }
 
-  private static class SharedDependenciesData {
+  @VisibleForTesting
+  static class SharedDependenciesData {
 
     String sharedDependencyPosition, sharedDependencyVersion;
 
     SharedDependenciesData(String sharedDependencyPosition, String sharedDependencyVersion) {
       this.sharedDependencyPosition = sharedDependencyPosition;
       this.sharedDependencyVersion = sharedDependencyVersion;
+    }
+
+    String getSharedDependencyPosition() {
+      return this.sharedDependencyPosition;
+    }
+
+    String getSharedDependencyVersion() {
+      return this.sharedDependencyVersion;
     }
   }
 }
