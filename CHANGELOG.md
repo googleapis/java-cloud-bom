@@ -1,5 +1,12 @@
 # Changelog
 
+## [26.42.0](https://github.com/googleapis/java-cloud-bom/compare/v26.41.0...v26.42.0) (2024-06-17)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-spanner-jdbc to v2.19.3 ([#6645](https://github.com/googleapis/java-cloud-bom/issues/6645)) ([baf9c12](https://github.com/googleapis/java-cloud-bom/commit/baf9c12ff6c94bd1e300ae1b636cdc63e7281695))
+
 ## [26.41.0](https://github.com/googleapis/java-cloud-bom/compare/v26.40.0...v26.41.0) (2024-06-12)
 
 
