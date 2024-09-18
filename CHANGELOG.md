@@ -1,5 +1,12 @@
 # Changelog
 
+## [26.47.0](https://github.com/googleapis/java-cloud-bom/compare/v26.46.0...v26.47.0) (2024-09-18)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:google-cloud-firestore-bom to v3.26.3 ([#6757](https://github.com/googleapis/java-cloud-bom/issues/6757)) ([f89ac2a](https://github.com/googleapis/java-cloud-bom/commit/f89ac2a02b6ddccb11084ea56805ddeafa53691f))
+
 ## [26.46.0](https://github.com/googleapis/java-cloud-bom/compare/v26.45.0...v26.46.0) (2024-09-17)
 
 
