@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <!-- adding comment for testing-->
   <groupId>com.google.cloud</groupId>
-  <artifactId>libraries-bom</artifactId>
+  <artifactId>libraries-bom-protobuf3</artifactId>
   <version>26.48.0-SNAPSHOT</version><!-- {x-version-update:libraries-bom:current} -->
   <packaging>pom</packaging>
 
@@ -17,7 +17,7 @@
     <name>Google LLC</name>
     <url>https://cloud.google.com</url>
   </organization>
-  <inceptionYear>2019</inceptionYear>
+  <inceptionYear>2024</inceptionYear>
   <developers>
     <developer>
       <name>Cloud Java team</name>
