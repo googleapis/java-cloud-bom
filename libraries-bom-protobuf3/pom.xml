@@ -4,12 +4,12 @@
   <!-- adding comment for testing-->
   <groupId>com.google.cloud</groupId>
   <artifactId>libraries-bom-protobuf3</artifactId>
-  <version>26.48.0-SNAPSHOT</version><!-- {x-version-update:libraries-bom:current} -->
+  <version>0.0.1-SNAPSHOT</version><!-- {x-version-update:libraries-bom-protobuf3:current} -->
   <packaging>pom</packaging>
 
-  <name>Google Cloud Platform Supported Libraries</name>
+  <name>Google Cloud Platform Supported Libraries Protobuf3</name>
   <description>
-    A compatible set of Google Cloud open source libraries.
+    A compatible set of Google Cloud open source libraries. This bom is compatible with protobuf-java 3.x versions.
     Document: https://cloud.google.com/java/docs/bom
   </description>
   <url>https://cloud.google.com/java/docs/bom</url>
