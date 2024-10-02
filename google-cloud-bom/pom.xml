@@ -214,7 +214,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-logging-logback</artifactId>
-        <version>0.131.12-alpha</version>
+        <version>0.131.13-alpha</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
