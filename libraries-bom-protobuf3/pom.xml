@@ -3,13 +3,13 @@
   <modelVersion>4.0.0</modelVersion>
   <!-- adding comment for testing-->
   <groupId>com.google.cloud</groupId>
-  <artifactId>libraries-bom</artifactId>
-  <version>26.48.0-SNAPSHOT</version><!-- {x-version-update:libraries-bom:current} -->
+  <artifactId>libraries-bom-protobuf3</artifactId>
+  <version>0.0.1-SNAPSHOT</version><!-- {x-version-update:libraries-bom-protobuf3:current} -->
   <packaging>pom</packaging>
 
-  <name>Google Cloud Platform Supported Libraries</name>
+  <name>Google Cloud Platform Supported Libraries Protobuf3</name>
   <description>
-    A compatible set of Google Cloud open source libraries.
+    A compatible set of Google Cloud open source libraries. This bom is compatible with protobuf-java 3.x versions.
     Document: https://cloud.google.com/java/docs/bom
   </description>
   <url>https://cloud.google.com/java/docs/bom</url>
@@ -17,7 +17,7 @@
     <name>Google LLC</name>
     <url>https://cloud.google.com</url>
   </organization>
-  <inceptionYear>2019</inceptionYear>
+  <inceptionYear>2024</inceptionYear>
   <developers>
     <developer>
       <name>Cloud Java team</name>
@@ -65,7 +65,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>first-party-dependencies</artifactId>
-        <version>3.36.1</version>
+        <version>3.35.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -75,14 +75,6 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bom</artifactId>
         <version>0.229.0-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>com.google.protobuf</groupId>
-        <artifactId>protobuf-bom</artifactId>
-        <version>4.27.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -126,7 +118,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>3.2.7</version>
+            <version>3.2.5</version>
             <executions>
               <execution>
                 <id>sign-artifacts</id>
