@@ -59,9 +59,18 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-bom</artifactId>
+        <version>4.28.2</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
       <!-- first-party-dependencies is part of java-shared-dependencies
            BOM in https://github.com/googleapis/sdk-platform-java/blob/main/java-shared-dependencies/first-party-dependencies/pom.xml.
            This includes Guava, Protobuf, gRPC, Google Auth Libraries, etc. -->
+
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>first-party-dependencies</artifactId>
@@ -79,13 +88,6 @@
         <scope>import</scope>
       </dependency>
 
-      <dependency>
-        <groupId>com.google.protobuf</groupId>
-        <artifactId>protobuf-bom</artifactId>
-        <version>4.27.4</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
