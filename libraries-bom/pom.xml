@@ -59,6 +59,9 @@
 
   <dependencyManagement>
     <dependencies>
+      <!-- This section overrides the protobuf version specified in first-party-dependencies. This is to provide customers a bom that includes protobuf-java 4.x.
+      We will upgrade protobuf-bom in first-party-dependencies once we feel comfortable that most customers would not have conflict with protobuf-java 4.x.
+      This section has to be specified before first-party-dependencies, please do not move it. -->
       <dependency>
         <groupId>com.google.protobuf</groupId>
         <artifactId>protobuf-bom</artifactId>
