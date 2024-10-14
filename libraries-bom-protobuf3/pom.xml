@@ -13,7 +13,7 @@
     <relativePath>../libraries-bom</relativePath>
   </parent>
 
-  <name>Google Cloud Platform Supported Libraries Protobuf3</name>
+  <name>Google Cloud Platform Supported Libraries (Protobuf3 compatible)</name>
   <description>
     A compatible set of Google Cloud open source libraries. This BOM is compatible with protobuf-java 3.x versions.
     Document: https://cloud.google.com/java/docs/bom
