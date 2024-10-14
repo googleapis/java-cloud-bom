@@ -18,28 +18,7 @@
     A compatible set of Google Cloud open source libraries. This BOM is compatible with protobuf-java 3.x versions.
     Document: https://cloud.google.com/java/docs/bom
   </description>
-  <url>https://cloud.google.com/java/docs/bom</url>
-  <organization>
-    <name>Google LLC</name>
-    <url>https://cloud.google.com</url>
-  </organization>
   <inceptionYear>2024</inceptionYear>
-  <developers>
-    <developer>
-      <name>Cloud Java team</name>
-    </developer>
-  </developers>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>sonatype-nexus-snapshots</id>
-      <url>https://google.oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>sonatype-nexus-staging</id>
-      <url>https://google.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
 
   <dependencyManagement>
     <dependencies>
