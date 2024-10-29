@@ -3,6 +3,6 @@
 
 google-cloud-bom:0.230.0:0.231.0-SNAPSHOT
 libraries-bom:26.49.0:26.50.0-SNAPSHOT
-libraries-bom-protobuf3:0.1.0:0.2.0-SNAPSHOT
+libraries-bom-protobuf3:26.49.0:26.50.0-SNAPSHOT
 java-cloud-bom-tests:0.45.0:0.46.0-SNAPSHOT
 full-convergence-check:0.48.0:0.49.0-SNAPSHOT
