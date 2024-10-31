@@ -182,6 +182,9 @@ public class ReleaseNoteGeneration {
         .append("- Google Cloud Core: ")
         .append(versionlessCoordinatesToVersion.get("com.google.cloud:google-cloud-core"))
         .append("\n");
+    report
+        .append("If you encounter compatibility issues with protobuf-java 4.x, please update your codebase and dependencies to ensure compatibility. If this is not feasible, use libraries-bom-protobuf3 as a workaround. libraries-bom-protobuf3 includes the same client libraries and library versions as libraries-bom.")
+        .append("\n");
   }
 
   private void printApiReferenceLink() {

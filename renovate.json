@@ -69,6 +69,12 @@
         "^com.fasterxml.jackson.core"
       ],
       "groupName": "jackson dependencies"
+    },
+    {
+      "matchPackagePatterns": [
+        "^com.google.protobuf:"
+      ],
+      "enabled": false
     }
   ],
   "semanticCommits": "enabled",
