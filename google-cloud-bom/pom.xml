@@ -4,7 +4,7 @@
   <groupId>com.google.cloud</groupId>
   <artifactId>google-cloud-bom</artifactId>
   <packaging>pom</packaging>
-  <version>0.231.0-SNAPSHOT</version><!-- {x-version-update:google-cloud-bom:current} -->
+  <version>0.231.0</version><!-- {x-version-update:google-cloud-bom:current} -->
   <name>Google Cloud Java BOM</name>
   <url>https://github.com/googleapis/java-cloud-bom</url>
   <description>
@@ -231,7 +231,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsublite-bom</artifactId>
-        <version>1.14.4</version>
+        <version>1.14.7</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
