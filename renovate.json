@@ -14,67 +14,67 @@
   ],
   "packageRules": [
     {
-      "matchPackagePatterns": [
-        "^com.google.guava:"
-      ],
-      "versioning": "docker"
+      "versioning": "docker",
+      "matchPackageNames": [
+        "/^com.google.guava:/"
+      ]
     },
     {
-      "matchPackagePatterns": [
-        "*"
-      ],
       "semanticCommitType": "deps",
-      "semanticCommitScope": null
+      "semanticCommitScope": null,
+      "matchPackageNames": [
+        "*"
+      ]
     },
     {
-      "matchPackagePatterns": [
-        "^org.apache.maven",
-        "^org.jacoco:",
-        "^org.codehaus.mojo:",
-        "^org.sonatype.plugins:",
-        "^com.coveo:",
-        "^com.google.cloud:google-cloud-shared-config"
-      ],
       "semanticCommitType": "build",
-      "semanticCommitScope": "deps"
+      "semanticCommitScope": "deps",
+      "matchPackageNames": [
+        "/^org.apache.maven/",
+        "/^org.jacoco:/",
+        "/^org.codehaus.mojo:/",
+        "/^org.sonatype.plugins:/",
+        "/^com.coveo:/",
+        "/^com.google.cloud:google-cloud-shared-config/"
+      ]
     },
     {
-      "matchPackagePatterns": [
-        "^com.google.cloud:google-cloud-bom",
-        "^com.google.cloud:libraries-bom",
-        "^com.google.cloud.samples:shared-configuration"
-      ],
       "semanticCommitType": "chore",
-      "semanticCommitScope": "deps"
+      "semanticCommitScope": "deps",
+      "matchPackageNames": [
+        "/^com.google.cloud:google-cloud-bom/",
+        "/^com.google.cloud:libraries-bom/",
+        "/^com.google.cloud.samples:shared-configuration/"
+      ]
     },
     {
-      "matchPackagePatterns": [
-        "^junit:junit",
-        "^com.google.truth:truth",
-        "^org.mockito:mockito-core",
-        "^org.objenesis:objenesis",
-        "^com.google.cloud:google-cloud-conformance-tests"
-      ],
       "semanticCommitType": "test",
-      "semanticCommitScope": "deps"
+      "semanticCommitScope": "deps",
+      "matchPackageNames": [
+        "/^junit:junit/",
+        "/^com.google.truth:truth/",
+        "/^org.mockito:mockito-core/",
+        "/^org.objenesis:objenesis/",
+        "/^com.google.cloud:google-cloud-conformance-tests/"
+      ]
     },
     {
-      "matchPackagePatterns": [
-        "^com.google.cloud:google-cloud-"
-      ],
-      "ignoreUnstable": false
+      "ignoreUnstable": false,
+      "matchPackageNames": [
+        "/^com.google.cloud:google-cloud-/"
+      ]
     },
     {
-      "matchPackagePatterns": [
-        "^com.fasterxml.jackson.core"
-      ],
-      "groupName": "jackson dependencies"
+      "groupName": "jackson dependencies",
+      "matchPackageNames": [
+        "/^com.fasterxml.jackson.core/"
+      ]
     },
     {
-      "matchPackagePatterns": [
-        "^com.google.protobuf:"
-      ],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "/^com.google.protobuf:/"
+      ]
     }
   ],
   "semanticCommits": "enabled",
