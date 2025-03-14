@@ -12,10 +12,39 @@ expected_generator_version=$(mvn -pl gapic-generator-java help:evaluate -Dexpres
 echo "Expected google-cloud-shared-dependencies BOM version: ${expected_shared_deps_version}"
 echo "Expected GAPIC generator Java version: ${expected_generator_version}"
 
+
+function check_shared_dependency_status() {
+  local project=$1
+  local actual_shared_deps_version=$(mvn -pl ${project} help:evaluate -Dexpression=google-cloud-shared-dependencies.version -q -DforceStdout)
+  if [[ "${expected_shared_deps_version}" != "${actual_shared_deps_version}" ]]; then
+    local shared_deps_status="! ${actual_shared_deps_version}"
+  else
+    local shared_deps_status="OK"
+  fi
+  echo "${shared_deps_status}"
+}
+
+function check_generated_code_status() {
+  if [ -r "generation_config.yaml" ]; then
+    local actual_generator_version=$(perl -nle 'print $1 if m/gapic_generator_version:\s*(.+)/' generation_config.yaml)
+    if [[ "${expected_generator_version}" != "${actual_generator_version}" ]]; then
+        local generator_status="! ${actual_generator_version}"
+    else
+        local generator_status="OK"
+    fi
+  else
+    local generator_status="N/A"
+  fi
+  echo "${generator_status}"
+}
+
+
 repositories=$(find "${WORK_DIR}" -mindepth 1 -maxdepth 1 -type d -not -name "sdk-platform-java")
 for repo_folder in $repositories; do
   cd "${repo_folder}"
   repo=$(basename "${repo_folder}")
+  git checkout main  > /dev/null 2>&1
+  git pull > /dev/null 2>&1
   if [[ "$repo" == "google-cloud-java" ]]; then
     # In google-cloud-java repository, the parent pom module
     # inherits the property.
@@ -24,24 +53,17 @@ for repo_folder in $repositories; do
     # In normal handwritten libraries, the root project receives the property.
     project=.
   fi
-  actual_shared_deps_version=$(mvn -pl ${project} help:evaluate -Dexpression=google-cloud-shared-dependencies.version -q -DforceStdout)
-  if [[ "${expected_shared_deps_version}" != "${actual_shared_deps_version}" ]]; then
-    shared_deps_status="Not yet(${actual_shared_deps_version})"
-  else
-    shared_deps_status="OK"
-  fi
+  shared_deps_status_main=$(check_shared_dependency_status "${project}")
+  generated_code_status_main=$(check_generated_code_status)
 
-  if [ -r "generation_config.yaml" ]; then
-    actual_generator_version=$(perl -nle 'print $1 if m/gapic_generator_version:\s*(.+)/' generation_config.yaml)
-    if [[ "${expected_generator_version}" != "${actual_generator_version}" ]]; then
-        generator_status="Not yet(${actual_generator_version})"
-    else
-        generator_status="OK"
-    fi
-  else
-    generator_status="N/A"
-  fi
-  echo "${repo} | ${shared_deps_status} | ${generator_status}"
+  last_release_tag=$(gh release list --limit 1 --order desc --json 'tagName' --jq '.[].tagName')
+  git checkout ${last_release_tag} > /dev/null 2>&1
+  shared_deps_status_last_release=$(check_shared_dependency_status "${project}")
+  generated_code_status_last_release=$(check_generated_code_status)
+
+  echo "${repo},${shared_deps_status_main},${generated_code_status_main},\
+    ${shared_deps_status_last_release},${generated_code_status_last_release}" | \
+    awk -F',' '{printf "%-20s,%-10s,%-10s,%-10s,%10s\n", $1, $2, $3, $4, $5}'
 done
 
 
