@@ -37,7 +37,11 @@ function check_generated_code_status() {
   fi
   echo "${generator_status}"
 }
+echo ",        main,      released" |\
+    awk -F',' '{printf "%-20s|%-21s|%-21s|\n", $1, $2, $3}'
 
+echo "    repository,shared dep,code gen,shared dep,code gen" |\
+    awk -F',' '{printf "%-20s|%-10s|%-10s|%-10s|%-10s|\n", $1, $2, $3, $4, $5}'
 
 repositories=$(find "${WORK_DIR}" -mindepth 1 -maxdepth 1 -type d -not -name "sdk-platform-java")
 for repo_folder in $repositories; do
@@ -62,8 +66,8 @@ for repo_folder in $repositories; do
   generated_code_status_last_release=$(check_generated_code_status)
 
   echo "${repo},${shared_deps_status_main},${generated_code_status_main},\
-    ${shared_deps_status_last_release},${generated_code_status_last_release}" | \
-    awk -F',' '{printf "%-20s,%-10s,%-10s,%-10s,%10s\n", $1, $2, $3, $4, $5}'
+${shared_deps_status_last_release},${generated_code_status_last_release}" | \
+    awk -F',' '{printf "%-20s|%-10s|%-10s|%-10s|%-10s|\n", $1, $2, $3, $4, $5}'
 done
 
 
