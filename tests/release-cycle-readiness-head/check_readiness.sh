@@ -47,8 +47,9 @@ repositories=$(find "${WORK_DIR}" -mindepth 1 -maxdepth 1 -type d -not -name "sd
 for repo_folder in $repositories; do
   cd "${repo_folder}"
   repo=$(basename "${repo_folder}")
-  git checkout main  > /dev/null 2>&1
-  git pull > /dev/null 2>&1
+  git fetch -q origin main > /dev/null
+  git checkout -q main  > /dev/null
+  git pull -q origin main > /dev/null
   if [[ "$repo" == "google-cloud-java" ]]; then
     # In google-cloud-java repository, the parent pom module
     # inherits the property.
@@ -61,7 +62,8 @@ for repo_folder in $repositories; do
   generated_code_status_main=$(check_generated_code_status)
 
   last_release_tag=$(gh release list --limit 1 --order desc --json 'tagName' --jq '.[].tagName')
-  git checkout ${last_release_tag} > /dev/null 2>&1
+  git fetch -q origin tag  ${last_release_tag} --no-tags > /dev/null
+  git checkout -q ${last_release_tag} > /dev/null
   shared_deps_status_last_release=$(check_shared_dependency_status "${project}")
   generated_code_status_last_release=$(check_generated_code_status)
 
