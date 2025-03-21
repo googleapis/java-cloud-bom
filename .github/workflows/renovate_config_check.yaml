@@ -3,7 +3,8 @@ name: Renovate Bot Config Validation
 on:
   pull_request:
     paths:
-      - 'renovate.json'
+      - renovate.json
+      - .github/workflows/renovate_config_check.yaml
 
 jobs:
   renovate_bot_config_validation:
