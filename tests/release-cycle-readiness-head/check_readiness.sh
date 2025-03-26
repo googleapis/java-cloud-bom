@@ -6,6 +6,11 @@ set -ef
 
 WORK_DIR=/tmp/release-readiness
 
+if [[ ! -d "${WORK_DIR}/sdk-platform-java" ]]; then
+  echo "The repositories are missing in ${WORK_DIR}. Please use clone_repositories.sh first"
+  exit 1
+fi
+
 cd "${WORK_DIR}/sdk-platform-java"
 expected_shared_deps_version=$(mvn -pl java-shared-dependencies help:evaluate -Dexpression=project.version -q -DforceStdout)
 expected_generator_version=$(mvn -pl gapic-generator-java help:evaluate -Dexpression=project.version -q -DforceStdout)
