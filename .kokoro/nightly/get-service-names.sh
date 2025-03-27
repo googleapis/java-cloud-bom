@@ -29,16 +29,32 @@ for module in $(find . -mindepth 2 -maxdepth 2 -name pom.xml | sort | xargs dirn
     #  and locate artifact id of client library
     folder=$(find . -mindepth 1 -maxdepth 1 -type d -name "google-*" ! -name "*-bom" )
     echo "folder: ${folder}"
+    if [[ -z "${folder}" ]]; then
+        echo "Warning: No 'google-*' folder found in ${module}, skipping..."
+        cd .. # Ensure we go back to the parent directory
+        continue
+    fi
     cd "${folder}" || continue
     artifact_id_string=$(find . -name 'pom.xml' -print -quit | xargs grep -m 1 '<artifactId>' | cut -d '>' -f 2 | cut -d '<' -f 1)
     echo "artifact_id_string: ${artifact_id_string}"
+    if [[ -z "${artifact_id_string}" ]]; then
+        echo "Warning: Could not find <artifactId> in pom.xml within ${folder}, skipping..."
+        cd .. # Exit from ${folder}
+        cd .. # Exit from ${module}
+        continue
+    fi
     cd .. # exist from folder ${folder}
 
     # Find *StubSettings file, get the first line containing '.googleapis.com:443'
     # Extract service name from it
-    string=$(find . -name '*StubSettings.java' -print -quit | xargs grep -m 1 '.googleapis.com:443')
-    service_name=$(echo "${string}" | grep -o '".*"' | tr -d '"' | cut -d "." -f 1 | cut -d "-" -f 1)
-    echo "service name: ${service_name}"
+    first_line_contain_endpoint=$(find . -name '*StubSettings.java' -print -quit | xargs grep -m 1 '.googleapis.com:443')
+    service_name="" # Initialize service_name to an empty string
+    if [[ -n "${first_line_contain_endpoint}" ]]; then
+        service_name=$(echo "${first_line_contain_endpoint}" | grep -o '".*"' | tr -d '"' | cut -d "." -f 1 | cut -d "-" -f 1)
+        echo "service name: ${service_name}"
+    else
+        echo "Warning: Could not find '*StubSettings.java' containing '.googleapis.com:443' in ${module}"
+    fi
     echo "${artifact_id_string}, ${service_name}" >> "$filename"
     cd .. # exit from ${module}
 done
