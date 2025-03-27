@@ -12,30 +12,23 @@ WORK_DIR=/tmp/release-readiness
 mkdir -p ${WORK_DIR}
 
 function clone_repository() {
-  # e.g., java-bigtable
+  # e.g., "java-bigtable"
   repo_name=$1
+  # e.g., "v2.55.1" or left empty
   revision=$2
 
   repo_dir="${WORK_DIR}/${repo_name}"
   if [ ! -d "${repo_dir}" ]; then
     repo_url="https://github.com/googleapis/${repo_name}"
-    # Clone the revision
-    if [ -z "${revision}" ]; then
-      git clone ${repo_url} ${repo_dir}
-      pushd "${repo_dir}"
-    else
-      git clone ${repo_url} ${repo_dir}
-      pushd "${repo_dir}"
-      git checkout ${revision}
-    fi
+    git clone ${repo_url} ${repo_dir}
+  fi
+  pushd "${repo_dir}"
+  if [ -n "${revision}" ]; then
+    git fetch origin
+    git checkout "${revision}"
   else
-    pushd "${repo_dir}"
-    if [ -n "${revision}" ]; then
-      git checkout "${revision}"
-    else
-      # There may be new updates since last run
-      git pull
-    fi
+    # There may be new updates since last run
+    git pull
   fi
   popd
 }
