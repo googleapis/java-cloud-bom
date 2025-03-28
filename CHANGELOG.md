@@ -1,5 +1,17 @@
 # Changelog
 
+## [26.58.0](https://github.com/googleapis/java-cloud-bom/compare/v26.57.0...v26.58.0) (2025-03-28)
+
+
+### Bug Fixes
+
+* add error handling to script ([#7001](https://github.com/googleapis/java-cloud-bom/issues/7001)) ([cfc7ea2](https://github.com/googleapis/java-cloud-bom/commit/cfc7ea2630bd9fbce38057f8114a1e3c85dc01f4))
+
+
+### Dependencies
+
+* update dependency com.google.cloud:gapic-libraries-bom to v1.54.1 ([#7006](https://github.com/googleapis/java-cloud-bom/issues/7006)) ([37fcbe5](https://github.com/googleapis/java-cloud-bom/commit/37fcbe526eb959c425c02ac0ae2d7300e4f90dab))
+
 ## [26.57.0](https://github.com/googleapis/java-cloud-bom/compare/v26.56.0...v26.57.0) (2025-03-21)
 
 
