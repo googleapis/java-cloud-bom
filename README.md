@@ -233,7 +233,7 @@ This is the table of modules included in the latest libraries-bom release:
 | google-cloud-trace | Product | [2.60.0](https://cloud.google.com/java/docs/reference/google-cloud-trace/latest/overview) | [Stackdriver Trace](https://cloud.google.com/trace/docs/) |
 | google-cloud-translate | Product | [2.60.0](https://cloud.google.com/java/docs/reference/google-cloud-translate/latest/overview) | [Cloud Translation](https://cloud.google.com/translate/docs/) |
 | google-cloud-valkey | Product | [0.6.0](https://cloud.google.com/java/docs/reference/google-cloud-valkey/latest/overview) | N/A |
-| google-cloud-vertexai | Product | [1.20.0](https://cloud.google.com/java/docs/reference/google-cloud-vertexai/latest/overview) | N/A |
+| google-cloud-vertexai | Product | [1.20.1](https://cloud.google.com/java/docs/reference/google-cloud-vertexai/latest/overview) | N/A |
 | google-cloud-video-intelligence | Product | [2.59.0](https://cloud.google.com/java/docs/reference/google-cloud-video-intelligence/latest/overview) | [Cloud Video Intelligence](https://cloud.google.com/video-intelligence/docs/) |
 | google-cloud-video-stitcher | Product | [0.60.0](https://cloud.google.com/java/docs/reference/google-cloud-video-stitcher/latest/overview) | [Video Stitcher API](https://cloud.google.com/video-stitcher/) |
 | google-cloud-video-transcoder | Product | [1.59.0](https://cloud.google.com/java/docs/reference/google-cloud-video-transcoder/latest/overview) | [Video Transcoder](https://cloud.google.com/transcoder/docs) |
