@@ -161,7 +161,7 @@ This is the table of modules included in the latest libraries-bom release:
 | google-cloud-logging | Product | [3.22.0](https://cloud.google.com/java/docs/reference/google-cloud-logging/latest/overview) | [Cloud Logging](https://cloud.google.com/logging/docs) |
 | google-cloud-logging-logback | Product | [0.132.5-alpha](https://cloud.google.com/java/docs/reference/google-cloud-logging-logback/latest/overview) | [Cloud Logging Logback Appender](https://cloud.google.com/logging/docs/setup/java#logback_appender_for) |
 | google-cloud-managed-identities | Product | [1.58.0](https://cloud.google.com/java/docs/reference/google-cloud-managed-identities/latest/overview) | [Managed Service for Microsoft Active Directory](https://cloud.google.com/managed-microsoft-ad/) |
-| google-cloud-managedkafka | Product | [0.16.0](https://cloud.google.com/java/docs/reference/google-cloud-managedkafka/latest/overview) | N/A |
+| google-cloud-managedkafka | Product | [0.16.1](https://cloud.google.com/java/docs/reference/google-cloud-managedkafka/latest/overview) | N/A |
 | google-cloud-mediatranslation | Product | [0.66.0](https://cloud.google.com/java/docs/reference/google-cloud-mediatranslation/latest/overview) | [Media Translation API](https://cloud.google.com/) |
 | google-cloud-meet | Product | [0.27.0](https://cloud.google.com/java/docs/reference/google-cloud-meet/latest/overview) | N/A |
 | google-cloud-memcache | Product | [2.60.0](https://cloud.google.com/java/docs/reference/google-cloud-memcache/latest/overview) | [Cloud Memcache](https://cloud.google.com/memorystore/) |
@@ -233,7 +233,7 @@ This is the table of modules included in the latest libraries-bom release:
 | google-cloud-trace | Product | [2.60.0](https://cloud.google.com/java/docs/reference/google-cloud-trace/latest/overview) | [Stackdriver Trace](https://cloud.google.com/trace/docs/) |
 | google-cloud-translate | Product | [2.60.0](https://cloud.google.com/java/docs/reference/google-cloud-translate/latest/overview) | [Cloud Translation](https://cloud.google.com/translate/docs/) |
 | google-cloud-valkey | Product | [0.6.0](https://cloud.google.com/java/docs/reference/google-cloud-valkey/latest/overview) | N/A |
-| google-cloud-vertexai | Product | [1.20.0](https://cloud.google.com/java/docs/reference/google-cloud-vertexai/latest/overview) | N/A |
+| google-cloud-vertexai | Product | [1.20.1](https://cloud.google.com/java/docs/reference/google-cloud-vertexai/latest/overview) | N/A |
 | google-cloud-video-intelligence | Product | [2.59.0](https://cloud.google.com/java/docs/reference/google-cloud-video-intelligence/latest/overview) | [Cloud Video Intelligence](https://cloud.google.com/video-intelligence/docs/) |
 | google-cloud-video-stitcher | Product | [0.60.0](https://cloud.google.com/java/docs/reference/google-cloud-video-stitcher/latest/overview) | [Video Stitcher API](https://cloud.google.com/video-stitcher/) |
 | google-cloud-video-transcoder | Product | [1.59.0](https://cloud.google.com/java/docs/reference/google-cloud-video-transcoder/latest/overview) | [Video Transcoder](https://cloud.google.com/transcoder/docs) |
