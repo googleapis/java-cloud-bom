@@ -2,7 +2,7 @@
 # find the shared dependencies BOM version in current release
 # and find any missing updates.
 
-set -ef
+set -efx
 
 WORK_DIR=/tmp/release-readiness
 
@@ -12,8 +12,9 @@ if [[ ! -d "${WORK_DIR}/sdk-platform-java" ]]; then
 fi
 
 cd "${WORK_DIR}/sdk-platform-java"
-expected_shared_deps_version=$(mvn -pl java-shared-dependencies help:evaluate -Dexpression=project.version -q -DforceStdout)
-expected_generator_version=$(mvn -pl gapic-generator-java help:evaluate -Dexpression=project.version -q -DforceStdout)
+expected_shared_deps_version=$(mvn -pl java-shared-dependencies help:evaluate -Dexpression=project.version -q -DforceStdout) &
+expected_generator_version=$(mvn -pl gapic-generator-java help:evaluate -Dexpression=project.version -q -DforceStdout) &
+wait
 echo "Expected google-cloud-shared-dependencies BOM version: ${expected_shared_deps_version}"
 echo "Expected GAPIC generator Java version: ${expected_generator_version}"
 
@@ -42,14 +43,9 @@ function check_generated_code_status() {
   fi
   echo "${generator_status}"
 }
-echo ",        main,      released" |\
-    awk -F',' '{printf "%-20s|%-21s|%-21s|\n", $1, $2, $3}'
 
-echo "    repository,shared dep,code gen,shared dep,code gen" |\
-    awk -F',' '{printf "%-20s|%-10s|%-10s|%-10s|%-10s|\n", $1, $2, $3, $4, $5}'
-
-repositories=$(find "${WORK_DIR}" -mindepth 1 -maxdepth 1 -type d -not -name "sdk-platform-java")
-for repo_folder in $repositories; do
+function run_check() {
+  repo_folder="$1"
   cd "${repo_folder}"
   repo=$(basename "${repo_folder}")
   git fetch -q origin main > /dev/null
@@ -63,19 +59,46 @@ for repo_folder in $repositories; do
     # In normal handwritten libraries, the root project receives the property.
     project=.
   fi
-  shared_deps_status_main=$(check_shared_dependency_status "${project}")
-  generated_code_status_main=$(check_generated_code_status)
-
-  last_release_tag=$(gh release list --limit 1 --order desc --json 'tagName' --jq '.[].tagName')
+  # The export instructions occur inside a child process, so they don't overlap with
+  # other processes.
+  parset "shared_deps_status_main generated_code_status_main last_release_tag" ::: \
+	  "check_shared_dependency_status \"${project}\"" \
+      "check_generated_code_status" \
+	  "gh release list --limit 1 --order desc --json 'tagName' --jq '.[].tagName'"
+  #export shared_deps_status_main=$(check_shared_dependency_status "${project}") &
+  #export generated_code_status_main=$(check_generated_code_status) &
+  #export last_release_tag=$(gh release list --limit 1 --order desc --json 'tagName' --jq '.[].tagName') &
+  echo 'echoing'
+  echo $shared_deps_status_main
+  echo $generated_code_status_main
+  echo $last_release_tag
   git fetch -q origin tag  ${last_release_tag} --no-tags > /dev/null
   git checkout -q ${last_release_tag} > /dev/null
-  shared_deps_status_last_release=$(check_shared_dependency_status "${project}")
-  generated_code_status_last_release=$(check_generated_code_status)
+  shared_deps_status_last_release=$(check_shared_dependency_status "${project}") &
+  generated_code_status_last_release=$(check_generated_code_status) &
+  wait
 
   echo "${repo},${shared_deps_status_main},${generated_code_status_main},\
 ${shared_deps_status_last_release},${generated_code_status_last_release}" | \
-    awk -F',' '{printf "%-20s|%-10s|%-10s|%-10s|%-10s|\n", $1, $2, $3, $4, $5}'
+    awk -F',' '{printf "%-20s|%-10s|%-10s|%-10s|%-10s|\n", $1, $2, $3, $4, $5}' >> "${tmp_file}"
+  echo "${repo} done"
+}
+
+
+tmp_file=$(mktemp)
+echo ",        main,      released" |\
+    awk -F',' '{printf "%-20s|%-21s|%-21s|\n", $1, $2, $3}' >> "${tmp_file}"
+
+echo "    repository,shared dep,code gen,shared dep,code gen" |\
+    awk -F',' '{printf "%-20s|%-10s|%-10s|%-10s|%-10s|\n", $1, $2, $3, $4, $5}' >> "${tmp_file}"
+
+#repositories=$(find "${WORK_DIR}" -mindepth 1 -maxdepth 1 -type d -not -name "sdk-platform-java")
+repositories=/tmp/release-readiness/google-cloud-java
+for repo_folder in $repositories; do
+	run_check "${repo_folder}" &
 done
+wait
+cat "${tmp_file}" | sort
 
 
 
