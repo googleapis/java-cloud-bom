@@ -1,5 +1,12 @@
 # Changelog
 
+## [26.63.0](https://github.com/googleapis/java-cloud-bom/compare/v26.62.0...v26.63.0) (2025-06-12)
+
+
+### Dependencies
+
+* update dependency com.google.cloud.tools:dependencies-parent to v1.5.15 ([#7072](https://github.com/googleapis/java-cloud-bom/issues/7072)) ([49b6d34](https://github.com/googleapis/java-cloud-bom/commit/49b6d343f727d19bea07112db9da4a37860d8486))
+
 ## [26.62.0](https://github.com/googleapis/java-cloud-bom/compare/v26.61.0...v26.62.0) (2025-06-10)
 
 
