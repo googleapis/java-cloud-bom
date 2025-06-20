@@ -95,7 +95,7 @@ public class MaximumLinkageErrorsTest {
     }
     List<ClassPathEntry> artifactsInBom = classpath.subList(0, managedDependencies.size());
     ImmutableSet<ClassPathEntry> entryPoints = ImmutableSet.copyOf(artifactsInBom);
-    return LinkageChecker.create(classpath, entryPoints, null);
+    return LinkageChecker.create(classpath, entryPoints, ImmutableList.of(),  null);
   }
 
   private boolean hasLinkageProblemFromArtifactId(LinkageProblem problem, String artifactId) {
