@@ -33,6 +33,17 @@ and your application runs on a consistent set of the dependencies.
 
 If you encounter compatibility issues with protobuf-java 4.x, update your codebase and dependencies to ensure compatibility, see [release notes of libraries-bom v26.50.0](https://github.com/googleapis/java-cloud-bom/releases/tag/v26.50.0) for potential compatibility issues. If this is not feasible, use `com.google.cloud:libraries-bom-protobuf3` as a workaround. `com.google.cloud:libraries-bom-protobuf3` includes the same client libraries and library versions as libraries-bom.
 
+## GraalVM Support
+
+The Google Cloud Libraries can be compiled into a [GraalVM native image](https://www.graalvm.org/latest/introduction/).
+We provide support for the following LTS versions of GraalVM for JDK:
+
+| GraalVM JDK LTS Version | Minimum `google-cloud-bom` Version |
+|-------------------------|------------------------------------|
+| 21                      | 26.45.0                            |
+| 17                      | 26.27.0                            |
+
+
 ## Libraries in Scope
 
 The content of the Libraries BOM consists of 2 categories:
