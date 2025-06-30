@@ -35,7 +35,7 @@ If you encounter compatibility issues with protobuf-java 4.x, update your codeba
 
 ## GraalVM Support
 
-The Google Cloud Libraries can be compiled into a [GraalVM native image](https://www.graalvm.org/latest/introduction/).
+Using the Cloud Client Libraries for Java, you can compile applications as [native image](https://www.graalvm.org/latest/introduction/).
 Make sure you are using at least version `26.27.0` of our BOM for Native Image compatibility.
 Our BOM is compatible with the following LTS versions of GraalVM for JDK:
 
