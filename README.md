@@ -43,6 +43,8 @@ Our BOM is compatible with the following LTS versions of GraalVM for JDK:
 | 21                      | 26.45.0                            |
 | 17                      | 26.27.0                            |
 
+For more information, please refer to our
+[native image compilation documentation](https://cloud.google.com/java/docs/compile-native-images).
 
 ## Libraries in Scope
 
