@@ -1,5 +1,27 @@
 # Changelog
 
+## [26.64.0](https://github.com/googleapis/java-cloud-bom/compare/v26.63.0...v26.64.0) (2025-07-16)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:first-party-dependencies to v3.50.1 ([#7109](https://github.com/googleapis/java-cloud-bom/issues/7109)) ([5e6885b](https://github.com/googleapis/java-cloud-bom/commit/5e6885bdfeb32d1c2bcfbe8b41875e2a5b90f989))
+* update dependency com.google.cloud:gapic-libraries-bom to v1.62.0 ([#7115](https://github.com/googleapis/java-cloud-bom/issues/7115)) ([076456a](https://github.com/googleapis/java-cloud-bom/commit/076456adc244a14f38c4f882084007ad4009c907))
+* update dependency com.google.cloud:google-cloud-bigquery to v2.53.0 ([#7116](https://github.com/googleapis/java-cloud-bom/issues/7116)) ([346645b](https://github.com/googleapis/java-cloud-bom/commit/346645b23c2e6d7f5069269cc04f19ccadf85522))
+* update dependency com.google.cloud:google-cloud-bigquerystorage-bom to v3.16.0 ([#7117](https://github.com/googleapis/java-cloud-bom/issues/7117)) ([d3092b2](https://github.com/googleapis/java-cloud-bom/commit/d3092b2e5db4d726708d2f673dd49c646718c503))
+* update dependency com.google.cloud:google-cloud-bigtable-bom to v2.62.0 ([#7124](https://github.com/googleapis/java-cloud-bom/issues/7124)) ([1281d25](https://github.com/googleapis/java-cloud-bom/commit/1281d2504ca63d3f5c5e98a8d805c232769aafbf))
+* update dependency com.google.cloud:google-cloud-datastore-bom to v2.31.0 ([#7120](https://github.com/googleapis/java-cloud-bom/issues/7120)) ([1a92f39](https://github.com/googleapis/java-cloud-bom/commit/1a92f393d30cd2c7731af5607e279f2377d203e5))
+* update dependency com.google.cloud:google-cloud-firestore-bom to v3.31.9 ([#7108](https://github.com/googleapis/java-cloud-bom/issues/7108)) ([5eb80a3](https://github.com/googleapis/java-cloud-bom/commit/5eb80a38cb182c512adda350c43ad495111c7624))
+* update dependency com.google.cloud:google-cloud-logging-bom to v3.23.0 ([#7118](https://github.com/googleapis/java-cloud-bom/issues/7118)) ([d929cb3](https://github.com/googleapis/java-cloud-bom/commit/d929cb36d81979c9224848fa289924650d1d0e11))
+* update dependency com.google.cloud:google-cloud-logging-logback to v0.132.11-alpha ([#7112](https://github.com/googleapis/java-cloud-bom/issues/7112)) ([e77e0ef](https://github.com/googleapis/java-cloud-bom/commit/e77e0efe9101efd03ad13c92babc90c7db02ae08))
+* update dependency com.google.cloud:google-cloud-nio to v0.128.0 ([#7119](https://github.com/googleapis/java-cloud-bom/issues/7119)) ([9a14c12](https://github.com/googleapis/java-cloud-bom/commit/9a14c12abb00c469742d732e8cac3c36a67abb97))
+* update dependency com.google.cloud:google-cloud-pubsub-bom to v1.141.0 ([#7121](https://github.com/googleapis/java-cloud-bom/issues/7121)) ([1b1832d](https://github.com/googleapis/java-cloud-bom/commit/1b1832df255c413ba3027ecfff25f4bc3085115c))
+* update dependency com.google.cloud:google-cloud-pubsublite-bom to v1.15.11 ([#7113](https://github.com/googleapis/java-cloud-bom/issues/7113)) ([406e747](https://github.com/googleapis/java-cloud-bom/commit/406e7472bbb0683ed40f47c86ac1ebfdabe8a0e9))
+* update dependency com.google.cloud:google-cloud-spanner-bom to v6.97.0 ([#7110](https://github.com/googleapis/java-cloud-bom/issues/7110)) ([f7f84d1](https://github.com/googleapis/java-cloud-bom/commit/f7f84d126801d847ae2d4dc6017d99db9991a372))
+* update dependency com.google.cloud:google-cloud-spanner-bom to v6.97.1 ([#7122](https://github.com/googleapis/java-cloud-bom/issues/7122)) ([8e26a68](https://github.com/googleapis/java-cloud-bom/commit/8e26a68e3ff6ffc213c90fa830f6527245114935))
+* update dependency com.google.cloud:google-cloud-spanner-jdbc to v2.31.2 ([#7123](https://github.com/googleapis/java-cloud-bom/issues/7123)) ([44158db](https://github.com/googleapis/java-cloud-bom/commit/44158dbe45e27512fb8eeb1a687d1f2aeda745b5))
+* update dependency com.google.cloud:google-cloud-storage-bom to v2.53.3 ([#7114](https://github.com/googleapis/java-cloud-bom/issues/7114)) ([5bbf4fb](https://github.com/googleapis/java-cloud-bom/commit/5bbf4fbcc05564fc65ff86c7332e209cfe2d396f))
+
 ## [26.63.0](https://github.com/googleapis/java-cloud-bom/compare/v26.62.0...v26.63.0) (2025-07-01)
 
 
