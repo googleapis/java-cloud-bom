@@ -17,20 +17,30 @@ function clone_repository() {
   # e.g., "v2.55.1" or left empty
   revision=$2
 
+  echo "cloning ${repo_name}"
+
   repo_dir="${WORK_DIR}/${repo_name}"
   if [ ! -d "${repo_dir}" ]; then
     repo_url="https://github.com/googleapis/${repo_name}"
-    git clone ${repo_url} ${repo_dir}
+    git clone --filter=blob:none --quiet --no-checkout --depth=1 --no-single-branch \
+		"${repo_url}" "${repo_dir}"
+    pushd "${repo_dir}" &> /dev/null
+    git sparse-checkout init --no-cone 
+    git sparse-checkout add "**/pom.xml"
+    git sparse-checkout add "/generation_config.yaml"
+	echo "${repo_name} successfully cloned"
+    popd &> /dev/null
   fi
-  pushd "${repo_dir}"
+  pushd "${repo_dir}" &> /dev/null
   if [ -n "${revision}" ]; then
-    git fetch origin
-    git checkout "${revision}"
+    git fetch origin &> /dev/null
+    git checkout "${revision}" &> /dev/null
   else
     # There may be new updates since last run
-    git pull
+    git pull --quiet
   fi
-  popd
+  echo "${repo_name} updated"
+  popd &> /dev/null
 }
 
 
@@ -43,12 +53,14 @@ if [ -z "$sdk_platform_java_version" ]; then
 fi
 
 # This requires to checkout the specific release version
-clone_repository "sdk-platform-java" "${sdk_platform_java_version}"
+clone_repository "sdk-platform-java" "${sdk_platform_java_version}" &
 
 repos=("java-storage-nio" "java-storage" "java-spanner-jdbc" "java-spanner" \
   "java-pubsublite" "java-pubsub" "java-logging-logback" "java-logging" \
   "java-firestore" "java-datastore" "java-bigtable" "java-bigquery" \
   "java-bigquerystorage" "google-cloud-java")
 for repo in ${repos[@]}; do
-  clone_repository "${repo}"
+  clone_repository "${repo}" &
 done
+wait
+echo "All repositories cloned."
