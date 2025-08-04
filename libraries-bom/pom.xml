@@ -76,7 +76,7 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>first-party-dependencies</artifactId>
-        <version>3.50.2</version>
+        <version>3.51.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
