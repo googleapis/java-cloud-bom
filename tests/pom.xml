@@ -29,8 +29,25 @@
       <url>https://raw.githubusercontent.com/googleapis/google-cloud-java/master/LICENSE</url>
     </license>
   </licenses>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava-bom</artifactId>
+        <version>33.5.0-jre</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <!-- adding comment for testing-->
   <dependencies>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+    </dependency>
     <dependency>
       <groupId>com.google.cloud.tools</groupId>
       <artifactId>dependencies</artifactId>
