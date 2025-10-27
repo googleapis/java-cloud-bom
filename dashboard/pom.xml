@@ -30,8 +30,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-
-    <guava.version>33.5.0-jre</guava.version>
   </properties>
 
   <dependencyManagement>
@@ -39,7 +37,7 @@
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava-bom</artifactId>
-        <version>${guava.version}</version>
+        <version>33.5.0-jre</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
