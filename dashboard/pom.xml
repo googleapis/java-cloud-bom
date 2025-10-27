@@ -9,7 +9,6 @@
     <version>1.5.15</version>
     <relativePath/>
   </parent>
-  <groupId>com.google.cloud.tools</groupId>
   <artifactId>google-cloud-bom-dashboard</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
@@ -31,10 +30,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <maven.version>3.9.11</maven.version>
+<!--    <maven.version>3.9.11</maven.version>-->
 
     <guava.version>33.5.0-jre</guava.version>
-    <error-prone.version>2.41.0</error-prone.version>
+<!--    <error-prone.version>2.41.0</error-prone.version>-->
   </properties>
 
   <dependencyManagement>
@@ -123,50 +122,50 @@
     </dependency>
   </dependencies>
 
-  <profiles>
-    <profile>
-      <id>error-prone</id>
-      <activation>
-        <!-- errorprone requires >= jdk17 -->
-        <jdk>[17,)</jdk>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-              <fork>true</fork>
-              <source>8</source>
-              <target>8</target>
-              <compilerArgs>
-                <arg>-XDcompilePolicy=simple</arg>
-                <arg>--should-stop=ifError=FLOW</arg>
-                <arg>-Xplugin:ErrorProne</arg>
-                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
-                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>
-                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
-                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
-                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>
-                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
-                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
-                <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
-                <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
-                <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
-              </compilerArgs>
-              <annotationProcessorPaths>
-                <path>
-                  <groupId>com.google.errorprone</groupId>
-                  <artifactId>error_prone_core</artifactId>
-                  <version>${error-prone.version}</version>
-                </path>
-              </annotationProcessorPaths>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+<!--  <profiles>-->
+<!--    <profile>-->
+<!--      <id>error-prone</id>-->
+<!--      <activation>-->
+<!--        &lt;!&ndash; errorprone requires >= jdk17 &ndash;&gt;-->
+<!--        <jdk>[17,)</jdk>-->
+<!--      </activation>-->
+<!--      <build>-->
+<!--        <plugins>-->
+<!--          <plugin>-->
+<!--            <groupId>org.apache.maven.plugins</groupId>-->
+<!--            <artifactId>maven-compiler-plugin</artifactId>-->
+<!--            <configuration>-->
+<!--              <fork>true</fork>-->
+<!--              <source>8</source>-->
+<!--              <target>8</target>-->
+<!--              <compilerArgs>-->
+<!--                <arg>-XDcompilePolicy=simple</arg>-->
+<!--                <arg>&#45;&#45;should-stop=ifError=FLOW</arg>-->
+<!--                <arg>-Xplugin:ErrorProne</arg>-->
+<!--                <arg>-J&#45;&#45;add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>-->
+<!--                <arg>-J&#45;&#45;add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED</arg>-->
+<!--                <arg>-J&#45;&#45;add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>-->
+<!--                <arg>-J&#45;&#45;add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>-->
+<!--                <arg>-J&#45;&#45;add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED</arg>-->
+<!--                <arg>-J&#45;&#45;add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>-->
+<!--                <arg>-J&#45;&#45;add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>-->
+<!--                <arg>-J&#45;&#45;add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>-->
+<!--                <arg>-J&#45;&#45;add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>-->
+<!--                <arg>-J&#45;&#45;add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>-->
+<!--              </compilerArgs>-->
+<!--              <annotationProcessorPaths>-->
+<!--                <path>-->
+<!--                  <groupId>com.google.errorprone</groupId>-->
+<!--                  <artifactId>error_prone_core</artifactId>-->
+<!--                  <version>${error-prone.version}</version>-->
+<!--                </path>-->
+<!--              </annotationProcessorPaths>-->
+<!--            </configuration>-->
+<!--          </plugin>-->
+<!--        </plugins>-->
+<!--      </build>-->
+<!--    </profile>-->
+<!--  </profiles>-->
 
   <build>
     <plugins>
