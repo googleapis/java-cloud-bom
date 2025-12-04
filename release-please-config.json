@@ -9,4 +9,6 @@
       "extra-files": ["README.md"]
     }
   }
+,
+  "prerelease": true
 }
