@@ -8,3 +8,5 @@ branches:
       branch: java7
     - releaseType: java-backport
       branch: 26.1.x
+    - releaseType: java-yoshi
+      branch: protobuf-4.x-rc
