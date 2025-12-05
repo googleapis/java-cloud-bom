@@ -3,11 +3,8 @@ handleGHRelease: true
 manifest: true
 primaryBranch: main
 branches:
-  - releaseType: java-yoshi
-    handleGHRelease: true
-    bumpMinorPreMajor: true
-    branch: java7
-  - releaseType: java-backport
-    manifest: true
-    handleGHRelease: true
-    branch: 26.1.x
+    - releaseType: java-yoshi
+      bumpMinorPreMajor: true
+      branch: java7
+    - releaseType: java-backport
+      branch: 26.1.x
