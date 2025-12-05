@@ -11,3 +11,7 @@ branches:
     manifest: true
     handleGHRelease: true
     branch: 26.1.x
+  - releaseType: java-yoshi
+    manifest: true
+    handleGHRelease: true
+    branch: protobuf-4.x-rc
