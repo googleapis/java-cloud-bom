@@ -44,7 +44,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <first-party-dependencies.version>3.54.1</first-party-dependencies.version>
+    <first-party-dependencies.version>3.54.2</first-party-dependencies.version>
   </properties>
 
   <distributionManagement>
