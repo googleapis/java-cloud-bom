@@ -90,6 +90,11 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>grpc-gcp</artifactId>
+        <version>1.9.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
