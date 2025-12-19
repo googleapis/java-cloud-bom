@@ -167,64 +167,64 @@
         <!-- Artifacts from google-cloud-java monorepo -->
         <groupId>com.google.cloud</groupId>
         <artifactId>gapic-libraries-bom</artifactId>
-        <version>1.75.0</version>
+        <version>1.76.0-rc1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigquery</artifactId>
-        <version>2.57.1</version>
+        <version>2.58.0-rc1</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigquerystorage-bom</artifactId>
-        <version>3.19.0</version>
+        <version>3.20.0-rc1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-bigtable-bom</artifactId>
-        <version>2.70.1</version>
+        <version>2.71.0-rc1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-datastore-bom</artifactId>
-        <version>2.33.1</version>
+        <version>2.34.0-rc1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-firestore-bom</artifactId>
-        <version>3.34.0</version>
+        <version>3.35.0-rc1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-logging-bom</artifactId>
-        <version>3.23.9</version>
+        <version>3.24.0-rc1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-logging-logback</artifactId>
-        <version>0.132.20-alpha</version>
+        <version>0.133.0-alpha-rc1</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-nio</artifactId>
-        <version>0.128.9</version>
+        <version>0.129.0-rc1</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsub-bom</artifactId>
-        <version>1.144.0</version>
+        <version>1.145.0-rc1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -238,19 +238,19 @@
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-spanner-bom</artifactId>
-        <version>6.105.0</version>
+        <version>6.106.0-rc1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-spanner-jdbc</artifactId>
-        <version>2.34.1</version>
+        <version>2.35.0-rc1</version>
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-storage-bom</artifactId>
-        <version>2.61.0</version>
+        <version>2.62.0-rc1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
