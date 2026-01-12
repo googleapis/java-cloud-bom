@@ -1,5 +1,12 @@
 # Changelog
 
+## [26.74.0-rc2](https://github.com/googleapis/java-cloud-bom/compare/v26.74.0-rc1...v26.74.0-rc2) (2026-01-12)
+
+
+### Dependencies
+
+* Update first-party-dependencies to 3.55.0-rc1 ([#7332](https://github.com/googleapis/java-cloud-bom/issues/7332)) ([fecf091](https://github.com/googleapis/java-cloud-bom/commit/fecf091d1c4d02546ef8574b6dd4f97a3045fc0e))
+
 ## [26.74.0-rc1](https://github.com/googleapis/java-cloud-bom/compare/v26.73.0...v26.74.0-rc1) (2025-12-19)
 
 
