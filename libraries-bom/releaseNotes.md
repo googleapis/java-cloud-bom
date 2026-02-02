@@ -10,7 +10,7 @@ Should you experience compatibility issues, please consult the [Known Incompatib
 ### ⚠️ Advisory: Vulnerability Warnings
 After upgrading, you may see a new warning in your logs: `Vulnerable protobuf generated type in use`.
 This warning does not mean the Java SDK is vulnerable. It indicates that your application, or one of its other dependencies, is still using gen code < `3.21.7`.
-For a detailed explanation and mitigation steps, please refer to Java section in the official Protobuf [v4.33.0 release notes](https://github.com/protocolbuffers/protobuf/releases/tag/v33.0).
+For a detailed explanation and mitigation steps, please refer to the Java section in the official Protobuf [v4.33.0 release notes](https://github.com/protocolbuffers/protobuf/releases/tag/v33.0).
 
 ---
 
