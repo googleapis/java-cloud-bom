@@ -18,7 +18,7 @@ For a detailed explanation and mitigation steps, please refer to the Java sectio
 While rare, the following incompatibilities may occur due to the version update:
 
 #### 1. Runtime Version Mismatch
-* **Issue:** The minimum required `protobuf-java` runtime version is now **v4.33.2**. Starting with the 4.x runtime, [validations](https://github.com/protocolbuffers/protobuf/blob/1082da2da37a0887d0cfd70abf4a00e8973cd8bf/java/core/src/main/java/com/google/protobuf/RuntimeVersion.java#L55-L73) ensure the runtime version is higher than the gen code version. Using a lower version of protobuf-java will produce errors below.
+* **Issue:** The minimum required `protobuf-java` runtime version is now **v4.33.2**. Starting with the 4.x runtime, [validations](https://github.com/protocolbuffers/protobuf/blob/1082da2da37a0887d0cfd70abf4a00e8973cd8bf/java/core/src/main/java/com/google/protobuf/RuntimeVersion.java#L55-L73) ensure the runtime version is higher than or equal to the gen code version. Using a lower version of protobuf-java will produce errors below.
 * **Symptoms:**
     * `java.lang.NoClassDefFoundError: com/google/protobuf/RuntimeVersion$RuntimeDomain` (when using 3.x versions).
     * `com.google.protobuf.RuntimeVersion$ProtobufRuntimeVersionException` (when using older 4.x versions).
