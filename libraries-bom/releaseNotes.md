@@ -1,5 +1,5 @@
 ### Upgrade Overview
-The `Libraries-Bom` and its managed libraries have been upgraded to use **Protobuf v4.33.2**. All Protobuf gen code included in the managed libraries has been regenerated using `protoc v33.2`. 
+The `libraries-bom` and its managed libraries have been upgraded to use **Protobuf v4.33.2**. All Protobuf gen code included in the managed libraries has been regenerated using `protoc v33.2`. 
 
 ---
 ### ✅ Backward Compatibility
