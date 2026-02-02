@@ -35,4 +35,4 @@ While rare, the following incompatibilities may occur due to the version update:
 
 #### 4. Legacy Generated Code (v2.x)
 * **Issue:** The 4.33.x runtime is incompatible with v2.x gen code.
-* **Mitigation:** Migrate gen code to at least **v3.0.0**. Please note that 3.x support will [end in March 2027](https://protobuf.dev/support/version-support/); it is strongly recommended to upgrade gen code to 4.x.
+* **Mitigation:** Migrate gen code to at least **v3.0.0**. Please note that 3.x support will [end in March 2027](https://protobuf.dev/support/version-support/#java); it is strongly recommended to upgrade gen code to 4.x.
