@@ -42,6 +42,19 @@ branchProtectionRules:
       - units (11)
       - cla/google
       - bom-content-test
+  - pattern: 26.75.x
+    isAdminEnforced: true
+    requiredApprovingReviewCount: 1
+    requiresCodeOwnerReviews: true
+    requiresStrictStatusChecks: false
+    requiredStatusCheckContexts:
+      - dependencies (17)
+      - lint
+      - clirr
+      - units (8)
+      - units (11)
+      - cla/google
+      - bom-content-test
 permissionRules:
   - team: yoshi-admins
     permission: admin
