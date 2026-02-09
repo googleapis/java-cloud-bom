@@ -1,34 +1,36 @@
-on:
+'on':
   push:
     branches:
-    - main
-  pull_request:
+      - 26.75.x
+  pull_request: null
 name: ci
 jobs:
   dashboard:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-java@v5
-      with:
-        distribution: temurin
-        java-version: 8
-        cache: maven
-    - run: java -version
-    - run: .kokoro/dashboard.sh
-      env:
-        JOB_TYPE: dashboard-units-check
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 8
+          cache: maven
+      - run: java -version
+      - run: .kokoro/dashboard.sh
+        env:
+          JOB_TYPE: dashboard-units-check
   shared-dependencies-convergence:
     runs-on: ubuntu-latest
-    if: github.repository_owner == 'googleapis' && github.head_ref == 'release-please--branches--main'
+    if: >-
+      github.repository_owner == 'googleapis' && github.head_ref ==
+      'release-please--branches--main'
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-java@v5
-      with:
-        distribution: temurin
-        java-version: 8
-        cache: maven
-    - run: java -version
-    - run: .kokoro/dashboard.sh
-      env:
-        JOB_TYPE: dependency-convergence-check
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 8
+          cache: maven
+      - run: java -version
+      - run: .kokoro/dashboard.sh
+        env:
+          JOB_TYPE: dependency-convergence-check
