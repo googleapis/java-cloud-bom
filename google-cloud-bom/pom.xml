@@ -187,11 +187,6 @@
       </dependency>
       <dependency>
         <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-nio</artifactId>
-        <version>0.128.14</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsub-bom</artifactId>
         <version>1.150.0</version>
         <type>pom</type>
@@ -201,18 +196,6 @@
         <groupId>com.google.cloud</groupId>
         <artifactId>google-cloud-pubsublite-bom</artifactId>
         <version>1.16.3</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-spanner-jdbc</artifactId>
-        <version>2.35.5</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-storage-bom</artifactId>
-        <version>2.64.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
