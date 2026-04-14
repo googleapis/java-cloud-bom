@@ -1,5 +1,24 @@
 # Changelog
 
+## [26.80.0](https://github.com/googleapis/java-cloud-bom/compare/v26.79.0...v26.80.0) (2026-04-14)
+
+
+### Bug Fixes
+
+* remove redundant entries from bom ([#7453](https://github.com/googleapis/java-cloud-bom/issues/7453)) ([cb7e93c](https://github.com/googleapis/java-cloud-bom/commit/cb7e93c9a12e4f475e36716f93704a16b28424dc))
+* restore jdbc dependency ([#7454](https://github.com/googleapis/java-cloud-bom/issues/7454)) ([12aa4dc](https://github.com/googleapis/java-cloud-bom/commit/12aa4dc9f97f45b13225efd22f3549d52a2254ec))
+
+
+### Dependencies
+
+* update dependency com.google.cloud:first-party-dependencies to v3.61.0 ([#7443](https://github.com/googleapis/java-cloud-bom/issues/7443)) ([d2ddec5](https://github.com/googleapis/java-cloud-bom/commit/d2ddec518046d533d1556da3318bf5f46a8bc3c6))
+* update dependency com.google.cloud:gapic-libraries-bom to v1.85.0 ([#7446](https://github.com/googleapis/java-cloud-bom/issues/7446)) ([6c72ee5](https://github.com/googleapis/java-cloud-bom/commit/6c72ee50ab9e14a75961d397c113d918ace06b29))
+* update dependency com.google.cloud:google-cloud-bigtable-bom to v2.77.0 ([#7444](https://github.com/googleapis/java-cloud-bom/issues/7444)) ([71f5ff5](https://github.com/googleapis/java-cloud-bom/commit/71f5ff500d640822c22f2d63f6bfc88c2a423779))
+* update dependency com.google.cloud:google-cloud-firestore-bom to v3.41.0 ([#7450](https://github.com/googleapis/java-cloud-bom/issues/7450)) ([20c54c0](https://github.com/googleapis/java-cloud-bom/commit/20c54c07641e2ff0b827719322ef2ffb6e7f9828))
+* update dependency com.google.cloud:google-cloud-pubsub-bom to v1.150.1 ([#7457](https://github.com/googleapis/java-cloud-bom/issues/7457)) ([63c0998](https://github.com/googleapis/java-cloud-bom/commit/63c09981f2bdd79e5f282f8b5e042dd6b08e1d6d))
+* update dependency com.google.cloud:google-cloud-pubsublite-bom to v1.16.4 ([#7455](https://github.com/googleapis/java-cloud-bom/issues/7455)) ([7705cf3](https://github.com/googleapis/java-cloud-bom/commit/7705cf3ac9e45add45c7647dc5b3b06b34d2ebb0))
+* update dependency com.google.cloud:google-cloud-pubsublite-bom to v1.16.5 ([#7458](https://github.com/googleapis/java-cloud-bom/issues/7458)) ([4d0c932](https://github.com/googleapis/java-cloud-bom/commit/4d0c932287ccea1aac2ddc5b6421d086e7f88eba))
+
 ## [26.79.0](https://github.com/googleapis/java-cloud-bom/compare/v26.78.0...v26.79.0) (2026-03-27)
 
 
