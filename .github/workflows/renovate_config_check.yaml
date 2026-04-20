@@ -19,8 +19,6 @@ jobs:
       with:
         node-version: '22'
 
-    - name: Install Renovate and Config Validator
+    - name: Run Renovate Config Validator
       run: |
-        npm install -g npm@latest
-        npm install --global renovate
-        renovate-config-validator
+        npx --package renovate@43.136.0 renovate-config-validator
