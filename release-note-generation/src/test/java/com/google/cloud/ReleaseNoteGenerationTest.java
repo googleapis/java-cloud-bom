@@ -167,4 +167,5 @@ public class ReleaseNoteGenerationTest {
                 + " ([#1790](https://github.com/googleapis/java-storage/issues/1790)) "
                 + "([31c1b18](https://github.com/googleapis/java-storage/commit/31c1b18acc3c118e39eb613a82ee292f3e246b8f))");
   }
+
 }
