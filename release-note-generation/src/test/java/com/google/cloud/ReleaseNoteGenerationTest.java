@@ -83,9 +83,9 @@ public class ReleaseNoteGenerationTest {
     Truth.assertThat(report)
         .contains(
             "- google-cloud-logging:3.13.1 (prev:3.12.0; Release Notes: "
-                + "[v3.12.1](https://github.com/googleapis/java-logging/releases/tag/v3.12.1), "
-                + "[v3.13.0](https://github.com/googleapis/java-logging/releases/tag/v3.13.0), "
-                + "[v3.13.1](https://github.com/googleapis/java-logging/releases/tag/v3.13.1))");
+                + "[v3.12.1](https://github.com/googleapis/google-cloud-java/releases/tag/v1.1.0), "
+                + "[v3.13.0](https://github.com/googleapis/google-cloud-java/releases/tag/v1.1.0), "
+                + "[v3.13.1](https://github.com/googleapis/google-cloud-java/releases/tag/v1.1.0))");
   }
 
   @Test
