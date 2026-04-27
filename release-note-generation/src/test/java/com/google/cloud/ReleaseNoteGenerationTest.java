@@ -83,9 +83,9 @@ public class ReleaseNoteGenerationTest {
     Truth.assertThat(report)
         .contains(
             "- google-cloud-logging:3.13.1 (prev:3.12.0; Release Notes: "
-                + "[v3.12.1](https://github.com/googleapis/java-logging/releases/tag/v3.12.1), "
-                + "[v3.13.0](https://github.com/googleapis/java-logging/releases/tag/v3.13.0), "
-                + "[v3.13.1](https://github.com/googleapis/java-logging/releases/tag/v3.13.1))");
+                + "[v3.12.1](https://github.com/googleapis/google-cloud-java/releases/tag/v1.1.0), "
+                + "[v3.13.0](https://github.com/googleapis/google-cloud-java/releases/tag/v1.1.0), "
+                + "[v3.13.1](https://github.com/googleapis/google-cloud-java/releases/tag/v1.1.0))");
   }
 
   @Test
@@ -167,4 +167,5 @@ public class ReleaseNoteGenerationTest {
                 + " ([#1790](https://github.com/googleapis/java-storage/issues/1790)) "
                 + "([31c1b18](https://github.com/googleapis/java-storage/commit/31c1b18acc3c118e39eb613a82ee292f3e246b8f))");
   }
+
 }

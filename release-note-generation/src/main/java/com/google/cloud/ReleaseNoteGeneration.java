@@ -64,20 +64,10 @@ public class ReleaseNoteGeneration {
 
   private static final ImmutableSet<String> splitRepositoryLibraryNames =
       ImmutableSet.of(
-          "bigquery",
-          "bigquerystorage",
           "bigtable",
-          "datastore",
           "firestore",
-          "logging",
-          "logging-logback",
-          "logging-servlet-initializer",
           "pubsub",
-          "pubsublite",
-          "spanner",
-          "spanner-jdbc",
-          "storage",
-          "storage-nio");
+          "pubsublite");
 
   private static boolean clientLibraryFilter(String coordinates) {
     if (coordinates.contains("google-cloud-core")) {
