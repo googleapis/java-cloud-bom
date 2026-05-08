@@ -1,5 +1,26 @@
 # Changelog
 
+## [26.81.0](https://github.com/googleapis/java-cloud-bom/compare/v26.80.0...v26.81.0) (2026-05-08)
+
+
+### Bug Fixes
+
+* Update renovate config check to use npx ([#7465](https://github.com/googleapis/java-cloud-bom/issues/7465)) ([67d5d99](https://github.com/googleapis/java-cloud-bom/commit/67d5d99ee8d823e4ef1f6e023c6004fdb025dfec))
+
+
+### Dependencies
+
+* update dependency com.google.cloud:first-party-dependencies to v3.62.0 ([#7474](https://github.com/googleapis/java-cloud-bom/issues/7474)) ([3b875af](https://github.com/googleapis/java-cloud-bom/commit/3b875af70d71bec28e3e1985552046dddadb61c2))
+* update dependency com.google.cloud:gapic-libraries-bom to v1.86.0 ([#7462](https://github.com/googleapis/java-cloud-bom/issues/7462)) ([c0a013b](https://github.com/googleapis/java-cloud-bom/commit/c0a013b0e3dca7f0b789259a27647bcc0b1cf065))
+* update dependency com.google.cloud:google-cloud-bigtable-bom to v2.78.0 ([#7463](https://github.com/googleapis/java-cloud-bom/issues/7463)) ([4853000](https://github.com/googleapis/java-cloud-bom/commit/4853000e3893bd4f6f87d558afe8a2e30e4fb945))
+* update dependency com.google.cloud:google-cloud-firestore-bom to v3.42.0 ([#7478](https://github.com/googleapis/java-cloud-bom/issues/7478)) ([4bdba3c](https://github.com/googleapis/java-cloud-bom/commit/4bdba3c2d8c79c1a14278b2c9e45c4ad35fc0797))
+* update dependency com.google.cloud:google-cloud-pubsub-bom to v1.150.2 ([#7476](https://github.com/googleapis/java-cloud-bom/issues/7476)) ([7c77df4](https://github.com/googleapis/java-cloud-bom/commit/7c77df47747f55ca50efd10b4297a67dce3a88ca))
+* update dependency com.google.cloud:google-cloud-pubsublite-bom to v1.16.6 ([#7477](https://github.com/googleapis/java-cloud-bom/issues/7477)) ([a1abc40](https://github.com/googleapis/java-cloud-bom/commit/a1abc407fb2352112937095f17223820b3b4f0dc))
+* update dependency com.google.cloud:google-cloud-spanner-jdbc to v2.39.0 ([#7475](https://github.com/googleapis/java-cloud-bom/issues/7475)) ([6705261](https://github.com/googleapis/java-cloud-bom/commit/670526194675cf4fd12794afd516a44a954678f1))
+* update dependency com.google.guava:guava to v33 ([#7470](https://github.com/googleapis/java-cloud-bom/issues/7470)) ([74ff608](https://github.com/googleapis/java-cloud-bom/commit/74ff608e498c2841f16881c22611c43578475a6c))
+* update dependency com.google.guava:guava-bom to v33.6.0-jre ([#7451](https://github.com/googleapis/java-cloud-bom/issues/7451)) ([33c49cf](https://github.com/googleapis/java-cloud-bom/commit/33c49cf6af6a2a15ab5e48be01b7aeeabcdf73c5))
+* update dependency com.google.guava:guava-bom to v33.6.0-jre ([#7452](https://github.com/googleapis/java-cloud-bom/issues/7452)) ([d60e8eb](https://github.com/googleapis/java-cloud-bom/commit/d60e8eba1fce9242a6b8a70a6e11e8128b0539e5))
+
 ## [26.80.0](https://github.com/googleapis/java-cloud-bom/compare/v26.79.0...v26.80.0) (2026-04-14)
 
 
