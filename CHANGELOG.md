@@ -1,5 +1,12 @@
 # Changelog
 
+## [26.82.0](https://github.com/googleapis/java-cloud-bom/compare/v26.81.0...v26.82.0) (2026-05-12)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:gapic-libraries-bom to v1.86.1 ([#7483](https://github.com/googleapis/java-cloud-bom/issues/7483)) ([14ae7a5](https://github.com/googleapis/java-cloud-bom/commit/14ae7a55d9cbd52bae494d77598d67ed5e3dc2e1))
+
 ## [26.81.0](https://github.com/googleapis/java-cloud-bom/compare/v26.80.0...v26.81.0) (2026-05-08)
 
 
