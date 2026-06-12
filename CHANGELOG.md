@@ -1,5 +1,17 @@
 # Changelog
 
+## [26.84.0](https://github.com/googleapis/java-cloud-bom/compare/v26.83.0...v26.84.0) (2026-06-12)
+
+
+### Dependencies
+
+* update dependency com.google.cloud:gapic-libraries-bom to v1.87.0 ([#7492](https://github.com/googleapis/java-cloud-bom/issues/7492)) ([107ea5f](https://github.com/googleapis/java-cloud-bom/commit/107ea5fe9f2648ea0b485c7ba392fca9f03a3d99))
+* update dependency com.google.cloud:gapic-libraries-bom to v1.87.1 ([#7499](https://github.com/googleapis/java-cloud-bom/issues/7499)) ([70d8c7d](https://github.com/googleapis/java-cloud-bom/commit/70d8c7d49a06391c5ced7fb9152ec808d6127989))
+* update dependency com.google.cloud:google-cloud-pubsublite-bom to v1.16.7 ([#7497](https://github.com/googleapis/java-cloud-bom/issues/7497)) ([a6a640a](https://github.com/googleapis/java-cloud-bom/commit/a6a640ae50fad95aadbf2c669b1c7250e9516073))
+* update dependency com.google.cloud:google-cloud-pubsublite-bom to v1.17.0 ([#7500](https://github.com/googleapis/java-cloud-bom/issues/7500)) ([e9664dd](https://github.com/googleapis/java-cloud-bom/commit/e9664dd6c8991aef1b182e51a0f94fd9071e9e5d))
+* update dependency com.google.cloud:google-cloud-spanner-jdbc to v2.40.0 ([#7493](https://github.com/googleapis/java-cloud-bom/issues/7493)) ([360e2a1](https://github.com/googleapis/java-cloud-bom/commit/360e2a165f334147e0699fc389ec9e9dc77bacd3))
+* update first-party-dependencies.version to v3.63.0 ([#7494](https://github.com/googleapis/java-cloud-bom/issues/7494)) ([9c115f3](https://github.com/googleapis/java-cloud-bom/commit/9c115f37b62588e0b7d42600449a5e9e756f1c14))
+
 ## [26.83.0](https://github.com/googleapis/java-cloud-bom/compare/v26.82.0...v26.83.0) (2026-05-15)
 
 
